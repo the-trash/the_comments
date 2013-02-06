@@ -17,8 +17,8 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  s.add_dependency 'awesome_nested_set'
-  s.add_dependency 'the_sortable_tree'
-  s.add_dependency 'state_machine'
-  s.add_dependency 'sanitize'
+  # gem.add_dependency 'awesome_nested_set'
+  # gem.add_dependency 'the_sortable_tree'
+  # gem.add_dependency 'state_machine'
+  # gem.add_dependency 'sanitize'
 end

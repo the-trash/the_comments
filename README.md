@@ -2,10 +2,16 @@
 
 TODO: Write a gem description
 
+```ruby
 gem 'awesome_nested_set'
 gem 'the_sortable_tree'
 gem 'state_machine'
 gem 'sanitize'
+```
+
+
+
+
 
 ## Installation
 
@@ -13,6 +19,10 @@ Add this line to your application's Gemfile:
 
     gem 'the_comments'
 
+
+    rake the_comments_engine:install:migrations
+
+    
 And then execute:
 
     $ bundle
