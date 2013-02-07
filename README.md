@@ -9,20 +9,27 @@ gem 'state_machine'
 gem 'sanitize'
 ```
 
-
-
-
-
 ## Installation
+
+```ruby
+  gem 'the_comments'
+
+  bundle exec rails g model comment --migration=false
+
+  rake the_comments_engine:install:migrations
+
+  class Blog < ActiveRecord::Base
+    has_many :comments, as: :commentable
+  end
+
+  class Comment < ActiveRecord::Base
+    include TheCommentModel
+  end
+
+```
 
 Add this line to your application's Gemfile:
 
-    gem 'the_comments'
-
-
-    rake the_comments_engine:install:migrations
-
-    
 And then execute:
 
     $ bundle
