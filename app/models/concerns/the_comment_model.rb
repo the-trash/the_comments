@@ -7,11 +7,13 @@ module TheCommentModel
       %w[ <!> *?* <<<> ,!, ??! ]
     end
 
+    attr_accessible :user, :title, :contacts,:raw_content
+
     # relations
     belongs_to :user
     belongs_to :commentable, polymorphic: true
 
-    after_create :update_new_comments_counter
+    after_create :update_user_comments_counters
 
     # STATE MACHINE
     # :not_approved | :approved | :deleted
@@ -33,35 +35,25 @@ module TheCommentModel
       after_transition [:not_approved, :deleted] => :approved do |comment|
         object = comment.commentable
         object.increment!(:comments_count)
-
-        if object.is_a? User
-          object.increment!(:total_comments_count)
-        else
-          object.user.increment!(:total_comments_count)
-        end
+        owner = object.is_a?(User) ? object : object.user
+        owner.increment!(:approved_comments_count)
       end
 
       after_transition :approved => [:not_approved, :deleted] do |comment|
         object = comment.commentable
         object.decrement!(:comments_count)
-
-        if object.is_a? User
-          object.decrement!(:total_comments_count)
-        else
-          object.user.decrement!(:total_comments_count)
-        end
+        owner = object.is_a?(User) ? object : object.user
+        owner.decrement!(:approved_comments_count)
       end
     end
 
     private
 
-    def update_new_comments_counter
-      object = comment.commentable
-      if object.is_a? User
-        object.increment!(:new_comments_count)
-      else
-        object.user.increment!(:new_comments_count)
-      end
+    def update_user_comments_counters
+      user.increment!(:created_comments_count) if user
+      object = self.commentable
+      owner  = object.is_a?(User) ? object : object.user
+      owner.increment!(:not_approved_comments_count)
     end
 
   end
