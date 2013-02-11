@@ -4,6 +4,8 @@ module TheCommentModel
   ANTICAPTCHA_TOKENS = %w[ <!> *?* <<<> ,!, ??! ]
 
   included do
+    # Nested Set
+    acts_as_nested_set scope: [:commentable_type, :commentable_id]
 
     def self.anticaptcha_token
       ANTICAPTCHA_TOKENS
