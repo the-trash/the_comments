@@ -1,21 +1,25 @@
 module TheCommentModel
   extend ActiveSupport::Concern
 
+  ANTICAPTCHA_TOKENS = %w[ <!> *?* <<<> ,!, ??! ]
+
   included do
 
     def self.anticaptcha_token
-      %w[ <!> *?* <<<> ,!, ??! ]
+      ANTICAPTCHA_TOKENS
     end
 
-    attr_accessible :user, :title, :contacts,:raw_content
+    attr_accessible :user, :title, :contacts, :raw_content
 
     # relations
     belongs_to :user
+    belongs_to :holder, class_name: :User
     belongs_to :commentable, polymorphic: true
 
-    after_create :update_user_comments_counters
+    # callbacks
+    before_create :define_holder
+    after_create  :update_cache_counters
 
-    # STATE MACHINE
     # :not_approved | :approved | :deleted
     state_machine :state, :initial => :not_approved do
       # events
@@ -32,30 +36,68 @@ module TheCommentModel
       end
 
       # cache counters
-      after_transition [:not_approved, :deleted] => :approved do |comment|
-        object = comment.commentable
-        object.increment!(:comments_count)
-        owner = object.is_a?(User) ? object : object.user
-        owner.increment!(:approved_comments_count)
+      after_transition any => any do |comment|
+        @owner  = comment.user
+        @holder = comment.holder
       end
 
-      after_transition :approved => [:not_approved, :deleted] do |comment|
-        object = comment.commentable
-        object.decrement!(:comments_count)
-        owner = object.is_a?(User) ? object : object.user
-        owner.decrement!(:approved_comments_count)
+      # Deleted
+      after_transition any => :deleted do |comment|
+        @owner.try(:decrement!,  :total_comments_count)
+        @holder.try(:decrement!, :total_comcoms_count)
+
+        @owner.try(:increment!,  :del_comments_count)
+        @holder.try(:increment!, :del_comcoms_count)
       end
+
+      after_transition :deleted => any do |comment|
+        @owner.try(:increment!,  :total_comments_count)
+        @holder.try(:increment!, :total_comcoms_count)
+
+        @owner.try(:decrement!,  :del_comments_count)
+        @holder.try(:decrement!, :del_comcoms_count)
+      end
+
+      # Approved
+      after_transition any => :approved do |comment|
+        @owner.try(:increment!,  :approved_comments_count)
+        @holder.try(:increment!, :approved_comcoms_count)
+      end
+
+      after_transition :approved => any do |comment|
+        @owner.try(:decrement!,  :approved_comments_count)
+        @holder.try(:decrement!, :approved_comcoms_count)
+      end
+
+      # Not approved
+      after_transition any => :not_approved do |comment|
+        @owner.try(:increment!,  :new_comments_count)
+        @holder.try(:increment!, :new_comcoms_count)
+      end
+
+      after_transition :not_approved => any do |comment|
+        @owner.try(:decrement!,  :new_comments_count)
+        @holder.try(:decrement!, :new_comcoms_count)
+      end
+
     end
 
     private
 
-    def update_user_comments_counters
-      user.increment!(:created_comments_count) if user
-      object = self.commentable
-      owner  = object.is_a?(User) ? object : object.user
-      owner.increment!(:not_approved_comments_count)
+    def define_holder
+      self.holder = self.commentable.user
     end
 
+    def update_cache_counters
+      owner  = self.user
+      holder = self.holder
+
+      owner.try(:increment!, :total_comments_count)
+      owner.try(:increment!, :new_comments_count)
+
+      holder.try(:increment!, :total_comcoms_count)
+      holder.try(:increment!, :new_comcoms_count)
+    end
   end
 
 end

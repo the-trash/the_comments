@@ -4,7 +4,7 @@ class CreateComments < ActiveRecord::Migration
     create_table :comments do |t|
       # relations
       t.integer :user_id
-      t.integer :owner_id
+      t.integer :holder_id
       
       # polymorphic, commentable obj
       t.integer :commentable_id
@@ -36,17 +36,22 @@ class CreateComments < ActiveRecord::Migration
 
     # Add fields to User and Commentable Object
     change_table :users do |t|
-      # owner of comments
-      t.integer :created_comments_count, default: 0
-
-      # has comments on related objects
-      t.integer :approved_comments_count, default: 0
-      t.integer :not_approved_comments_count,   default: 0
+      # commentable's comments => comcoms (cache)
+      # Relation through Comment#holder_id field
+      t.integer :total_comcoms_count,    default: 0
+      t.integer :approved_comcoms_count, default: 0
+      t.integer :new_comcoms_count,      default: 0
+      t.integer :del_comcoms_count,      default: 0
     end
 
-    # [users, :pages, :posts].each do |table_name|
+    # Uncomment this. Add fields to User model and Commentable models
+    #
+    # [:users, :posts].each do |table_name|
     #   change_table table_name do |t|
-    #     t.integer :comments_count, default: 0
+    #     t.integer :total_comments_count,    default: 0
+    #     t.integer :approved_comments_count, default: 0
+    #     t.integer :new_comments_count,      default: 0
+    #     t.integer :del_comments_count,      default: 0
     #   end
     # end
   end
