@@ -17,6 +17,9 @@ class CreateComments < ActiveRecord::Migration
       t.text :raw_content
       t.text :content
 
+      # moderation token
+      t.string :view_token
+
       # state machine => :not_approved | :approved | :deleted
       t.string :state, default: :not_approved
 

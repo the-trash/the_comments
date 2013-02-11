@@ -11,7 +11,7 @@ module TheCommentModel
       ANTICAPTCHA_TOKENS
     end
 
-    attr_accessible :user, :title, :contacts, :raw_content
+    attr_accessible :user, :title, :contacts, :raw_content, :view_token
 
     # relations
     belongs_to :user
