@@ -1,1 +1,11 @@
 %ol.tree= just_tree comments_tree
+
+%h3 New Comment
+= form_for Comment.new do |f|
+  %p= f.text_field :title
+  %p= f.text_field :raw_content
+
+  = f.hidden_field :commentable_type, value: commentable.class
+  = f.hidden_field :commentable_id,   value: commentable.to_param
+
+  %p= f.submit
