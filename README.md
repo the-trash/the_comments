@@ -16,7 +16,7 @@ gem 'sanitize'
 
   bundle exec rails g model comment --migration=false
 
-  rake the_comments_engine:install:migrations
+  bundle exec rake the_comments_engine:install:migrations
 
   class Blog < ActiveRecord::Base
     has_many :comments, as: :commentable

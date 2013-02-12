@@ -7,6 +7,9 @@ module TheCommentModel
     # Nested Set
     acts_as_nested_set scope: [:commentable_type, :commentable_id]
 
+    # TheSortableTree
+    include TheSortableTree::Scopes
+
     def self.anticaptcha_token
       ANTICAPTCHA_TOKENS
     end
@@ -19,7 +22,7 @@ module TheCommentModel
     belongs_to :commentable, polymorphic: true
 
     # callbacks
-    before_create :define_holder
+    before_create :define_holder, :define_anchor
     after_create  :update_cache_counters
 
     # :not_approved | :approved | :deleted
@@ -85,6 +88,10 @@ module TheCommentModel
     end
 
     private
+
+    def define_anchor
+      self.anchor = SecureRandom.hex[0..5]
+    end
 
     def define_holder
       self.holder = self.commentable.user

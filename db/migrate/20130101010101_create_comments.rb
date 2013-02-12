@@ -11,6 +11,8 @@ class CreateComments < ActiveRecord::Migration
       t.string  :commentable_type
 
       # comment
+      t.string :anchor
+      
       t.string :title
       t.string :contacts
 
