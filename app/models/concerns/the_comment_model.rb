@@ -22,7 +22,7 @@ module TheCommentModel
     belongs_to :commentable, polymorphic: true
 
     # callbacks
-    before_create :define_holder, :define_anchor
+    before_create :define_holder, :define_anchor, :prepare_content
     after_create  :update_cache_counters
 
     # :draft | :published | :deleted
@@ -83,6 +83,10 @@ module TheCommentModel
 
     def define_holder
       self.holder = self.commentable.user
+    end
+
+    def prepare_content
+      self.content = self.raw_content
     end
 
     def update_cache_counters
