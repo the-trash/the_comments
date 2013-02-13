@@ -47,7 +47,7 @@ class CreateComments < ActiveRecord::Migration
     change_table :users do |t|
       # commentable's comments => comcoms (cache)
       # Relation through Comment#holder_id field
-      t.integer :total_comcoms_count,    default: 0
+      t.integer :total_comcoms_count,     default: 0
       t.integer :draft_comcoms_count,     default: 0
       t.integer :published_comcoms_count, default: 0
       t.integer :deleted_comcoms_count,   default: 0

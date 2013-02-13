@@ -42,47 +42,36 @@ module TheCommentModel
 
       # cache counters
       after_transition any => any do |comment|
-        @owner  = comment.user
-        @holder = comment.holder
+        @owner       = comment.user
+        @holder      = comment.holder
+        @commentable = comment.commentable
       end
 
-      # Draft
-      after_transition any => :draft do |comment|
-        @owner.try(:increment!,  :draft_comments_count)
-        @holder.try(:increment!, :draft_comcoms_count)
+      [:draft, :published, :deleted].each do |name|
+        after_transition any => name do
+          @holder.try      :increment!, "#{name}_comcoms_count"
+          @owner.try       :increment!, "#{name}_comments_count"
+          @commentable.try :increment!, "#{name}_comments_count"
+        end
+
+        after_transition name => any do
+          @holder.try      :decrement!, "#{name}_comcoms_count"
+          @owner.try       :decrement!, "#{name}_comments_count"
+          @commentable.try :decrement!, "#{name}_comments_count"
+        end
       end
 
-      after_transition :draft => any do |comment|
-        @owner.try(:decrement!,  :draft_comments_count)
-        @holder.try(:decrement!, :draft_comcoms_count)
+      # update total counter
+      after_transition [:draft, :published] => :deleted do
+        @holder.try      :decrement!, :total_comcoms_count
+        @owner.try       :decrement!, :total_comments_count
+        @commentable.try :decrement!, :total_comments_count
       end
 
-      # Published
-      after_transition any => :published do |comment|
-        @owner.try(:increment!,  :published_comments_count)
-        @holder.try(:increment!, :published_comcoms_count)
-      end
-
-      after_transition :published => any do |comment|
-        @owner.try(:decrement!,  :published_comments_count)
-        @holder.try(:decrement!, :published_comcoms_count)
-      end
-
-      # Deleted
-      after_transition any => :deleted do |comment|
-        @owner.try(:decrement!,  :total_comments_count)
-        @holder.try(:decrement!, :total_comcoms_count)
-
-        @owner.try(:increment!,  :deleted_comments_count)
-        @holder.try(:increment!, :deleted_comcoms_count)
-      end
-
-      after_transition :deleted => any do |comment|
-        @owner.try(:increment!,  :total_comments_count)
-        @holder.try(:increment!, :total_comcoms_count)
-
-        @owner.try(:decrement!,  :deleted_comments_count)
-        @holder.try(:decrement!, :deleted_comcoms_count)
+      after_transition :deleted => [:draft, :published] do
+        @holder.try      :increment!, :total_comcoms_count
+        @owner.try       :increment!, :total_comments_count
+        @commentable.try :increment!, :total_comments_count
       end
     end
 
@@ -104,11 +93,11 @@ module TheCommentModel
       owner.try(:increment!, :total_comments_count)
       owner.try(:increment!, :draft_comments_count)
 
-      holder.try(:increment!, :total_comcoms_count)
-      holder.try(:increment!, :draft_comcoms_count)
-
       commentable.try(:increment!, :total_comments_count)
       commentable.try(:increment!, :draft_comments_count)
+
+      holder.try(:increment!, :total_comcoms_count)
+      holder.try(:increment!, :draft_comcoms_count)
     end
   end
 
