@@ -25,15 +25,15 @@ module TheCommentModel
     before_create :define_holder, :define_anchor
     after_create  :update_cache_counters
 
-    # :not_approved | :approved | :deleted
-    state_machine :state, :initial => :not_approved do
+    # :draft | :published | :deleted
+    state_machine :state, :initial => :draft do
       # events
-      event :to_not_approved do 
-        transition all => :not_approved
+      event :to_draft do 
+        transition all => :draft
       end
 
-      event :to_approved do
-        transition all => :approved
+      event :to_published do
+        transition all => :published
       end
 
       event :to_deleted do
@@ -46,45 +46,44 @@ module TheCommentModel
         @holder = comment.holder
       end
 
+      # Draft
+      after_transition any => :draft do |comment|
+        @owner.try(:increment!,  :draft_comments_count)
+        @holder.try(:increment!, :draft_comcoms_count)
+      end
+
+      after_transition :draft => any do |comment|
+        @owner.try(:decrement!,  :draft_comments_count)
+        @holder.try(:decrement!, :draft_comcoms_count)
+      end
+
+      # Published
+      after_transition any => :published do |comment|
+        @owner.try(:increment!,  :published_comments_count)
+        @holder.try(:increment!, :published_comcoms_count)
+      end
+
+      after_transition :published => any do |comment|
+        @owner.try(:decrement!,  :published_comments_count)
+        @holder.try(:decrement!, :published_comcoms_count)
+      end
+
       # Deleted
       after_transition any => :deleted do |comment|
         @owner.try(:decrement!,  :total_comments_count)
         @holder.try(:decrement!, :total_comcoms_count)
 
-        @owner.try(:increment!,  :del_comments_count)
-        @holder.try(:increment!, :del_comcoms_count)
+        @owner.try(:increment!,  :deleted_comments_count)
+        @holder.try(:increment!, :deleted_comcoms_count)
       end
 
       after_transition :deleted => any do |comment|
         @owner.try(:increment!,  :total_comments_count)
         @holder.try(:increment!, :total_comcoms_count)
 
-        @owner.try(:decrement!,  :del_comments_count)
-        @holder.try(:decrement!, :del_comcoms_count)
+        @owner.try(:decrement!,  :deleted_comments_count)
+        @holder.try(:decrement!, :deleted_comcoms_count)
       end
-
-      # Approved
-      after_transition any => :approved do |comment|
-        @owner.try(:increment!,  :approved_comments_count)
-        @holder.try(:increment!, :approved_comcoms_count)
-      end
-
-      after_transition :approved => any do |comment|
-        @owner.try(:decrement!,  :approved_comments_count)
-        @holder.try(:decrement!, :approved_comcoms_count)
-      end
-
-      # Not approved
-      after_transition any => :not_approved do |comment|
-        @owner.try(:increment!,  :new_comments_count)
-        @holder.try(:increment!, :new_comcoms_count)
-      end
-
-      after_transition :not_approved => any do |comment|
-        @owner.try(:decrement!,  :new_comments_count)
-        @holder.try(:decrement!, :new_comcoms_count)
-      end
-
     end
 
     private
@@ -98,14 +97,18 @@ module TheCommentModel
     end
 
     def update_cache_counters
-      owner  = self.user
-      holder = self.holder
+      owner       = self.user
+      holder      = self.holder
+      commentable = self.commentable
 
       owner.try(:increment!, :total_comments_count)
-      owner.try(:increment!, :new_comments_count)
+      owner.try(:increment!, :draft_comments_count)
 
       holder.try(:increment!, :total_comcoms_count)
-      holder.try(:increment!, :new_comcoms_count)
+      holder.try(:increment!, :draft_comcoms_count)
+
+      commentable.try(:increment!, :total_comments_count)
+      commentable.try(:increment!, :draft_comments_count)
     end
   end
 
