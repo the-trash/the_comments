@@ -1,0 +1,16 @@
+%h3 New Comment
+
+= form_for Comment.new, remote: true, authenticity_token: true do |f|
+  %label title:
+  %p= f.text_field :title
+
+  %label contacts:
+  %p= f.text_field :contacts
+
+  %label content*:
+  %p= f.text_area :raw_content
+
+  = f.hidden_field :commentable_type, value: commentable.class
+  = f.hidden_field :commentable_id,   value: commentable
+
+  %p= f.submit 'Create Comment', class: :btn

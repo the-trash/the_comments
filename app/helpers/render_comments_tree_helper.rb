@@ -11,13 +11,17 @@ module RenderCommentsTreeHelper
     class << self
       attr_accessor :h, :options
 
+      def view_token
+        @options[:controller].try(:comments_view_token)
+      end
+
       def render_node(h, options)
         @h, @options = h, options
-        @node = options[:node]
+        @comment     = options[:node]
 
-        if @node.draft?
+        if @comment.draft?
           draft_comment
-        elsif @node.published?
+        elsif @comment.published?
           published_comment
         else
           deleted_comment
@@ -25,23 +29,38 @@ module RenderCommentsTreeHelper
       end
 
       def draft_comment
-        "<li class='draft'>Waiting for Moderation</li>"
+        if view_token == @comment.view_token
+          published_comment
+        else
+          "<li class='draft'>Waiting for Moderation</li>"
+        end
       end
 
       def published_comment
-        ns   = options[:namespace]
-        url  = h.url_for(ns + [@node])
-        title_field = options[:title]
+        anchor = h.link_to('#', '#' + @comment.anchor)
+
         "
           <li class='published'>
-            <p><b>#{@node.title}</b></p>
-            <p>#{@node.raw_content}</p>
+            <a name='#{@comment.anchor}'></a>
+            <p><b>#{@comment.title}</b> #{ anchor }</p>
+            <p>#{@comment.raw_content}</p>
+            #{ controls }
           </li>
         "
       end
 
       def deleted_comment
         "<li class='deleted'>DELETED</li>"
+      end
+
+
+      def controls
+        "
+          <a href='#'>reply</a> |
+          <a href='#'>edit</a> |
+          <a href='#'>spam!</a> |
+          <a href='#'>delete</a> |
+        "
       end
 
       def children

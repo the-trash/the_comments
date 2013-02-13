@@ -1,11 +1,4 @@
-%ol.comments_tree= just_tree comments_tree, render_module: RenderCommentsTreeHelper
-
-%h3 New Comment
-= form_for Comment.new do |f|
-  %p= f.text_field :title
-  %p= f.text_field :raw_content
-
-  = f.hidden_field :commentable_type, value: commentable.class
-  = f.hidden_field :commentable_id,   value: commentable.to_param
-
-  %p= f.submit
+.comments
+  %ol.comments_tree
+    = build_server_tree(comments_tree, render_module: RenderCommentsTreeHelper, controller: controller)
+  = render partial: 'comments/form', locals: { commentable: commentable }

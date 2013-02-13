@@ -16,6 +16,8 @@ module TheCommentModel
 
     attr_accessible :user, :title, :contacts, :raw_content, :view_token
 
+    validates :title, presence: true
+
     # relations
     belongs_to :user
     belongs_to :holder, class_name: :User

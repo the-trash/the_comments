@@ -1,3 +1,20 @@
+.comments{
+  form{
+    border: 1px solid gray;
+    border-radius: 3px;
+    padding: 10px;
+
+    input[type=text]{
+      border: 1px solid gray;
+      width: 75%;
+    }
+    textarea{
+      border: 1px solid gray;
+      width: 75%;
+      height: 150px;
+    }
+  }
+}
 .comments_tree{
   margin:0; padding:0;
   *{ margin: 0; padding: 0; }
