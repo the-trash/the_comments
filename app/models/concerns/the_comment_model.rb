@@ -50,13 +50,13 @@ module TheCommentModel
       end
 
       [:draft, :published, :deleted].each do |name|
-        after_transition any => name do
+        after_transition any - name => name do
           @holder.try      :increment!, "#{name}_comcoms_count"
           @owner.try       :increment!, "#{name}_comments_count"
           @commentable.try :increment!, "#{name}_comments_count"
         end
 
-        after_transition name => any do
+        after_transition name => any - name do
           @holder.try      :decrement!, "#{name}_comcoms_count"
           @owner.try       :decrement!, "#{name}_comments_count"
           @commentable.try :decrement!, "#{name}_comments_count"
