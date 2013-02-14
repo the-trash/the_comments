@@ -45,6 +45,7 @@ module RenderCommentsTreeHelper
             <p><b>#{@comment.title}</b> #{ anchor }</p>
             <p>#{@comment.raw_content}</p>
             <div class='form_holder'></div>
+            #{ children }
             #{ controls }
           </li>
         "
@@ -66,9 +67,7 @@ module RenderCommentsTreeHelper
       end
 
       def children
-        unless options[:children].blank?
-          "<ol class='nested_set'>#{ options[:children] }</ol>"
-        end
+        "<ol class='nested_set'>#{ options[:children] }</ol>"
       end
 
     end

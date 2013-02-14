@@ -1,4 +1,10 @@
 $ ->
+  $("#new_comment, .reply_comments_form").live 'ajax:success', (event, response, status) ->
+    if typeof(response) is 'string'
+      log response
+    else
+      log 'errors', response.errors
+
   $('#new_root_comment').live 'click', ->
     $('.reply_comments_form').hide()
     $('#new_comment').fadeIn()

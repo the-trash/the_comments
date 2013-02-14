@@ -12,7 +12,7 @@
   %p= f.text_area :raw_content
 
   = f.hidden_field :commentable_type, value: commentable.class
-  = f.hidden_field :commentable_id,   value: commentable
+  = f.hidden_field :commentable_id,   value: commentable.id
   = f.hidden_field :parent_id, class: :parent_id
 
   %p= f.submit 'Create Comment', class: :btn
