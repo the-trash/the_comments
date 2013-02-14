@@ -1,5 +1,6 @@
-.comments{
+.comments, .comments_tree{
   form{
+    background: white;
     border: 1px solid gray;
     border-radius: 3px;
     padding: 10px;
@@ -44,5 +45,9 @@
     border-radius: 3px;
     background: #eFe;
     padding: 10px;
+  }
+  .form_holder{
+    form{ margin: 10px 0; }
+    .btn{ padding: 7px; margin-top: 5px; }
   }
 }

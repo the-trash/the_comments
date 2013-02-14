@@ -1,4 +1,5 @@
-%h3 New Comment
+%h3
+  = link_to 'New Comment', '#', id: :new_root_comment
 
 = form_for Comment.new, remote: true, authenticity_token: true do |f|
   %label title:
@@ -12,5 +13,6 @@
 
   = f.hidden_field :commentable_type, value: commentable.class
   = f.hidden_field :commentable_id,   value: commentable
+  = f.hidden_field :parent_id, class: :parent_id
 
   %p= f.submit 'Create Comment', class: :btn

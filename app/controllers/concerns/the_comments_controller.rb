@@ -15,7 +15,7 @@ module TheCommentsController
         @comment.save
         return render(layout: false, template: "comments/comment")
       end
-      render json: @comment.errors
+      render json: { errors: @comment.errors }
     end
 
     private
@@ -31,7 +31,7 @@ module TheCommentsController
       commentable_id    = params[:comment][:commentable_id]
 
       @commentable = commentable_klass.where(id: commentable_id).first
-      return render(nothing: :true) unless @commentable
+      return render(json: { errors: { commentable: [:undefined] } }) unless @commentable
     end
 
     def comment_params

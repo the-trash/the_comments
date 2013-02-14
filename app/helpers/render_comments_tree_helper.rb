@@ -44,6 +44,7 @@ module RenderCommentsTreeHelper
             <a name='#{@comment.anchor}'></a>
             <p><b>#{@comment.title}</b> #{ anchor }</p>
             <p>#{@comment.raw_content}</p>
+            <div class='form_holder'></div>
             #{ controls }
           </li>
         "
@@ -56,10 +57,11 @@ module RenderCommentsTreeHelper
 
       def controls
         "
-          <a href='#'>reply</a> |
-          <a href='#'>edit</a> |
-          <a href='#'>spam!</a> |
-          <a href='#'>delete</a> |
+          <p data-comment-id='#{@comment.to_param}'>
+            <a href='#' class='reply'>reply</a> |
+            <a href='#'>spam!</a> |
+            <a href='#'>delete</a> |
+          </p>
         "
       end
 

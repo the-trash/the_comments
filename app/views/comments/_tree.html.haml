@@ -1,4 +1,4 @@
-.comments
+.comments#comments
   %ol.comments_tree
     = build_server_tree(comments_tree, render_module: RenderCommentsTreeHelper, controller: controller)
   = render partial: 'comments/form', locals: { commentable: commentable }
