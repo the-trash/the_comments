@@ -2,6 +2,7 @@
   = link_to 'New Comment', '#', id: :new_root_comment
 
 = form_for Comment.new, remote: true, authenticity_token: true do |f|
+  .error_notifier{ style: "display:none" }
   %label title:
   %p= f.text_field :title
 
@@ -10,6 +11,13 @@
 
   %label content*:
   %p= f.text_area :raw_content
+
+  %p.trap
+    %label email*:
+    = text_field_tag 'email', nil, autocomplete: :off, tabindex: -1
+
+    %label comments email*:
+    = text_field_tag 'comment[email]', nil, autocomplete: :off, tabindex: -1
 
   = f.hidden_field :commentable_type, value: commentable.class
   = f.hidden_field :commentable_id,   value: commentable.id

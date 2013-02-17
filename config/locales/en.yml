@@ -1,0 +1,9 @@
+en:
+  the_comments:
+    trap: Trap
+    trap_message: should be empty
+
+    cookies: Cookies
+    cookies_required: 'Please enable cookies and try to reload page'
+
+    ajax_requests_required: 'Sorry, JavaScript/Ajax Requests required'

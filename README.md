@@ -9,6 +9,10 @@ gem 'state_machine'
 gem 'sanitize'
 ```
 
+- cookies
+- js/ajax
+- hidden fields
+
 ## Installation
 
 ```ruby

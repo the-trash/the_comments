@@ -1,4 +1,14 @@
 .comments, .comments_tree{
+  .error_notifier{    
+    background-color: #F2DEDE;
+    border-color: #EED3D7;
+    color: #B94A48;
+    
+    border-radius: 4px;
+    margin: 0 0 15px 0;
+    padding: 10px 10px 0 10px;
+    overflow: hidden;
+  }
   form{
     background: white;
     border: 1px solid gray;
@@ -14,6 +24,10 @@
       width: 75%;
       height: 150px;
     }
+    .trap{
+      overflow: hidden;
+      height: 0.5px;
+    }
   }
 }
 .comments_tree{
@@ -23,7 +37,7 @@
   ol{
     margin: 0 0 0 13px;
     padding: 0 0 0 15px;
-    border-left: 1px dashed gray;
+    border-left: 1px dashed LightGray;
     list-style: none outside none;
   }
 
@@ -33,18 +47,29 @@
     list-style: none outside none;
   }
 
+  .controls{
+    a{
+      font-size:11px;
+    }
+  }
+
   .draft{
-    border: 2px solid LightGray;
-    border-radius: 3px;
-    background: #eee;
-    padding: 5px;
+    .comment{
+      border: 2px solid LightGray;
+      border-radius: 3px;
+      background: #eee;
+      padding: 5px;
+    }
   }
 
   .published{
-    border: 2px solid LightGreen;
-    border-radius: 3px;
-    background: #eFe;
-    padding: 10px;
+    .comment{
+      border: 1px solid LightGray;
+      border-radius: 3px;
+      
+      padding: 10px 10px 5px 10px;
+      margin-bottom: 10px;
+    }
   }
   .form_holder{
     form{ margin: 10px 0; }

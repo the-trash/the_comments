@@ -32,7 +32,7 @@ module RenderCommentsTreeHelper
         if view_token == @comment.view_token
           published_comment
         else
-          "<li class='draft'>Waiting for Moderation</li>"
+          "<li class='draft'><div class='comment'>Waiting for Moderation</div></li>"
         end
       end
 
@@ -41,29 +41,30 @@ module RenderCommentsTreeHelper
 
         "
           <li class='published'>
-            <a name='#{@comment.anchor}'></a>
-            <p><b>#{@comment.title}</b> #{ anchor }</p>
-            <p>#{@comment.raw_content}</p>
+            <div class='comment' data-comment-id='#{@comment.to_param}'>
+              <a name='#{@comment.anchor}'></a>
+              <p><b>#{@comment.title}</b> #{ anchor }</p>
+              <p>#{@comment.raw_content}</p>
+              #{ controls }
+            </div>
+
             <div class='form_holder'></div>
+
             #{ children }
-            #{ controls }
           </li>
         "
       end
 
       def deleted_comment
-        "<li class='deleted'>DELETED</li>"
+        "<li class='deleted'><div class='comment'>DELETED</div></li>"
       end
 
-
       def controls
-        "
-          <p data-comment-id='#{@comment.to_param}'>
-            <a href='#' class='reply'>reply</a> |
-            <a href='#'>spam!</a> |
-            <a href='#'>delete</a> |
-          </p>
-        "
+        "<div class='controls'>
+          <a href='#' class='reply'>reply</a>
+          <a href='#'>spam!</a>
+          <a href='#'>delete</a>
+        </div>"
       end
 
       def children

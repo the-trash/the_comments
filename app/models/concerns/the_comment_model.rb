@@ -1,22 +1,18 @@
 module TheCommentModel
   extend ActiveSupport::Concern
 
-  ANTICAPTCHA_TOKENS = %w[ <!> *?* <<<> ,!, ??! ]
-
   included do
     # Nested Set
     acts_as_nested_set scope: [:commentable_type, :commentable_id]
+    attr_accessible :parent_id
 
     # TheSortableTree
     include TheSortableTree::Scopes
 
-    def self.anticaptcha_token
-      ANTICAPTCHA_TOKENS
-    end
-
     attr_accessible :user, :title, :contacts, :raw_content, :view_token
 
     validates :title, presence: true
+    validates :raw_content, presence: true
 
     # relations
     belongs_to :user
