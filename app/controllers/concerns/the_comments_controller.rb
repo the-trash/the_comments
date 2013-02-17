@@ -66,12 +66,26 @@ module TheCommentsController
         render json: { errors: @comment.errors }
       end
 
+      def to_spam
+        IpBlackList.create(ip: @comment.ip)
+        UserAgentBlackList.create(user_agent: @comment.user_agent)
+      end
+
+      def to_trash
+        @comment.to_deleted
+      end
+
       private
 
       def denormalized_fields
         title = @commentable.commentable_title
         url   = @commentable.commentable_path
         @commentable ? { commentable_title: title, commentable_url: url } : {}
+      end
+
+      def request_data_for_black_lists
+        r = request
+        { ip: r.ip, referer: CGI::unescape(r.referer  || 'direct_visit'), user_agent: r.user_agent }
       end
 
       def define_commentable
@@ -88,6 +102,7 @@ module TheCommentsController
           .permit(:title, :contacts, :raw_content, :parent_id)
           .merge(user: current_user, view_token: comments_view_token)
           .merge(denormalized_fields)
+          .merge(request_data_for_black_lists)
       end
 
       # Protection tricks

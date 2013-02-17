@@ -43,6 +43,19 @@ class CreateComments < ActiveRecord::Migration
       t.timestamps
     end
 
+    # Black Lists
+    create_table :ip_black_lists do |t|
+      t.string  :ip
+      t.integer :count
+      t.string  :state
+    end
+
+    create_table :user_agent_black_lists do |t|
+      t.string  :user_agent
+      t.integer :count
+      t.string  :state
+    end
+
     # Add fields to User and Commentable Object
     change_table :users do |t|
       # commentable's comments => comcoms (cache)

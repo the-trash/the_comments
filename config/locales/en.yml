@@ -7,3 +7,8 @@ en:
     cookies_required: 'Please enable cookies and try to reload page'
 
     ajax_requests_required: 'Sorry, JavaScript/Ajax Requests required'
+
+    reply: Reply
+    spam: Spam!
+    delete: Delete
+    waiting_for_moderation: Waiting for moderation
