@@ -4,22 +4,36 @@ TheComments - comments tree for your web project.
 
 ### Main features
 
-* **Comments tree** (via TheSortableTree custom helper)
-* **No captcha!** Tricks and traps for SpamBots vs. Captcha
-* Open comments with moderation
+* **Comments tree** (via [TheSortableTree](https://github.com/the-teacher/the_sortable_tree) custom helper)
+* **No captcha!** Tricks and traps for SpamBots instead Captcha
 * **IP** and **User Agent** black lists
-* **Cache counters** for Users and Commentable objects
-* Designed for external content filters (**sanitize**, **RedCloth**, **Markdown**)
+* Useful **Cache counters** for Users and Commentable objects
+* Designed for external content filters (**sanitize** , **RedCloth**, **Markdown**)
+* Open comments with moderation
+* Creator of comments can see his comments via **view_token** (_view token_ stored with cookies)
+
+### Requires
 
 ```ruby
-gem 'awesome_nested_set'
-gem 'the_sortable_tree'
-gem 'state_machine'
+  gem 'awesome_nested_set'
+  gem 'the_sortable_tree'
+  gem 'state_machine'
 ```
 
-- cookies
-- js/ajax
-- hidden fields
+### Anti Spam system
+
+User agent must have:
+
+* Cookies support
+* JavaScript and Ajax support
+
+Usually spambot not support cookies and JavaScript
+
+Comment form have:
+
+* fake (hidden) email fields
+
+Usually spam bot puts data in fake inputs
 
 ## Installation
 
