@@ -8,7 +8,7 @@ TheComments - comments tree for your web project.
 * **No captcha!** Tricks and traps for SpamBots instead Captcha
 * **IP** and **User Agent** black lists
 * Useful **Cache counters** for Users and Commentable objects
-* Designed for external content filters (**sanitize** , **RedCloth**, **Markdown**)
+* Designed for external content filters ( **sanitize**, **RedCloth**, **Markdown**)
 * Open comments with moderation
 * Creator of comments can see his comments via **view_token** (_view token_ stored with cookies)
 
