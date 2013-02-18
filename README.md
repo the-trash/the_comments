@@ -82,13 +82,16 @@ end
 **User#coments** - comments. Set of created comments
 
 ```ruby
-User.first.comments # => Array of comments, where User is creator (owner)
+User.first.comments
+# => Array of comments, where User is creator (owner)
 ```
 
 **User#comcoms** - commentable comments. Set of all comments of all owned commentable objects of this user.
 
 ```ruby
-User.first.comcoms # => Array of all comments of all commentable objects, where User is holder (holder should be moderator of this comments)
+User.first.comcoms
+# => Array of all comments of all commentable objects, where User is holder
+# Holder should be moderator of this comments
 ```
 
 ### Commentable Model (Page, Blog, Article, User ...)
