@@ -54,7 +54,7 @@ bundle exec rake the_comments_engine:install:migrations
 
 **bundle exec rake db:migrate**
 
-#### User Model
+### User Model
 
 ```ruby
 class User < ActiveRecord::Base
@@ -91,7 +91,7 @@ User.first.comments # => Array of comments, where User is creator (owner)
 User.first.comcoms # => Array of all comments of all commentable objects, where User is holder (holder should be moderator of this comments)
 ```
 
-#### Commentable Model (Page, Blog, Article, User ...)
+### Commentable Model (Page, Blog, Article, User ...)
 
 ```ruby
 class Blog < ActiveRecord::Base
@@ -109,7 +109,7 @@ class Blog < ActiveRecord::Base
 end
 ```
 
-#### Comment Model
+### Comment Model
 
 ```ruby
 class Comment < ActiveRecord::Base
@@ -117,7 +117,7 @@ class Comment < ActiveRecord::Base
 end
 ```
 
-#### Commentable controller
+### Commentable controller
 
 ```ruby
 class BlogsController < ApplicationController
@@ -131,7 +131,7 @@ class BlogsController < ApplicationController
 end
 ```
 
-#### View
+### View
 
 ```ruby
 %h1= @blog.title
