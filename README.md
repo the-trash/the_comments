@@ -1,12 +1,20 @@
-# TheComments
+# TheComments 0.0.9
 
-TODO: Write a gem description
+TheComments - comments tree for your web project.
+
+### Main features
+
+* **Comments tree** (via TheSortableTree custom helper)
+* **No captcha!** Tricks and traps for SpamBots vs. Captcha
+* Open comments with moderation
+* **IP** and **User Agent** black lists
+* **Cache counters** for Users and Commentable objects
+* Designed for external content filters (**sanitize**, **RedCloth**, **Markdown**)
 
 ```ruby
 gem 'awesome_nested_set'
 gem 'the_sortable_tree'
 gem 'state_machine'
-gem 'sanitize'
 ```
 
 - cookies
