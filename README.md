@@ -92,6 +92,7 @@ User.first.comments
 User.first.comcoms
 # => Array of all comments of all commentable objects, where User is holder
 # Holder should be moderator of this comments
+# because this user should maintain cleaness his commentable objects
 ```
 
 ### Commentable Model (Page, Blog, Article, User ...)
