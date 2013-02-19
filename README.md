@@ -119,7 +119,18 @@ end
 class Comment < ActiveRecord::Base
   include TheCommentModel
 
-  # define your filters for content
+  # Define comment avatar
+  # Usually we use Comment#user (owner of comment) to define avatar
+  # @blog.comments.includes(:user) <= use **includes(:user)** to decrease queries count
+  # comment#user.avarat_url
+
+  # but you can use different way
+  def avatar_url
+    hash = Digest::MD5.hexdigest self.id.to_s
+    "http://www.gravatar.com/avatar/#{hash}?s=30&d=identicon"
+  end
+
+  # Define your filters for content
   # Expample for: gem 'RedCloth', gem 'sanitize'
   # your personal SmilesProcessor
   def prepare_content
