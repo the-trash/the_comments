@@ -121,7 +121,7 @@ class Comment < ActiveRecord::Base
 
   # Define comment avatar
   # Usually we use Comment#user (owner of comment) to define avatar
-  # @blog.comments.includes(:user) <= use **includes(:user)** to decrease queries count
+  # @blog.comments.includes(:user) <= use includes(:user) to decrease queries count
   # comment#user.avarat_url
 
   # but you can use different way
@@ -151,7 +151,7 @@ class BlogsController < ApplicationController
   include TheCommentsController::ViewToken
 
   def show
-    @blog     = @blog.where(id: params[:id]).with_states(:published).first
+    @blog     = Blog.where(id: params[:id]).with_states(:published).first
     @comments = @blog.comments.with_state([:draft, :published]).nested_set
   end
 end
