@@ -75,7 +75,8 @@ class User < ActiveRecord::Base
     [class.to_s.tableize, login].join('/')
   end
 
-  # Comments moderator checking
+  # Comments moderator checking (simple example)
+  # Usually comment's holder should be moderator
   def comment_moderator? comment
     admin? || id == comment.holder_id
   end
@@ -94,12 +95,16 @@ User.first.comments
 
 ```ruby
 User.first.comcoms
-# => Array of all comments of all commentable objects, where User is holder
+# => Array of all comments of all owned commentable objects, where User is holder
 # Holder should be moderator of this comments
 # because this user should maintain cleaness his commentable objects
 ```
 
+**Attention!** You should be sure that you understand who is owner, and who is holder of comments!
+
 ### Commentable Model (Page, Blog, Article, User ...)
+
+**Attention!** User model can be commentable object too. 
 
 ```ruby
 class Blog < ActiveRecord::Base
@@ -107,12 +112,12 @@ class Blog < ActiveRecord::Base
 
   # denormalization for commentable objects
   def commentable_title
-    self.title
+    title
   end
 
   # denormalization for commentable objects
   def commentable_path
-    [self.class.to_s.tableize, self.slug_id].join('/')
+    [self.class.to_s.tableize, slug_id].join('/')
   end
 end
 ```
