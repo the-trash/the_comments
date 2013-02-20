@@ -19,7 +19,8 @@ module TheCommentModels
       # TheSortableTree
       include TheSortableTree::Scopes
 
-      attr_accessible :user, :title, :contacts, :raw_content, :view_token
+      attr_accessible :user, :title, :contacts, :raw_content, :view_token, :state
+      attr_accessible :ip, :referer, :user_agent, :comment_time
 
       # validates :title, presence: true
       validates :raw_content, presence: true
@@ -80,6 +81,11 @@ module TheCommentModels
           @holder.try      :increment!, :total_comcoms_count
           @owner.try       :increment!, :total_comments_count
           @commentable.try :increment!, :total_comments_count
+        end
+
+        after_transition any => :deleted do |comment|
+          descendants = comment.descendants
+          puts "DELETE", descendants.count
         end
       end
 

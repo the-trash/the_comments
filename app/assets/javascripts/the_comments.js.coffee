@@ -58,4 +58,5 @@ $ ->
     false
 
   # CONTROLS
-  $('.to_spam, .to_deleted').live 'ajax:success', -> $(@).parent().parent().hide()
+  $('.to_spam, .to_deleted').live 'ajax:success', ->
+    $(@).parent().parent().parent().hide()
