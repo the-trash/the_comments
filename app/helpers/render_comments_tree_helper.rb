@@ -27,7 +27,7 @@ module RenderCommentsTreeHelper
       end
 
       def moderator?
-        controller.try(:current_user).try(:comments_moderator?)
+        controller.try(:current_user).try(:comment_moderator?, @comment)
       end
 
       # Render Methods
@@ -49,20 +49,17 @@ module RenderCommentsTreeHelper
         if visible_draft? || moderator?
           published_comment
         else
-          "<li class='draft'><div class='comment'>t('the_comments.waiting_for_moderation')</div></li>"
+          "<li class='draft'><div class='comment'>#{ t('the_comments.waiting_for_moderation') }</div></li>"
         end
       end
 
       def published_comment
-        anchor = h.link_to('#', '#' + @comment.anchor)
+        anchor = h.link_to('#', '#comment_' + @comment.anchor)
 
         "<li class='published'>
-          <div class='comment' data-comment-id='#{@comment.to_param}'>
-            <a name='#{@comment.anchor}'></a>
-
-            <p><b>#{@comment.title}</b> #{ anchor }</p>
-            <p>#{@comment.content}</p>
-
+          <div id='comment_#{@comment.anchor}' class='comment' data-comment-id='#{@comment.to_param}'>
+            <p><b>#{ @comment.title }</b> #{ anchor }</p>
+            <p>#{ @comment.content }</p>
             #{ controls }
           </div>
 
@@ -74,8 +71,8 @@ module RenderCommentsTreeHelper
 
       def moderator_controls
         if moderator?
-          to_spam  = h.link_to t('the_comments.spam'),   h.to_spam_comment_url(@comment),  method: :post
-          to_trash = h.link_to t('the_comments.delete'), h.to_trash_comment_url(@comment), method: :delete
+          to_spam  = h.link_to t('the_comments.spam'),   h.to_spam_comment_url(@comment),  remote: true, class: :to_spam,    method: :post
+          to_trash = h.link_to t('the_comments.delete'), h.to_trash_comment_url(@comment), remote: true, class: :to_deleted, method: :delete, data: { confirm: t('the_comments.delete_confirm') }
           "#{ to_spam } #{ to_trash }"
         end
       end

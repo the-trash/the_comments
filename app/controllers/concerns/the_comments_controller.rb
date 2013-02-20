@@ -67,12 +67,20 @@ module TheCommentsController
       end
 
       def to_spam
-        IpBlackList.create(ip: @comment.ip)
-        UserAgentBlackList.create(user_agent: @comment.user_agent)
+        comment = Comment.where(id: params[:id]).first
+
+        if comment
+          IpBlackList.where(ip: comment.ip).first_or_create.increment!(:count)
+          UserAgentBlackList.where(user_agent: comment.user_agent).first_or_create.increment!(:count)
+          comment.to_deleted
+        end
+
+        render nothing: :true
       end
 
       def to_trash
-        @comment.to_deleted
+        Comment.where(id: params[:id]).first.try(:to_deleted)
+        render nothing: :true
       end
 
       private

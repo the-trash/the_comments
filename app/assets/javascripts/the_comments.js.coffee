@@ -56,3 +56,6 @@ $ ->
     form.fadeIn()
 
     false
+
+  # CONTROLS
+  $('.to_spam, .to_deleted').live 'ajax:success', -> $(@).parent().parent().hide()

@@ -45,8 +45,8 @@ gem 'the_comments'
 **bundle**
 
 ```ruby
-bundle exec rails g model comment --migration=false
-bundle exec rails g model ip_black_list --migration=false
+bundle exec rails g model comment               --migration=false
+bundle exec rails g model ip_black_list         --migration=false
 bundle exec rails g model user_agent_black_list --migration=false
 
 bundle exec rake the_comments_engine:install:migrations
@@ -58,22 +58,26 @@ bundle exec rake the_comments_engine:install:migrations
 
 ```ruby
 class User < ActiveRecord::Base
-  has_many :comments
-  has_many :comcoms, class_name: :Comment, foreign_key: :holder_id
+  # your implementation of role policy
+  def admin?
+    self == User.first
+  end
+
+  # include Model methods
+  include TheCommentModels::User
   
-  # denormalization for commentable objects (title)
+  # denormalization for commentable objects
   def commentable_title
-    self.login
+    login
   end
 
-  # denormalization for commentable objects (url|path)
   def commentable_path
-    [self.class.to_s.tableize, self.login].join('/')
+    [class.to_s.tableize, login].join('/')
   end
 
-  # your implementation of role policy for comments moderators
-  def comments_moderator? (commentable)
-    self.admin? || (commentable.holder_id == self.id)
+  # Comments moderator checking
+  def comment_moderator? comment
+    admin? || id == comment.holder_id
   end
 
 end
@@ -117,7 +121,7 @@ end
 
 ```ruby
 class Comment < ActiveRecord::Base
-  include TheCommentModel
+  include TheCommentModels::Comment
 
   # Define comment avatar
   # Usually we use Comment#user (owner of comment) to define avatar
@@ -142,6 +146,21 @@ class Comment < ActiveRecord::Base
   end
 end
 ```
+
+### IP, User Agent black list
+
+Models should looks like this:
+
+```ruby
+class IpBlackList < ActiveRecord::Base
+  include TheCommentModels::BlackIp
+end
+
+class UserAgentBlackList < ActiveRecord::Base
+  include TheCommentModels::BlackUserAgent
+end
+```
+
 
 ### Commentable controller
 

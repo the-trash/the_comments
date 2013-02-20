@@ -12,3 +12,4 @@ en:
     spam: Spam!
     delete: Delete
     waiting_for_moderation: Waiting for moderation
+    delete_confirm: Are you sure?
