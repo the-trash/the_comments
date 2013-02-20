@@ -152,7 +152,7 @@ class Comment < ActiveRecord::Base
 end
 ```
 
-### IP, User Agent black list
+### IP, User Agent black lists
 
 Models should looks like this:
 
