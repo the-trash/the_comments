@@ -1,10 +1,44 @@
 module TheCommentModels
+  module Commentable
+    extend ActiveSupport::Concern
+
+    included do
+      has_many :comments, as: :commentable
+
+      def recalculate_comments_counters
+        self.draft_comments_count     = comments.with_state(:draft).count
+        self.published_comments_count = comments.with_state(:published).count
+        self.deleted_comments_count   = comments.with_state(:deleted).count
+        self.total_comments_count     = draft_comments_count + published_comments_count
+        save
+      end
+    end
+  end
+
   module User
     extend ActiveSupport::Concern
     
     included do
       has_many :comments
       has_many :comcoms, class_name: :Comment, foreign_key: :holder_id
+
+      def commentable_list
+        []
+      end
+
+      def recalculate_comments_counters
+        [:comments, :comcoms].each do |name|
+          if respond_to? name
+            send "draft_#{name}_count=",     send(name).with_state(:draft).count
+            send "published_#{name}_count=", send(name).with_state(:published).count
+            send "deleted_#{name}_count=",   send(name).with_state(:deleted).count
+            send "total_#{name}_count=",     send("draft_#{name}_count") + send("published_#{name}_count")
+          end
+        end
+
+        save
+      end
+
     end    
   end
 
@@ -84,8 +118,11 @@ module TheCommentModels
         end
 
         after_transition any => :deleted do |comment|
-          descendants = comment.descendants
-          puts "DELETE", descendants.count
+          children = comment.children
+          children.each do |c|
+            puts 'Child deleted'
+            c.to_deleted
+          end
         end
       end
 
