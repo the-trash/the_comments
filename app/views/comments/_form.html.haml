@@ -17,7 +17,10 @@
     = text_field_tag 'email', nil, autocomplete: :off, tabindex: -1
 
     %label comments email*:
-    = text_field_tag 'comment[email]', nil, autocomplete: :off, tabindex: -1
+    = text_field_tag 'message', nil, autocomplete: :off, tabindex: -1
+
+    %label time tolerance*:
+    = text_field_tag 'time_tolerance', nil, autocomplete: :off, tabindex: -1
 
   = f.hidden_field :commentable_type, value: commentable.class
   = f.hidden_field :commentable_id,   value: commentable.id

@@ -102,12 +102,14 @@ module TheCommentModels
           end
         end
 
-        # update total counter
         after_transition any => :deleted do |comment|
           children = comment.children
-          children.each do |c|
-            puts 'Child deleted'
-            c.to_deleted
+          children.each{ |c| c.to_deleted }
+
+          unless children.blank?
+            @owner.recalculate_comments_counters
+            @holder.recalculate_comments_counters
+            @commentable.recalculate_comments_counters
           end
         end
       end

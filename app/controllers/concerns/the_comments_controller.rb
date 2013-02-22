@@ -50,9 +50,10 @@ module TheCommentsController
       skip_before_action :set_the_comments_cookies, only: [:create]
 
       # Protection
-      before_action :ajax_requests_required, only: [:create]
-      before_action :cookies_required,       only: [:create]
-      before_action :empty_trap_required,    only: [:create]
+      before_action :ajax_requests_required,  only: [:create]
+      before_action :cookies_required,        only: [:create]
+      before_action :time_tolerance_required, only: [:create]
+      before_action :empty_trap_required,     only: [:create]
 
       # preparation
       before_action :define_commentable, only: [:create]
@@ -131,13 +132,21 @@ module TheCommentsController
       end
 
       def empty_trap_required
-        spam_bot = true unless params[:email].blank? && params[:comment][:email].blank?
+        spam_bot = true unless params[:email].blank? && params[:message].blank?
         if spam_bot
           # Log IP address and user Agent
           errors = {}
           errors[t('the_comments.trap')] = [t('the_comments.trap_message')]
           return render(json: { errors: errors })
         end
+      end
+    end
+
+    def time_tolerance_required
+      if params[:time_tolerance].to_i < TheComments.config.tolerance_time
+        errors = {}
+        errors[t('the_comments.time_tolerance')] = [t('the_comments.time_tolerance_message')]
+        return render(json: { errors: errors })
       end
     end
   end
