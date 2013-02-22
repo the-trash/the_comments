@@ -13,12 +13,10 @@
   %p= f.text_area :raw_content
 
   %p.trap
-    %label email*:
-    = text_field_tag 'email', nil, autocomplete: :off, tabindex: -1
-
-    %label comments email*:
-    = text_field_tag 'comment[email]', nil, autocomplete: :off, tabindex: -1
-
+    - TheComments.config.empty_inputs.each do |name|
+      = text_field_tag name, nil, autocomplete: :off, tabindex: -1
+  
+  = hidden_field_tag :time_tolerance
   = f.hidden_field :commentable_type, value: commentable.class
   = f.hidden_field :commentable_id,   value: commentable.id
   = f.hidden_field :parent_id, class: :parent_id

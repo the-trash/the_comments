@@ -125,15 +125,21 @@ module TheCommentsController
 
       def ajax_requests_required
         unless request.xhr?
-          # Log IP address and user Agent
+          IpBlackList.where(ip: request.ip).first_or_create.increment!(:count)
+          UserAgentBlackList.where(user_agent: request.user_agent).first_or_create.increment!(:count)
+
           return render(text: t('the_comments.ajax_requests_required'))
         end
       end
 
+      # This text for my best Friend - Alex Khvorov <3 (his not programer)
+      # Alex, you will stay in open source world forever!
       def empty_trap_required
-        spam_bot = true unless params[:email].blank? && params[:comment][:email].blank?
-        if spam_bot
-          # Log IP address and user Agent
+        is_user = params.slice(*TheComments.config.empty_inputs).values.inject{|k, v| v.blank? }
+        unless is_user
+          IpBlackList.where(ip: request.ip).first_or_create.increment!(:count)
+          UserAgentBlackList.where(user_agent: request.user_agent).first_or_create.increment!(:count)
+
           errors = {}
           errors[t('the_comments.trap')] = [t('the_comments.trap_message')]
           return render(json: { errors: errors })
