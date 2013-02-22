@@ -9,7 +9,6 @@ module TheCommentModels
         self.draft_comments_count     = comments.with_state(:draft).count
         self.published_comments_count = comments.with_state(:published).count
         self.deleted_comments_count   = comments.with_state(:deleted).count
-        self.total_comments_count     = draft_comments_count + published_comments_count
         save
       end
     end
@@ -32,7 +31,6 @@ module TheCommentModels
             send "draft_#{name}_count=",     send(name).with_state(:draft).count
             send "published_#{name}_count=", send(name).with_state(:published).count
             send "deleted_#{name}_count=",   send(name).with_state(:deleted).count
-            send "total_#{name}_count=",     send("draft_#{name}_count") + send("published_#{name}_count")
           end
         end
 
@@ -105,18 +103,6 @@ module TheCommentModels
         end
 
         # update total counter
-        after_transition [:draft, :published] => :deleted do
-          @holder.try      :decrement!, :total_comcoms_count
-          @owner.try       :decrement!, :total_comments_count
-          @commentable.try :decrement!, :total_comments_count
-        end
-
-        after_transition :deleted => [:draft, :published] do
-          @holder.try      :increment!, :total_comcoms_count
-          @owner.try       :increment!, :total_comments_count
-          @commentable.try :increment!, :total_comments_count
-        end
-
         after_transition any => :deleted do |comment|
           children = comment.children
           children.each do |c|

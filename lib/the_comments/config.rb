@@ -10,10 +10,10 @@ module TheComments
   # Configuration class
   class Configuration
     include ActiveSupport::Configurable
-    config_accessor :time_tolerance
+    config_accessor :tolerance_time
   end
 
   configure do |config|
-    config.time_tolerance = 15
+    config.tolerance_time = 15
   end
 end

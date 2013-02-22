@@ -33,7 +33,7 @@ class CreateComments < ActiveRecord::Migration
       t.string :ip
       t.string :referer
       t.string :user_agent
-      t.string :comment_time
+      t.string :tolerance_time
 
       # nested set
       t.integer :parent_id
@@ -61,7 +61,6 @@ class CreateComments < ActiveRecord::Migration
     change_table :users do |t|
       # commentable's comments => comcoms (cache)
       # Relation through Comment#holder_id field
-      t.integer :total_comcoms_count,     default: 0
       t.integer :draft_comcoms_count,     default: 0
       t.integer :published_comcoms_count, default: 0
       t.integer :deleted_comcoms_count,   default: 0
@@ -71,7 +70,6 @@ class CreateComments < ActiveRecord::Migration
     #
     # [:users, :posts].each do |table_name|
     #   change_table table_name do |t|
-    #     t.integer :total_comments_count,     default: 0
     #     t.integer :draft_comments_count,     default: 0
     #     t.integer :published_comments_count, default: 0
     #     t.integer :deleted_comments_count,   default: 0
