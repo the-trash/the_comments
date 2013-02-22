@@ -68,18 +68,14 @@ module TheCommentsController
 
       def to_spam
         comment = Comment.where(id: params[:id]).first
-
-        if comment
-          IpBlackList.where(ip: comment.ip).first_or_create.increment!(:count)
-          UserAgentBlackList.where(user_agent: comment.user_agent).first_or_create.increment!(:count)
-          comment.to_deleted
-        end
-
+        IpBlackList.where(ip: comment.ip).first_or_create.increment!(:count)
+        UserAgentBlackList.where(user_agent: comment.user_agent).first_or_create.increment!(:count)
+        comment.to_deleted
         render nothing: :true
       end
 
       def to_trash
-        Comment.where(id: params[:id]).first.try(:to_deleted)
+        Comment.where(id: params[:id]).first.to_deleted
         render nothing: :true
       end
 
@@ -133,9 +129,12 @@ module TheCommentsController
       end
 
       # This text for my best Friend - Alex Khvorov <3 (his not programer)
-      # Alex, you will stay in open source world forever!
+      # Alex, you will stay in open source world forever (maybe)!
       def empty_trap_required
-        is_user = params.slice(*TheComments.config.empty_inputs).values.inject{|k, v| v.blank? }
+        # TODO: inject?, fields can be removed
+        is_user = true
+        params.slice(*TheComments.config.empty_inputs).values.each{|v| is_user = is_user && v.blank? }
+
         unless is_user
           IpBlackList.where(ip: request.ip).first_or_create.increment!(:count)
           UserAgentBlackList.where(user_agent: request.user_agent).first_or_create.increment!(:count)

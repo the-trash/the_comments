@@ -21,10 +21,6 @@ module TheCommentModels
       has_many :comments
       has_many :comcoms, class_name: :Comment, foreign_key: :holder_id
 
-      def commentable_list
-        []
-      end
-
       def recalculate_comments_counters
         [:comments, :comcoms].each do |name|
           if respond_to? name
@@ -70,45 +66,56 @@ module TheCommentModels
       state_machine :state, :initial => :draft do
         # events
         event :to_draft do 
-          transition all => :draft
+          transition all - :draft => :draft
         end
 
         event :to_published do
-          transition all => :published
+          transition all - :published => :published
         end
 
         event :to_deleted do
-          transition all => :deleted
+          transition any - :deleted => :deleted
         end
 
-        # cache counters
-        after_transition any => any do |comment|
+        after_transition [:draft, :published] => [:draft, :published] do |comment|
+          @comment     = comment
           @owner       = comment.user
           @holder      = comment.holder
           @commentable = comment.commentable
         end
 
-        [:draft, :published, :deleted].each do |name|
-          after_transition any - name => name do
-            @holder.try      :increment!, "#{name}_comcoms_count"
-            @owner.try       :increment!, "#{name}_comments_count"
-            @commentable.try :increment!, "#{name}_comments_count"
-          end
+        after_transition :draft => :published do
+          @holder.try      :increment!, :published_comcoms_count
+          @holder.try      :decrement!, :draft_comcoms_count
 
-          after_transition name => any - name do
-            @holder.try      :decrement!, "#{name}_comcoms_count"
-            @owner.try       :decrement!, "#{name}_comments_count"
-            @commentable.try :decrement!, "#{name}_comments_count"
-          end
+          @owner.try       :increment!, :published_comments_count
+          @owner.try       :decrement!, :draft_comments_count
+
+          @commentable.try :increment!, :published_comments_count
+          @commentable.try :decrement!, :draft_comments_count
         end
 
-        # update total counter
+        after_transition :published => :draft do
+          @holder.try      :decrement!, :published_comcoms_count
+          @holder.try      :increment!, :draft_comcoms_count
+
+          @owner.try       :decrement!, :published_comments_count
+          @owner.try       :increment!, :draft_comments_count
+
+          @commentable.try :decrement!, :published_comments_count
+          @commentable.try :increment!, :draft_comments_count
+        end
+
         after_transition any => :deleted do |comment|
-          children = comment.children
-          children.each do |c|
-            puts 'Child deleted'
-            c.to_deleted
-          end
+          ids = comment.self_and_descendants.map(&:id)
+          puts "TO DELETE", ids
+          # @comment.to_deleted
+          # children = @comment.children
+          # children.each{ |c| c.to_deleted }
+
+          # @holder.recalculate_comments_counters
+          # @owner.recalculate_comments_counters
+          # @commentable..recalculate_comments_counters
         end
       end
 
