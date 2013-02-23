@@ -30,10 +30,10 @@ class CreateComments < ActiveRecord::Migration
       t.string :state, default: :draft
 
       # base user data (BanHammer power)
-      t.string :ip
-      t.string :referer
-      t.string :user_agent
-      t.string :tolerance_time
+      t.string  :ip
+      t.string  :referer
+      t.string  :user_agent
+      t.integer :tolerance_time
 
       # nested set
       t.integer :parent_id

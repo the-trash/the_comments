@@ -29,8 +29,10 @@
       height: 150px;
     }
     .trap{
+      filter: alpha(opacity=0.001);
+      height: 0.1px;
+      opacity: 0.001;
       overflow: hidden;
-      height: 0.5px;
     }
   }
 }

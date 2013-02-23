@@ -8,8 +8,17 @@
 @comments_error_notifier = (form, text) ->
   form.children('.error_notifier').empty().hide().append(text).show()
 
-$ ->
+@unixsec = (t) -> Math.round(t.getTime() / 1000)
+
+$ ->  
+  window.tolerance_time_start = unixsec(new Date)
   comment_forms = $("#new_comment, .reply_comments_form")
+
+  # AJAX Before Send
+  $("input[type=submit]", comment_forms).live 'click', ->
+    time_diff = unixsec(new Date) - window.tolerance_time_start
+    $('.tolerance_time').val time_diff
+    true
 
   # AJAX ERROR
   comment_forms.live 'ajax:error', (request, response, status) ->

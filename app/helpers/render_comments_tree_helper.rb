@@ -27,14 +27,15 @@ module RenderCommentsTreeHelper
       end
 
       def moderator?
-        controller.try(:current_user).try(:comment_moderator?, @comment)
+        true #controller.try(:current_user).try(:comment_moderator?, @comment)
       end
 
       # Render Methods
       def render_node(h, options)
         @h, @options = h, options
         @comment     = options[:node]
-        @reply_depth = options[:reply_depth] || 3
+
+        @max_reply_depth = options[:max_reply_depth] || TheComments.config.max_reply_depth
 
         if @comment.draft?
           draft_comment
@@ -78,7 +79,7 @@ module RenderCommentsTreeHelper
       end
 
       def controls
-        reply = options[:level] <= @reply_depth
+        reply = @comment.depth < @max_reply_depth
         reply = reply ? "<a href='#' class='reply'>#{ t('the_comments.reply') }</a>" : ''
 
         "<div class='controls'>
