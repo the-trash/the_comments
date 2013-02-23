@@ -2,6 +2,8 @@
 
 TheComments - comments tree for your web project.
 
+![TheComments](https://raw.github.com/open-cook/the_comments/master/the_comments.jpg)
+
 ### Main features
 
 * **Comments tree** (via [TheSortableTree](https://github.com/the-teacher/the_sortable_tree) custom helper)
