@@ -17,9 +17,13 @@ en:
     black_user_agent: Black User Agent
     black_user_agent_message: Sorry! Your User Agent banned
 
-    reply: Reply
-    spam: Spam!
-    delete: Delete
+    guest_name: Guest
+    reply: Reply to this comment
+    to_spam: Spam!
+    to_draft: Draft
+    to_published: Publicate
+    to_delete: Delete
+
     delete_confirm: Are you sure?
 
     waiting_for_moderation: Waiting for moderation

@@ -51,9 +51,9 @@ $ ->
     false
 
   # REPLY BUTTON
-  $('.comments_tree a.reply').live 'click', ->
+  $('.reply_link').live 'click', ->
     link    = $ @
-    comment = link.parent().parent()
+    comment = link.parent().parent().parent()
   
     $('#new_comment, .reply_comments_form').hide()
     form = $('#new_comment').clone().removeAttr('id').addClass('reply_comments_form')
@@ -68,4 +68,4 @@ $ ->
 
   # CONTROLS
   $('.to_spam, .to_deleted').live 'ajax:success', ->
-    $(@).parent().parent().parent().hide()
+    $(@).parents('li').first().hide()
