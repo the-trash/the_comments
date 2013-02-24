@@ -27,7 +27,7 @@ module RenderCommentsTreeHelper
       end
 
       def moderator?
-        true #controller.try(:current_user).try(:comment_moderator?, @comment)
+        controller.try(:current_user).try(:comment_moderator?, @comment)
       end
 
       # Render Methods
@@ -50,7 +50,10 @@ module RenderCommentsTreeHelper
         if visible_draft? || moderator?
           published_comment
         else
-          "<li class='draft'><div class='comment'>#{ t('the_comments.waiting_for_moderation') }</div></li>"
+          "<li class='draft'>
+            <div class='comment'>#{ t('the_comments.waiting_for_moderation') }</div>
+            #{ children }
+          </li>"
         end
       end
 
