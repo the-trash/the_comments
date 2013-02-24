@@ -52,6 +52,9 @@ module TheCommentModels
       attr_accessible :parent_id
       acts_as_nested_set scope: [:commentable_type, :commentable_id]
 
+      # Comments State Machine
+      include TheCommentsStates
+
       # TheSortableTree
       include TheSortableTree::Scopes
 
@@ -76,63 +79,6 @@ module TheCommentModels
         src = contacts if !contacts.blank? && /@/ =~ contacts
         hash = Digest::MD5.hexdigest(src)
         "http://www.gravatar.com/avatar/#{hash}?s=40&d=identicon"
-      end
-
-      # :draft | :published | :deleted
-      state_machine :state, :initial => :draft do
-        # events
-        event :to_draft do 
-          transition all - :draft => :draft
-        end
-
-        event :to_published do
-          transition all - :published => :published
-        end
-
-        event :to_deleted do
-          transition any - :deleted => :deleted
-        end
-
-        after_transition any => any do |comment|
-          @comment     = comment
-          @owner       = comment.user
-          @holder      = comment.holder
-          @commentable = comment.commentable
-        end
-
-        # between draft and published
-        after_transition :draft => :published do |comment, transition|
-          from = transition.from_name
-          to   = transition.to_name
-
-          @holder.try :increment!, :"#{to}_comcoms_count"
-          @holder.try :decrement!, :"#{from}_comcoms_count"
-
-          [@owner, @commentable].each do |obj|
-            obj.try :increment!, "#{to}_comments_count"
-            obj.try :decrement!, "#{from}_comments_count"
-          end
-        end
-
-        # to deleted (cascade like query)
-        after_transition [:draft, :published] => :deleted do |comment|
-          ids = comment.self_and_descendants.map(&:id)
-          comment.class.update_all({ state: :deleted }, { id: ids })
-          [@holder, @owner, @commentable].each{|o| o.try :recalculate_comments_counters }
-        end
-
-        # from deleted
-        after_transition :deleted => [:draft, :published] do |comment, transition|
-          to = transition.to_name
-
-          @holder.try :decrement!, :deleted_comcoms_count
-          @holder.try :increment!, "#{to}_comcoms_count"
-
-          [@owner, @commentable].each do |obj|
-            obj.try :decrement!, :deleted_comments_count
-            obj.try :increment!, "#{to}_comments_count"
-          end
-        end
       end
 
       private
