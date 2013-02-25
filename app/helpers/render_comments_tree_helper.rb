@@ -51,15 +51,15 @@ module RenderCommentsTreeHelper
           published_comment
         else
           "<li class='draft'>
-            <div class='comment'>#{ t('the_comments.waiting_for_moderation') }</div>
+            <div class='comment draft' id='comment_#{@comment.anchor}'>#{ t('the_comments.waiting_for_moderation') }</div>
             #{ children }
           </li>"
         end
       end
 
       def published_comment
-        "<li class='published'>
-          <div id='comment_#{@comment.anchor}' class='comment' data-comment-id='#{@comment.to_param}'>
+        "<li>
+          <div id='comment_#{@comment.anchor}' class='comment published' data-comment-id='#{@comment.to_param}'>
             <div>
               #{ avatar }
               #{ userbar }
@@ -83,8 +83,9 @@ module RenderCommentsTreeHelper
       def userbar
         anchor = h.link_to('#', '#comment_' + @comment.anchor)
         title  = @comment.title.blank? ? t('the_comments.guest_name') : @comment.title
+        unmoderated = @comment.draft? ? ' unmoderated' : nil
 
-        "<div class='userbar'>
+        "<div class='userbar#{unmoderated}'>
           #{ title } #{ anchor }
         </div>"
       end
@@ -118,10 +119,6 @@ module RenderCommentsTreeHelper
       def children
         "<ol class='nested_set'>#{ options[:children] }</ol>"
       end
-
-      # def deleted_comment
-      #   "<li class='deleted'><div class='comment'>DELETED</div></li>"
-      # end
     end
   end
 end

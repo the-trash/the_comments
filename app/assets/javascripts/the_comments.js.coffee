@@ -10,6 +10,12 @@
 
 @unixsec = (t) -> Math.round(t.getTime() / 1000)
 
+# HIGHTLIGHT ANCHOR
+@highlight_anchor = ->
+  hash = document.location.hash
+  if hash.match('#comment_')
+    $(hash).addClass 'highlighted'
+
 $ ->
   window.tolerance_time_start = unixsec(new Date)
   comment_forms = $("#new_comment, .reply_comments_form")
@@ -69,3 +75,11 @@ $ ->
   # CONTROLS
   $('.to_spam, .to_deleted').live 'ajax:success', ->
     $(@).parents('li').first().hide()
+
+$ ->
+  # ANCHOR HIGHLIGHT
+  highlight_anchor()
+
+  $(window).on 'hashchange', ->
+    $('.comment.highlighted').removeClass 'highlighted'
+    highlight_anchor()

@@ -45,9 +45,8 @@
   a:hover{ text-decoration: underline; }
 
   ol{
-    margin: 0 0 0 13px;
-    padding: 0 0 0 15px;
-    border-left: 1px dashed LightGray;
+    margin: 0;
+    padding: 0 0 0 20px;
     list-style: none outside none;
   }
 
@@ -55,6 +54,18 @@
     margin-bottom:5px;
     position: relative;
     list-style: none outside none;
+  }
+
+  .nested_set{
+    li{
+      border-left: 1px dotted LightGray;
+      padding-left: 5px;
+
+      &.draft{
+        border: none;
+        padding: 0;
+      }
+    }
   }
 
   .form_holder{ margin-left: 40px; }
@@ -69,7 +80,7 @@
     padding: 1px;
   }
 
-  .to_spam{ background: orange; }
+  .to_spam{ background: black; }
   .to_deleted{ background: red; }
 
   .comment{
@@ -92,6 +103,8 @@
       background: #ddd;
       border-radius: 3px;
       padding-left: 7px;
+
+      &.unmoderated{ background: #EED3D7; }
     }
     .cbody{
       border-bottom: 1px solid LightGray;
@@ -111,22 +124,21 @@
     }
   }
 
-  .draft{
-    .comment{
-      border: 2px solid LightGray;
+  .comment{
+    margin-bottom: 10px;
+
+    &.draft{
+      border: 1px solid LightGray;
       border-radius: 3px;
       background: #eee;
       padding: 5px;
     }
-  }
-
-  .published{
-    .comment{
-      border-radius: 3px;
-      
+    &.published{
       padding: 10px 10px 5px 10px;
       margin-bottom: 10px;
+      border-radius: 3px;
     }
+    &.highlighted{ border: 1px dashed #ff6633; }
   }
 
   .form_holder{
