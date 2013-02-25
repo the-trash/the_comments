@@ -73,6 +73,16 @@ module TheCommentsController
         render json: { errors: @comment.errors }
       end
 
+      def to_published
+        Comment.where(id: params[:id]).first.to_published
+        render nothing: :true
+      end
+
+      def to_draft
+        Comment.where(id: params[:id]).first.to_draft
+        render nothing: :true
+      end
+
       def to_spam
         comment = Comment.where(id: params[:id]).first
         IpBlackList.where(ip: comment.ip).first_or_create.increment!(:count)

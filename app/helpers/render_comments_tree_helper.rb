@@ -92,17 +92,15 @@ module RenderCommentsTreeHelper
 
       def moderator_controls
         if moderator?
-          to_spam  = h.link_to t('the_comments.to_spam'),   h.to_spam_comment_url(@comment),  remote: true, class: :to_spam,    method: :post
-          to_trash = h.link_to t('the_comments.to_delete'), h.to_trash_comment_url(@comment), remote: true, class: :to_deleted, method: :delete, data: { confirm: t('the_comments.delete_confirm') }
+          hide_draft = @comment.published? ? nil : "display:none"
+          hide_pub   = @comment.draft?     ? nil : "display:none"
 
-          ctrl = if @comment.draft?
-            to_published = h.link_to t('the_comments.to_published'), h.to_published_comment_url(@comment), remote: true, class: :to_published, method: :post
-            [to_published, to_spam, to_trash]
-          else
-            to_draft = h.link_to t('the_comments.to_draft'), h.to_draft_comment_url(@comment), remote: true, class: :to_draft, method: :post
-            [to_draft, to_spam, to_trash]
-          end
-          ctrl.join(' ')
+          to_pub   = h.link_to t('the_comments.to_published'), h.to_published_comment_url(@comment), remote: true, class: :to_published, method: :post, style: hide_pub
+          to_draft = h.link_to t('the_comments.to_draft'),     h.to_draft_comment_url(@comment),     remote: true, class: :to_draft,     method: :post, style: hide_draft
+          to_spam  = h.link_to t('the_comments.to_spam'),      h.to_spam_comment_url(@comment),      remote: true, class: :to_spam,      method: :post
+          to_trash = h.link_to t('the_comments.to_delete'),    h.to_trash_comment_url(@comment),     remote: true, class: :to_deleted,   method: :delete, data: { confirm: t('the_comments.delete_confirm') }
+
+          [to_pub, to_draft, to_spam, to_trash].join(' ')
         end
       end
 

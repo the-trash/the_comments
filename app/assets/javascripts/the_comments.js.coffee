@@ -18,26 +18,39 @@
 
 $ ->
   window.tolerance_time_start = unixsec(new Date)
-  comment_forms = $("#new_comment, .reply_comments_form")
+  comment_forms = "#new_comment, .reply_comments_form"
 
   # AJAX Before Send
-  $("input[type=submit]", comment_forms).live 'click', ->
+  $(document).on 'click', $("input[type=submit]", comment_forms), ->
     time_diff = unixsec(new Date) - window.tolerance_time_start
     $('.tolerance_time').val time_diff
     true
 
   # AJAX ERROR
-  comment_forms.live 'ajax:error', (request, response, status) ->
+  $(document).on 'ajax:error', comment_forms, (request, response, status) ->
     form = $ @
     comments_error_notifier(form, "<p><b>Server Error:</b> #{response.status}</p>")
 
-  # AJAX SUCCESS
-  comment_forms.live 'ajax:success', (request, response, status) ->
+  # CONTROLS
+  ctrls = $('.controls')
+  
+  ctrls.on 'ajax:success', '.to_published', (request, response, status) ->
+    $(@).hide().siblings('.to_draft').show()
+
+  ctrls.on 'ajax:success', '.to_draft', (request, response, status) ->
+    $(@).hide().siblings('.to_published').show()
+
+  ctrls.on 'ajax:success', '.to_spam, .to_deleted', (request, response, status) ->
+    $(@).parents('li').first().hide()
+
+  # COMMENT FORMS
+  $(document).on 'ajax:success', comment_forms, (request, response, status) ->
     form = $ @
 
     if typeof(response) is 'string'
       clear_comment_form()
       form.hide()
+      $('.parent_id').val('')
       $('#new_comment').fadeIn()
       tree = form.parent().siblings('.nested_set')
       tree = $('ol.comments_tree') if tree.length is 0
@@ -50,18 +63,18 @@ $ ->
       comments_error_notifier(form, error_msgs)
 
   # NEW ROOT BUTTON
-  $('#new_root_comment').live 'click', ->
+  $(document).on 'click', '#new_root_comment', ->
     $('.reply_comments_form').hide()
+    $('.parent_id').val('')
     $('#new_comment').fadeIn()
-
     false
 
   # REPLY BUTTON
-  $('.reply_link').live 'click', ->
+  $(document).on 'click', '.reply_link', ->
     link    = $ @
     comment = link.parent().parent().parent()
   
-    $('#new_comment, .reply_comments_form').hide()
+    $(comment_forms).hide()
     form = $('#new_comment').clone().removeAttr('id').addClass('reply_comments_form')
 
     comment_id = comment.data('comment-id')
@@ -71,10 +84,6 @@ $ ->
     form.fadeIn()
 
     false
-
-  # CONTROLS
-  $('.to_spam, .to_deleted').live 'ajax:success', ->
-    $(@).parents('li').first().hide()
 
 $ ->
   # ANCHOR HIGHLIGHT
