@@ -3,13 +3,27 @@ en:
     trap: Trap
     trap_message: should be empty
 
+    tolerance_time: Page view time
+    tolerance_time_message: "Please wait %{time} seconds before send a comment and try again"
+
     cookies: Cookies
     cookies_required: 'Please enable cookies and try to reload page'
 
     ajax_requests_required: 'Sorry, JavaScript/Ajax Requests required'
 
-    reply: Reply
-    spam: Spam!
-    delete: Delete
-    waiting_for_moderation: Waiting for moderation
+    black_ip: Black IP adress
+    black_ip_message: Sorry! Your IP banned
+
+    black_user_agent: Black User Agent
+    black_user_agent_message: Sorry! Your User Agent banned
+
+    guest_name: Guest
+    reply: Reply to this comment
+    to_spam: Spam!
+    to_draft: Draft
+    to_published: Publicate
+    to_delete: Delete
+
     delete_confirm: Are you sure?
+
+    waiting_for_moderation: Waiting for moderation

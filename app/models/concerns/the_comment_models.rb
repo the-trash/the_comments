@@ -5,6 +5,10 @@ module TheCommentModels
     included do
       has_many :comments, as: :commentable
 
+      def comments_sum
+        published_comments_count + draft_comments_count
+      end
+
       def recalculate_comments_counters
         self.draft_comments_count     = comments.with_state(:draft).count
         self.published_comments_count = comments.with_state(:published).count
@@ -21,22 +25,22 @@ module TheCommentModels
       has_many :comments
       has_many :comcoms, class_name: :Comment, foreign_key: :holder_id
 
-      def commentable_list
-        []
-      end
-
       def recalculate_comments_counters
         [:comments, :comcoms].each do |name|
-          if respond_to? name
-            send "draft_#{name}_count=",     send(name).with_state(:draft).count
-            send "published_#{name}_count=", send(name).with_state(:published).count
-            send "deleted_#{name}_count=",   send(name).with_state(:deleted).count
-          end
+          send "draft_#{name}_count=",     send(name).with_state(:draft).count
+          send "published_#{name}_count=", send(name).with_state(:published).count
+          send "deleted_#{name}_count=",   send(name).with_state(:deleted).count
         end
-
         save
       end
 
+      def comments_sum
+        published_comments_count + draft_comments_count
+      end
+
+      def comcoms_sum
+        published_comcoms_count + draft_comcoms_count
+      end
     end    
   end
 
@@ -48,11 +52,14 @@ module TheCommentModels
       attr_accessible :parent_id
       acts_as_nested_set scope: [:commentable_type, :commentable_id]
 
+      # Comments State Machine
+      include TheCommentsStates
+
       # TheSortableTree
       include TheSortableTree::Scopes
 
       attr_accessible :user, :title, :contacts, :raw_content, :view_token, :state
-      attr_accessible :ip, :referer, :user_agent, :comment_time
+      attr_accessible :ip, :referer, :user_agent, :tolerance_time
 
       # validates :title, presence: true
       validates :raw_content, presence: true
@@ -66,52 +73,12 @@ module TheCommentModels
       before_create :define_holder, :define_anchor, :prepare_content
       after_create  :update_cache_counters
 
-      # :draft | :published | :deleted
-      state_machine :state, :initial => :draft do
-        # events
-        event :to_draft do 
-          transition all => :draft
-        end
-
-        event :to_published do
-          transition all => :published
-        end
-
-        event :to_deleted do
-          transition all => :deleted
-        end
-
-        # cache counters
-        after_transition any => any do |comment|
-          @owner       = comment.user
-          @holder      = comment.holder
-          @commentable = comment.commentable
-        end
-
-        [:draft, :published, :deleted].each do |name|
-          after_transition any - name => name do
-            @holder.try      :increment!, "#{name}_comcoms_count"
-            @owner.try       :increment!, "#{name}_comments_count"
-            @commentable.try :increment!, "#{name}_comments_count"
-          end
-
-          after_transition name => any - name do
-            @holder.try      :decrement!, "#{name}_comcoms_count"
-            @owner.try       :decrement!, "#{name}_comments_count"
-            @commentable.try :decrement!, "#{name}_comments_count"
-          end
-        end
-
-        after_transition any => :deleted do |comment|
-          children = comment.children
-          children.each{ |c| c.to_deleted }
-
-          unless children.blank?
-            @owner.recalculate_comments_counters
-            @holder.recalculate_comments_counters
-            @commentable.recalculate_comments_counters
-          end
-        end
+      def avatar_url
+        src = id.to_s
+        src = title unless title.blank?
+        src = contacts if !contacts.blank? && /@/ =~ contacts
+        hash = Digest::MD5.hexdigest(src)
+        "http://www.gravatar.com/avatar/#{hash}?s=40&d=identicon"
       end
 
       private
@@ -129,18 +96,9 @@ module TheCommentModels
       end
 
       def update_cache_counters
-        owner       = self.user
-        holder      = self.holder
-        commentable = self.commentable
-
-        owner.try(:increment!, :total_comments_count)
-        owner.try(:increment!, :draft_comments_count)
-
-        commentable.try(:increment!, :total_comments_count)
-        commentable.try(:increment!, :draft_comments_count)
-
-        holder.try(:increment!, :total_comcoms_count)
-        holder.try(:increment!, :draft_comcoms_count)
+        self.user.try        :increment!, :draft_comments_count
+        self.holder.try      :increment!, :draft_comcoms_count
+        self.commentable.try :increment!, :draft_comments_count
       end
     end
   end

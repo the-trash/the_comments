@@ -34,7 +34,8 @@ module RenderCommentsTreeHelper
       def render_node(h, options)
         @h, @options = h, options
         @comment     = options[:node]
-        @reply_depth = options[:reply_depth] || 3
+
+        @max_reply_depth = options[:max_reply_depth] || TheComments.config.max_reply_depth
 
         if @comment.draft?
           draft_comment
@@ -49,42 +50,69 @@ module RenderCommentsTreeHelper
         if visible_draft? || moderator?
           published_comment
         else
-          "<li class='draft'><div class='comment'>#{ t('the_comments.waiting_for_moderation') }</div></li>"
+          "<li class='draft'>
+            <div class='comment'>#{ t('the_comments.waiting_for_moderation') }</div>
+            #{ children }
+          </li>"
         end
       end
 
       def published_comment
-        anchor = h.link_to('#', '#comment_' + @comment.anchor)
-
         "<li class='published'>
           <div id='comment_#{@comment.anchor}' class='comment' data-comment-id='#{@comment.to_param}'>
-            <p><b>#{ @comment.title }</b> #{ anchor }</p>
-            <p>#{ @comment.content }</p>
-            #{ controls }
+            <div>
+              #{ avatar }
+              #{ userbar }
+              <div class='cbody'>#{ @comment.content }</div>
+              #{ reply }
+            </div>
           </div>
 
           <div class='form_holder'></div>
-
           #{ children }
         </li>"
       end
 
+      def avatar
+        "<div class='userpic'>
+          <img src='#{ @comment.avatar_url }' alt='userpic' />
+          #{ controls }
+        </div>"
+      end
+
+      def userbar
+        anchor = h.link_to('#', '#comment_' + @comment.anchor)
+        title  = @comment.title.blank? ? t('the_comments.guest_name') : @comment.title
+
+        "<div class='userbar'>
+          #{ title } #{ anchor }
+        </div>"
+      end
+
       def moderator_controls
         if moderator?
-          to_spam  = h.link_to t('the_comments.spam'),   h.to_spam_comment_url(@comment),  remote: true, class: :to_spam,    method: :post
-          to_trash = h.link_to t('the_comments.delete'), h.to_trash_comment_url(@comment), remote: true, class: :to_deleted, method: :delete, data: { confirm: t('the_comments.delete_confirm') }
-          "#{ to_spam } #{ to_trash }"
+          to_spam  = h.link_to t('the_comments.to_spam'),   h.to_spam_comment_url(@comment),  remote: true, class: :to_spam,    method: :post
+          to_trash = h.link_to t('the_comments.to_delete'), h.to_trash_comment_url(@comment), remote: true, class: :to_deleted, method: :delete, data: { confirm: t('the_comments.delete_confirm') }
+
+          ctrl = if @comment.draft?
+            to_published = h.link_to t('the_comments.to_published'), h.to_published_comment_url(@comment), remote: true, class: :to_published, method: :post
+            [to_published, to_spam, to_trash]
+          else
+            to_draft = h.link_to t('the_comments.to_draft'), h.to_draft_comment_url(@comment), remote: true, class: :to_draft, method: :post
+            [to_draft, to_spam, to_trash]
+          end
+          ctrl.join(' ')
+        end
+      end
+
+      def reply
+        if @comment.depth < @max_reply_depth
+          "<p class='reply'><a href='#' class='reply_link'>#{ t('the_comments.reply') }</a>"
         end
       end
 
       def controls
-        reply = options[:level] <= @reply_depth
-        reply = reply ? "<a href='#' class='reply'>#{ t('the_comments.reply') }</a>" : ''
-
-        "<div class='controls'>
-          #{ reply }
-          #{ moderator_controls }
-        </div>"
+        "<div class='controls'>#{ moderator_controls }</div>"
       end
 
       def children

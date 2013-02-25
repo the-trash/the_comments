@@ -49,11 +49,17 @@ module TheCommentsController
 
       skip_before_action :set_the_comments_cookies, only: [:create]
 
-      # Protection
+      before_action -> { @errors = {} }
+
+      # Black lists
+      before_action :stop_black_ip,           only: [:create]
+      before_action :stop_black_user_agent,   only: [:create]
+
+      # Bot protection
       before_action :ajax_requests_required,  only: [:create]
       before_action :cookies_required,        only: [:create]
-      before_action :time_tolerance_required, only: [:create]
       before_action :empty_trap_required,     only: [:create]
+      before_action :tolerance_time_required, only: [:create]
 
       # preparation
       before_action :define_commentable, only: [:create]
@@ -69,18 +75,14 @@ module TheCommentsController
 
       def to_spam
         comment = Comment.where(id: params[:id]).first
-
-        if comment
-          IpBlackList.where(ip: comment.ip).first_or_create.increment!(:count)
-          UserAgentBlackList.where(user_agent: comment.user_agent).first_or_create.increment!(:count)
-          comment.to_deleted
-        end
-
+        IpBlackList.where(ip: comment.ip).first_or_create.increment!(:count)
+        UserAgentBlackList.where(user_agent: comment.user_agent).first_or_create.increment!(:count)
+        comment.to_deleted
         render nothing: :true
       end
 
       def to_trash
-        Comment.where(id: params[:id]).first.try(:to_deleted)
+        Comment.where(id: params[:id]).first.to_deleted
         render nothing: :true
       end
 
@@ -111,33 +113,59 @@ module TheCommentsController
           .permit(:title, :contacts, :raw_content, :parent_id)
           .merge(user: current_user, view_token: comments_view_token)
           .merge(denormalized_fields)
+          .merge( tolerance_time: params[:tolerance_time].to_i )
           .merge(request_data_for_black_lists)
       end
 
       # Protection tricks
       def cookies_required
         unless cookies[:the_comment_cookies] == TheCommentsController::COMMENTS_COOKIES_TOKEN
-          errors = {}
-          errors[t('the_comments.cookies')] = [t('the_comments.cookies_required')]
-          return render(json: { errors: errors })
+          @errors[t('the_comments.cookies')] = [t('the_comments.cookies_required')]
+          return render(json: { errors: @errors })
         end
       end
-      
 
       def ajax_requests_required
         unless request.xhr?
-          # Log IP address and user Agent
+          IpBlackList.where(ip: request.ip).first_or_create.increment!(:count)
+          UserAgentBlackList.where(user_agent: request.user_agent).first_or_create.increment!(:count)
           return render(text: t('the_comments.ajax_requests_required'))
         end
       end
 
       def empty_trap_required
-        spam_bot = true unless params[:email].blank? && params[:message].blank?
-        if spam_bot
-          # Log IP address and user Agent
-          errors = {}
-          errors[t('the_comments.trap')] = [t('the_comments.trap_message')]
-          return render(json: { errors: errors })
+        # TODO: inject?, fields can be removed on client site
+        is_user = true
+        params.slice(*TheComments.config.empty_inputs).values.each{|v| is_user = is_user && v.blank? }
+
+        unless is_user
+          IpBlackList.where(ip: request.ip).first_or_create.increment!(:count)
+          UserAgentBlackList.where(user_agent: request.user_agent).first_or_create.increment!(:count)
+          @errors[t('the_comments.trap')] = [t('the_comments.trap_message')]
+          return render(json: { errors: @errors })
+        end
+      end
+
+      def tolerance_time_required
+        min_time  = TheComments.config.tolerance_time
+        this_time = params[:tolerance_time].to_i
+        if this_time < min_time
+          @errors[t('the_comments.tolerance_time')] = [t('the_comments.tolerance_time_message', time: min_time - this_time )]
+          return render(json: { errors: @errors })
+        end
+      end
+
+      def stop_black_ip
+        if IpBlackList.where(ip: request.ip, state: :banned).first
+          @errors[t('the_comments.black_ip')] = [t('the_comments.black_ip_message')]
+          return render(json: { errors: @errors })
+        end
+      end
+
+      def stop_black_user_agent
+        if UserAgentBlackList.where(user_agent: request.user_agent, state: :banned).first
+          @errors[t('the_comments.black_user_agent')] = [t('the_comments.black_user_agent_message')]
+          return render(json: { errors: @errors })
         end
       end
     end

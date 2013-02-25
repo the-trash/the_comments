@@ -29,14 +29,20 @@
       height: 150px;
     }
     .trap{
+      filter: alpha(opacity=0.001);
+      height: 0.1px;
+      opacity: 0.001;
       overflow: hidden;
-      height: 0.5px;
     }
   }
 }
+
 .comments_tree{
   margin:0; padding:0;
   *{ margin: 0; padding: 0; }
+
+  a{ text-decoration: none; }
+  a:hover{ text-decoration: underline; }
 
   ol{
     margin: 0 0 0 13px;
@@ -51,9 +57,57 @@
     list-style: none outside none;
   }
 
+  .form_holder{ margin-left: 40px; }
+  
+  .to_draft, .to_published,
+  .to_deleted, .to_spam{
+    text-align:center;
+    background: green;
+    line-height: 130%;
+    color: white;
+    margin-bottom: 3px;
+    padding: 1px;
+  }
+
+  .to_spam{ background: orange; }
+  .to_deleted{ background: red; }
+
+  .comment{
+    overflow: hidden; zoom: 1;
+
+    .userpic{
+      overflow: hidden; zoom: 1;
+      float: left;
+      width: 50px;
+
+      img{
+        margin-bottom: 10px;
+      }
+    }
+    .userbar, .cbody{
+      margin: 0 0 5px 55px;
+      padding: 3px;
+    }
+    .userbar {
+      background: #ddd;
+      border-radius: 3px;
+      padding-left: 7px;
+    }
+    .cbody{
+      border-bottom: 1px solid LightGray;
+      padding-bottom: 10px;
+      margin-bottom: 0;
+    }
+    .reply{
+      margin: 0 0 5px 55px;
+      font-size: 12px;
+    }
+  }
+
   .controls{
     a{
       font-size:11px;
+      display:block;
     }
   }
 
@@ -68,13 +122,13 @@
 
   .published{
     .comment{
-      border: 1px solid LightGray;
       border-radius: 3px;
       
       padding: 10px 10px 5px 10px;
       margin-bottom: 10px;
     }
   }
+
   .form_holder{
     form{ margin: 10px 0; }
     .btn{ padding: 7px; margin-top: 5px; }
