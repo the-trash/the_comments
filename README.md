@@ -1,4 +1,4 @@
-# TheComments 0.0.9
+# TheComments 0.5.0
 
 TheComments - comments tree for your web project.
 
@@ -11,9 +11,10 @@ TheComments - comments tree for your web project.
 * **IP** and **User Agent** black lists
 * Useful **Cache counters** for Users and Commentable objects
 * Designed for external content filters ( **sanitize**, **RedCloth**, **Markdown**)
-* Open comments with moderation
+* **Open comments** with moderation
 * Creator of comments can see his comments via **view_token** ( _view token_ stored with cookies)
 * Denormalization of commentable objects. We store **commentable_title** and **commentable_url** in each comment, for fast access to commentable object
+* Highlighting of selected comment onLoad and onHahChange (via comment anchor)
 
 ### Requires
 
@@ -30,13 +31,19 @@ User agent must have:
 * Cookies support
 * JavaScript and Ajax support
 
-Usually spambot not support cookies and JavaScript
+_Usually spambot not support Cookies and JavaScript_
 
-Comment form have:
+Comment form has:
 
-* fake (hidden) email fields
+* fake (hidden) fields
 
-Usually spam bot puts data in fake inputs
+_Usually spam bot puts data in fake inputs_
+
+Trap via time:
+
+* User should be few seconds on page, before comment sending (by default 5 sec)
+
+_Usually spam bots works faster, than human. We can try to use this feature of behavior_
 
 ## Installation
 
@@ -60,13 +67,13 @@ bundle exec rake the_comments_engine:install:migrations
 
 ```ruby
 class User < ActiveRecord::Base
-  # your implementation of role policy
+  # Your implementation of role policy
   def admin?
     self == User.first
   end
 
   # include Model methods
-  include TheCommentModels::User
+  include include TheCommentsUser
   
   # denormalization for commentable objects
   def commentable_title
@@ -86,7 +93,7 @@ class User < ActiveRecord::Base
 end
 ```
 
-**User#coments** - comments. Set of created comments
+**User#coments** - comments. Set of all created comments
 
 ```ruby
 User.first.comments
@@ -98,26 +105,25 @@ User.first.comments
 ```ruby
 User.first.comcoms
 # => Array of all comments of all owned commentable objects, where User is holder
-# Holder should be moderator of this comments
-# because this user should maintain cleaness his commentable objects
+# Usually comment's holder should be moderator of this comments
+# because this user should maintain cleaness of his commentable objects
 ```
 
 **Attention!** You should be sure that you understand who is owner, and who is holder of comments!
 
 ### Commentable Model (Page, Blog, Article, User ...)
 
-**Attention!** User model can be commentable object too. 
+**Attention!** User model can be commentable object also.
 
 ```ruby
 class Blog < ActiveRecord::Base
-  has_many :comments, as: :commentable
+  include TheCommentsCommentable
 
   # denormalization for commentable objects
   def commentable_title
     title
   end
 
-  # denormalization for commentable objects
   def commentable_path
     [self.class.to_s.tableize, slug_id].join('/')
   end
@@ -128,7 +134,7 @@ end
 
 ```ruby
 class Comment < ActiveRecord::Base
-  include TheCommentModels::Comment
+  include TheCommentsBase
 
   # Define comment avatar
   # Usually we use Comment#user (owner of comment) to define avatar
@@ -160,11 +166,11 @@ Models should looks like this:
 
 ```ruby
 class IpBlackList < ActiveRecord::Base
-  include TheCommentModels::BlackIp
+  include TheCommentsBlackUserAgent
 end
 
 class UserAgentBlackList < ActiveRecord::Base
-  include TheCommentModels::BlackUserAgent
+  include TheCommentsBlackIp
 end
 ```
 
