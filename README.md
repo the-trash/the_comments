@@ -216,6 +216,18 @@ end
 = render partial: 'comments/tree', locals: { comments_tree: @comments, commentable: @blog }
 ```
 
+## Configuration
+
+**config/initializers/the_comments.rb**
+
+```ruby
+TheComments.configure do |config|
+  config.max_reply_depth = 3                  # 3 by default
+  config.tolerance_time  = 15                 # 5 by default
+  config.empty_inputs    = [:email, :message] # :message by default
+end
+```
+
 ## Contributing
 
 1. Fork it
