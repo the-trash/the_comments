@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
     login
   end
 
-  def commentable_path
+  def commentable_url
     [class.to_s.tableize, login].join('/')
   end
 
@@ -142,7 +142,7 @@ class Blog < ActiveRecord::Base
     title
   end
 
-  def commentable_path
+  def commentable_url
     [self.class.to_s.tableize, slug_id].join('/')
   end
 end

@@ -4,6 +4,14 @@ module TheCommentsCommentable
   included do
     has_many :comments, as: :commentable
 
+    def commentable_title
+      try(:title) || try(:name) || try(:login)
+    end
+
+    def commentable_url
+      [self.class.to_s.tableize, self.to_param].join('/')
+    end
+
     def comments_sum
       published_comments_count + draft_comments_count
     end

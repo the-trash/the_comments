@@ -24,7 +24,7 @@ module TheCommentsBase
     belongs_to :commentable, polymorphic: true
 
     # callbacks
-    before_create :define_holder, :define_anchor, :prepare_content
+    before_create :define_holder, :define_anchor, :denormalize_commentable, :prepare_content
     after_create  :update_cache_counters
 
     def avatar_url
@@ -43,6 +43,11 @@ module TheCommentsBase
 
     def define_holder
       self.holder = self.commentable.user
+    end
+
+    def denormalize_commentable
+      self.commentable_title = self.commentable.try :commentable_title
+      self.commentable_url   = self.commentable.try :commentable_url
     end
 
     def prepare_content
