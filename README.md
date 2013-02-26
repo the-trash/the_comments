@@ -222,11 +222,15 @@ end
 
 ```ruby
 TheComments.configure do |config|
-  config.max_reply_depth = 3                  # 3 by default
-  config.tolerance_time  = 15                 # 5 by default
-  config.empty_inputs    = [:email, :message] # :message by default
+  config.max_reply_depth = 3                                # 3 by default
+  config.tolerance_time  = 15                               # 5 (sec) by default
+  config.empty_inputs    = [:email, :message, :commentBody] # [:message] by default
 end
 ```
+
+* **max_reply_depth** - comments tree nesting by default
+* **tolerance_time** - how many seconds user should spend on page, before comment send
+* **empty_inputs** - names of hidden (via css) fields for spam detecting
 
 ## Contributing
 
