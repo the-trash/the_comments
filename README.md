@@ -71,7 +71,7 @@ bundle exec rake the_comments_engine:install:migrations
 //= require the_comments
 ```
 
-**app/assets/stylesheets/application.css.scss**
+**app/assets/stylesheets/application.css**
 
 ```css
 /*
@@ -88,8 +88,8 @@ class User < ActiveRecord::Base
     self == User.first
   end
 
-  # include Model methods
-  include include TheCommentsUser
+  # include TheComments methods
+  include TheCommentsUser
   
   # denormalization for commentable objects
   def commentable_title
@@ -133,6 +133,7 @@ User.first.comcoms
 
 ```ruby
 class Blog < ActiveRecord::Base
+  # include TheComments methods
   include TheCommentsCommentable
 
   # (!) Every commentable Model must have next 2 methods
@@ -151,6 +152,7 @@ end
 
 ```ruby
 class Comment < ActiveRecord::Base
+  # include TheComments methods
   include TheCommentsBase
 
   # Define comment's avatar url
