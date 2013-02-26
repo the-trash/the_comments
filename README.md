@@ -63,6 +63,22 @@ bundle exec rake the_comments_engine:install:migrations
 
 **bundle exec rake db:migrate**
 
+### Assets
+
+**app/assets/javascripts/application.js**
+
+```js
+//= require the_comments
+```
+
+**app/assets/stylesheets/application.css.scss**
+
+```css
+/*
+ *= require the_comments
+*/
+```
+
 ### User Model
 
 ```ruby
@@ -119,6 +135,7 @@ User.first.comcoms
 class Blog < ActiveRecord::Base
   include TheCommentsCommentable
 
+  # (!) Every commentable Model must have next 2 methods
   # denormalization for commentable objects
   def commentable_title
     title
@@ -136,12 +153,12 @@ end
 class Comment < ActiveRecord::Base
   include TheCommentsBase
 
-  # Define comment avatar
+  # Define comment's avatar url
   # Usually we use Comment#user (owner of comment) to define avatar
   # @blog.comments.includes(:user) <= use includes(:user) to decrease queries count
-  # comment#user.avarat_url
+  # comment#user.avatar_url
 
-  # but you can use different way
+  # Simple way to define avatar url
   def avatar_url
     hash = Digest::MD5.hexdigest self.id.to_s
     "http://www.gravatar.com/avatar/#{hash}?s=30&d=identicon"
@@ -162,7 +179,7 @@ end
 
 ### IP, User Agent black lists
 
-Models should looks like this:
+Models must looks like this:
 
 ```ruby
 class IpBlackList < ActiveRecord::Base
@@ -173,7 +190,6 @@ class UserAgentBlackList < ActiveRecord::Base
   include TheCommentsBlackIp
 end
 ```
-
 
 ### Commentable controller
 
