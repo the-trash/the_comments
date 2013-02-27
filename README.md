@@ -139,10 +139,12 @@ class Blog < ActiveRecord::Base
   # (!) Every commentable Model must have next 2 methods
   # denormalization for commentable objects
   def commentable_title
+    # "My first blog post"
     title
   end
 
   def commentable_url
+    # blogs/1-my-first-blog-post
     [self.class.to_s.tableize, slug_id].join('/')
   end
 end

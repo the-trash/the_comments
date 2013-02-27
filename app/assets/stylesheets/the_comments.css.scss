@@ -1,4 +1,7 @@
 .comments, .comments_tree{
+  font-family: Arial;
+  font-size: 13px;
+
   .error_notifier{    
     background-color: #F2DEDE;
     border-color: #EED3D7;
@@ -9,26 +12,31 @@
     padding: 10px 10px 0 10px;
     overflow: hidden;
 
-    p{
-      margin-bottom: 10px;
-    }
+    p{ margin: 0 0 10px 0; }
   }
   form{
     background: white;
     border: 1px solid gray;
     border-radius: 3px;
     padding: 10px;
+    
+    p{ margin: 0 0 10px 0; }
 
     input[type=text]{
       border: 1px solid gray;
+      padding: 4px;
       width: 75%;
     }
     textarea{
       border: 1px solid gray;
-      width: 75%;
+      font-family: Arial;
+      font-size: 13px;
       height: 150px;
+      padding: 4px;
+      width: 75%;
     }
     .trap{
+      margin: 0; padding: 0;
       filter: alpha(opacity=0.001);
       height: 0.1px;
       opacity: 0.001;
@@ -109,6 +117,7 @@
     .cbody{
       border-bottom: 1px solid LightGray;
       padding-bottom: 10px;
+      line-height: 135%;
       margin-bottom: 0;
     }
     .reply{
