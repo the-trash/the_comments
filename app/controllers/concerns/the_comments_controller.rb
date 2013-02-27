@@ -65,6 +65,7 @@ module TheCommentsController
       before_action :define_commentable, only: [:create]
 
       def create
+        sleep 4
         @comment = @commentable.comments.new comment_params
         if @comment.valid?
           @comment.save
@@ -100,7 +101,7 @@ module TheCommentsController
 
       def denormalized_fields
         title = @commentable.commentable_title
-        url   = @commentable.commentable_path
+        url   = @commentable.commentable_url
         @commentable ? { commentable_title: title, commentable_url: url } : {}
       end
 

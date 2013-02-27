@@ -21,7 +21,10 @@ $ ->
   comment_forms = "#new_comment, .reply_comments_form"
 
   # AJAX Before Send
-  $(document).on 'click', $("input[type=submit]", comment_forms), ->
+  submits = '#new_comment input[type=submit], .reply_comments_form input[type=submit]'
+  $(document).on 'click', submits, (e) ->
+    $(e.target).prop 'disabled', true
+    log $(e.target)
     time_diff = unixsec(new Date) - window.tolerance_time_start
     $('.tolerance_time').val time_diff
     true
@@ -29,6 +32,7 @@ $ ->
   # AJAX ERROR
   $(document).on 'ajax:error', comment_forms, (request, response, status) ->
     form = $ @
+    $('input[type=submit]', form).prop 'disabled', false
     comments_error_notifier(form, "<p><b>Server Error:</b> #{response.status}</p>")
 
   # CONTROLS
@@ -46,8 +50,10 @@ $ ->
   # COMMENT FORMS
   $(document).on 'ajax:success', comment_forms, (request, response, status) ->
     form = $ @
+    $('input[type=submit]', form).prop 'disabled', false
 
     if typeof(response) is 'string'
+      anchor = $(response).find('.comment').attr('id')
       clear_comment_form()
       form.hide()
       $('.parent_id').val('')
@@ -55,6 +61,7 @@ $ ->
       tree = form.parent().siblings('.nested_set')
       tree = $('ol.comments_tree') if tree.length is 0
       tree.append(response)
+      document.location.hash = anchor
     else
       error_msgs = ''
       for error, messages of response.errors
@@ -82,7 +89,6 @@ $ ->
 
     comment.siblings('.form_holder').html(form)
     form.fadeIn()
-
     false
 
 $ ->

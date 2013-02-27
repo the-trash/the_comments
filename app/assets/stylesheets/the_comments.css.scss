@@ -151,7 +151,13 @@
   }
 
   .form_holder{
-    form{ margin: 10px 0; }
-    .btn{ padding: 7px; margin-top: 5px; }
+    form{ margin: 10px 0; } 
+  }
+}
+.new_comment{
+  .btn{
+    padding: 7px;
+    margin-top: 5px;
+    cursor: pointer;
   }
 }
