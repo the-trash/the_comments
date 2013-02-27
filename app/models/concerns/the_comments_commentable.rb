@@ -7,8 +7,8 @@ module TheCommentsCommentable
     # TODO: update requests reduction
     # *define_denormalize_flags* - should be placed before
     # title or url builder filters
-    # before_validation :define_denormalize_flags
-    after_save :denormalize_for_comments
+    before_validation :define_denormalize_flags
+    after_save        :denormalize_for_comments
 
     def commentable_title
       try(:title) || 'Undefined title'
@@ -32,17 +32,18 @@ module TheCommentsCommentable
 
     private
 
-    # def define_denormalize_flags
-    #   @_commentable_title = commentable_title
-    #   @_commentable_url   = commentable_url
-    # end
+    def define_denormalize_flags
+      @_commentable_title = commentable_title
+      @_commentable_url   = commentable_url
+    end
 
     def denormalize_for_comments
-      # title_changed = @_commentable_title != commentable_title
-      # url_changed   = @_commentable_url   != commentable_url
-      # puts "CHANGED" if title_changed || url_changed
-      ids = comments.select('id').map(&:id)
-      Comment.where(id: ids).update_all(commentable_title: commentable_title, commentable_url: commentable_url)
+      title_changed = @_commentable_title != commentable_title
+      url_changed   = @_commentable_url   != commentable_url
+
+      if title_changed || url_changed
+        Comment.where(commentable: self).update_all(commentable_title: commentable_title, commentable_url: commentable_url)      
+      end
     end
   end
 end
