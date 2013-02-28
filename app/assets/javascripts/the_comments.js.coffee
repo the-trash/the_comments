@@ -1,3 +1,4 @@
+# ERROR MSG BUILDER
 @error_text_builder = (errors) -> 
   error_msgs = ''
   for error, messages of errors
@@ -14,6 +15,7 @@
 @comments_error_notifier = (form, text) ->
   form.children('.error_notifier').empty().hide().append(text).show()
 
+# JUST HELPER
 @unixsec = (t) -> Math.round(t.getTime() / 1000)
 
 # HIGHTLIGHT ANCHOR
@@ -28,7 +30,7 @@ $ ->
   comment_forms  = "#new_comment, .reply_comments_form"
   tolerance_time = $('[data-comments-tolarance-time]').first().data('comments-tolarance-time')
 
-  # AJAX Before Send
+  # Button Click => AJAX Before Send
   submits = '#new_comment input[type=submit], .reply_comments_form input[type=submit]'
   $(document).on 'click', submits, (e) ->
     button    = $ e.target
@@ -42,8 +44,8 @@ $ ->
       comments_error_notifier(form, error_msgs)
       return false
 
-    button.prop 'disabled', true    
     $('.tolerance_time').val time_diff
+    button.prop 'disabled', true
     true
 
   # AJAX ERROR
@@ -64,7 +66,7 @@ $ ->
   ctrls.on 'ajax:success', '.to_spam, .to_deleted', (request, response, status) ->
     $(@).parents('li').first().hide()
 
-  # COMMENT FORMS
+  # COMMENT FORMS => SUCCESS
   $(document).on 'ajax:success', comment_forms, (request, response, status) ->
     form = $ @
     $('input[type=submit]', form).prop 'disabled', false
