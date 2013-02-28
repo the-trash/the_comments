@@ -1,3 +1,9 @@
+@error_text_builder = (errors) -> 
+  error_msgs = ''
+  for error, messages of errors
+    error_msgs += "<p><b>#{error}</b>: #{messages.join(', ')}</p>"
+  error_msgs
+
 # FORM CLEANER
 @clear_comment_form = ->
   $('.error_notifier', '#new_comment, .comments_tree').hide()
@@ -18,14 +24,25 @@
 
 $ ->
   window.tolerance_time_start = unixsec(new Date)
-  comment_forms = "#new_comment, .reply_comments_form"
+
+  comment_forms  = "#new_comment, .reply_comments_form"
+  tolerance_time = $('[data-comments-tolarance-time]').first().data('comments-tolarance-time')
 
   # AJAX Before Send
   submits = '#new_comment input[type=submit], .reply_comments_form input[type=submit]'
   $(document).on 'click', submits, (e) ->
-    $(e.target).prop 'disabled', true
-    log $(e.target)
+    button    = $ e.target
+    form      = button.parents('form').first()
     time_diff = unixsec(new Date) - window.tolerance_time_start
+
+    if tolerance_time && (time_diff < tolerance_time)
+      delta  = tolerance_time - time_diff
+      errors = { 'tolerance_time': ["Please wait #{delta} secs"] }
+      error_msgs = error_text_builder(errors)
+      comments_error_notifier(form, error_msgs)
+      return false
+
+    button.prop 'disabled', true    
     $('.tolerance_time').val time_diff
     true
 
@@ -63,10 +80,7 @@ $ ->
       tree.append(response)
       document.location.hash = anchor
     else
-      error_msgs = ''
-      for error, messages of response.errors
-        error_msgs += "<p><b>#{error}</b>: #{messages.join(', ')}</p>"
-
+      error_msgs = error_text_builder(response.errors)
       comments_error_notifier(form, error_msgs)
 
   # NEW ROOT BUTTON
