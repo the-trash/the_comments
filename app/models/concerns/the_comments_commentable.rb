@@ -42,7 +42,7 @@ module TheCommentsCommentable
       url_changed   = @_commentable_url   != commentable_url
 
       if title_changed || url_changed
-        Comment.where(commentable: self).update_all(commentable_title: commentable_title, commentable_url: commentable_url)      
+        comments.update_all(commentable_title: commentable_title, commentable_url: commentable_url)
       end
     end
   end
