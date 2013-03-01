@@ -1,4 +1,9 @@
 en:
+  activerecord:
+    attributes:
+      comment:
+        raw_content: "Content"
+
   the_comments:
     trap: Trap
     trap_message: should be empty

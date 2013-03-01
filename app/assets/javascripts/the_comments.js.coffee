@@ -1,9 +1,7 @@
 # ERROR MSG BUILDER
 @error_text_builder = (errors) -> 
   error_msgs = ''
-  for error, messages of errors
-    error_msgs += "<p><b>#{error}</b>: #{messages.join(', ')}</p>"
-  error_msgs
+  error_msgs += "<p><b>#{ error }</b></p>" for error in errors
 
 # FORM CLEANER
 @clear_comment_form = ->
@@ -39,8 +37,7 @@ $ ->
 
     if tolerance_time && (time_diff < tolerance_time)
       delta  = tolerance_time - time_diff
-      errors = { 'tolerance_time': ["Please wait #{delta} secs"] }
-      error_msgs = error_text_builder(errors)
+      error_msgs = error_text_builder(["Please wait #{delta} secs"])
       comments_error_notifier(form, error_msgs)
       return false
 
@@ -52,7 +49,7 @@ $ ->
   $(document).on 'ajax:error', comment_forms, (request, response, status) ->
     form = $ @
     $('input[type=submit]', form).prop 'disabled', false
-    comments_error_notifier(form, "<p><b>Server Error:</b> #{response.status}</p>")
+    comments_error_notifier(form, "<p><b>Server Error: #{response.status} </b></p>")
 
   # CONTROLS
   ctrls = $('.controls')
