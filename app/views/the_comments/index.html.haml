@@ -1,0 +1,8 @@
+= paginate @comments
+
+- @comments.each do |comment|
+  %p
+    = comment.title
+    = link_to comment.commentable_title, comment.commentable_url
+
+= paginate @comments

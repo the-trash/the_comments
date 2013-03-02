@@ -1,7 +1,9 @@
 # ERROR MSG BUILDER
-@error_text_builder = (errors) -> 
+@error_text_builder = (errors) ->
   error_msgs = ''
-  error_msgs += "<p><b>#{ error }</b></p>" for error in errors
+  for error in errors
+    error_msgs += "<p><b>#{ error }</b></p>"
+  error_msgs
 
 # FORM CLEANER
 @clear_comment_form = ->
@@ -49,7 +51,8 @@ $ ->
   $(document).on 'ajax:error', comment_forms, (request, response, status) ->
     form = $ @
     $('input[type=submit]', form).prop 'disabled', false
-    comments_error_notifier(form, "<p><b>Server Error: #{response.status} </b></p>")
+    error_msgs = error_text_builder(["Server Error: #{response.status}"])
+    comments_error_notifier(form, error_msgs)
 
   # CONTROLS
   ctrls = $('.controls')

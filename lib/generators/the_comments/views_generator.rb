@@ -25,10 +25,10 @@ BANNER
 
       def copy_gem_files
         if param_name == 'assets'
-          directory "../assets/javascripts", "app/assets/javascripts"
-          directory "../assets/stylesheets", "app/assets/stylesheets"
+          copy_file "../assets/javascripts/the_comments", "app/assets/javascripts/the_comments"
+          copy_file "../assets/stylesheets/the_comments", "app/assets/stylesheets/the_comments"
         elsif param_name == 'views'
-          directory "../views/comments", "app/views/comments"
+          directory "../views/the_comments", "app/views/the_comments"
         elsif param_name == 'helper'
           copy_file "../helpers/render_comments_tree_helper.rb", "app/helpers/render_comments_tree_helper.rb"
         else

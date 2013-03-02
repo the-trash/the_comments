@@ -2,7 +2,14 @@ en:
   activerecord:
     attributes:
       comment:
-        raw_content: "Content"
+        raw_content: Content
+    errors:
+      models:
+        comment:
+          attributes:
+            raw_content:
+              blank: 'should not be empty'
+              # blank: '%{attribute} should not be empty'
 
   the_comments:
     trap: Trap

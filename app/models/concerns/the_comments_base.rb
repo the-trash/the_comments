@@ -15,7 +15,6 @@ module TheCommentsBase
     attr_accessible :user, :title, :contacts, :raw_content, :view_token, :state
     attr_accessible :ip, :referer, :user_agent, :tolerance_time
 
-    # validates :title, presence: true
     validates :raw_content, presence: true
 
     # relations

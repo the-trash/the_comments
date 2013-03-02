@@ -68,7 +68,7 @@ module TheCommentsController
         @comment = @commentable.comments.new comment_params
         if @comment.valid?
           @comment.save
-          return render(layout: false, template: 'comments/comment')
+          return render(layout: false, template: 'the_comments/comment')
         end
         render json: { errors: @comment.errors.full_messages }
       end
