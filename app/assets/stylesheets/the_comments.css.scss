@@ -1,3 +1,24 @@
+.comments_tree, .comments_list{  
+  font-family: Arial;
+
+  margin:0; padding:0;
+  *{ margin: 0; padding: 0; }
+
+  a{ text-decoration: none; }
+  a:hover{ text-decoration: underline; }
+
+  ol{
+    margin: 0;
+    padding: 0 0 0 20px;
+    list-style: none outside none;
+  }
+  li{
+    margin-bottom: 5px;
+    position: relative;
+    list-style: none outside none;
+  }
+}
+
 .comments, .comments_tree{
   font-family: Arial;
   font-size: 13px;
@@ -46,24 +67,6 @@
 }
 
 .comments_tree{
-  margin:0; padding:0;
-  *{ margin: 0; padding: 0; }
-
-  a{ text-decoration: none; }
-  a:hover{ text-decoration: underline; }
-
-  ol{
-    margin: 0;
-    padding: 0 0 0 20px;
-    list-style: none outside none;
-  }
-
-  li{
-    margin-bottom:5px;
-    position: relative;
-    list-style: none outside none;
-  }
-
   .nested_set{
     li{
       border-left: 1px dotted LightGray;
@@ -159,5 +162,37 @@
     padding: 7px;
     margin-top: 5px;
     cursor: pointer;
+  }
+}
+
+.comments_list{
+  li{
+    margin-bottom: 20px;
+
+    .comment{
+      border: 1px solid gray;
+      border-radius: 5px;
+      padding: 10px;
+
+      div{ margin: 0 0 10px 0; }
+
+      .content{
+        line-height: 130%;
+        background: #ddd;
+        padding: 10px;
+      }
+      .commentable{
+        margin-bottom: 10px;
+      }
+      .controls{
+        background: lightgray;
+        padding: 3px;
+        a{ margin-right: 15px; }
+      }
+
+      &.draft{ border-left: 5px solid orange; }
+      &.published{ border-left: 5px solid green; }
+      &.deleted{ border-left: 5px solid red; }
+    }
   }
 }

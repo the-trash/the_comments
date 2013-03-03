@@ -1,8 +1,29 @@
 = paginate @comments
 
-- @comments.each do |comment|
-  %p
-    = comment.title
-    = link_to comment.commentable_title, comment.commentable_url
+%ol.comments_list
+  - @comments.each do |comment|
+    %li
+      .item
+        .body
+          .comment{ class: comment.state }
+            .commentable
+              = comment.commentable_type
+              &rarr;
+              = link_to comment.commentable_title, comment.commentable_url
+            .title
+              %b from:
+              = comment.title.blank? ? t('the_comments.guest_name') : comment.title
+            .contacts
+              %b contacts:
+              = comment.contacts
+            .content
+              = comment.content
+            .controls
+              = link_to :Edit, '#', class: :edit
+              = link_to t('the_comments.to_published'), to_published_comment_url(comment), remote: true, class: :to_published, method: :post
+              = link_to t('the_comments.to_draft'),     to_draft_comment_url(comment),     remote: true, class: :to_draft,     method: :post
+              = link_to t('the_comments.to_spam'),      to_spam_comment_url(comment),      remote: true, class: :to_spam,      method: :post
+              = link_to t('the_comments.to_delete'),    to_trash_comment_url(comment),     remote: true, class: :to_deleted,   method: :delete, data: { confirm: t('the_comments.delete_confirm') }
+        .form
 
 = paginate @comments

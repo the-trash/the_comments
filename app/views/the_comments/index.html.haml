@@ -1,8 +1,19 @@
 = paginate @comments
 
-- @comments.each do |comment|
-  %p
-    = comment.title
-    = link_to comment.commentable_title, comment.commentable_url
+%ol.comments_list
+  - @comments.each do |comment|
+    %li
+      .item
+        .body
+          .comment
+            .title
+              %b from:
+              = comment.title.blank? ? t('the_comments.guest_name') : comment.title
+            .content
+              = comment.content
+            .commentable
+              = comment.commentable_type
+              \:
+              = link_to comment.commentable_title, comment.commentable_url
 
 = paginate @comments
