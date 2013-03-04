@@ -13,6 +13,7 @@ class CreateComments < ActiveRecord::Migration
       # denormalization
       t.string  :commentable_url
       t.string  :commentable_title
+      t.string  :commentable_state
 
       # comment
       t.string :anchor
