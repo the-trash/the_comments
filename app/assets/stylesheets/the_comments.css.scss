@@ -176,6 +176,20 @@
 
       div{ margin: 0 0 10px 0; }
 
+      label{
+        width: 75px;
+        font-weight: bold;
+        display: inline-block;
+      }
+      input[type=text]{
+        width: 70%;
+        padding: 4px;
+      }
+      textarea{
+        width: 70%;
+        padding: 4px;
+        height: 150px;
+      }
       .content{
         line-height: 130%;
         background: #ddd;
