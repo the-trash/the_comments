@@ -64,6 +64,13 @@ module TheCommentsController
       # preparation
       before_action :define_commentable, only: [:create]
 
+      def update
+        # ???
+        comment = Comment.where(id: params[:id]).first
+        comment.update!(patch_comment_params)
+        render json: comment
+      end
+
       def create
         @comment = @commentable.comments.new comment_params
         if @comment.valid?
@@ -125,6 +132,12 @@ module TheCommentsController
           .merge(denormalized_fields)
           .merge( tolerance_time: params[:tolerance_time].to_i )
           .merge(request_data_for_black_lists)
+      end
+
+      def patch_comment_params
+        params
+          .require(:comment)
+          .permit(:title, :contacts, :raw_content, :parent_id)
       end
 
       # Protection tricks

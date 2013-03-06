@@ -83,11 +83,7 @@ module RenderCommentsTreeHelper
       def userbar
         anchor = h.link_to('#', '#comment_' + @comment.anchor)
         title  = @comment.title.blank? ? t('the_comments.guest_name') : @comment.title
-        unmoderated = @comment.draft? ? ' unmoderated' : nil
-
-        "<div class='userbar#{unmoderated}'>
-          #{ title } #{ anchor }
-        </div>"
+        "<div class='userbar'>#{ title } #{ anchor }</div>"
       end
 
       def moderator_controls

@@ -19,10 +19,11 @@
             .content
               = comment.content
             .controls
-              = render partial: 'the_comments/manage_controls', locals: { comment: comment, form_flag: false }
+              = link_to :Edit, '#', class: :edit
+              = render partial: 'the_comments/manage_controls', locals: { comment: comment }
 
         .form.comment{ style: 'display:none', class: comment.state }
-          = form_for comment do |f|
+          = form_for comment, remote: true do |f|
             .commentable
               = comment.commentable_type
               &rarr;
@@ -36,6 +37,9 @@
             .content
               = f.text_area  :raw_content
             .controls
-              = render partial: 'the_comments/manage_controls', locals: { comment: comment, form_flag: true }
+              = link_to :View, '#', class: :view
+              = render partial: 'the_comments/manage_controls', locals: { comment: comment }
+            .submit
+              = f.submit
 
 = paginate @comments

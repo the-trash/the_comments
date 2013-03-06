@@ -54,18 +54,6 @@ $ ->
     error_msgs = error_text_builder(["Server Error: #{response.status}"])
     comments_error_notifier(form, error_msgs)
 
-  # CONTROLS
-  ctrls = $('.controls')
-  
-  ctrls.on 'ajax:success', '.to_published', (request, response, status) ->
-    $(@).hide().siblings('.to_draft').show()
-
-  ctrls.on 'ajax:success', '.to_draft', (request, response, status) ->
-    $(@).hide().siblings('.to_published').show()
-
-  ctrls.on 'ajax:success', '.to_spam, .to_deleted', (request, response, status) ->
-    $(@).parents('li').first().hide()
-
   # COMMENT FORMS => SUCCESS
   $(document).on 'ajax:success', comment_forms, (request, response, status) ->
     form = $ @
@@ -105,6 +93,39 @@ $ ->
 
     comment.siblings('.form_holder').html(form)
     form.fadeIn()
+    false
+
+  # CONTROLS
+  ctrls = $('.controls')
+  
+  ctrls.on 'ajax:success', '.to_published', (request, response, status) ->
+    link = $ @
+    link.parents('.comment').first().removeClass('draft deleted').addClass('published')
+    link.hide().siblings('.to_draft').show()
+
+  ctrls.on 'ajax:success', '.to_draft', (request, response, status) ->
+    link = $ @
+    link.parents('.comment').first().removeClass('published deleted').addClass('draft')
+    link.hide().siblings('.to_published').show()
+
+  ctrls.on 'ajax:success', '.to_spam, .to_deleted', (request, response, status) ->
+    $(@).parents('li').first().hide()
+
+  # FOR MANAGE SECTION
+  list = $('.comments_list')
+
+  list.on 'click', '.controls a.view', ->
+    form = $(@).parents('div.form')
+    body = form.siblings('.body')  
+    body.show()
+    form.hide()
+    false
+
+  list.on 'click', '.controls a.edit', ->
+    body = $(@).parents('div.body')
+    form = body.siblings('.form')
+    body.hide()
+    form.show()
     false
 
 $ ->
