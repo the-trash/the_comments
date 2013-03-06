@@ -101,12 +101,10 @@ $ ->
   ctrls.on 'ajax:success', '.to_published', (request, response, status) ->
     link = $ @
     link.parents('.comment').first().removeClass('draft deleted').addClass('published')
-    link.hide().siblings('.to_draft').show()
 
   ctrls.on 'ajax:success', '.to_draft', (request, response, status) ->
     link = $ @
     link.parents('.comment').first().removeClass('published deleted').addClass('draft')
-    link.hide().siblings('.to_published').show()
 
   ctrls.on 'ajax:success', '.to_spam, .to_deleted', (request, response, status) ->
     $(@).parents('li').first().hide()

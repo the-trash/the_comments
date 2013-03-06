@@ -115,6 +115,10 @@
     }
     &.draft{
       .userbar{ background: #EED3D7; }
+      .to_draft{ display: none; }
+    }
+    &.published{
+      .to_published{ display: none; }
     }
     .cbody{
       border-bottom: 1px solid LightGray;
@@ -149,6 +153,7 @@
       padding: 5px;
     }
     &.highlighted{ border: 1px dashed #ff6633; }
+
   }
 
   .form_holder{
@@ -206,9 +211,21 @@
         padding: 3px;
         a{ margin-right: 15px; }
       }
+      &.draft{
+        border-left: 5px solid orange;
 
-      &.draft{ border-left: 5px solid orange; }
-      &.published{ border-left: 5px solid green; }
+        .controls{
+          a.to_draft{ display: none }   
+        }
+      }
+      &.published{
+        border-left: 5px solid green;
+
+        .controls{
+          a.to_published{ display: none; }
+        }
+      }
+
       &.deleted{ border-left: 5px solid red; }
     }
   }
