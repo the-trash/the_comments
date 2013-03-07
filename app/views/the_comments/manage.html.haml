@@ -6,8 +6,6 @@
       .item
         .body
           = render partial: 'the_comments/comment_body', locals: { comment: comment }
-
-
         .form.comment{ style: 'display:none', class: comment.state }
           = form_for comment, remote: true do |f|
             .commentable

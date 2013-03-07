@@ -40,10 +40,10 @@ module TheCommentsCommentable
     def denormalize_for_comments
       title_changed = @_commentable_title != commentable_title
       url_changed   = @_commentable_url   != commentable_url
-      dstate = try(:state_changed?) ? { commentable_state: state } : {}
+      cstate = try(:state_changed?) ? { commentable_state: state } : {}
 
-      if title_changed || url_changed || !dstate.blank?
-        comments.update_all({ commentable_title: commentable_title, commentable_url: commentable_url}.merge(dstate))
+      if title_changed || url_changed || !cstate.blank?
+        comments.update_all({ commentable_title: commentable_title, commentable_url: commentable_url}.merge(cstate))
       end
     end
   end

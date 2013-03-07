@@ -31,10 +31,11 @@ en:
 
     guest_name: Guest
     reply: Reply to this comment
+    edit: Edit
     to_spam: Spam!
     to_draft: Draft
     to_published: Publicate
-    to_delete: Delete
+    to_deleted:   Delete
 
     delete_confirm: Are you sure?
 

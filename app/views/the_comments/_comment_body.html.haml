@@ -3,6 +3,7 @@
     = comment.commentable_type
     &rarr;
     = link_to comment.commentable_title, comment.commentable_url
+    = comment.try(:commentable_state) ? "(#{comment.try(:commentable_state)})" : nil
   .title
     %label from:
     = comment.title.blank? ? t('the_comments.guest_name') : comment.title

@@ -81,18 +81,16 @@
 
   .form_holder{ margin-left: 40px; }
   
-  .to_draft, .to_published,
-  .to_deleted, .to_spam{
+  .edit, .delete{
     text-align:center;
-    background: green;
     line-height: 130%;
     color: white;
     margin-bottom: 3px;
     padding: 1px;
   }
 
-  .to_spam{ background: black; }
-  .to_deleted{ background: red; }
+  .edit   { background: #333366; }
+  .delete { background: #cc3300; }
 
   .comment{
     overflow: hidden; zoom: 1;
@@ -226,7 +224,13 @@
         }
       }
 
-      &.deleted{ border-left: 5px solid red; }
+      &.deleted{
+        border-left: 5px solid red;
+
+        .controls{
+          a.to_deleted, a.to_spam{ display: none; }
+        }
+      }
     }
   }
 }

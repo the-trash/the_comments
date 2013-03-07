@@ -48,6 +48,7 @@ module TheCommentsBase
     def denormalize_commentable
       self.commentable_title = self.commentable.try :commentable_title
       self.commentable_url   = self.commentable.try :commentable_url
+      self.commentable_state = self.commentable.try :state
     end
 
     def prepare_content

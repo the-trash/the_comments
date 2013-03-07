@@ -59,7 +59,7 @@ module RenderCommentsTreeHelper
 
       def published_comment
         "<li>
-          <div id='comment_#{@comment.anchor}' class='comment published' data-comment-id='#{@comment.to_param}'>
+          <div id='comment_#{@comment.anchor}' class='comment #{@comment.state}' data-comment-id='#{@comment.to_param}'>
             <div>
               #{ avatar }
               #{ userbar }
@@ -87,14 +87,12 @@ module RenderCommentsTreeHelper
       end
 
       def moderator_controls
+        res = ''
         if moderator?
-          to_pub   = h.link_to t('the_comments.to_published'), h.to_published_comment_url(@comment), remote: true, class: :to_published, method: :post
-          to_draft = h.link_to t('the_comments.to_draft'),     h.to_draft_comment_url(@comment),     remote: true, class: :to_draft,     method: :post
-          to_spam  = h.link_to t('the_comments.to_spam'),      h.to_spam_comment_url(@comment),      remote: true, class: :to_spam,      method: :post
-          to_trash = h.link_to t('the_comments.to_delete'),    h.to_trash_comment_url(@comment),     remote: true, class: :to_deleted,   method: :delete, data: { confirm: t('the_comments.delete_confirm') }
-
-          [to_pub, to_draft, to_spam, to_trash].join(' ')
+          res += h.link_to t('the_comments.edit'),       h.edit_comment_url(@comment),     class: :edit
+          res += h.link_to t('the_comments.to_deleted'), h.to_trash_comment_url(@comment), class: :delete
         end
+        res
       end
 
       def reply
