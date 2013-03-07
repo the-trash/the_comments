@@ -109,6 +109,14 @@ $ ->
   ctrls.on 'ajax:success', '.to_spam, .to_deleted', (request, response, status) ->
     $(@).parents('li').first().hide()
 
+  # INPLACE EDIT
+  inplace_forms = '.comments_list .form form'
+  $(document).on 'ajax:success', inplace_forms, (request, response, status) ->
+    form = $ @
+    item = form.parents('.item')
+    item.children('.body').html(response).show()
+    item.children('.form').hide()
+
   # FOR MANAGE SECTION
   list = $('.comments_list')
 

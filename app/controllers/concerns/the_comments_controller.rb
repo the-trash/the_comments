@@ -65,10 +65,9 @@ module TheCommentsController
       before_action :define_commentable, only: [:create]
 
       def update
-        # ???
         comment = Comment.where(id: params[:id]).first
-        comment.update!(patch_comment_params)
-        render json: comment
+        comment.update_attributes!(patch_comment_params)
+        render(layout: false, partial: 'the_comments/comment_body', locals: { comment: comment })
       end
 
       def create

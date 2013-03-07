@@ -23,8 +23,9 @@ module TheCommentsBase
     belongs_to :commentable, polymorphic: true
 
     # callbacks
-    before_create :define_holder, :define_anchor, :denormalize_commentable, :prepare_content
+    before_create :define_holder, :define_anchor, :denormalize_commentable
     after_create  :update_cache_counters
+    before_save   :prepare_content
 
     def avatar_url
       src = id.to_s
