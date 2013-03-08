@@ -66,7 +66,7 @@ module TheCommentsController
 
       # App side methods (overwrite it)
       def index
-        @comments = Comment.with_state(:published).page(params[:page])
+        @comments = Comment.with_state(:published).order('created_at DESC').page(params[:page])
         render template: 'the_comments/index'
       end
 
@@ -76,17 +76,17 @@ module TheCommentsController
       end
 
       def my
-        @comments = current_user.comments.with_state(:draft, :published).page(params[:page])
+        @comments = current_user.comments.with_state(:draft, :published).order('created_at DESC').page(params[:page])
         render template: 'the_comments/manage'
       end
 
       def incoming
-        @comments = current_user.comcoms.with_state(:draft, :published).page(params[:page])
+        @comments = current_user.comcoms.with_state(:draft, :published).order('created_at DESC').page(params[:page])
         render template: 'the_comments/manage'
       end
 
       def trash
-        @comments = current_user.comcoms.with_state(:deleted).page(params[:page])
+        @comments = current_user.comcoms.with_state(:deleted).order('created_at DESC').page(params[:page])
         render template: 'the_comments/manage'
       end
 

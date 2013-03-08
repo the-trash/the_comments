@@ -3,7 +3,7 @@
 %ol.comments_list
   - @comments.each do |comment|
     %li
-      .item
+      .item{ class: comment.state }
         .body
           .comment
             .title

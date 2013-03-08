@@ -40,3 +40,4 @@ en:
     delete_confirm: Are you sure?
 
     waiting_for_moderation: Waiting for moderation
+    item_not_found: Black list Item not found

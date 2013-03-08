@@ -96,17 +96,22 @@ $ ->
     false
 
   # CONTROLS
-  ctrls = $('.controls')
+  holder = $('.comments_list')
   
-  ctrls.on 'ajax:success', '.to_published', (request, response, status) ->
+  holder.on 'ajax:success', '.to_published', (request, response, status) ->
     link = $ @
-    link.parents('.comment').first().removeClass('draft deleted').addClass('published')
+    log link.parents('.item')
+    link.parents('.item').first().attr('class', 'item published')
 
-  ctrls.on 'ajax:success', '.to_draft', (request, response, status) ->
+  holder.on 'ajax:success', '.to_draft', (request, response, status) ->
     link = $ @
-    link.parents('.comment').first().removeClass('published deleted').addClass('draft')
+    log link.parents('.item')
+    link.parents('.item').first().attr('class', 'item draft')
 
-  ctrls.on 'ajax:success', '.to_spam, .to_deleted', (request, response, status) ->
+  holder.on 'ajax:success', '.to_spam, .to_deleted', (request, response, status) ->
+    $(@).parents('li').first().hide()
+
+  $('.comments_tree').on 'ajax:success', '.delete', (request, response, status) ->
     $(@).parents('li').first().hide()
 
   # INPLACE EDIT
@@ -133,6 +138,21 @@ $ ->
     body.hide()
     form.show()
     false
+
+  # BLACK LIST
+  holder = $('.black_list')
+
+  holder.on 'ajax:success', '.to_warning', (request, response, status) ->
+    link = $ @
+    li = link.parents('li').first()
+    li.attr 'class', 'warning'
+    li.find('.state').html 'warning'
+
+  holder.on 'ajax:success', '.to_banned', (request, response, status) ->
+    link = $ @
+    li = link.parents('li').first()
+    li.attr 'class', 'banned'
+    li.find('.state').html 'banned'
 
 $ ->
   # ANCHOR HIGHLIGHT

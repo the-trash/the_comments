@@ -3,10 +3,10 @@
 %ol.comments_list
   - @comments.each do |comment|
     %li
-      .item
+      .item{ class: comment.state }
         .body
           = render partial: 'the_comments/comment_body', locals: { comment: comment }
-        .form.comment{ style: 'display:none', class: comment.state }
+        .form.comment{ style: 'display:none' }
           = form_for comment, remote: true do |f|
             .commentable
               = comment.commentable_type
@@ -20,10 +20,10 @@
               = f.text_field :contacts
             .content
               = f.text_area  :raw_content
-            .controls
-              = link_to :View, '#', class: :view
-              = render partial: 'the_comments/manage_controls', locals: { comment: comment }
             .submit
               = f.submit
+          .controls
+            = link_to :View, '#', class: :view
+            = render partial: 'the_comments/manage_controls', locals: { comment: comment }
 
 = paginate @comments

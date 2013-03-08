@@ -1,4 +1,4 @@
-.comment{ class: comment.state }
+.comment
   .commentable
     = comment.commentable_type
     &rarr;
@@ -12,6 +12,19 @@
     = comment.contacts
   .content
     = comment.content
+  .params
+    %b tolerance time:
+    = comment.tolerance_time || 'none'
+    \|
+    %b ip:
+    = link_to(comment.ip, ip_black_lists_url(ip: comment.ip)) || 'none'
+    \|
+    %b UA:
+    = link_to(comment.user_agent, user_agent_black_lists_url(agent: comment.user_agent)) || 'none'
+    \|
+    %b referer:
+    = comment.referer || 'none'
+
   .controls
     = link_to :Edit, '#', class: :edit
     = render partial: 'the_comments/manage_controls', locals: { comment: comment }

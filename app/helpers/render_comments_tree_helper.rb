@@ -90,7 +90,7 @@ module RenderCommentsTreeHelper
         res = ''
         if moderator?
           res += h.link_to t('the_comments.edit'),       h.edit_comment_url(@comment),     class: :edit
-          res += h.link_to t('the_comments.to_deleted'), h.to_trash_comment_url(@comment), class: :delete
+          res += h.link_to t('the_comments.to_deleted'), h.to_trash_comment_url(@comment), class: :delete, remote: true, method: :delete
         end
         res
       end

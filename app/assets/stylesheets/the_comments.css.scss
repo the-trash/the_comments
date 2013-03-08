@@ -1,4 +1,4 @@
-.comments_tree, .comments_list{  
+.comments_tree, .comments_list, .black_list{  
   font-family: Arial;
 
   margin:0; padding:0;
@@ -140,12 +140,7 @@
   .comment{
     margin-bottom: 10px;
 
-    &.draft{
-      margin-bottom: 10px;
-      border-radius: 3px;
-      padding: 5px;
-    }
-    &.published{
+    &.published, &.draft{
       margin-bottom: 10px;
       border-radius: 3px;
       padding: 5px;
@@ -171,11 +166,36 @@
   li{
     margin-bottom: 20px;
 
-    .comment{
+    .item{
       border: 1px solid gray;
       border-radius: 5px;
       padding: 10px;
+    }
 
+    .draft{
+      border-left: 5px solid orange;
+
+      .controls{
+        a.to_draft{ display: none }   
+      }
+    }
+    .published{
+      border-left: 5px solid green;
+
+      .controls{
+        a.to_published{ display: none; }
+      }
+    }
+
+    .deleted{
+      border-left: 5px solid red;
+
+      .controls{
+        a.to_deleted, a.to_spam{ display: none; }
+      }
+    }
+
+    .comment{
       div{ margin: 0 0 10px 0; }
 
       label{
@@ -209,28 +229,19 @@
         padding: 3px;
         a{ margin-right: 15px; }
       }
-      &.draft{
-        border-left: 5px solid orange;
-
-        .controls{
-          a.to_draft{ display: none }   
-        }
-      }
-      &.published{
-        border-left: 5px solid green;
-
-        .controls{
-          a.to_published{ display: none; }
-        }
-      }
-
-      &.deleted{
-        border-left: 5px solid red;
-
-        .controls{
-          a.to_deleted, a.to_spam{ display: none; }
-        }
-      }
     }
+  }
+}
+
+.black_list{
+  li{
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding: 10px;
+    &.warning{ border-left: 5px solid orange; }
+    &.banned{ border-left: 5px solid black; }
+  }
+  p{
+    margin-bottom: 10px;
   }
 }
