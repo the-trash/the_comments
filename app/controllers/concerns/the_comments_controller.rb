@@ -77,7 +77,7 @@ module TheCommentsController
 
       def my
         @comments = current_user.comments.with_state(:draft, :published).order('created_at DESC').page(params[:page])
-        render template: 'the_comments/manage'
+        render template: 'the_comments/index'
       end
 
       def incoming
@@ -102,7 +102,7 @@ module TheCommentsController
         @comment = @commentable.comments.new comment_params
         if @comment.valid?
           @comment.save
-          return render(layout: false, template: 'the_comments/comment')
+          return render layout: false, partial: 'the_comments/comment', locals: { tree: @comment }
         end
         render json: { errors: @comment.errors.full_messages }
       end
@@ -184,7 +184,7 @@ module TheCommentsController
       end
 
       def empty_trap_required
-        # TODO: inject?, fields can be removed on client site
+        # TODO: 1) inject ?, 2) fields can be removed on client site
         is_user = true
         params.slice(*TheComments.config.empty_inputs).values.each{|v| is_user = is_user && v.blank? }
 
@@ -218,14 +218,14 @@ module TheCommentsController
           return render(json: { errors: @errors })
         end
       end
-    end
 
-    def time_tolerance_required
-      if params[:time_tolerance].to_i < TheComments.config.tolerance_time
-        errors = {}
-        errors[t('the_comments.time_tolerance')] = [t('the_comments.time_tolerance_message')]
-        return render(json: { errors: errors })
+      def time_tolerance_required
+        if params[:time_tolerance].to_i < TheComments.config.tolerance_time
+          errors = {}
+          errors[t('the_comments.time_tolerance')] = [t('the_comments.time_tolerance_message')]
+          return render(json: { errors: errors })
+        end
       end
-    end
-  end
+    end#included
+  end#Base
 end

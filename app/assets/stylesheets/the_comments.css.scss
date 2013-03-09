@@ -68,29 +68,27 @@
 
 .comments_tree{
   .nested_set{
-    li{
-      border-left: 1px dotted LightGray;
-      padding-left: 5px;
+    border-left: 1px dotted lightGray;
+  }
 
-      &.draft{
-        border: none;
-        padding: 0;
-      }
+  li{
+    .comment.draft{
+      border: 1px solid gray;
+      background: lightGray;
+      padding: 10px;
     }
   }
 
   .form_holder{ margin-left: 40px; }
   
-  .edit, .delete{
+  .edit{
+    margin-bottom: 3px;
     text-align:center;
     line-height: 130%;
+    background: #336;
     color: white;
-    margin-bottom: 3px;
     padding: 1px;
   }
-
-  .edit   { background: #333366; }
-  .delete { background: #cc3300; }
 
   .comment{
     overflow: hidden; zoom: 1;
@@ -238,8 +236,14 @@
     border: 1px solid gray;
     border-radius: 5px;
     padding: 10px;
-    &.warning{ border-left: 5px solid orange; }
-    &.banned{ border-left: 5px solid black; }
+    &.warning{
+      border-left: 5px solid orange;
+      .to_warning{ display: none; }
+    }
+    &.banned{
+      border-left: 5px solid black;
+      .to_banned{ display: none; }
+    }
   }
   p{
     margin-bottom: 10px;

@@ -51,7 +51,10 @@ module RenderCommentsTreeHelper
           published_comment
         else
           "<li class='draft'>
-            <div class='comment draft' id='comment_#{@comment.anchor}'>#{ t('the_comments.waiting_for_moderation') }</div>
+            <div class='comment draft' id='comment_#{@comment.anchor}'>
+              #{ t('the_comments.waiting_for_moderation') }
+              #{ h.link_to '#', '#comment_' + @comment.anchor }
+            </div>
             #{ children }
           </li>"
         end
@@ -87,12 +90,9 @@ module RenderCommentsTreeHelper
       end
 
       def moderator_controls
-        res = ''
         if moderator?
-          res += h.link_to t('the_comments.edit'),       h.edit_comment_url(@comment),     class: :edit
-          res += h.link_to t('the_comments.to_deleted'), h.to_trash_comment_url(@comment), class: :delete, remote: true, method: :delete
+          h.link_to t('the_comments.edit'),       h.edit_comment_url(@comment),     class: :edit
         end
-        res
       end
 
       def reply
