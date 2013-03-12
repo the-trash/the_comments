@@ -1,6 +1,14 @@
-# TheComments 0.5.0
+# TheComments 0.9.0
 
-TheComments - comments tree for your web project.
+TheComments - probably, best solution for comments for Ruby on Rails.
+
+### What's wrong with other gems?
+
+Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_comments). What we can see?
+
+* [Acts as commentable with threading](https://github.com/elight/acts_as_commentable_with_threading) - so, guys, where is the render helper for the tree? there is no helper! Sorry, but I can't use this gem.
+* [acts_as_commentable](https://github.com/jackdempsey/acts_as_commentable) - so, I can see code for models. But I can't see code for controllers and views. Unfortunately, there is no threading. It's not enough for me.
+* [opinio](https://github.com/Draiken/opinio) - looks better, but there is no threading. I want to have more!
 
 ![TheComments](https://raw.github.com/open-cook/the_comments/master/the_comments.jpg)
 
