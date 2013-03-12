@@ -6,9 +6,11 @@ TheComments - probably, best solution for comments for Ruby on Rails.
 
 Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_comments). What we can see?
 
-* [Acts as commentable with threading](https://github.com/elight/acts_as_commentable_with_threading) - so, guys, where is the render helper for the tree? there is no helper! Sorry, but I can't use this gem.
+* [Acts as commentable with threading](https://github.com/elight/acts_as_commentable_with_threading) - so, guys, where is the render helper for the tree? There is no helper! Should  I make render helper for tree by myself? Nooooo!!! I'm so sorry, but I can't use this gem. 
 * [acts_as_commentable](https://github.com/jackdempsey/acts_as_commentable) - so, I can see code for models. But I can't see code for controllers and views. Unfortunately, there is no threading. It's not enough for me.
 * [opinio](https://github.com/Draiken/opinio) - looks better, but there is no threading. I want to have more!
+
+### In sum
 
 ![TheComments](https://raw.github.com/open-cook/the_comments/master/the_comments.jpg)
 
