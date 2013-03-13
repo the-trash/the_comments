@@ -18,11 +18,10 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 ### My hopes about comments system
 
 * Open comments for everybody (by default). *I hate user registration*
-* Moderation for comments
-* Spam traps instead Captcha. *I hate user Captcha*
-* Comment counters for commentable objects and User
+* Moderation for comments and simple Admin UI
+* Spam traps instead Captcha. *I hate Captcha*
 * Blacklists for IP and UserAgent
-* Admin UI for comments moderation
+* Comment counters for commentable objects and User
 * Denormalization for fast and Request-free comment list building
 * Delete without destroy
 * Ready for Rails4, Engine
