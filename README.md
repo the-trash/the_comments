@@ -25,7 +25,7 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 * Denormalization for fast and Request-free comment list building
 * Delete without destroy
 * Ready for Rails4, Engine
-* Ready for external content filters \(**sanitize**, **RedCloth**, **Markdown**)
+* Ready for external content filters ( **sanitize**, **RedCloth**, **Markdown**)
 
 
 ### Requires
