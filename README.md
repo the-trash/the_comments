@@ -9,22 +9,24 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 * [Acts as commentable with threading](https://github.com/elight/acts_as_commentable_with_threading) - so, guys, where is the render helper for the tree? There is no helper! Should  I make render helper for tree by myself? Nooooo!!! I'm so sorry, but I can't use this gem. 
 * [acts_as_commentable](https://github.com/jackdempsey/acts_as_commentable) - so, I can see code for models. But I can't see code for controllers and views. Unfortunately, there is no threading. It's not enough for me.
 * [opinio](https://github.com/Draiken/opinio) - looks better, but there is no threading. I want to have more!
+* [has_threaded_comments](https://github.com/aarongough/has_threaded_comments) - Nice work! Nice gem! Models, controllers, views, view helper for tree rendering! **But**, last activity 2 years ago, I need few features, I think - I can make it better.
 
 ### In sum
 
 ![TheComments](https://raw.github.com/open-cook/the_comments/master/the_comments.jpg)
 
-### Main features
+### My hopes about comments system
 
-* **Comments tree** (via [TheSortableTree](https://github.com/the-teacher/the_sortable_tree) custom helper)
-* **No captcha!** Tricks and traps for SpamBots instead Captcha
-* **IP** and **User Agent** black lists
-* Useful **Cache counters** for Users and Commentable objects
-* Designed for external content filters ( **sanitize**, **RedCloth**, **Markdown**)
-* **Open comments** with moderation
-* Creator of comments can see his comments via **view_token** ( _view token_ stored with cookies)
-* Denormalization of commentable objects. We store **commentable_title** and **commentable_url** in each comment, for fast access to commentable object
-* Highlighting of selected comment onLoad and onHahChange (via comment anchor)
+* Open comments for everybody (by default). I hate user registration.
+* Moderation for comments
+* Spam traps instead Captcha
+* Comment counters for commentable objects and User
+* Blacklists for IP and UserAgent
+* Denormalization for fast and Request-free comment list building
+* Delete without destroy
+* Ready for Rails4, Engine
+* Ready for external content filters \(**sanitize**, **RedCloth**, **Markdown**)
+
 
 ### Requires
 
