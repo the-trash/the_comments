@@ -19,7 +19,7 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 
 * Open comments for everybody (by default). *I hate user registration*
 * Moderation for comments
-* Spam traps instead Captcha. *I hate user registration*
+* Spam traps instead Captcha. *I hate user Captcha*
 * Comment counters for commentable objects and User
 * Blacklists for IP and UserAgent
 * Admin UI for comments moderation
