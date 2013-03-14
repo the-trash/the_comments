@@ -1,0 +1,3 @@
+class UserAgentBlackListsController < ApplicationController
+  include TheCommentsUserAgentController
+end

@@ -23,9 +23,9 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 * Blacklists for IP and UserAgent
 * Comment counters for commentable objects and User
 * Denormalization for fast and Request-free comment list building
-* Delete without destroy
-* Ready for Rails4, Engine
 * Ready for external content filters ( **sanitize**, **RedCloth**, **Markdown**)
+* Ready for Rails4 (and Rails::Engine)
+* Delete without destroy
 
 ### Requires
 
