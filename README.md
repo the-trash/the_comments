@@ -65,14 +65,8 @@ gem 'the_comments'
 **bundle**
 
 ```ruby
-bundle exec rails g model comment               --migration=false
-bundle exec rails g model ip_black_list         --migration=false
-bundle exec rails g model user_agent_black_list --migration=false
-
-bundle exec rake the_comments_engine:install:migrations
+bundle exec rails g the_comment install
 ```
-
-**bundle exec rake db:migrate**
 
 ### Assets
 
