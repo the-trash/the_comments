@@ -1,4 +1,7 @@
 require 'haml'
+require 'state_machine'
+require 'the_sortable_tree'
+
 require 'the_comments/config'
 require 'the_comments/version'
 
