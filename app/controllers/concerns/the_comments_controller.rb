@@ -70,6 +70,7 @@ module TheCommentsController
         render template: 'the_comments/index'
       end
 
+      # Methods  based on *current_user* helper
       def edit
         @comments = current_user.comcoms.where(id: params[:id]).page(params[:page])
         render template: 'the_comments/manage'

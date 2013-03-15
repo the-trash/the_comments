@@ -1,7 +1,18 @@
 Description:
   TheComments generator will copy files for organize comment's tree in your web project
 
-Generator Example:
+This text:
+  bundle exec rails g the_comments --help
+
+Generators:
+  bundle exec rails g the_comments install
+
+  This will create:
+   config/initializers/the_comments.rb
+   app/controllers/comments_controller.rb
+   app/controllers/ip_black_lists_controller.rb
+   app/controllers/user_agent_black_lists_controller.rb
+
   bundle exec rails g the_comments controllers
 
   This will create:
@@ -9,7 +20,10 @@ Generator Example:
     app/controllers/ip_black_lists_controller.rb
     app/controllers/user_agent_black_lists_controller.rb
 
-View Generator Example:
+View Generators:
   bundle exec rails g the_comments:views assets
   bundle exec rails g the_comments:views helper
   bundle exec rails g the_comments:views views
+
+Migrations:
+  bundle exec rake the_comments_engine:install:migrations
