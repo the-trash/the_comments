@@ -47,19 +47,19 @@ User agent must have:
 * Cookies support
 * JavaScript and Ajax support
 
-_Usually spambot not support Cookies and JavaScript_
+_Usually spambots not support Cookies and JavaScript_
 
-Comment form has:
+Comment form mast have:
 
-* fake (hidden) fields
+* fake (hidden via css) fields
 
-_Usually spam bot puts data in fake inputs_
+_Usually spambots puts data in fake inputs_
 
 Trap via time:
 
 * User should be few seconds on page, before comment sending (by default 5 sec)
 
-_Usually spam bots works faster, than human. We can try to use this feature of behavior_
+_Usually spambots works faster, than human. We can try to use this feature of behavior_
 
 ## Installation
 
