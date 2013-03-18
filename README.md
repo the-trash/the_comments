@@ -25,15 +25,20 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 * Denormalization for fast and Request-free comment list building
 * Ready for external content filters ( **sanitize**, **RedCloth**, **Markdown**)
 * Ready for Rails4 (and Rails::Engine)
+* Highlighting and Jumping to comment via anchor
 * Delete without destroy
 
-### Requires
+### Strong dependencies
 
 ```ruby
 gem 'awesome_nested_set'
 gem 'the_sortable_tree'
 gem 'state_machine'
 ```
+
+* **awesome_nested_set** - for comments threading
+* **the_sortable_tree** - render helper for nested set
+* **state_machine** - callbacks for recalculating of counters when state of comment was changed
 
 ### Anti Spam system
 
