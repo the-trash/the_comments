@@ -167,7 +167,7 @@ app/views/ip_black_lists
 app/views/user_agent_black_lists
 ```
 
-## Concepts & Denormalization(Tuning introduction)
+## Concepts & Denormalization (Tuning introduction)
 
 **Next step is Tuning. Tuning is one of important parts of installation process.**
 
@@ -193,7 +193,7 @@ Now we need to look at denormalization of commentable object into Comment.
 
 Every comments can have 3 important fields with data from commentable object.
 
-If you need to build common list of comments for different Commentable Models, to reduce requests we need few fields:
+If you need to build common list of comments for different Commentable Models, to reduce requests we need following fields:
 
 * **Comment#commentable_title** - for example: "My first post about Ruby On Rails"
 * **Comment#commentable_url** - for example: "/posts/1-my-first-post-about-ruby-on-rails"
