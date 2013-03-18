@@ -169,7 +169,9 @@ app/views/user_agent_black_lists
 
 ## Tuning
 
-There are 2 important concept for understanding:
+**Tuning is one of important parts of installation process.**
+
+Primarily we should to understand 2 important concept:
 
 #### Comments
 
@@ -183,7 +185,22 @@ Set of comments, where current user is owner ( *Comment#user_id == current_user.
 
 Set of all comments belongs to commentable objects of current_user ( *Blog#user_id == current_user.id* => Blog#has_many(:comments) => *Comment#holder_id == current_user.id*). *Comment#holder_id* should not be empty, because we should to know, who is moderator of this comment.
 
-In fact moderator is user which have a non empty set of comcoms. This user should moderate his set of comcoms.
+In fact moderator is user which have a non empty set of comcoms. This user should moderate his set of comcoms. Comment#holder_id define 
+
+#### Denormalization
+
+Now we need to look at denormalization of commentable object into Comment.
+
+Every comments can have 3 important fields with data from commentable object.
+
+If you need to build common list of comments for different Commentable Models, to reduce requests we need 2 fields:
+
+* **commentable_title** - for example: "My first post about Ruby On Rails"
+* **commentable_url** - - for example: "/posts/1-my-first-post-about-ruby-on-rails"
+
+Practice show that for building correct list of comments we need yet one field - **commentable_state**.
+
+In common list of comments we should not have comments for *blocked*, *deleted* (any hidden) comemntable objects.
 
 ### User Model
 
