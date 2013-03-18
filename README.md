@@ -206,7 +206,10 @@ In common list of comments we should not have comments with *draft*, *blocked*, 
 With denormalization we can do some code like this: 
 
 ```ruby
-@comments = Comment.with_state(:published).where(commentable_state: [:published]).order('created_at DESC').page(params[:page])
+@comments = Comment.with_state(:published)
+                   .where(commentable_state: [:published])
+                   .order('created_at DESC')
+                   .page(params[:page])
 ```
 
 And now!
