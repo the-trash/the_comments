@@ -216,7 +216,7 @@ And now! (Ta-Da!)
 - @comments.each do |comment|
   %div
     %p= comment.commentable_title
-    %p= link_to comment.commentable_url, comment.commentable_title
+    %p= link_to comment.commentable_title, comment.commentable_url
     %p= comment.content
 ```
 
