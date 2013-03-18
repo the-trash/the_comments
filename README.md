@@ -80,13 +80,13 @@ gem 'haml'
 
 ## Setup
 
-**1)** Just run:
+**1)** - Just run:
 
 ```ruby
 bundle exec rails g the_comments install
 ```
 
-**2)** Open created files and follow instructions in files.
+**2)** - Open created files and follow instructions in files.
 
 List of created files:
 
@@ -98,7 +98,7 @@ List of created files:
  app/controllers/user_agent_black_lists_controller.rb
 ```
 
-**3)** Add TheComment's **include** into *ApplicationController*
+**3)** - Add TheComment's **include** into *ApplicationController*
 
 ```ruby
 class ApplicationController < ActionController::Base
