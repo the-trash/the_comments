@@ -28,7 +28,9 @@ BANNER
           copy_file "../assets/javascripts/the_comments", "app/assets/javascripts/the_comments"
           copy_file "../assets/stylesheets/the_comments", "app/assets/stylesheets/the_comments"
         elsif param_name == 'views'
-          directory "../views/the_comments", "app/views/the_comments"
+          directory "../views/the_comments",           "app/views/the_comments"
+          directory "../views/ip_black_lists",         "app/views/ip_black_lists"
+          directory "../views/user_agent_black_lists", "app/views/user_agent_black_lists"
         elsif param_name == 'helper'
           copy_file "../helpers/render_comments_tree_helper.rb", "app/helpers/render_comments_tree_helper.rb"
         else
