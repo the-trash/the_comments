@@ -57,13 +57,13 @@ _Usually spambots not support Cookies and JavaScript_
 
 _Usually spambots puts data in fake inputs_
 
-Trap via time:
+**4) Trap via time:**
 
 * User should be few seconds on page, before comment sending (by default 5 sec)
 
 _Usually spambots works faster, than human. We can try to use this feature of behavior_
 
-**4) IP and User Agent blacklists**
+**5) IP and User Agent blacklists**
 
 ## Installation
 
