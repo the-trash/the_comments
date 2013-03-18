@@ -163,6 +163,8 @@ app/views/ip_black_lists
 app/views/user_agent_black_lists
 ```
 
+## Tuning
+
 ### User Model
 
 ```ruby
