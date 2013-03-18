@@ -28,6 +28,10 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 * Highlighting and Jumping to comment via anchor
 * Delete without destroy
 
+### You should be strong!
+
+This gem has many steps to install. Yes, I know it, but I have no ides how can it be easier. You should be strong and be careful to setup it. Just follow an installation instruction, and I sure - everything will be great!
+
 ### Strong dependencies
 
 ```ruby
