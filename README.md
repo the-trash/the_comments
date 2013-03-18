@@ -199,11 +199,9 @@ If you need to build common list of comments for different Commentable Models, t
 * **Comment#commentable_url** - for example: "/posts/1-my-first-post-about-ruby-on-rails"
 * **Comment#commentable_state** - for example: "draft"
 
-Practice show that for building correct list of comments we need yet one field - **commentable_state**.
+In common list of comments we should not have comments with [*draft*, *blocked*, *deleted*] (etc) for comemntable objects.
 
-In common list of comments we should not have comments with *draft*, *blocked*, *deleted* (or any hidden) comemntable objects.
-
-With denormalization we can do some code like this: 
+With denormalization we can do some code like this:
 
 ```ruby
 @comments = Comment.with_state(:published)
@@ -212,7 +210,7 @@ With denormalization we can do some code like this:
                    .page(params[:page])
 ```
 
-And now!
+And now! (Ta-Da!)
 
 ```ruby
 - @comments.each do |comment|
