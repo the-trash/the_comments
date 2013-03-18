@@ -167,9 +167,9 @@ app/views/ip_black_lists
 app/views/user_agent_black_lists
 ```
 
-## Tuning introduction
+## Concepts & Denormalization(Tuning introduction)
 
-**Tuning is one of important parts of installation process.**
+**Next step is Tuning. Tuning is one of important parts of installation process.**
 
 Primarily we should to understand 2 important concept:
 
