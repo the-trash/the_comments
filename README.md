@@ -32,15 +32,13 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 
 This gem has many steps to install. Yes, I know it, but I have no ides how can it be easier. You should be strong and be careful to setup it. Just follow an installation instruction, and I sure - everything will be great!
 
-### Strong dependencies
+### Strong dependencies of gem
 
 ```ruby
-gem 'awesome_nested_set'
 gem 'the_sortable_tree'
 gem 'state_machine'
 ```
 
-* **awesome_nested_set** - for comments threading
 * **the_sortable_tree** - render helper for nested set
 * **state_machine** - callbacks for recalculating of counters when state of comment was changed
 
@@ -74,12 +72,18 @@ _Usually spambots works faster, than human. We can try to use this feature of be
 **1)** change your Gemfile
 
 ```ruby
-gem 'the_comments'
+# I use *awesome_nested_set* gem to provide nested set for comments
+# But you can use other nested set gem, for example:
+# gem 'nested_set' (github.com/skyeagle/nested_set)
+gem 'awesome_nested_set'
 
 # I use haml for default views
 # You can remove this dependancy,
 # but you will should rewrite default views with your template engine
 gem 'haml'
+
+# finally, this gem
+gem 'the_comments'
 ```
 
 **2)** bundle

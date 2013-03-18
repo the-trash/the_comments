@@ -1,4 +1,3 @@
-require 'haml'
 require 'state_machine'
 require 'the_sortable_tree'
 
