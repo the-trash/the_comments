@@ -106,7 +106,7 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-**4)** Assets
+**4)** JavaScript
 
 **app/assets/javascripts/application.js**
 
@@ -116,7 +116,10 @@ end
 ```
 
 **the_comments** - for render comments tree
+
 **the_comments_manage** - for moderation UI
+
+**5)** Stylesheets
 
 **app/assets/stylesheets/application.css**
 
@@ -126,20 +129,19 @@ end
 */
 ```
 
-**5)** Copy view files into your application
+**6)** Copy view files into your application
 
 ```ruby
 bundle exec rails g the_comments:views views
 ```
 
-List of created files:
+List of created directories:
 
 ```ruby
 app/views/the_comments
 app/views/ip_black_lists
 app/views/user_agent_black_lists
 ```
-
 
 ### User Model
 
