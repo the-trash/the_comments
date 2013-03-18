@@ -173,13 +173,17 @@ There are 2 important concept for understanding:
 
 #### Comments
 
+**User#comments** (has_many)
+
 Set of comments, where current user is owner ( *Comment#user_id == current_user.id*). *Comment#user_id* can be empty if comment was posted by GUEST.
 
 #### Comcoms (COMments of COMmentable objects)
 
+**User#comcoms** (has_many)
+
 Set of all comments belongs to commentable objects of current_user ( *Blog#user_id == current_user.id* => Blog#has_many(:comments) => *Comment#holder_id == current_user.id*). *Comment#holder_id* should not be empty, because we should to know, who is moderator of this comment.
 
-In fact *moderator* is user whom have a non empty set of comcoms. This user should moderate this set of comcoms.
+In fact moderator is user which have a non empty set of comcoms. This user should moderate his set of comcoms.
 
 ### User Model
 
