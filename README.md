@@ -71,6 +71,8 @@ _Usually spambots works faster, than human. We can try to use this feature of be
 
 ## Installation
 
+**1)** change your Gemfile
+
 ```ruby
 gem 'the_comments'
 
@@ -80,7 +82,21 @@ gem 'the_comments'
 gem 'haml'
 ```
 
-**bundle**
+**2)** bundle
+
+**3)** Copy migration file into application
+
+```ruby
+bundle exec rake the_comments_engine:install:migrations
+```
+
+**4)** Open created migration file and follow instruction
+
+**5)** invoke migration
+
+```ruby
+bundle exec rake db:migrate
+```
 
 ## Setup
 
