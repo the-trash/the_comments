@@ -193,16 +193,17 @@ Now we need to look at denormalization of commentable object into Comment.
 
 Every comments can have 3 important fields with data from commentable object.
 
-If you need to build common list of comments for different Commentable Models, to reduce requests we need 2 fields:
+If you need to build common list of comments for different Commentable Models, to reduce requests we need few fields:
 
 * **commentable_title** - for example: "My first post about Ruby On Rails"
 * **commentable_url** - for example: "/posts/1-my-first-post-about-ruby-on-rails"
+* **commentable_state** - for example: "draft"
 
 Practice show that for building correct list of comments we need yet one field - **commentable_state**.
 
-In common list of comments we should not have comments for *blocked*, *deleted* (any hidden) comemntable objects.
+In common list of comments we should not have comments with *draft*, *blocked*, *deleted* (or any hidden) comemntable objects.
 
-That is why any commentable Model should have few methods to provide denormalization for Comments.
+That is why any **commentable Model should have few methods** to provide denormalization for Comments.
 
 ## Tuning
 
