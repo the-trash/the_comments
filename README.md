@@ -177,7 +177,7 @@ Set of comments, where current user is owner ( *Comment#user_id == current_user.
 
 #### Comcoms (COMments of COMmentable objects)
 
-Set of all comments belongs to commentable objects of current_user ( *Comment#holder_id == current_user.id*, in fact - *Blog#user_id == current_user.id*). *Comment#holder_id* should not be empty, because we should to know, who is moderator of this comment.
+Set of all comments belongs to commentable objects of current_user ( *Blog#user_id == current_user.id* => Blog#has_many(:comments) => *Comment#holder_id == current_user.id*). *Comment#holder_id* should not be empty, because we should to know, who is moderator of this comment.
 
 In fact *moderator* is user whom have a non empty set of comcoms. This user should moderate this set of comcoms.
 
