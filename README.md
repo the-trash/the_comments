@@ -65,6 +65,11 @@ _Usually spambots works faster, than human. We can try to use this feature of be
 
 ```ruby
 gem 'the_comments'
+
+# I use haml for default views
+# You can remove this dependancy,
+# but you will should rewrite default views with your template engine
+gem 'haml'
 ```
 
 **bundle**
