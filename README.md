@@ -30,7 +30,7 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 
 ### You should be strong!
 
-This gem has many steps to install. Yes, I know it, but I have no ides how can it be easier. You should be strong and be careful to setup it. Just follow an installation instruction, and I sure - everything will be great!
+This gem has many steps to install. Yes, I know it, but I have no ideas how can it be easier. You should be strong and be careful to setup it. Just follow an installation instruction step by step, and I sure - everything will be fine!
 
 ### Strong dependencies of gem
 
@@ -40,7 +40,7 @@ gem 'state_machine'
 ```
 
 * **the_sortable_tree** - render helper for nested set
-* **state_machine** - callbacks for recalculating of counters when state of comment was changed
+* **state_machine** - states for moderation and callbacks for recalculating of counters when state of comment was changed
 
 ### Anti Spam system
 
@@ -94,7 +94,7 @@ gem 'the_comments'
 bundle exec rake the_comments_engine:install:migrations
 ```
 
-**4)** Open created migration file and follow instruction
+**4)** Open created migration file and follow instruction in file
 
 **5)** invoke migration
 
@@ -139,9 +139,9 @@ end
 //= require the_comments_manage
 ```
 
-**the_comments** - for render comments tree
+**the_comments** - js for comments tree
 
-**the_comments_manage** - for moderation UI
+**the_comments_manage** - js for moderator UI
 
 **5)** Stylesheets
 
@@ -168,6 +168,18 @@ app/views/user_agent_black_lists
 ```
 
 ## Tuning
+
+There are 2 important concept for understanding:
+
+#### Comments
+
+Set of comments, where current user is owner ( *Comment#user_id == current_user.id*). *Comment#user_id* can be empty if comment was posted by GUEST.
+
+#### Comcoms (COMments of COMmentable objects)
+
+Set of all comments belongs to commentable objects of current_user ( *Comment#holder_id == current_user.id*, in fact - *Blog#user_id == current_user.id*). *Comment#holder_id* should not be empty, because we should to know, who is moderator of this comment.
+
+In fact *moderator* is user whom have a non empty set of comcoms. This user should moderate this set of comcoms.
 
 ### User Model
 
