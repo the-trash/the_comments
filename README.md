@@ -42,14 +42,14 @@ gem 'state_machine'
 
 ### Anti Spam system
 
-** 1) User agent must have:**
+**1) User agent must have:**
 
 * Cookies support
 * JavaScript and Ajax support
 
 _Usually spambots not support Cookies and JavaScript_
 
-** 2) Comment form mast have:**
+**2) Comment form mast have:**
 
 * fake (hidden via css) fields
 
@@ -61,9 +61,9 @@ Trap via time:
 
 _Usually spambots works faster, than human. We can try to use this feature of behavior_
 
-** 3) IP and User Agent blacklists**
+**3) IP and User Agent blacklists**
 
-** 4) Moderation**
+**4) Moderation**
 
 ## Installation
 
