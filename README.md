@@ -42,14 +42,14 @@ gem 'state_machine'
 
 ### Anti Spam system
 
-*User agent must have:*
+**User agent must have:**
 
 * Cookies support
 * JavaScript and Ajax support
 
 _Usually spambots not support Cookies and JavaScript_
 
-*Comment form mast have:*
+**Comment form mast have:**
 
 * fake (hidden via css) fields
 
@@ -61,9 +61,9 @@ Trap via time:
 
 _Usually spambots works faster, than human. We can try to use this feature of behavior_
 
-*IP and User Agent blacklists*
+**IP and User Agent blacklists**
 
-*Moderation*
+**Moderation**
 
 ## Installation
 
@@ -80,13 +80,13 @@ gem 'haml'
 
 ## Setup
 
-just run:
+**1)** Just run:
 
 ```ruby
 bundle exec rails g the_comments install
 ```
 
-This will create few files. Open them and follow instructions in files.
+**2)** Open created files and follow instructions in files.
 
 List of created files:
 
@@ -96,6 +96,14 @@ List of created files:
  app/controllers/comments_controller.rb
  app/controllers/ip_black_lists_controller.rb
  app/controllers/user_agent_black_lists_controller.rb
+```
+
+**3)** Add TheComment's **include** into *ApplicationController*
+
+```ruby
+class ApplicationController < ActionController::Base
+  include TheCommentsController::ViewToken
+end
 ```
 
 ### Assets

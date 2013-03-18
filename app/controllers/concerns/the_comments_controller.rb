@@ -1,28 +1,21 @@
 module TheCommentsController
   COMMENTS_COOKIES_TOKEN = 'JustTheCommentsCookies'
 
-  # View token for Commentable controller
+  # Cookies and View token for spam protection
   #
-  # class PagesController < ApplicationController
+  # class ApplicationController < ActionController::Base
   #   include TheCommentsController::ViewToken
   # end
   module ViewToken
-    def comments_view_token
-      cookies[:comments_view_token] = { :value => SecureRandom.hex, :expires => 7.days.from_now } unless cookies[:comments_view_token]
-      cookies[:comments_view_token]
-    end
-  end
-
-  # Cookies for spam protection
-  #
-  # class ApplicationController < ActionController::Base
-  #   include TheCommentsController::Cookies
-  # end
-  module Cookies
     extend ActiveSupport::Concern
     included { before_action :set_the_comments_cookies }
 
     private
+
+    def comments_view_token
+      cookies[:comments_view_token] = { :value => SecureRandom.hex, :expires => 7.days.from_now } unless cookies[:comments_view_token]
+      cookies[:comments_view_token]
+    end
 
     def set_the_comments_cookies
       cookies[:the_comment_cookies] = { :value => TheCommentsController::COMMENTS_COOKIES_TOKEN, :expires => 1.year.from_now }
