@@ -72,7 +72,7 @@ _Usually spambots works faster, than human. We can try to use this feature of be
 **1)** change your Gemfile
 
 ```ruby
-# I use *awesome_nested_set* gem to provide nested set for comments
+# I use *awesome_nested_set* gem to provide threading for comments
 # But you can use other nested set gem, for example:
 # gem 'nested_set' (github.com/skyeagle/nested_set)
 gem 'awesome_nested_set'
