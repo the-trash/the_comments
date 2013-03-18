@@ -167,7 +167,7 @@ app/views/ip_black_lists
 app/views/user_agent_black_lists
 ```
 
-## Tuning
+## Tuning introduction
 
 **Tuning is one of important parts of installation process.**
 
@@ -196,11 +196,15 @@ Every comments can have 3 important fields with data from commentable object.
 If you need to build common list of comments for different Commentable Models, to reduce requests we need 2 fields:
 
 * **commentable_title** - for example: "My first post about Ruby On Rails"
-* **commentable_url** - - for example: "/posts/1-my-first-post-about-ruby-on-rails"
+* **commentable_url** - for example: "/posts/1-my-first-post-about-ruby-on-rails"
 
 Practice show that for building correct list of comments we need yet one field - **commentable_state**.
 
 In common list of comments we should not have comments for *blocked*, *deleted* (any hidden) comemntable objects.
+
+That is why any commentable Model should have few methods to provide denormalization for Comments.
+
+## Tuning
 
 ### User Model
 
@@ -210,6 +214,8 @@ class User < ActiveRecord::Base
   def admin?
     self == User.first
   end
+
+  # +++ Now some code for TheComments +++
 
   # include TheComments methods
   include TheCommentsUser
@@ -221,6 +227,10 @@ class User < ActiveRecord::Base
 
   def commentable_url
     [class.to_s.tableize, login].join('/')
+  end
+
+  def commentable_state
+    self.state
   end
 
   # Comments moderator checking (simple example)
