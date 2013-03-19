@@ -4,9 +4,9 @@ TheComments - probably, best solution for comments for Ruby on Rails.
 
 ### Intro
 
-* [What's wrong with other gems?](whats-wrong-with-other-gems)
-* [Concepts & Denormalization](concepts--denormalization-tuning-introduction)
-* [Anti Spam system](anti-spam-system)
+* [What's wrong with other gems?](#whats-wrong-with-other-gems)
+* [Concepts & Denormalization](#concepts--denormalization-tuning-introduction)
+* [Anti Spam system](#anti-spam-system)
 
 ### My hopes about comments system
 
