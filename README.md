@@ -88,15 +88,13 @@ gem 'the_comments'
 
 **2)** bundle
 
-**3)** Copy migration file into application
+**3)** Copy migration file into application, open file and follow instruction in it
 
 ```ruby
 bundle exec rake the_comments_engine:install:migrations
 ```
 
-**4)** Open created migration file and follow instruction in file
-
-**5)** invoke migration
+**4)** run migration
 
 ```ruby
 bundle exec rake db:migrate
@@ -104,15 +102,13 @@ bundle exec rake db:migrate
 
 ## Setup
 
-**1)** Just run:
+**1)** Run generator, open created files and follow instructions in files.
 
 ```ruby
 bundle exec rails g the_comments install
 ```
 
-**2)** Open created files and follow instructions in files.
-
-List of created files:
+*List of created files:*
 
 ```ruby
 config/initializers/the_comments.rb
@@ -122,7 +118,7 @@ app/controllers/ip_black_lists_controller.rb
 app/controllers/user_agent_black_lists_controller.rb
 ```
 
-**3)** Add TheComment's **include** into *ApplicationController*
+**2)**
 
 ```ruby
 class ApplicationController < ActionController::Base
@@ -130,22 +126,16 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-**4)** JavaScript
+**3)** JavaScript and Stylesheets
 
-**app/assets/javascripts/application.js**
+*app/assets/javascripts/application.js*
 
 ```js
 //= require the_comments
 //= require the_comments_manage
 ```
 
-**the_comments** - js for comments tree
-
-**the_comments_manage** - js for moderator UI
-
-**5)** Stylesheets
-
-**app/assets/stylesheets/application.css**
+*app/assets/stylesheets/application.css*
 
 ```css
 /*
@@ -153,78 +143,23 @@ end
 */
 ```
 
-**6)** Copy view files into your application
+**4)** Copy view files into your application
 
 ```ruby
 bundle exec rails g the_comments:views views
 ```
 
-List of created directories:
+*List of created directories:*
 
 ```ruby
-app/views/the_comments
-app/views/ip_black_lists
-app/views/user_agent_black_lists
+app/views/the_comments/*.haml
+app/views/ip_black_lists/*.haml
+app/views/user_agent_black_lists/*.haml
 ```
-
-## Concepts & Denormalization (Tuning introduction)
-
-**Next step is Tuning. Tuning is one of important parts of installation process.**
-
-Primarily we should to understand 2 important concept:
-
-#### Comments
-
-**User#comments** (has_many)
-
-Set of comments, where current user is owner ( *Comment#user_id == current_user.id*). *Comment#user_id* can be empty if comment was posted by GUEST.
-
-#### Comcoms (COMments of COMmentable objects)
-
-**User#comcoms** (has_many)
-
-Set of all comments belongs to commentable objects of current_user ( *Blog#user_id == current_user.id* => Blog#has_many(:comments) => *Comment#holder_id == current_user.id*). *Comment#holder_id* should not be empty, because we should to know, who is moderator of this comment.
-
-In fact moderator is user which have a non empty set of comcoms. This user should moderate his set of comcoms. Comment#holder_id define 
-
-#### Denormalization
-
-Now we need to look at denormalization of commentable object into Comment.
-
-Every comments can have 3 important fields with data from commentable object.
-
-If you need to build common list of comments for different Commentable Models, to reduce requests we need following fields:
-
-* **Comment#commentable_title** - for example: "My first post about Ruby On Rails"
-* **Comment#commentable_url** - for example: "/posts/1-my-first-post-about-ruby-on-rails"
-* **Comment#commentable_state** - for example: "draft"
-
-In common list of comments we should not have comments with [*draft*, *blocked*, *deleted*] (etc) for comemntable objects.
-
-With denormalization we can do some code like this:
-
-```ruby
-@comments = Comment.with_state(:published)
-                   .where(commentable_state: [:published])
-                   .order('created_at DESC')
-                   .page(params[:page])
-```
-
-And now! (Ta-Da!)
-
-```ruby
-- @comments.each do |comment|
-  %div
-    %p= comment.commentable_title
-    %p= link_to comment.commentable_title, comment.commentable_url
-    %p= comment.content
-```
-
-That is why any **commentable Model should have few methods** to provide denormalization for Comments.
 
 ## Tuning
 
-### USER
+### User Model
 
 ```ruby
 class User < ActiveRecord::Base
@@ -243,15 +178,15 @@ class User < ActiveRecord::Base
 end
 ```
 
-Comments methods
+User comments methods
 
-* **User#coments**
-* **User#comments_sum**
-* **User#draft_comments_count**
-* **User#published_comments_count**
-* **User#deleted_comments_count**
+* User#**coments**
+* User#**comments_sum**
+* User#**draft_comments_count**
+* User#**published_comments_count**
+* User#**deleted_comments_count**
 
-Comcoms methods
+User comcoms methods
 
 * **User#comcoms**
 * **User#comcoms_sum**
@@ -259,8 +194,7 @@ Comcoms methods
 * **User#published_comcoms_count**
 * **User#deleted_comcoms_count**
 
-
-### Any COMMENTABLE MODEL (Page, Blog, Article, User ...)
+### Any Commentable Model (Page, Blog, Article, User ...)
 
 ```ruby
 class Blog < ActiveRecord::Base
@@ -336,21 +270,60 @@ end
 = render partial: 'comments/tree', locals: { comments_tree: @comments, commentable: @blog }
 ```
 
-## Configuration
+## Concepts & Denormalization (Tuning introduction)
 
-**config/initializers/the_comments.rb**
+**Next step is Tuning. Tuning is one of important parts of installation process.**
+
+Primarily we should to understand 2 important concept:
+
+#### Comments
+
+**User#comments** (has_many)
+
+Set of comments, where current user is owner ( *Comment#user_id == current_user.id*). *Comment#user_id* can be empty if comment was posted by GUEST.
+
+#### Comcoms (COMments of COMmentable objects)
+
+**User#comcoms** (has_many)
+
+Set of all comments belongs to commentable objects of current_user ( *Blog#user_id == current_user.id* => Blog#has_many(:comments) => *Comment#holder_id == current_user.id*). *Comment#holder_id* should not be empty, because we should to know, who is moderator of this comment.
+
+In fact moderator is user which have a non empty set of comcoms. This user should moderate his set of comcoms. Comment#holder_id define 
+
+#### Denormalization
+
+Now we need to look at denormalization of commentable object into Comment.
+
+Every comments can have 3 important fields with data from commentable object.
+
+If you need to build common list of comments for different Commentable Models, to reduce requests we need following fields:
+
+* **Comment#commentable_title** - for example: "My first post about Ruby On Rails"
+* **Comment#commentable_url** - for example: "/posts/1-my-first-post-about-ruby-on-rails"
+* **Comment#commentable_state** - for example: "draft"
+
+In common list of comments we should not have comments with [*draft*, *blocked*, *deleted*] (etc) for comemntable objects.
+
+With denormalization we can do some code like this:
 
 ```ruby
-TheComments.configure do |config|
-  config.max_reply_depth = 3                                # 3 by default
-  config.tolerance_time  = 15                               # 5 (sec) by default
-  config.empty_inputs    = [:email, :message, :commentBody] # [:message] by default
-end
+@comments = Comment.with_state(:published)
+                   .where(commentable_state: [:published])
+                   .order('created_at DESC')
+                   .page(params[:page])
 ```
 
-* **max_reply_depth** - comments tree nesting by default
-* **tolerance_time** - how many seconds user should spend on page, before comment send
-* **empty_inputs** - names of hidden (via css) fields for spam detecting
+And now! (Ta-Da!)
+
+```ruby
+- @comments.each do |comment|
+  %div
+    %p= comment.commentable_title
+    %p= link_to comment.commentable_title, comment.commentable_url
+    %p= comment.content
+```
+
+That is why any **commentable Model should have few methods** to provide denormalization for Comments.
 
 ## Contributing
 
