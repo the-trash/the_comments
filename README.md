@@ -2,17 +2,6 @@
 
 TheComments - probably, best solution for comments for Ruby on Rails.
 
-### What's wrong with other gems?
-
-Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_comments). What we can see?
-
-* [Acts as commentable with threading](https://github.com/elight/acts_as_commentable_with_threading) - so, guys, where is the render helper for the tree? There is no helper! Should  I make render helper for tree by myself? Nooooo!!! I'm so sorry, but I can't use this gem. 
-* [acts_as_commentable](https://github.com/jackdempsey/acts_as_commentable) - so, I can see code for models. But I can't see code for controllers and views. Unfortunately, there is no threading. It's not enough for me.
-* [opinio](https://github.com/Draiken/opinio) - looks better, but there is no threading. I want to have more!
-* [has_threaded_comments](https://github.com/aarongough/has_threaded_comments) - Nice work! Nice gem! Models, controllers, views, view helper for tree rendering! **But**, last activity 2 years ago, I need few features, I think - I can make it better.
-
-### In sum
-
 ![TheComments](https://raw.github.com/open-cook/the_comments/master/the_comments.jpg)
 
 ### My hopes about comments system
@@ -41,31 +30,6 @@ gem 'state_machine'
 
 * **the_sortable_tree** - render helper for nested set
 * **state_machine** - states for moderation and callbacks for recalculating of counters when state of comment was changed
-
-### Anti Spam system
-
-**1) Moderation**
-
-**2) User agent must have:**
-
-* Cookies support
-* JavaScript and Ajax support
-
-_Usually spambots not support Cookies and JavaScript_
-
-**3) Comment form mast have:**
-
-* fake (hidden via css) fields
-
-_Usually spambots puts data in fake inputs_
-
-**4) Trap via time:**
-
-* User should be few seconds on page, before comment sending (by default 5 sec)
-
-_Usually spambots works faster, than human. We can try to use this feature of behavior_
-
-**5) IP and User Agent blacklists**
 
 ## Installation
 
@@ -324,6 +288,40 @@ And now! (Ta-Da!)
 ```
 
 That is why any **commentable Model should have few methods** to provide denormalization for Comments.
+
+### Anti Spam system
+
+**1) Moderation**
+
+**2) User agent must have:**
+
+* Cookies support
+* JavaScript and Ajax support
+
+_Usually spambots not support Cookies and JavaScript_
+
+**3) Comment form mast have:**
+
+* fake (hidden via css) fields
+
+_Usually spambots puts data in fake inputs_
+
+**4) Trap via time:**
+
+* User should be few seconds on page, before comment sending (by default 5 sec)
+
+_Usually spambots works faster, than human. We can try to use this feature of behavior_
+
+**5) IP and User Agent blacklists**
+
+### What's wrong with other gems?
+
+Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_comments). What we can see?
+
+* [Acts as commentable with threading](https://github.com/elight/acts_as_commentable_with_threading) - so, guys, where is the render helper for the tree? There is no helper! Should  I make render helper for tree by myself? Nooooo!!! I'm so sorry, but I can't use this gem. 
+* [acts_as_commentable](https://github.com/jackdempsey/acts_as_commentable) - so, I can see code for models. But I can't see code for controllers and views. Unfortunately, there is no threading. It's not enough for me.
+* [opinio](https://github.com/Draiken/opinio) - looks better, but there is no threading. I want to have more!
+* [has_threaded_comments](https://github.com/aarongough/has_threaded_comments) - Nice work! Nice gem! Models, controllers, views, view helper for tree rendering! **But**, last activity 2 years ago, I need few features, I think - I can make it better.
 
 ## Contributing
 
