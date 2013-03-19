@@ -228,15 +228,12 @@ That is why any **commentable Model should have few methods** to provide denorma
 
 ```ruby
 class User < ActiveRecord::Base
+  include TheCommentsUser
+
   # Your implementation of role policy
   def admin?
     self == User.first
   end
-
-  # +++ Now some code for TheComments +++
-
-  # include TheComments methods
-  include TheCommentsUser
 
   # Comments moderator checking (simple example)
   # Usually comment's holder should be moderator
@@ -246,24 +243,23 @@ class User < ActiveRecord::Base
 end
 ```
 
-**User#coments**
-**User#comments_sum**
-**User#draft_comments_count**
-**User#published_comments_count**
-**User#deleted_comments_count**
+* **User#coments**
+* **User#comments_sum**
+* **User#draft_comments_count**
+* **User#published_comments_count**
+* **User#deleted_comments_count**
 
-**User#comcoms**
-**User#comcoms_sum**
-**User#draft_comcoms_count**
-**User#published_comcoms_count**
-**User#deleted_comcoms_count**
+* **User#comcoms**
+* **User#comcoms_sum**
+* **User#draft_comcoms_count**
+* **User#published_comcoms_count**
+* **User#deleted_comcoms_count**
 
 
 ### Any COMMENTABLE MODEL (Page, Blog, Article, User ...)
 
 ```ruby
 class Blog < ActiveRecord::Base
-  # include TheComments methods
   include TheCommentsCommentable
 
   def commentable_title
@@ -290,7 +286,6 @@ end
 
 ```ruby
 class Comment < ActiveRecord::Base
-  # include TheComments methods
   include TheCommentsBase
 
   # Define comment's avatar url
@@ -317,27 +312,10 @@ class Comment < ActiveRecord::Base
 end
 ```
 
-### IP, User Agent black lists
-
-Models must looks like this:
-
-```ruby
-class IpBlackList < ActiveRecord::Base
-  include TheCommentsBlackUserAgent
-end
-
-class UserAgentBlackList < ActiveRecord::Base
-  include TheCommentsBlackIp
-end
-```
-
 ### Commentable controller
 
 ```ruby
 class BlogsController < ApplicationController
-  include TheCommentsController::Cookies
-  include TheCommentsController::ViewToken
-
   def show
     @blog     = Blog.where(id: params[:id]).with_states(:published).first
     @comments = @blog.comments.with_state([:draft, :published]).nested_set
