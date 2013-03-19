@@ -180,11 +180,11 @@ end
 
 User comments methods
 
-* User#**coments**
-* User#**comments_sum**
-* User#**draft_comments_count**
-* User#**published_comments_count**
-* User#**deleted_comments_count**
+* User# **coments**
+* User# **comments_sum**
+* User# **draft_comments_count**
+* User# **published_comments_count**
+* User# **deleted_comments_count**
 
 User comcoms methods
 
