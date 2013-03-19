@@ -224,7 +224,7 @@ That is why any **commentable Model should have few methods** to provide denorma
 
 ## Tuning
 
-### User Model
+### USER
 
 ```ruby
 class User < ActiveRecord::Base
@@ -237,66 +237,51 @@ class User < ActiveRecord::Base
 
   # include TheComments methods
   include TheCommentsUser
-  
-  # denormalization for commentable objects
-  def commentable_title
-    login
-  end
-
-  def commentable_url
-    [class.to_s.tableize, login].join('/')
-  end
-
-  def commentable_state
-    self.state
-  end
 
   # Comments moderator checking (simple example)
   # Usually comment's holder should be moderator
   def comment_moderator? comment
     admin? || id == comment.holder_id
   end
-
 end
 ```
 
-**User#coments** - comments. Set of all created comments
+**User#coments**
+**User#comments_sum**
+**User#draft_comments_count**
+**User#published_comments_count**
+**User#deleted_comments_count**
 
-```ruby
-User.first.comments
-# => Array of comments, where User is creator (owner)
-```
+**User#comcoms**
+**User#comcoms_sum**
+**User#draft_comcoms_count**
+**User#published_comcoms_count**
+**User#deleted_comcoms_count**
 
-**User#comcoms** - commentable comments. Set of all comments of all owned commentable objects of this user.
 
-```ruby
-User.first.comcoms
-# => Array of all comments of all owned commentable objects, where User is holder
-# Usually comment's holder should be moderator of this comments
-# because this user should maintain cleaness of his commentable objects
-```
-
-**Attention!** You should be sure that you understand who is owner, and who is holder of comments!
-
-### Commentable Model (Page, Blog, Article, User ...)
-
-**Attention!** User model can be commentable object also.
+### Any COMMENTABLE MODEL (Page, Blog, Article, User ...)
 
 ```ruby
 class Blog < ActiveRecord::Base
   # include TheComments methods
   include TheCommentsCommentable
 
-  # (!) Every commentable Model must have next 2 methods
-  # denormalization for commentable objects
   def commentable_title
-    # "My first blog post"
-    title
+    # by default:  try(:title) || 'Undefined title'
+    # for example: "My first blog post"
+    blog_post_name
   end
 
   def commentable_url
-    # blogs/1-my-first-blog-post
+    # by default:  ['', self.class.to_s.tableize, self.to_param].join('/')
+    # for example: "blogs/1-my-first-blog-post"
     [self.class.to_s.tableize, slug_id].join('/')
+  end
+
+  def commentable_state
+    # by default:  try(:state)
+    # for example: "draft"
+    self.ban_flag == true ? :banned : :published
   end
 end
 ```
