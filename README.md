@@ -5,8 +5,19 @@ TheComments - probably, best solution for comments for Ruby on Rails.
 ### Intro
 
 * [What's wrong with other gems?](#whats-wrong-with-other-gems)
-* [Concepts & Denormalization](#concepts--denormalization-tuning-introduction)
+* [Concepts & Denormalization](#concepts--denormalization)
 * [Anti Spam system](#anti-spam-system)
+
+This gem has many steps to install. You should be strong and be careful to setup it.
+
+Just follow an installation instruction step by step, and I sure - everything will be fine!
+
+**Installation process consist of 4 main steps:**
+
+* [Installation](#installation)
+* [Setup](#setup)
+* [Tuning](#tuning)
+* [Using](#using)
 
 ### My hopes about comments system
 
@@ -20,12 +31,6 @@ TheComments - probably, best solution for comments for Ruby on Rails.
 * Ready for Rails4 (and Rails::Engine)
 * Highlighting and Jumping to comment via anchor
 * Delete without destroy
-
-### You should be strong!
-
-This gem has many steps to install. You should be strong and be careful to setup it.
-
-Just follow an installation instruction step by step, and I sure - everything will be fine!
 
 ## Installation
 
@@ -210,6 +215,8 @@ class Comment < ActiveRecord::Base
 end
 ```
 
+## Using
+
 ### Commentable controller
 
 ```ruby
@@ -230,9 +237,7 @@ end
 = render partial: 'comments/tree', locals: { comments_tree: @comments, commentable: @blog }
 ```
 
-## Concepts & Denormalization (Tuning introduction)
-
-**Next step is Tuning. Tuning is one of important parts of installation process.**
+## Concepts & Denormalization
 
 Primarily we should to understand 2 important concept:
 
