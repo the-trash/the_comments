@@ -243,12 +243,15 @@ class User < ActiveRecord::Base
 end
 ```
 
+Comments methods
+
 * **User#coments**
 * **User#comments_sum**
 * **User#draft_comments_count**
 * **User#published_comments_count**
 * **User#deleted_comments_count**
 
+Comcoms methods
 
 * **User#comcoms**
 * **User#comcoms_sum**
