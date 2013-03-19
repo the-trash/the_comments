@@ -2,7 +2,11 @@
 
 TheComments - probably, best solution for comments for Ruby on Rails.
 
-![TheComments](https://raw.github.com/open-cook/the_comments/master/the_comments.jpg)
+### Intro
+
+* [What's wrong with other gems?](whats-wrong-with-other-gems)
+* [Concepts & Denormalization](concepts--denormalization-tuning-introduction)
+* [Anti Spam system](anti-spam-system)
 
 ### My hopes about comments system
 
@@ -19,17 +23,9 @@ TheComments - probably, best solution for comments for Ruby on Rails.
 
 ### You should be strong!
 
-This gem has many steps to install. Yes, I know it, but I have no ideas how can it be easier. You should be strong and be careful to setup it. Just follow an installation instruction step by step, and I sure - everything will be fine!
+This gem has many steps to install. You should be strong and be careful to setup it.
 
-### Strong dependencies of gem
-
-```ruby
-gem 'the_sortable_tree'
-gem 'state_machine'
-```
-
-* **the_sortable_tree** - render helper for nested set
-* **state_machine** - states for moderation and callbacks for recalculating of counters when state of comment was changed
+Just follow an installation instruction step by step, and I sure - everything will be fine!
 
 ## Installation
 
@@ -266,7 +262,7 @@ If you need to build common list of comments for different Commentable Models, t
 * **Comment#commentable_url** - for example: "/posts/1-my-first-post-about-ruby-on-rails"
 * **Comment#commentable_state** - for example: "draft"
 
-In common list of comments we should not have comments with [*draft*, *blocked*, *deleted*] (etc) for comemntable objects.
+In common list of comments we should not have comments with { *draft*, *blocked*, *deleted* } (etc) for comemntable objects.
 
 With denormalization we can do some code like this:
 
@@ -322,6 +318,18 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 * [acts_as_commentable](https://github.com/jackdempsey/acts_as_commentable) - so, I can see code for models. But I can't see code for controllers and views. Unfortunately, there is no threading. It's not enough for me.
 * [opinio](https://github.com/Draiken/opinio) - looks better, but there is no threading. I want to have more!
 * [has_threaded_comments](https://github.com/aarongough/has_threaded_comments) - Nice work! Nice gem! Models, controllers, views, view helper for tree rendering! **But**, last activity 2 years ago, I need few features, I think - I can make it better.
+
+![TheComments](https://raw.github.com/open-cook/the_comments/master/the_comments.jpg)
+
+### Strong dependencies of gem
+
+```ruby
+gem 'the_sortable_tree'
+gem 'state_machine'
+```
+
+* **the_sortable_tree** - render helper for nested set
+* **state_machine** - states for moderation and callbacks for recalculating of counters when state of comment was changed
 
 ## Contributing
 
