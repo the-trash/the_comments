@@ -180,19 +180,19 @@ end
 
 User comments methods
 
-* User# **coments**
-* User# **comments_sum**
-* User# **draft_comments_count**
-* User# **published_comments_count**
-* User# **deleted_comments_count**
+* @user. **coments**
+* @user. **comments_sum**
+* @user. **draft_comments_count**
+* @user. **published_comments_count**
+* @user. **deleted_comments_count**
 
 User comcoms methods
 
-* **User#comcoms**
-* **User#comcoms_sum**
-* **User#draft_comcoms_count**
-* **User#published_comcoms_count**
-* **User#deleted_comcoms_count**
+* @user. **comcoms**
+* @user. **comcoms_sum**
+* @user. **draft_comcoms_count**
+* @user. **published_comcoms_count**
+* @user. **deleted_comcoms_count**
 
 ### Any Commentable Model (Page, Blog, Article, User ...)
 
