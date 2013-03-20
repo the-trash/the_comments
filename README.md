@@ -143,6 +143,10 @@ class User < ActiveRecord::Base
 end
 ```
 
+User's posted comments
+
+* @user.<b>posted_comments</b>
+
 User comments methods
 
 * @user. **coments**

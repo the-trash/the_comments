@@ -2,8 +2,8 @@ module TheCommentsUser
   extend ActiveSupport::Concern
 
   included do
-    has_many :comments
-    has_many :comcoms, class_name: :Comment, foreign_key: :holder_id
+    has_many :posted_comments, class_name: :Comment, foreign_key: :user_id 
+    has_many :comcoms,         class_name: :Comment, foreign_key: :holder_id
   end
 
   def recalculate_comments_counters!
