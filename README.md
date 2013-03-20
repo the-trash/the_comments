@@ -55,7 +55,7 @@ gem 'the_comments'
 
 **2)** bundle
 
-**3)** Copy migration file into application, <b style="color:red">open file and follow instruction</b> in it
+**3)** Copy migration file into application, <b>open file and follow instruction</b>.
 
 ```ruby
 bundle exec rake the_comments_engine:install:migrations
@@ -69,7 +69,7 @@ bundle exec rake db:migrate
 
 ## Code Installation
 
-**1)** Run generator, open created files and follow instructions in files.
+**1)** Run generator, <b>open each of created files and follow instructions</b>.
 
 ```ruby
 bundle exec rails g the_comments install
