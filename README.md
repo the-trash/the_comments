@@ -69,31 +69,7 @@ bundle exec rake db:migrate
 
 ## Code Installation
 
-**1)** Run generator, <b>open each of created files and follow instructions</b>.
-
-```ruby
-bundle exec rails g the_comments install
-```
-
-*List of created files:*
-
-```ruby
-config/initializers/the_comments.rb
-
-app/controllers/comments_controller.rb
-app/controllers/ip_black_lists_controller.rb
-app/controllers/user_agent_black_lists_controller.rb
-```
-
-**2)** Change your ApplicationController
-
-```ruby
-class ApplicationController < ActionController::Base
-  include TheCommentsController::ViewToken
-end
-```
-
-**3)** Assets
+**1)** Assets
 
 *app/assets/javascripts/application.js*
 
@@ -108,6 +84,30 @@ end
 /*
  *= require the_comments
 */
+```
+
+**2)** Change your ApplicationController
+
+```ruby
+class ApplicationController < ActionController::Base
+  include TheCommentsController::ViewToken
+end
+```
+
+**3)** Run generator, <b>open each of created files and follow instructions</b>.
+
+```ruby
+bundle exec rails g the_comments install
+```
+
+*List of created files:*
+
+```ruby
+config/initializers/the_comments.rb
+
+app/controllers/comments_controller.rb
+app/controllers/ip_black_lists_controller.rb
+app/controllers/user_agent_black_lists_controller.rb
 ```
 
 **4)** Copy view files into your application
