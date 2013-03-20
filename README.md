@@ -14,25 +14,27 @@ Just follow an installation instruction step by step, and I sure - everything wi
 
 **Installation process consist of 4 main steps:**
 
-* [Installation](#installation)
-* [Setup](#setup)
+* [Gem Installation](#gem-installation)
+* [Code Installation](#code-installation)
 * [Tuning](#tuning)
 * [Using](#using)
 
 ### My hopes about comments system
 
 * Open comments for everybody (by default). *I hate user registration*
+* Polymorphic comments for any AR Model
+* Threading for comments (can be plain comments list)
+* Comment counters for commentable objects and User
 * Moderation for comments and simple Admin UI
 * Spam traps instead Captcha. *I hate Captcha*
 * Blacklists for IP and UserAgent
-* Comment counters for commentable objects and User
 * Denormalization for fast and Request-free comment list building
-* Ready for external content filters ( **sanitize**, **RedCloth**, **Markdown**)
-* Ready for Rails4 (and Rails::Engine)
+* Ready for external content filters (<b>sanitize</b>, <b>RedCloth</b>, <b>Markdown</b>)
 * Highlighting and Jumping to comment via anchor
+* Ready for Rails4 (and Rails::Engine)
 * Delete without destroy
 
-## Installation
+## Gem Installation
 
 **1)** change your Gemfile
 
@@ -65,7 +67,7 @@ bundle exec rake the_comments_engine:install:migrations
 bundle exec rake db:migrate
 ```
 
-## Setup
+## Code Installation
 
 **1)** Run generator, open created files and follow instructions in files.
 
