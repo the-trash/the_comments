@@ -149,19 +149,19 @@ User's posted comments
 
 User comments methods
 
-* @user. **coments**
-* @user. **comments_sum**
-* @user. **draft_comments_count**
-* @user. **published_comments_count**
-* @user. **deleted_comments_count**
+* @user.<b>coments</b>
+* @user.<b>comments_sum</b>
+* @user.<b>draft_comments_count</b>
+* @user.<b>published_comments_count</b>
+* @user.<b>deleted_comments_count</b>
 
 User comcoms methods
 
-* @user. **comcoms**
-* @user. **comcoms_sum**
-* @user. **draft_comcoms_count**
-* @user. **published_comcoms_count**
-* @user. **deleted_comcoms_count**
+* @user.<b>comcoms</b>
+* @user.<b>comcoms_sum</b>
+* @user.<b>draft_comcoms_count</b>
+* @user.<b>published_comcoms_count</b>
+* @user.<b>deleted_comcoms_count</b>
 
 ### Any Commentable Model (Page, Blog, Article, User ...)
 
