@@ -42,7 +42,8 @@ module TheCommentsBase
     end
 
     def define_holder
-      self.holder = self.commentable.user
+      c = self.commentable
+      self.holder = c.is_a?(User) ? c : c.try(:user)
     end
 
     def denormalize_commentable
@@ -56,7 +57,7 @@ module TheCommentsBase
     end
 
     def update_cache_counters
-      self.user.try        :increment!, :draft_comments_count
+      # self.user.try        :increment!, :draft_comments_count
       self.holder.try      :increment!, :draft_comcoms_count
       self.commentable.try :increment!, :draft_comments_count
     end
