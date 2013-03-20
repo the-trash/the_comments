@@ -85,7 +85,7 @@ app/controllers/ip_black_lists_controller.rb
 app/controllers/user_agent_black_lists_controller.rb
 ```
 
-**2)**
+**2)** Change your ApplicationController
 
 ```ruby
 class ApplicationController < ActionController::Base
@@ -93,7 +93,7 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-**3)** JavaScript and Stylesheets
+**3)** Assets
 
 *app/assets/javascripts/application.js*
 
@@ -116,7 +116,7 @@ end
 bundle exec rails g the_comments:views views
 ```
 
-*List of created directories:*
+*List of created directories with view files:*
 
 ```ruby
 app/views/the_comments/*.haml
@@ -144,12 +144,6 @@ class User < ActiveRecord::Base
   end
 end
 ```
-
-### User methods
-
-User's posted comments 
-
-* @user.<b>posted_comments</b>
 
 ### Any Commentable Model (Page, Blog, Article, User ...)
 
@@ -333,6 +327,12 @@ gem 'state_machine'
 
 * **the_sortable_tree** - render helper for nested set
 * **state_machine** - states for moderation and callbacks for recalculating of counters when state of comment was changed
+
+### User methods
+
+User's posted comments 
+
+* @user.<b>posted_comments</b>
 
 User comments methods
 
