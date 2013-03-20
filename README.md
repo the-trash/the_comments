@@ -143,25 +143,11 @@ class User < ActiveRecord::Base
 end
 ```
 
+### User methods
+
 User's posted comments 
 
 * @user.<b>posted_comments</b>
-
-User comments methods
-
-* @user.<b>coments</b>
-* @user.<b>comments_sum</b>
-* @user.<b>draft_comments_count</b>
-* @user.<b>published_comments_count</b>
-* @user.<b>deleted_comments_count</b>
-
-User comcoms methods
-
-* @user.<b>comcoms</b>
-* @user.<b>comcoms_sum</b>
-* @user.<b>draft_comcoms_count</b>
-* @user.<b>published_comcoms_count</b>
-* @user.<b>deleted_comcoms_count</b>
 
 ### Any Commentable Model (Page, Blog, Article, User ...)
 
@@ -247,9 +233,15 @@ Primarily we should to understand 2 important concept:
 
 #### Comments
 
+**User#posted_comments** (has_many)
+
+Set of comments, where current user is owner ( *Comment#user_id == current_user.id*).
+
 **User#comments** (has_many)
 
-Set of comments, where current user is owner ( *Comment#user_id == current_user.id*). *Comment#user_id* can be empty if comment was posted by GUEST.
+User Model can be commentable object too.
+
+Set of comments, where current user is commentable object.
 
 #### Comcoms (COMments of COMmentable objects)
 
@@ -339,6 +331,22 @@ gem 'state_machine'
 
 * **the_sortable_tree** - render helper for nested set
 * **state_machine** - states for moderation and callbacks for recalculating of counters when state of comment was changed
+
+User comments methods
+
+* @user.<b>coments</b>
+* @user.<b>comments_sum</b>
+* @user.<b>draft_comments_count</b>
+* @user.<b>published_comments_count</b>
+* @user.<b>deleted_comments_count</b>
+
+User comcoms methods
+
+* @user.<b>comcoms</b>
+* @user.<b>comcoms_sum</b>
+* @user.<b>draft_comcoms_count</b>
+* @user.<b>published_comcoms_count</b>
+* @user.<b>deleted_comcoms_count</b>
 
 ## Contributing
 
