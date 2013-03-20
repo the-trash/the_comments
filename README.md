@@ -81,9 +81,7 @@ bundle exec rake db:migrate
 *app/assets/stylesheets/application.css*
 
 ```css
-/*
- *= require the_comments
-*/
+*= require the_comments
 ```
 
 **2)** Change your ApplicationController
@@ -220,7 +218,7 @@ end
 %h1= @blog.title
 %p=  @blog.content
 
-= render partial: 'comments/tree', locals: { comments_tree: @comments, commentable: @blog }
+= render partial: 'the_comments/tree', locals: { comments_tree: @comments, commentable: @blog }
 ```
 
 ## Concepts & Denormalization
