@@ -6,12 +6,14 @@ module TheCommentsUser
     has_many :comcoms,         class_name: :Comment, foreign_key: :holder_id
   end
 
-  def recalculate_comments_counters!
-    [:comments, :comcoms].each do |name|
-      send "draft_#{name}_count=",     send(name).with_state(:draft).count
-      send "published_#{name}_count=", send(name).with_state(:published).count
-      send "deleted_#{name}_count=",   send(name).with_state(:deleted).count
-    end
+  def my_comments
+    posted_comments.with_state([:draft,:published])
+  end
+
+  def recalculate_comcoms_counters!
+    self.draft_comcoms_count     = comcoms.with_state(:draft).count
+    self.published_comcoms_count = comcoms.with_state(:published).count
+    self.deleted_comcoms_count   = comcoms.with_state(:deleted).count
     save
   end
 

@@ -89,10 +89,8 @@ module RenderCommentsTreeHelper
         "<div class='userbar'>#{ title } #{ anchor }</div>"
       end
 
-      def moderator_controls
-        if moderator?
-          h.link_to t('the_comments.edit'),       h.edit_comment_url(@comment),     class: :edit
-        end
+      def moderator_controls        
+        h.link_to(t('the_comments.edit'), h.edit_comment_url(@comment), class: :edit) if moderator?
       end
 
       def reply

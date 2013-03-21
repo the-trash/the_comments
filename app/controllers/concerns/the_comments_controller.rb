@@ -10,15 +10,15 @@ module TheCommentsController
     extend ActiveSupport::Concern
     included { before_action :set_the_comments_cookies }
 
-    private
-
     def comments_view_token
-      cookies[:comments_view_token] = { :value => SecureRandom.hex, :expires => 7.days.from_now } unless cookies[:comments_view_token]
       cookies[:comments_view_token]
     end
 
+    private
+
     def set_the_comments_cookies
-      cookies[:the_comment_cookies] = { :value => TheCommentsController::COMMENTS_COOKIES_TOKEN, :expires => 1.year.from_now }
+      cookies[:the_comment_cookies] = { value: TheCommentsController::COMMENTS_COOKIES_TOKEN, expires: 1.year.from_now }
+      cookies[:comments_view_token] = { value: SecureRandom.hex, expires: 7.days.from_now } unless cookies[:comments_view_token]
     end
   end
 
@@ -65,7 +65,7 @@ module TheCommentsController
     end
 
     def my
-      @comments = current_user.comments.with_state(:draft, :published).order('created_at DESC').page(params[:page])
+      @comments = current_user.my_comments.order('created_at DESC').page(params[:page])
       render template: 'the_comments/index'
     end
 
