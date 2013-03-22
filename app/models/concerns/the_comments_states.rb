@@ -31,20 +31,19 @@ module TheCommentsStates
         from = transition.from_name
         to   = transition.to_name
 
-        @holder.try :increment!, :"#{to}_comcoms_count"
-        @holder.try :decrement!, :"#{from}_comcoms_count"
+        @holder.try :increment!, "#{to}_comcoms_count"
+        @holder.try :decrement!, "#{from}_comcoms_count"
 
-        [@owner, @commentable].each do |obj|
-          obj.try :increment!, "#{to}_comments_count"
-          obj.try :decrement!, "#{from}_comments_count"
-        end
+        @commentable.try :increment!, "#{to}_comments_count"
+        @commentable.try :decrement!, "#{from}_comments_count"
       end
 
       # to deleted (cascade like query)
       after_transition [:draft, :published] => :deleted do |comment|
         ids = comment.self_and_descendants.map(&:id)
         Comment.where(id: ids).update_all(state: :deleted)
-        [@holder, @owner, @commentable].each{|o| o.try :recalculate_comments_counters! }
+        @holder.try      :recalculate_comcoms_counters!
+        @commentable.try :recalculate_comments_counters!
       end
 
       # from deleted
@@ -54,10 +53,8 @@ module TheCommentsStates
         @holder.try :decrement!, :deleted_comcoms_count
         @holder.try :increment!, "#{to}_comcoms_count"
 
-        [@owner, @commentable].each do |obj|
-          obj.try :decrement!, :deleted_comments_count
-          obj.try :increment!, "#{to}_comments_count"
-        end
+        @commentable.try :decrement!, :deleted_comments_count
+        @commentable.try :increment!, "#{to}_comments_count"
       end
     end
   end

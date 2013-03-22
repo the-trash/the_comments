@@ -69,6 +69,11 @@ module TheCommentsController
       render template: 'the_comments/index'
     end
 
+    def new
+      @comments = current_user.my_comments.with_state(:draft).order('created_at DESC').page(params[:page])
+      render template: 'the_comments/manage'
+    end
+
     def incoming
       @comments = current_user.comcoms.with_state(:draft, :published).order('created_at DESC').page(params[:page])
       render template: 'the_comments/manage'
@@ -79,7 +84,9 @@ module TheCommentsController
       render template: 'the_comments/manage'
     end
 
-    # Base methods
+    # BASE METHODS
+
+    # Public methods
 
     def update
       comment = Comment.where(id: params[:id]).first
@@ -95,6 +102,8 @@ module TheCommentsController
       end
       render json: { errors: @comment.errors.full_messages }
     end
+
+    # Protected methods
 
     def to_published
       Comment.where(id: params[:id]).first.to_published

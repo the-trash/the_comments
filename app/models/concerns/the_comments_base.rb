@@ -57,9 +57,8 @@ module TheCommentsBase
     end
 
     def update_cache_counters
-      # self.user.try        :increment!, :draft_comments_count
-      self.holder.try      :increment!, :draft_comcoms_count
-      self.commentable.try :increment!, :draft_comments_count
+      commentable.try :increment!, :draft_comments_count
+      holder.try      :increment!, :draft_comcoms_count
     end
   end
 end

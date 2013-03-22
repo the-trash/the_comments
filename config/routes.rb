@@ -8,17 +8,17 @@ Rails.application.routes.draw do
   end
 
   resources :comments do
-    collection do
-      get :my
-      get :incoming
-      get :trash
-    end
-
     member do
       post   :to_spam
       post   :to_draft
       post   :to_published
       delete :to_trash
+    end
+
+    collection do
+      get :my
+      get :incoming
+      get :trash
     end
   end
 end
