@@ -57,6 +57,7 @@ module TheCommentsBase
     end
 
     def update_cache_counters
+      user.try        :recalculate_my_comments_counter!
       commentable.try :increment!, :draft_comments_count
       holder.try      :increment!, :draft_comcoms_count
     end

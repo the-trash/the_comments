@@ -60,9 +60,8 @@ class CreateComments < ActiveRecord::Migration
 
     # Add fields to User Model
     change_table :users do |t|
-      t.integer :draft_comments_count,     default: 0
-      t.integer :published_comments_count, default: 0
-      t.integer :deleted_comments_count,   default: 0
+      # posted_comments.with_state([:draft,:published])
+      t.integer :my_comments_count, default: 0
 
       # commentable's comments => comcoms (cache)
       # Relation through Comment#holder_id field
