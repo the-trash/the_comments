@@ -23,7 +23,7 @@ module TheCommentsBase
     belongs_to :commentable, polymorphic: true
 
     # callbacks
-    before_create :define_holder, :define_anchor, :denormalize_commentable
+    before_create :define_holder, :define_default_state, :define_anchor, :denormalize_commentable
     after_create  :update_cache_counters
     before_save   :prepare_content
 
@@ -44,6 +44,10 @@ module TheCommentsBase
     def define_holder
       c = self.commentable
       self.holder = c.is_a?(User) ? c : c.try(:user)
+    end
+
+    def define_default_state
+      # self.state = owner && holder == owner ? :published : TheComments.config.default_state
     end
 
     def denormalize_commentable
