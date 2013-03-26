@@ -26,44 +26,44 @@ module TheCommentsBase
     before_create :define_holder, :define_default_state, :define_anchor, :denormalize_commentable
     after_create  :update_cache_counters
     before_save   :prepare_content
+  end
 
-    def avatar_url
-      src = id.to_s
-      src = title unless title.blank?
-      src = contacts if !contacts.blank? && /@/ =~ contacts
-      hash = Digest::MD5.hexdigest(src)
-      "http://www.gravatar.com/avatar/#{hash}?s=40&d=identicon"
-    end
+  def avatar_url
+    src = id.to_s
+    src = title unless title.blank?
+    src = contacts if !contacts.blank? && /@/ =~ contacts
+    hash = Digest::MD5.hexdigest(src)
+    "http://www.gravatar.com/avatar/#{hash}?s=40&d=identicon"
+  end
+    
+  private
 
-    private
+  def define_anchor
+    self.anchor = SecureRandom.hex[0..5]
+  end
 
-    def define_anchor
-      self.anchor = SecureRandom.hex[0..5]
-    end
+  def define_holder
+    c = self.commentable
+    self.holder = c.is_a?(User) ? c : c.try(:user)
+  end
 
-    def define_holder
-      c = self.commentable
-      self.holder = c.is_a?(User) ? c : c.try(:user)
-    end
+  def define_default_state
+    self.state = user && holder == user ? :published : TheComments.config.default_state
+  end
 
-    def define_default_state
-      # self.state = owner && holder == owner ? :published : TheComments.config.default_state
-    end
+  def denormalize_commentable
+    self.commentable_title = self.commentable.try :commentable_title
+    self.commentable_url   = self.commentable.try :commentable_url
+    self.commentable_state = self.commentable.try :state
+  end
 
-    def denormalize_commentable
-      self.commentable_title = self.commentable.try :commentable_title
-      self.commentable_url   = self.commentable.try :commentable_url
-      self.commentable_state = self.commentable.try :state
-    end
+  def prepare_content
+    self.content = self.raw_content
+  end
 
-    def prepare_content
-      self.content = self.raw_content
-    end
-
-    def update_cache_counters
-      user.try        :recalculate_my_comments_counter!
-      commentable.try :increment!, :draft_comments_count
-      holder.try      :increment!, :draft_comcoms_count
-    end
+  def update_cache_counters
+    user.try        :recalculate_my_comments_counter!
+    commentable.try :increment!, :draft_comments_count
+    holder.try      :increment!, :draft_comcoms_count
   end
 end

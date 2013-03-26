@@ -11,7 +11,8 @@ module TheCommentsUser
   end
 
   def recalculate_my_comments_counter!
-    self.my_comments_count = posted_comments.with_state([:draft,:published])
+    self.my_comments_count = my_comments.count
+    save
   end
 
   def recalculate_comcoms_counters!
