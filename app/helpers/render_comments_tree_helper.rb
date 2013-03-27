@@ -39,10 +39,8 @@ module RenderCommentsTreeHelper
 
         if @comment.draft?
           draft_comment
-        elsif @comment.published?
+        else @comment.published?
           published_comment
-        else
-          deleted_comment
         end
       end
 
@@ -90,7 +88,12 @@ module RenderCommentsTreeHelper
       end
 
       def moderator_controls        
-        h.link_to(t('the_comments.edit'), h.edit_comment_url(@comment), class: :edit) if moderator?
+        t = ''
+        if moderator?
+          t += h.link_to(t('the_comments.edit'), h.edit_comment_url(@comment), class: :edit)
+          t += h.link_to(t('the_comments.to_deleted'), h.to_trash_comment_url(@comment), class: :delete, method: :delete, remote: true, confirm: t('the_comments.delete_confirm'))
+        end
+        t
       end
 
       def reply

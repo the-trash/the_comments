@@ -81,7 +81,7 @@
 
   .form_holder{ margin-left: 40px; }
   
-  .edit{
+  .edit, .delete{
     margin-bottom: 3px;
     text-align:center;
     line-height: 130%;
@@ -89,6 +89,7 @@
     color: white;
     padding: 1px;
   }
+  .delete{ background: gray; }
 
   .comment{
     overflow: hidden; zoom: 1;
