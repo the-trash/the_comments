@@ -10,12 +10,15 @@ TheComments - probably, best solution for comments for Ruby on Rails.
 * Usefull cache counters
 * Passive AntiSpam system
 
-### Intro
+### Introduction
 
 * [What's wrong with other gems?](#whats-wrong-with-other-gems)
 * [Comments & ComComs](#comments--comcoms)
 * [Denormalization](#denormalization)
 * [AntiSpam system](#antispam-system)
+* [My hopes about comments system](#my-hopes-about-comments-system)
+
+## Installation
 
 This gem has many steps to install. You should be strong and be careful to setup it.
 
@@ -27,21 +30,6 @@ Just follow an installation instruction step by step, and I sure - everything wi
 * [Code Installation](#code-installation)
 * [Tuning](#tuning)
 * [Using](#using)
-
-### My hopes about comments system
-
-* Open comments for everybody (by default). *I hate user registration*
-* Polymorphic comments for any AR Model
-* Threading for comments (can be plain comments list)
-* Comment counters for commentable objects and User
-* Moderation for comments and simple Admin UI
-* Spam traps instead Captcha. *I hate Captcha*
-* Blacklists for IP and UserAgent
-* Denormalization for fast and Request-free comment list building
-* Ready for external content filters (<b>sanitize</b>, <b>RedCloth</b>, <b>Markdown</b>)
-* Highlighting and Jumping to comment via anchor
-* Ready for Rails4 (and Rails::Engine)
-* Delete without destroy
 
 ## Gem Installation
 
@@ -288,6 +276,21 @@ And now! (Ta-Da!)
 ```
 
 That is why any **commentable Model should have few methods** to provide denormalization for Comments.
+
+### My hopes about comments system
+
+* Open comments for everybody (by default). *I hate user registration*
+* Polymorphic comments for any AR Model
+* Threading for comments (can be plain comments list)
+* Comment counters for commentable objects and User
+* Moderation for comments and simple Admin UI
+* Spam traps instead Captcha. *I hate Captcha*
+* Blacklists for IP and UserAgent
+* Denormalization for fast and Request-free comment list building
+* Ready for external content filters (<b>sanitize</b>, <b>RedCloth</b>, <b>Markdown</b>)
+* Highlighting and Jumping to comment via anchor
+* Ready for Rails4 (and Rails::Engine)
+* Delete without destroy
 
 ### AntiSpam system
 
