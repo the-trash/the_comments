@@ -2,11 +2,20 @@
 
 TheComments - probably, best solution for comments for Ruby on Rails.
 
+### Main features
+
+* Threaded comments
+* Tree rendering via [TheSortableTree](https://github.com/the-teacher/the_sortable_tree)
+* Denormalization of commentable objects
+* Usefull cache counters
+* Passive AntiSpam system
+
 ### Intro
 
 * [What's wrong with other gems?](#whats-wrong-with-other-gems)
-* [Concepts & Denormalization](#concepts--denormalization)
-* [Anti Spam system](#anti-spam-system)
+* [Comments & ComComs](#comments--comcoms)
+* [Denormalization](#denormalization)
+* [AntiSpam system](#antispam-system)
 
 This gem has many steps to install. You should be strong and be careful to setup it.
 
@@ -221,7 +230,7 @@ end
 = render partial: 'the_comments/tree', locals: { comments_tree: @comments, commentable: @blog }
 ```
 
-## Concepts & Denormalization
+## Comments & ComComs
 
 Primarily we should to understand 2 important concept:
 
@@ -245,7 +254,7 @@ Set of all comments belongs to commentable objects of current_user ( *Blog#user_
 
 In fact moderator is user which have a non empty set of comcoms. This user should moderate his set of comcoms. Comment#holder_id define 
 
-#### Denormalization
+## Denormalization
 
 Now we need to look at denormalization of commentable object into Comment.
 
@@ -280,7 +289,7 @@ And now! (Ta-Da!)
 
 That is why any **commentable Model should have few methods** to provide denormalization for Comments.
 
-### Anti Spam system
+### AntiSpam system
 
 **1) Moderation**
 
