@@ -12,11 +12,11 @@ TheComments - probably, best solution for comments for Ruby on Rails.
 
 ### Introduction
 
+* [My hopes about comments system](#my-hopes-about-comments-system)
 * [What's wrong with other gems?](#whats-wrong-with-other-gems)
 * [Comments & ComComs](#comments--comcoms)
 * [Denormalization](#denormalization)
 * [AntiSpam system](#antispam-system)
-* [My hopes about comments system](#my-hopes-about-comments-system)
 
 ## Installation
 
@@ -218,6 +218,32 @@ end
 = render partial: 'the_comments/tree', locals: { comments_tree: @comments, commentable: @blog }
 ```
 
+### My hopes about comments system
+
+* Open comments for everybody (by default). *I hate user registration*
+* Polymorphic comments for any AR Model
+* Threading for comments (can be plain comments list)
+* Comment counters for commentable objects and User
+* Moderation for comments and simple Admin UI
+* Spam traps instead Captcha. *I hate Captcha*
+* Blacklists for IP and UserAgent
+* Denormalization for fast and Request-free comment list building
+* Ready for external content filters (<b>sanitize</b>, <b>RedCloth</b>, <b>Markdown</b>)
+* Highlighting and Jumping to comment via anchor
+* Ready for Rails4 (and Rails::Engine)
+* Delete without destroy
+
+### What's wrong with other gems?
+
+Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_comments). What we can see?
+
+* [Acts as commentable with threading](https://github.com/elight/acts_as_commentable_with_threading) - so, guys, where is the render helper for the tree? There is no helper! Should  I make render helper for tree by myself? Nooooo!!! I'm so sorry, but I can't use this gem. 
+* [acts_as_commentable](https://github.com/jackdempsey/acts_as_commentable) - so, I can see code for models. But I can't see code for controllers and views. Unfortunately, there is no threading. It's not enough for me.
+* [opinio](https://github.com/Draiken/opinio) - looks better, but there is no threading. I want to have more!
+* [has_threaded_comments](https://github.com/aarongough/has_threaded_comments) - Nice work! Nice gem! Models, controllers, views, view helper for tree rendering! **But**, last activity 2 years ago, I need few features, I think - I can make it better.
+
+![TheComments](https://raw.github.com/open-cook/the_comments/master/the_comments.jpg)
+
 ## Comments & ComComs
 
 Primarily we should to understand 2 important concept:
@@ -242,7 +268,7 @@ Set of all comments belongs to commentable objects of current_user ( *Blog#user_
 
 In fact moderator is user which have a non empty set of comcoms. This user should moderate his set of comcoms. Comment#holder_id define 
 
-## Denormalization
+### Denormalization
 
 Now we need to look at denormalization of commentable object into Comment.
 
@@ -277,21 +303,6 @@ And now! (Ta-Da!)
 
 That is why any **commentable Model should have few methods** to provide denormalization for Comments.
 
-### My hopes about comments system
-
-* Open comments for everybody (by default). *I hate user registration*
-* Polymorphic comments for any AR Model
-* Threading for comments (can be plain comments list)
-* Comment counters for commentable objects and User
-* Moderation for comments and simple Admin UI
-* Spam traps instead Captcha. *I hate Captcha*
-* Blacklists for IP and UserAgent
-* Denormalization for fast and Request-free comment list building
-* Ready for external content filters (<b>sanitize</b>, <b>RedCloth</b>, <b>Markdown</b>)
-* Highlighting and Jumping to comment via anchor
-* Ready for Rails4 (and Rails::Engine)
-* Delete without destroy
-
 ### AntiSpam system
 
 **1) Moderation**
@@ -317,16 +328,6 @@ _Usually spambots works faster, than human. We can try to use this feature of be
 
 **5) IP and User Agent blacklists**
 
-### What's wrong with other gems?
-
-Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_comments). What we can see?
-
-* [Acts as commentable with threading](https://github.com/elight/acts_as_commentable_with_threading) - so, guys, where is the render helper for the tree? There is no helper! Should  I make render helper for tree by myself? Nooooo!!! I'm so sorry, but I can't use this gem. 
-* [acts_as_commentable](https://github.com/jackdempsey/acts_as_commentable) - so, I can see code for models. But I can't see code for controllers and views. Unfortunately, there is no threading. It's not enough for me.
-* [opinio](https://github.com/Draiken/opinio) - looks better, but there is no threading. I want to have more!
-* [has_threaded_comments](https://github.com/aarongough/has_threaded_comments) - Nice work! Nice gem! Models, controllers, views, view helper for tree rendering! **But**, last activity 2 years ago, I need few features, I think - I can make it better.
-
-![TheComments](https://raw.github.com/open-cook/the_comments/master/the_comments.jpg)
 
 ### Strong dependencies of gem
 
