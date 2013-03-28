@@ -10,7 +10,7 @@ module TheCommentsCommentable
   end
 
   def commentable_title
-    try(:title) || 'Undefined title'
+    try(:title) || TheComments.config.default_title
   end
 
   def commentable_url

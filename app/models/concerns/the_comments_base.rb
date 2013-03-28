@@ -48,7 +48,7 @@ module TheCommentsBase
   end
 
   def define_default_state
-    self.state = user && holder == user ? :published : TheComments.config.default_state
+    self.state = user && holder == user ? :published : TheComments.config.default_owner_state
   end
 
   def denormalize_commentable
