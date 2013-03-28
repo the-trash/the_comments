@@ -218,6 +218,8 @@ end
 = render partial: 'the_comments/tree', locals: { comments_tree: @comments, commentable: @blog }
 ```
 
+## Understanding
+
 ### My hopes about comments system
 
 * Open comments for everybody (by default). *I hate user registration*
