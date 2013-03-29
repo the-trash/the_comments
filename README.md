@@ -2,7 +2,21 @@
 
 TheComments - probably, best solution for comments for Ruby on Rails.
 
-![TheComments](https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_1.gif)
+<table>
+  <tr>
+    <td width="25%" height="25%">
+      Admin view
+    </td>
+    <td width="75%" height="75%">txt</td>
+  </tr>
+
+  <tr>
+    <td width="25%" height="25%">
+      <img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_1.gif" alt="the_comments">
+    </td>
+    <td> img </td>
+  </tr>
+</table>
 
 ### Main features
 
