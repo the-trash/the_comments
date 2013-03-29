@@ -44,20 +44,20 @@ $ ->
       return false
 
     $('.tolerance_time').val time_diff
-    button.prop 'disabled', true
+    button.hide()
     true
 
   # AJAX ERROR
   $(document).on 'ajax:error', comment_forms, (request, response, status) ->
     form = $ @
-    $('input[type=submit]', form).prop 'disabled', false
+    $('input[type=submit]', form).show()
     error_msgs = error_text_builder(["Server Error: #{response.status}"])
     comments_error_notifier(form, error_msgs)
 
   # COMMENT FORMS => SUCCESS
   $(document).on 'ajax:success', comment_forms, (request, response, status) ->
     form = $ @
-    $('input[type=submit]', form).prop 'disabled', false
+    $('input[type=submit]', form).show()
 
     if typeof(response) is 'string'
       anchor = $(response).find('.comment').attr('id')
