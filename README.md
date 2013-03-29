@@ -2,6 +2,8 @@
 
 TheComments - probably, best solution for comments for Ruby on Rails.
 
+![TheComments](https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_1.gif)
+
 ### Main features
 
 * Threaded comments
@@ -244,7 +246,7 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 * [opinio](https://github.com/Draiken/opinio) - looks better, but there is no threading. I want to have more!
 * [has_threaded_comments](https://github.com/aarongough/has_threaded_comments) - Nice work! Nice gem! Models, controllers, views, view helper for tree rendering! **But**, last activity 2 years ago, I need few features, I think - I can make it better.
 
-![TheComments](https://raw.github.com/open-cook/the_comments/master/the_comments.jpg)
+![TheComments](https://raw.github.com/open-cook/the_comments/master/docs/the_comments.jpg)
 
 ## Comments & ComComs
 
