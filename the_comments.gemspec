@@ -17,7 +17,9 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  # gem.add_dependency 'haml'
   gem.add_dependency 'state_machine'
   gem.add_dependency 'the_sortable_tree'
+
+  # gem.add_dependency 'rails', '~> 4.0.0.beta'
+  # gem.add_dependency 'ruby',  '~> 1.9'
 end

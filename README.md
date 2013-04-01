@@ -1,6 +1,6 @@
 # TheComments 0.9.0
 
-TheComments - probably, best solution for comments for Ruby on Rails.
+TheComments - comment system for my Ruby on Rails 4 projects
 
 ### Screenshots (click for zoom)
 
