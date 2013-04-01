@@ -48,7 +48,7 @@ module TheCommentsBase
   end
 
   def define_default_state
-    self.state = (user && user.id == holder.id) ? :draft : TheComments.config.default_owner_state
+    self.state = TheComments.config.default_owner_state if user && user == holder
   end
 
   def denormalize_commentable
