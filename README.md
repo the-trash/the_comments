@@ -6,14 +6,18 @@ TheComments - comment system for my Ruby on Rails 4 projects
 
 <table>
   <tr>
-    <td width="33%">Admin view</td>
-    <td width="34%">Guest view</td>
-    <td width="33%">Cache counters</td>
+    <td width="20%">Admin view</td>
+    <td width="20%">Guest view</td>
+    <td width="20%">Cache counters</td>
+    <td width="20%">Edit</td>
+    <td width="20%">Recent comments</td>
   </tr>
   <tr>
-    <td width="33%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_1.gif" alt="the_comments"></td>
-    <td width="34%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_2.gif" alt="the_comments"></td>
-    <td width="33%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_3.gif" alt="the_comments"></td>
+    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_1.gif" alt="the_comments"></td>
+    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_2.gif" alt="the_comments"></td>
+    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_3.gif" alt="the_comments"></td>
+    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_4.gif" alt="the_comments"></td>
+    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_5.gif" alt="the_comments"></td>
   </tr>
 </table>
 
