@@ -37,12 +37,13 @@ TheComments - comment system for my Ruby on Rails 4 projects
 * [Comments & ComComs](#comments--comcoms)
 * [Denormalization](#denormalization)
 * [AntiSpam system](#antispam-system)
+* [Online Support](#online-support)
 
 ## Installation
 
-This gem has many steps to install. You should be strong and be careful to setup it.
+This gem has many steps to install. Be careful when installing and keep calm.
 
-Just follow an installation instruction step by step, and I sure - everything will be fine!
+Just follow an installation instruction step by step and everything will be fine!
 
 **Installation process consist of 4 main steps:**
 
@@ -383,6 +384,10 @@ User comcoms methods
 * @user.<b>published_comcoms_count</b>
 * @user.<b>deleted_comcoms_count</b>
 
+## Online Support
+
+I need your opinion, ideas, user experience - that is why you can ask me about this gem via skype: **ilya.killich**
+
 ## Contributing
 
 1. Fork it
@@ -390,8 +395,3 @@ User comcoms methods
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
-
-TXT:
-
-TheComments 1.0.0 released! #
-Hello folks! I did it! TheComments gem released!
