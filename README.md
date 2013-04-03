@@ -28,6 +28,7 @@ TheComments - comment system for my Ruby on Rails 4 projects
 * Denormalization of commentable objects
 * Usefull cache counters
 * Passive AntiSpam system
+* Online Support via skype: **ilya.killich**
 
 ### Introduction
 
