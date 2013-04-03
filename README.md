@@ -14,9 +14,9 @@ TheComments - comment system for my Ruby on Rails 4 projects
   </tr>
   <tr>
     <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_2.gif" alt="the_comments"></td>
-    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_1.gif" alt="the_comments"></td>    
-    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_3.gif" alt="the_comments"></td>
-    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_4.gif" alt="the_comments"></td>
+    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_1.gif" alt="the_comments"></td>
+    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_4.gif" alt="the_comments"></td>    
+    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_3.gif" alt="the_comments"></td>    
     <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_5.gif" alt="the_comments"></td>
   </tr>
 </table>
