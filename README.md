@@ -25,9 +25,9 @@ TheComments - comment system for my Ruby on Rails 4 projects
 
 * Threaded comments
 * Tree rendering via [TheSortableTree](https://github.com/the-teacher/the_sortable_tree)
-* Denormalization of commentable objects
+* [Denormalization](#denormalization) of commentable objects
 * Usefull cache counters
-* Passive AntiSpam system
+* Basic AntiSpam system
 * Online Support via skype: **ilya.killich**
 
 ### Introduction
