@@ -283,7 +283,7 @@ Primarily we should to understand 2 important concept:
 
 Set of comments, where current user is commentable object.
 
-```
+```ruby
   User#posted_comments (has_many)
 
   @comment.commentable_id == @user.id
@@ -292,7 +292,7 @@ Set of comments, where current user is commentable object.
 
 Set of comments, where current user is owner.
 
-```
+```ruby
   @comment.user_id == @user.id
 ```
 
@@ -302,7 +302,7 @@ Set of comments, where current user is owner.
 
 Set of all comments belongs to commentable objects of current_user
 
-```
+```ruby
   Blog#has_many(:comments)
 
   @blog#user_id == @user.id
