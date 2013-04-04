@@ -37,7 +37,7 @@ class CreateComments < ActiveRecord::Migration
       t.integer :tolerance_time
 
       # unusable: for future versions
-      t.boolean :spam_flag, default: false
+      t.boolean :spam, default: false
 
       # nested set
       t.integer :parent_id

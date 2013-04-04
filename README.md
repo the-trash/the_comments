@@ -249,7 +249,7 @@ end
 * Open comments for everybody (by default). *I hate user registration*
 * Polymorphic comments for any AR Model
 * Threading for comments (can be plain comments list)
-* Comment counters for commentable objects and User
+* Cache counters for commentable objects and User
 * Moderation for comments and simple Admin UI
 * Spam traps instead Captcha. *I hate Captcha*
 * Blacklists for IP and UserAgent
@@ -257,6 +257,7 @@ end
 * Ready for external content filters (<b>sanitize</b>, <b>RedCloth</b>, <b>Markdown</b>)
 * Highlighting and Jumping to comment via anchor
 * Ready for Rails4 (and Rails::Engine)
+* Ready for JQuery 1.9+
 * Delete without destroy
 
 ### What's wrong with other gems?
@@ -274,27 +275,41 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 
 Primarily we should to understand 2 important concept:
 
-#### Comments
-
-**User#posted_comments** (has_many)
-
-Set of comments, where current user is owner ( *Comment#user_id == current_user.id*).
+### Comments
 
 **User#comments** (has_many)
 
-User Model can be commentable object too.
+<b>(!) Attention:</b>  User Model can be commentable object too.
 
 Set of comments, where current user is commentable object.
 
-#### Comcoms (COMments of COMmentable objects)
+<b>@comment.commentable_id == @user.id</b>
+
+<b>@comment.commentable_type == 'User'</b>
+
+**User#posted_comments** (has_many)
+
+Set of comments, where current user is owner.
+
+<b>@comment.user_id == @user.id</b>
+
+### ComComs (COMments of COMmentable objects)
 
 **User#comcoms** (has_many)
 
-Set of all comments belongs to commentable objects of current_user ( *Blog#user_id == current_user.id* => Blog#has_many(:comments) => *Comment#holder_id == current_user.id*). *Comment#holder_id* should not be empty, because we should to know, who is moderator of this comment.
+Set of all comments belongs to commentable objects of current_user
+
+**@blog#user_id == @user.id**
+
+**Blog#has_many(:comments)**
+
+**@comment.holder_id == @user.id**
+
+*Comment#holder_id* should not be empty, because we should to know, who is moderator of this comment.
 
 In fact moderator is user which have a non empty set of comcoms. This user should moderate his set of comcoms. Comment#holder_id define 
 
-### Denormalization
+## Denormalization
 
 Now we need to look at denormalization of commentable object into Comment.
 
