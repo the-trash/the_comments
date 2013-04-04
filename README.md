@@ -39,6 +39,8 @@ TheComments - comment system for my Ruby on Rails 4 projects
 * [AntiSpam system](#antispam-system)
 * [Customization](#customization)
 * [Online Support](#online-support)
+* [User methods](#user-methods)
+* [Commentable methods](#commentable-methods)
 
 ## Installation
 
@@ -405,17 +407,17 @@ Denornalization methods
 * @post.<b>commentable_url</b>
 * @post.<b>commentable_state</b>
 
+## Customization
+
 ## Online Support
 
 I need your opinion, ideas, user experience - that is why you can ask me about this gem via skype: **ilya.killich**
 
-## Customization
-
-
 ## Contributing
 
 1. Fork it
-2. Create your feature branch (`git checkout -b my-new-feature`)
-3. Commit your changes (`git commit -am 'Add some feature'`)
-4. Push to the branch (`git push origin my-new-feature`)
-5. Create new Pull Request
+2. Clone it into local folder
+3. Add to Gemgile via **gem 'name', path: '/path/to/gem'**
+4. Change code
+5. git push origin master
+6. Create pull request via github
