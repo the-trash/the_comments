@@ -37,6 +37,7 @@ TheComments - comment system for my Ruby on Rails 4 projects
 * [Comments & ComComs](#comments--comcoms)
 * [Denormalization](#denormalization)
 * [AntiSpam system](#antispam-system)
+* [Customization](#customization)
 * [Online Support](#online-support)
 
 ## Installation
@@ -364,19 +365,24 @@ gem 'state_machine'
 
 ### User methods
 
-User's posted comments 
+* @user.<b>posted_comments</b> (all states)
+* @user.<b>my_comments</b> (draft, published)
+* @user.<b>my_comments_count</b>
 
-* @user.<b>posted_comments</b>
+Cache counters methods
 
-User comments methods
+* @user.<b>recalculate_my_comments_counter!</b>
+* @user.<b>recalculate_comcoms_counters!</b>
 
-* @user.<b>coments</b>
+Comments methods
+
+* @user.<b>comments</b>
 * @user.<b>comments_sum</b>
 * @user.<b>draft_comments_count</b>
 * @user.<b>published_comments_count</b>
 * @user.<b>deleted_comments_count</b>
 
-User comcoms methods
+Comcoms methods
 
 * @user.<b>comcoms</b>
 * @user.<b>comcoms_sum</b>
@@ -384,9 +390,27 @@ User comcoms methods
 * @user.<b>published_comcoms_count</b>
 * @user.<b>deleted_comcoms_count</b>
 
+### Commentable methods
+
+* @post.<b>comments</b>
+* @post.<b>draft_comments_count</b>
+* @post.<b>published_comments_count</b>
+* @post.<b>deleted_comments_count</b>
+* @post.<b>comments_sum</b> (draft + published)
+* @post.<b>recalculate_comments_counters!</b>
+
+Denornalization methods
+
+* @post.<b>commentable_title</b>
+* @post.<b>commentable_url</b>
+* @post.<b>commentable_state</b>
+
 ## Online Support
 
 I need your opinion, ideas, user experience - that is why you can ask me about this gem via skype: **ilya.killich**
+
+## Customization
+
 
 ## Contributing
 
