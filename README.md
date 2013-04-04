@@ -283,15 +283,18 @@ Primarily we should to understand 2 important concept:
 
 Set of comments, where current user is commentable object.
 
-<b>@comment.commentable_id == @user.id</b>
+```
+  User#posted_comments (has_many)
 
-<b>@comment.commentable_type == 'User'</b>
-
-**User#posted_comments** (has_many)
+  @comment.commentable_id == @user.id
+  @comment.commentable_type == 'User'
+```
 
 Set of comments, where current user is owner.
 
-<b>@comment.user_id == @user.id</b>
+```
+  @comment.user_id == @user.id
+```
 
 ### ComComs (COMments of COMmentable objects)
 
@@ -299,11 +302,12 @@ Set of comments, where current user is owner.
 
 Set of all comments belongs to commentable objects of current_user
 
-**@blog#user_id == @user.id**
+```
+  Blog#has_many(:comments)
 
-**Blog#has_many(:comments)**
-
-**@comment.holder_id == @user.id**
+  @blog#user_id == @user.id
+  @comment.holder_id == @user.id
+```
 
 *Comment#holder_id* should not be empty, because we should to know, who is moderator of this comment.
 
