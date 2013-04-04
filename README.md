@@ -271,42 +271,52 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 
 ![TheComments](https://raw.github.com/open-cook/the_comments/master/docs/the_comments.jpg)
 
-## Comments & ComComs
+## Comments & Posted comments & ComComs
 
-Primarily we should to understand 2 important concept:
+### Posted comments
+
+**@user.posted_comments** (has_many)
+
+Set of comments, where current user is owner (creator).
+
+```ruby
+@user.posted_comments # => [comment, comment, ...]
+
+@user.id == @comment.user_id
+```
 
 ### Comments
 
-**User#comments** (has_many)
+**@commentable.comments** (has_many)
 
-<b>(!) Attention:</b>  User Model can be commentable object too.
-
-Set of comments, where current user is commentable object.
+Set of comments for this commentable object
 
 ```ruby
-  User#posted_comments (has_many)
+@blog.comments # => [comment, comment, ...]
 
-  @comment.commentable_id == @user.id
-  @comment.commentable_type == 'User'
+@comment.commentable_id   == @blog.id
+@comment.commentable_type == 'Blog'
 ```
 
-Set of comments, where current user is owner.
+<b>(!) Attention:</b>  User Model can be commentable object too!
 
 ```ruby
-  @comment.user_id == @user.id
+@user.comments # => [comment, comment, ...]
+
+@comment.commentable_id   == @user.id
+@comment.commentable_type == 'User'
 ```
 
 ### ComComs (COMments of COMmentable objects)
 
-**User#comcoms** (has_many)
+**@user.comcoms**  (has_many)
 
-Set of all comments belongs to commentable objects of current_user
+Set of All <b>COM</b>ments of All <b>COM</b>mentable objects of this User
 
 ```ruby
-  Blog#has_many(:comments)
+@user.comcoms # => [comment, comment, ...]
 
-  @blog#user_id == @user.id
-  @comment.holder_id == @user.id
+@user.id == @comment.holder_id
 ```
 
 *Comment#holder_id* should not be empty, because we should to know, who is moderator of this comment.
