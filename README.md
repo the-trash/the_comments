@@ -449,8 +449,6 @@ I need your opinion, ideas, user experience - that is why you can ask me about t
 
 Copyright (c) 2013 Ilya N. Zykin
 
-MIT License
-
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
 "Software"), to deal in the Software without restriction, including
