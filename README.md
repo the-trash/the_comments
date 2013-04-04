@@ -30,7 +30,7 @@ TheComments - comment system for my Ruby on Rails 4 projects
 * Basic AntiSpam system
 * Online Support via skype: **ilya.killich**
 
-### Introduction
+### Introduction (Understanding)
 
 * [My hopes about comments system](#my-hopes-about-comments-system)
 * [What's wrong with other gems?](#whats-wrong-with-other-gems)
@@ -409,6 +409,29 @@ Denornalization methods
 
 ## Customization
 
+You can use **generators** for copy files into your Application. After that you can customize almost everything
+
+Generators list:
+
+```ruby
+bundle exec rails g the_comments --help
+```
+
+Copy View files for customization:
+
+```ruby
+bundle exec rails g the_comments:views assets
+bundle exec rails g the_comments:views views
+```
+
+Copy Helper file for tree customization:
+
+For more info read [TheSortableTree doc](https://github.com/the-teacher/the_sortable_tree)
+
+```ruby
+bundle exec rails g the_comments:views helper
+```
+
 ## Online Support
 
 I need your opinion, ideas, user experience - that is why you can ask me about this gem via skype: **ilya.killich**
@@ -421,3 +444,5 @@ I need your opinion, ideas, user experience - that is why you can ask me about t
 4. Change code
 5. git push origin master
 6. Create pull request via github
+
+## [2013, MIT License & Ilya N. Zykin](https://github.com/open-cook/the_comments/blob/master/LICENSE.txt)
