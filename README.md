@@ -322,8 +322,8 @@ Set of All <b>COM</b>ments of All <b>COM</b>mentable objects of this User
 **Comment#holder_id** should not be empty. Because we should to know, who is moderator of this comment.
 
 ```ruby
-@user.id == @comment.holder_id
-  # => This user should be MODERATOR for this comment
+@user.id == @comment.holder_id # => true
+# => This user should be MODERATOR for this comment
 ```
 
 ## Denormalization
