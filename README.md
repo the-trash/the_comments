@@ -319,9 +319,12 @@ Set of All <b>COM</b>ments of All <b>COM</b>mentable objects of this User
 @user.id == @comment.holder_id
 ```
 
-*Comment#holder_id* should not be empty, because we should to know, who is moderator of this comment.
+**Comment#holder_id** should not be empty. Because we should to know, who is moderator of this comment.
 
-In fact moderator is user which have a non empty set of comcoms. This user should moderate his set of comcoms. Comment#holder_id define 
+```ruby
+@user.id == @comment.holder_id
+  # => This user should be MODERATOR for this comment
+```
 
 ## Denormalization
 
