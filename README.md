@@ -445,4 +445,4 @@ I need your opinion, ideas, user experience - that is why you can ask me about t
 5. git push origin master
 6. Create pull request via github
 
-## [2013, MIT License & Ilya N. Zykin](https://github.com/open-cook/the_comments/blob/master/LICENSE.txt)
+#### [2013, MIT License & Ilya N. Zykin](https://github.com/open-cook/the_comments/blob/master/LICENSE.txt)
