@@ -79,7 +79,7 @@ gem 'the_comments'
 
 **2)** bundle
 
-**3)** Copy migration file into application, <b>OPEN FILE AND FOLLOW INSTRUCTION</b>.
+**3)** Copy migration file into application, <b>OPEN FILE AND FOLLOW AN INSTRUCTION</b>.
 
 ```ruby
 bundle exec rake the_comments_engine:install:migrations
