@@ -79,7 +79,7 @@ gem 'the_comments'
 
 **2)** bundle
 
-**3)** Copy migration file into application, <b>open file and follow instruction</b>.
+**3)** Copy migration file into application, <b>OPEN FILE AND FOLLOW INSTRUCTION</b>.
 
 ```ruby
 bundle exec rake the_comments_engine:install:migrations
@@ -116,7 +116,7 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-**3)** Run generator, <b>open each of created files and follow instructions</b>.
+**3)** Run generator, <b>OPEN EACH OF CREATED FILES AND FOLLOW INSTRUCTIONS</b>.
 
 ```ruby
 bundle exec rails g the_comments install
@@ -167,7 +167,7 @@ class User < ActiveRecord::Base
 end
 ```
 
-### Any Commentable Model (Page, Blog, Article, User ...)
+### Any Commentable Model (Page, Blog, Article, User(!) ...)
 
 ```ruby
 class Blog < ActiveRecord::Base
