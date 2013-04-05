@@ -32,12 +32,13 @@ P.S: But looks like best comment system for ROR :)
 * Basic AntiSpam system
 * Online Support via skype: **ilya.killich**
 
-### Introduction (Understanding)
+### Intro (understanding)
 
 * [My hopes about comments system](#my-hopes-about-comments-system)
 * [What's wrong with other gems?](#whats-wrong-with-other-gems)
-* [Comments & ComComs](#comments--comcoms)
+* [Comments, Posted comments & ComComs](#comments-posted-comments-comcoms)
 * [Denormalization and Recent comments](#denormalization)
+* [Recent comments building](#recent-comments-building)
 * [AntiSpam system](#antispam-system)
 * [Customization](#customization)
 * [Online Support](#online-support)
@@ -241,7 +242,7 @@ end
 %h1= @blog.title
 %p=  @blog.content
 
-= render partial: 'the_comments/tree', locals: { comments_tree: @comments, commentable: @blog }
+= render partial: 'the_comments/tree', locals: { commentable: @blog, comments_tree: @comments }
 ```
 
 ## Understanding
@@ -348,7 +349,7 @@ That is why any **Commentable Model should have few methods** to provide denorma
 
 ## Recent comments building
 
-With denormalization building of Recent comments (for polymorphic relationship) is very easy!
+Denormalization makes, building of Recent comments (for polymorphic relationship) is very easy!
 
 Controller:
 
