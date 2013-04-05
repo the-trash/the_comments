@@ -27,7 +27,7 @@ P.S: But looks like best comment system for ROR :)
 
 * Threaded comments
 * Tree rendering via [TheSortableTree](https://github.com/the-teacher/the_sortable_tree)
-* [Denormalization](#denormalization) of commentable objects
+* [Denormalization](#denormalization) for Recent comments
 * Usefull cache counters
 * Basic AntiSpam system
 * Online Support via skype: **ilya.killich**
@@ -37,7 +37,7 @@ P.S: But looks like best comment system for ROR :)
 * [My hopes about comments system](#my-hopes-about-comments-system)
 * [What's wrong with other gems?](#whats-wrong-with-other-gems)
 * [Comments & ComComs](#comments--comcoms)
-* [Denormalization](#denormalization)
+* [Denormalization and Recent comments](#denormalization)
 * [AntiSpam system](#antispam-system)
 * [Customization](#customization)
 * [Online Support](#online-support)
@@ -255,7 +255,7 @@ end
 * Moderation for comments and simple Admin UI
 * Spam traps instead Captcha. *I hate Captcha*
 * Blacklists for IP and UserAgent
-* Denormalization for fast and Request-free comment list building
+* Denormalization for fast and Request-free Recent comments building
 * Ready for external content filters (<b>sanitize</b>, <b>RedCloth</b>, <b>Markdown</b>)
 * Highlighting and Jumping to comment via anchor
 * Ready for Rails4 (and Rails::Engine)
@@ -273,7 +273,7 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 
 ![TheComments](https://raw.github.com/open-cook/the_comments/master/docs/the_comments.jpg)
 
-## Comments & Posted comments & ComComs
+## Comments, Posted comments, ComComs
 
 ### Posted comments
 
@@ -282,9 +282,10 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 Set of comments, where current user is owner (creator).
 
 ```ruby
-@user.posted_comments # => [comment, comment, ...]
+@my_comments = @user.posted_comments # => [comment, comment, ...]
 
-@user.id == @comment.user_id
+@comment =  @my_comments.first
+@user.id == @comment.user_id # => true
 ```
 
 ### Comments
@@ -294,19 +295,21 @@ Set of comments, where current user is owner (creator).
 Set of comments for this commentable object
 
 ```ruby
-@blog.comments # => [comment, comment, ...]
+@comments = @blog.comments # => [comment, comment, ...]
 
-@comment.commentable_id   == @blog.id
-@comment.commentable_type == 'Blog'
+@comment = @comments.first
+@comment.commentable_id   == @blog.id # => true
+@comment.commentable_type == 'Blog'   # => true
 ```
 
 <b>(!) Attention:</b>  User Model can be commentable object too!
 
 ```ruby
-@user.comments # => [comment, comment, ...]
+@comments = @user.comments # => [comment, comment, ...]
 
-@comment.commentable_id   == @user.id
-@comment.commentable_type == 'User'
+@comment = @comments.first
+@comment.commentable_id   == @user.id  # => true
+@comment.commentable_type == 'User'    # => true
 ```
 
 ### ComComs (COMments of COMmentable objects)
@@ -316,9 +319,10 @@ Set of comments for this commentable object
 Set of All <b>COM</b>ments of All <b>COM</b>mentable objects of this User
 
 ```ruby
-@user.comcoms # => [comment, comment, ...]
+@comcoms = @user.comcoms # => [comment, comment, ...]
 
-@user.id == @comment.holder_id
+@comcom  =  @comcoms.first
+@user.id == @comcom.holder_id  # => true
 ```
 
 **Comment#holder_id** should not be empty. Because we should to know, who is moderator of this comment.
@@ -330,19 +334,23 @@ Set of All <b>COM</b>ments of All <b>COM</b>mentable objects of this User
 
 ## Denormalization
 
-Now we need to look at denormalization of commentable object into Comment.
+For building Recent comments list (for polymorphic relationship) we need to have many additional requests to database. It's classic problem of polymorphic comments.
 
-Every comments can have 3 important fields with data from commentable object.
+I use denormalization of commentable objects for solve of this problem.
 
-If you need to build common list of comments for different Commentable Models, to reduce requests we need following fields:
+My practice shows - We need 3 denormalized fields into comment for (request-free) building of recent comments list:
 
 * **Comment#commentable_title** - for example: "My first post about Ruby On Rails"
 * **Comment#commentable_url** - for example: "/posts/1-my-first-post-about-ruby-on-rails"
 * **Comment#commentable_state** - for example: "draft"
 
-In common list of comments we should not have comments with { *draft*, *blocked*, *deleted* } (etc) for comemntable objects.
+That is why any **Commentable Model should have few methods** to provide denormalization for Comments.
 
-With denormalization we can do some code like this:
+## Recent comments building
+
+With denormalization building of Recent comments (for polymorphic relationship) is very easy!
+
+Controller:
 
 ```ruby
 @comments = Comment.with_state(:published)
@@ -351,7 +359,7 @@ With denormalization we can do some code like this:
                    .page(params[:page])
 ```
 
-And now! (Ta-Da!)
+View:
 
 ```ruby
 - @comments.each do |comment|
@@ -360,8 +368,6 @@ And now! (Ta-Da!)
     %p= link_to comment.commentable_title, comment.commentable_url
     %p= comment.content
 ```
-
-That is why any **commentable Model should have few methods** to provide denormalization for Comments.
 
 ### AntiSpam system
 
