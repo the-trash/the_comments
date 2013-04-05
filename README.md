@@ -335,11 +335,13 @@ Set of All <b>COM</b>ments of All <b>COM</b>mentable objects of this User
 
 ## Denormalization
 
-For building Recent comments list (for polymorphic relationship) we need to have many additional requests to database. It's classic problem of polymorphic comments.
+For building of Recent comments list (for polymorphic relationship) we need to have many additional requests to database. It's classic problem of polymorphic comments.
 
 I use denormalization of commentable objects for solve of this problem.
 
 My practice shows - We need 3 denormalized fields into comment for (request-free) building of recent comments list:
+
+<img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_5.gif" alt="the_comments">
 
 * **Comment#commentable_title** - for example: "My first post about Ruby On Rails"
 * **Comment#commentable_url** - for example: "/posts/1-my-first-post-about-ruby-on-rails"
