@@ -483,7 +483,7 @@ I need your opinion, ideas, user experience - that is why you can ask me about t
 
 1. Fork it
 2. Clone it into local folder
-3. Add to Gemgile via **gem 'name', path: '/path/to/gem'**
+3. Add to Gemfile via **gem 'the_comments', path: '/path/to/gem/the_comments'**
 4. Change code
 5. git push origin master
 6. Create pull request via github
