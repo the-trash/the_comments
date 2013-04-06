@@ -8,7 +8,9 @@ P.S: and for me it's best prototype of comment system for Rails 4
 
 Comments for Rails 4, Comments with threading, Nested Comments, Polymorphic comments, Acts as commentable, Comment functionality, Comments, Threading, Rails 4
 
-### Screenshots (click for zoom)
+## Screenshots
+
+**click to zoom**
 
 <table>
   <tr>
