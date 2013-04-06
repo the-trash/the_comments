@@ -1,6 +1,6 @@
 # TheComments 1.0.0
 
-TheComments - just comment system for my Ruby on Rails 4 projects
+TheComments - just comment system for my Ruby on Rails 4 projects. [rubygems](http://rubygems.org/gems/the_comments)
 
 P.S: and for me it's best prototype of comment system for Rails 4
 

@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.version       = TheComments::VERSION
   gem.authors       = ["Ilya N. Zykin"]
   gem.email         = ["zykin-ilya@ya.ru"]
-  gem.description   = %q{ Nested Comments }
-  gem.summary       = %q{ Nested Comments form TheTeacher }
+  gem.description   = %q{ Comments with threading for Rails 4 }
+  gem.summary       = %q{ the_comments by the-teacher }
   gem.homepage      = "https://github.com/open-cook/the_comments"
 
   gem.files         = `git ls-files`.split($/)
