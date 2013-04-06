@@ -1,3 +1,3 @@
 module TheComments
-  VERSION = "1.0.0"
+  VERSION = "0.9.9"
 end
