@@ -20,6 +20,5 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'state_machine'
   gem.add_dependency 'the_sortable_tree'
 
-  # gem.add_dependency 'rails', '~> 4.0.0.beta'
-  # gem.add_dependency 'ruby',  '~> 1.9'
+  gem.add_dependency 'rails', '~> 4.0'
 end
