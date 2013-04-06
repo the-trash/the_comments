@@ -4,12 +4,10 @@ $ ->
   
   holder.on 'ajax:success', '.to_published', (request, response, status) ->
     link = $ @
-    log link.parents('.item')
     link.parents('.item').first().attr('class', 'item published')
 
   holder.on 'ajax:success', '.to_draft', (request, response, status) ->
     link = $ @
-    log link.parents('.item')
     link.parents('.item').first().attr('class', 'item draft')
 
   holder.on 'ajax:success', '.to_spam, .to_deleted', (request, response, status) ->

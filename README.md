@@ -1,8 +1,12 @@
-# TheComments 0.9.0
+# TheComments 1.0.0
 
-TheComments - just comment system for my Ruby on Rails 4 projects
+TheComments - just comments system for my Ruby on Rails 4 projects
 
-P.S: But looks like best comment system for ROR :)
+P.S: and for me it's best prototype of comments system for Rails 4
+
+## Keywords
+
+Comments for Rails 4, Comments with threading, Polymorphic comments, Acts as commentable, Comment functionality, Comments, Threading, Rails 4
 
 ### Screenshots (click for zoom)
 
@@ -41,9 +45,10 @@ P.S: But looks like best comment system for ROR :)
 * [Recent comments building](#recent-comments-building)
 * [AntiSpam system](#antispam-system)
 * [Customization](#customization)
-* [Online Support](#online-support)
 * [User methods](#user-methods)
 * [Commentable methods](#commentable-methods)
+* [Online Support](#online-support)
+* [About author](#about-author)
 
 ## Installation
 
@@ -408,6 +413,30 @@ gem 'state_machine'
 * **the_sortable_tree** - render helper for nested set
 * **state_machine** - states for moderation and callbacks for recalculating of counters when state of comment was changed
 
+## Customization
+
+You can use **generators** for copy files into your Application. After that you can customize almost everything
+
+Generators list:
+
+```ruby
+bundle exec rails g the_comments --help
+```
+
+Copy View files for customization:
+
+```ruby
+bundle exec rails g the_comments:views assets
+bundle exec rails g the_comments:views views
+```
+
+Copy Helper file for tree customization:
+
+For more info read [TheSortableTree doc](https://github.com/the-teacher/the_sortable_tree)
+
+```ruby
+bundle exec rails g the_comments:views helper
+```
 ### User methods
 
 * @user.<b>posted_comments</b> (all states)
@@ -450,34 +479,16 @@ Denornalization methods
 * @post.<b>commentable_url</b>
 * @post.<b>commentable_state</b>
 
-## Customization
-
-You can use **generators** for copy files into your Application. After that you can customize almost everything
-
-Generators list:
-
-```ruby
-bundle exec rails g the_comments --help
-```
-
-Copy View files for customization:
-
-```ruby
-bundle exec rails g the_comments:views assets
-bundle exec rails g the_comments:views views
-```
-
-Copy Helper file for tree customization:
-
-For more info read [TheSortableTree doc](https://github.com/the-teacher/the_sortable_tree)
-
-```ruby
-bundle exec rails g the_comments:views helper
-```
-
 ## Online Support
 
 I need your opinion, ideas, user experience - that is why you can ask me about this gem via skype: **ilya.killich**
+
+## About author
+
+Yes, It's true - I was a school teacher in the past.
+That's why my login is the-teacher.
+Now I'm ruby & frontend developer.
+I learn, I teach, I make a code. And sorry for my English.
 
 ## Contributing
 
