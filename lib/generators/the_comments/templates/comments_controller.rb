@@ -15,6 +15,7 @@ class CommentsController < ApplicationController
   # Application side methods:
   # Overwrite following default methods if it's need
   # Following methods based on *current_user* helper method
+  # Look here: https://github.com/the-teacher/the_comments/blob/master/app/controllers/concerns/the_comments_controller.rb#L62
   #
   # [:my, :incoming, :edit, :trash]
 
