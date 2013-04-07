@@ -49,6 +49,7 @@ Comments for Rails 4, Comments with threading, Nested Comments, Polymorphic comm
 * [Commentable methods](#commentable-methods)
 * [Online Support](#online-support)
 * [About author](#about-author)
+* [What about specs?](#what-about-specs)
 
 ## Installation
 
@@ -174,6 +175,8 @@ end
 
 ### Any Commentable Model (Page, Blog, Article, User(!) ...)
 
+Read more about **commentable_title**, **commentable_url** and **commentable_state** methods here: [Denormalization and Recent comments](#denormalization)
+
 ```ruby
 class Blog < ActiveRecord::Base
   include TheCommentsCommentable
@@ -199,6 +202,7 @@ end
 ```
 
 ### Comment Model
+
 
 ```ruby
 class Comment < ActiveRecord::Base
@@ -262,7 +266,7 @@ end
 * Spam traps instead Captcha. *I hate Captcha*
 * Blacklists for IP and UserAgent
 * Denormalization for fast and Request-free Recent comments building
-* Ready for external content filters (<b>sanitize</b>, <b>RedCloth</b>, <b>Markdown</b>)
+* Ready for external content filters (<b>sanitize</b>, <b>RedCloth</b>, <b>Markdown</b>, etc)
 * Highlighting and Jumping to comment via anchor
 * Ready for Rails4 (and Rails::Engine)
 * Ready for JQuery 1.9+
@@ -342,7 +346,7 @@ Set of All <b>COM</b>ments of All <b>COM</b>mentable objects of this User
 
 For building of Recent comments list (for polymorphic relationship) we need to have many additional requests to database. It's classic problem of polymorphic comments.
 
-I use denormalization of commentable objects for solve of this problem.
+I use denormalization of commentable objects to solve this problem.
 
 My practice shows - We need 3 denormalized fields into comment for (request-free) building of recent comments list:
 
@@ -489,6 +493,13 @@ Yes, It's true - I was a school teacher in the past.
 That's why my login is the-teacher.
 Now I'm ruby/frontend developer and [food-blogger](http://open-cook.ru).
 I learn, I teach, I make a code. And sorry for my English.
+
+## What about specs?
+
+This gem - just first prototype of my ideas about comment system.
+Unfortunatly, I have no time to write many tests for this gem.
+Release 1.0.0 works for my pet projects - it's enough for me.
+If you have a problem with gem and you can to create coverage tests for this problem - I will be happy to get your pull request.
 
 ## Contributing
 
