@@ -19,11 +19,11 @@ Comments for Rails 4, Comments with threading, Nested Comments, Polymorphic comm
     <td width="20%">Recent comments & Denormalization</td>
   </tr>
   <tr>
-    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_2.gif" alt="the_comments"></td>
-    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_1.gif" alt="the_comments"></td>
-    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_4.gif" alt="the_comments"></td>    
-    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_3.gif" alt="the_comments"></td>    
-    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/open-cook/the_comments/master/docs/the_comments_view_5.gif" alt="the_comments"></td>
+    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/the-teacher/the_comments/master/docs/the_comments_view_2.gif" alt="the_comments"></td>
+    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/the-teacher/the_comments/master/docs/the_comments_view_1.gif" alt="the_comments"></td>
+    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/the-teacher/the_comments/master/docs/the_comments_view_4.gif" alt="the_comments"></td>    
+    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/the-teacher/the_comments/master/docs/the_comments_view_3.gif" alt="the_comments"></td>    
+    <td width="20%"><img width="100%" height="100%" src="https://raw.github.com/the-teacher/the_comments/master/docs/the_comments_view_5.gif" alt="the_comments"></td>
   </tr>
 </table>
 
@@ -282,7 +282,7 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 * [opinio](https://github.com/Draiken/opinio) - looks better, but there is no threading. I want to have more!
 * [has_threaded_comments](https://github.com/aarongough/has_threaded_comments) - Nice work! Nice gem! Models, controllers, views, view helper for tree rendering! **But**, last activity 2 years ago, I need few features, I think - I can make it better.
 
-![TheComments](https://raw.github.com/open-cook/the_comments/master/docs/the_comments.jpg)
+![TheComments](https://raw.github.com/the-teacher/the_comments/master/docs/the_comments.jpg)
 
 ## Comments, Posted comments, ComComs
 
