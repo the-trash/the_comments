@@ -487,7 +487,7 @@ I need your opinion, ideas, user experience - that is why you can ask me about t
 
 Yes, It's true - I was a school teacher in the past.
 That's why my login is the-teacher.
-Now I'm ruby & frontend developer.
+Now I'm ruby/frontend developer and [food-blogger](http://open-cook.ru).
 I learn, I teach, I make a code. And sorry for my English.
 
 ## Contributing
