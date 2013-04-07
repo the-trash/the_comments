@@ -360,7 +360,7 @@ That is why any **Commentable Model should have few methods** to provide denorma
 
 ## Recent comments building
 
-Denormalization makes, building of Recent comments (for polymorphic relationship) is very easy!
+Denormalization makes building of Recent comments (for polymorphic relationship) very easy!
 
 Controller:
 
