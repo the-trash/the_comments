@@ -52,10 +52,6 @@ Comments for Rails 4, Comments with threading, Nested Comments, Polymorphic comm
 * [What about specs?](#what-about-specs)
 
 
-### Where I can find example of application with the_comments?
-
-This gem is part of new version of my food-blog about modern russian home cuisine. There is code of my tasty CMS [open-cook](https://github.com/open-cook/open-cook)
-
 ## Installation
 
 This gem has many steps to install. Be careful when installing and keep calm.
@@ -505,6 +501,10 @@ This gem - just first prototype of my ideas about comment system.
 Unfortunatly, I have no time to write many tests for this gem.
 Release 1.0.0 works for my pet projects - it's enough for me.
 If you have a problem with gem and you can to create coverage tests for this problem - I will be happy to get your pull request.
+
+### Where I can find example of application with the_comments?
+
+This gem is part of new version of my food-blog about modern russian home cuisine. There is code of my tasty CMS [open-cook](https://github.com/open-cook/open-cook)
 
 ## Contributing
 
