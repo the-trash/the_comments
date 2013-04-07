@@ -76,7 +76,7 @@ class CreateComments < ActiveRecord::Migration
       t.integer :spam_comcoms_count,      default: 0
     end
 
-    # Uncomment this. Add fields Commentable Models
+    # Uncomment this. Add fields to Commentable Models
     #
     # [:posts, :blogs, :articles, :pages].each do |table_name|
     #   change_table table_name do |t|
