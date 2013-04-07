@@ -70,7 +70,7 @@ module TheCommentsController
     end
 
     def new
-      @comments = current_user.my_comments.with_state(:draft).order('created_at DESC').page(params[:page])
+      @comments = current_user.comcoms.with_state(:draft).order('created_at DESC').page(params[:page])
       render template: 'the_comments/manage'
     end
 

@@ -9,7 +9,10 @@ module TheCommentsCommentable
     after_save        :denormalize_for_comments
   end
 
+  # Default Denormalization methods
+  # Overwrite it with your Application
   def commentable_title
+    # My first blog post
     try(:title) || TheComments.config.default_title
   end
 
@@ -23,6 +26,7 @@ module TheCommentsCommentable
     try(:state)
   end
 
+  # Helper methods
   def comments_sum
     published_comments_count + draft_comments_count
   end

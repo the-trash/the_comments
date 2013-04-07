@@ -42,6 +42,7 @@ module TheCommentsStates
       after_transition [:draft, :published] => :deleted do |comment|
         ids = comment.self_and_descendants.map(&:id)
         Comment.where(id: ids).update_all(state: :deleted)
+
         @owner.try       :recalculate_my_comments_counter!
         @holder.try      :recalculate_comcoms_counters!
         @commentable.try :recalculate_comments_counters!

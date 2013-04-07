@@ -51,6 +51,11 @@ Comments for Rails 4, Comments with threading, Nested Comments, Polymorphic comm
 * [About author](#about-author)
 * [What about specs?](#what-about-specs)
 
+
+### Where I can find example of application with the_comments?
+
+This gem is part of new version of my food-blog about modern russian home cuisine. There is code of my tasty CMS [open-cook](https://github.com/open-cook/open-cook)
+
 ## Installation
 
 This gem has many steps to install. Be careful when installing and keep calm.
@@ -182,15 +187,15 @@ class Blog < ActiveRecord::Base
   include TheCommentsCommentable
 
   def commentable_title
-    # by default:  try(:title) || 'Undefined title'
+    # by default: try(:title) || TheComments.config.default_title
     # for example: "My first blog post"
     blog_post_name
   end
 
   def commentable_url
     # by default:  ['', self.class.to_s.tableize, self.to_param].join('/')
-    # for example: "blogs/1-my-first-blog-post"
-    [self.class.to_s.tableize, slug_id].join('/')
+    # for example: "/blogs/1-my-first-blog-post"
+    ['', self.class.to_s.tableize, slug_id].join('/')
   end
 
   def commentable_state
