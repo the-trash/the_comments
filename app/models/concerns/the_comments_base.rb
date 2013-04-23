@@ -2,8 +2,11 @@ module TheCommentsBase
   extend ActiveSupport::Concern
 
   included do
+    # attr_accessible :parent_id
+    # attr_accessible :ip, :referer, :user_agent, :tolerance_time
+    # attr_accessible :user, :title, :contacts, :raw_content, :view_token, :state
+
     # Nested Set
-    attr_accessible :parent_id
     acts_as_nested_set scope: [:commentable_type, :commentable_id]
 
     # Comments State Machine
@@ -11,9 +14,6 @@ module TheCommentsBase
 
     # TheSortableTree
     include TheSortableTree::Scopes
-
-    attr_accessible :user, :title, :contacts, :raw_content, :view_token, :state
-    attr_accessible :ip, :referer, :user_agent, :tolerance_time
 
     validates :raw_content, presence: true
 

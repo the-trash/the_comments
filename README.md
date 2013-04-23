@@ -134,6 +134,9 @@ bundle exec rails g the_comments install
 ```ruby
 config/initializers/the_comments.rb
 
+app/models/ip_black_list.rb
+app/models/user_agent_black_list.rb
+
 app/controllers/comments_controller.rb
 app/controllers/ip_black_lists_controller.rb
 app/controllers/user_agent_black_lists_controller.rb

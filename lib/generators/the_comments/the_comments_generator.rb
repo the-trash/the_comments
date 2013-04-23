@@ -8,6 +8,8 @@ class TheCommentsGenerator < Rails::Generators::NamedBase
       cp_controllers
     elsif gen_name == 'controllers'
       cp_controllers
+    elsif gen_name == 'models'
+      cp_models
     else
       puts 'TheComments Generator - wrong Name'
       puts 'Try to use [install|controllers]'
@@ -22,6 +24,11 @@ class TheCommentsGenerator < Rails::Generators::NamedBase
 
   def cp_setup
     copy_file 'the_comments.rb', 'config/initializers/the_comments.rb'
+  end
+
+  def cp_models
+    copy_file 'ip_black_list.rb',         'app/models/ip_black_list.rb'
+    copy_file 'user_agent_black_list.rb', 'app/models/user_agent_black_list.rb'
   end
 
   def cp_controllers
