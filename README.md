@@ -86,11 +86,13 @@ gem 'the_comments'
 
 **2)** bundle
 
-**3)** Create migration file with following generator. <b>OPEN FILE AND FOLLOW AN INSTRUCTION</b>.
+**3)** Create migration file with following generator.
 
 ```ruby
 bundle exec rake the_comments_engine:install:migrations
 ```
+
+<b>OPEN MIGRATION FILE AND FOLLOW AN INSTRUCTION</b>.
 
 **4)** run migration
 
@@ -123,11 +125,14 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-**3)** Run generator, <b>OPEN EACH OF CREATED FILES AND FOLLOW INSTRUCTIONS</b>.
+**3)** Run generator
 
 ```ruby
 bundle exec rails g the_comments install
+bundle exec rails g the_comments install models
 ```
+
+<b>OPEN EACH OF CREATED FILES AND FOLLOW INSTRUCTIONS</b>.
 
 *List of created files:*
 
@@ -142,7 +147,7 @@ app/controllers/ip_black_lists_controller.rb
 app/controllers/user_agent_black_lists_controller.rb
 ```
 
-**4)** Copy view files into your application
+**4)** Run view generator for coping view files into your App
 
 ```ruby
 bundle exec rails g the_comments:views views
