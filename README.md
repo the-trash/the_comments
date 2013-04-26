@@ -129,7 +129,7 @@ end
 
 ```ruby
 bundle exec rails g the_comments install
-bundle exec rails g the_comments install models
+bundle exec rails g the_comments models
 ```
 
 <b>OPEN EACH OF CREATED FILES AND FOLLOW INSTRUCTIONS</b>.
