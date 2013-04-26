@@ -5,6 +5,7 @@ class TheCommentsGenerator < Rails::Generators::NamedBase
   def generate_controllers
     if gen_name == 'install'
       cp_setup
+      cp_models
       cp_controllers
     elsif gen_name == 'controllers'
       cp_controllers
