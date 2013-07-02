@@ -2,10 +2,6 @@ module TheCommentsBase
   extend ActiveSupport::Concern
 
   included do
-    # attr_accessible :parent_id
-    # attr_accessible :ip, :referer, :user_agent, :tolerance_time
-    # attr_accessible :user, :title, :contacts, :raw_content, :view_token, :state
-
     # Nested Set
     acts_as_nested_set scope: [:commentable_type, :commentable_id]
 
