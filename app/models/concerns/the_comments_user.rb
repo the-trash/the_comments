@@ -3,12 +3,13 @@ module TheCommentsUser
 
   included do
     has_many :comments
-    has_many :posted_comments, class_name: :Comment, foreign_key: :user_id 
-    has_many :comcoms,         class_name: :Comment, foreign_key: :holder_id
+    has_many :comcoms, class_name: :Comment, foreign_key: :holder_id
+
+    # has_many :posted_comments, class_name: :Comment, foreign_key: :user_id
   end
 
   def my_comments
-    posted_comments.with_state([:draft,:published])
+    comments.with_state([:draft,:published])
   end
 
   def recalculate_my_comments_counter!
