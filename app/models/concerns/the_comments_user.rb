@@ -4,8 +4,6 @@ module TheCommentsUser
   included do
     has_many :comments
     has_many :comcoms, class_name: :Comment, foreign_key: :holder_id
-
-    # has_many :posted_comments, class_name: :Comment, foreign_key: :user_id
   end
 
   def my_comments
@@ -14,7 +12,7 @@ module TheCommentsUser
 
   def recalculate_my_comments_counter!
     self.my_comments_count = my_comments.count
-    save
+    save!
   end
 
   def recalculate_comcoms_counters!

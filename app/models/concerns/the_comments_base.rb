@@ -44,7 +44,7 @@ module TheCommentsBase
   end
 
   def define_default_state
-    self.state = TheComments.config.default_owner_state if user && user == holder
+    self.state = self.class.config.default_owner_state if user && user == holder
   end
 
   def denormalize_commentable
@@ -57,9 +57,9 @@ module TheCommentsBase
     self.content = self.raw_content
   end
 
-  def update_cache_counters
-    user.try        :recalculate_my_comments_counter!
+  def update_cache_counters    
     commentable.try :increment!, "#{state}_comments_count"
     holder.try      :increment!, "#{state}_comcoms_count"
+    user.try        :recalculate_my_comments_counter!
   end
 end

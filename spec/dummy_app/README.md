@@ -29,7 +29,7 @@ http://localhost:3000/
 ```
 rake db:bootstrap RAILS_ENV=test
 
-rspec
+rspec --format documentation
 ```
 
 ### Only for me (don't read this)
