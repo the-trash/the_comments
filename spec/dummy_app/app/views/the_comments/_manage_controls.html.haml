@@ -1,0 +1,4 @@
+= link_to t('the_comments.to_published'), to_published_comment_url(comment), remote: true, class: :to_published, method: :post
+= link_to t('the_comments.to_draft'),     to_draft_comment_url(comment),     remote: true, class: :to_draft,     method: :post
+= link_to t('the_comments.to_spam'),      to_spam_comment_url(comment),      remote: true, class: :to_spam,      method: :post
+= link_to t('the_comments.to_deleted'),   to_trash_comment_url(comment),     remote: true, class: :to_deleted,   method: :delete, data: { confirm: t('the_comments.delete_confirm') }

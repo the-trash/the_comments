@@ -1,0 +1,17 @@
+- unless @ip_black_lists.blank?
+  %ol.black_list
+    - @ip_black_lists.each do |black|
+      %li{ class: black.state }
+        %p
+          %b ip:
+          = black.ip
+          %b count:
+          = black.count
+          %b state:
+          %span.state= black.state
+        %p
+          %b action: 
+          = link_to :warning, ip_black_list_to_state_path(black, state: :warning), remote: true, method: :patch, class: :to_warning
+          = link_to :banned,  ip_black_list_to_state_path(black, state: :banned),  remote: true, method: :patch, class: :to_banned
+- else
+  %p= t('the_comments.item_not_found')

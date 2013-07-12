@@ -1,0 +1,29 @@
+= paginate @comments
+
+%ol.comments_list
+  - @comments.each do |comment|
+    %li
+      .item{ class: comment.state }
+        .body
+          = render partial: 'the_comments/comment_body', locals: { comment: comment }
+        .form.comment{ style: 'display:none' }
+          = form_for comment, remote: true do |f|
+            .commentable
+              = comment.commentable_type
+              &rarr;
+              = link_to comment.commentable_title, comment.commentable_url
+            .title
+              %label from:
+              = f.text_field :title
+            .contacts
+              %label contacts:
+              = f.text_field :contacts
+            .content
+              = f.text_area  :raw_content
+            .submit
+              = f.submit
+          .controls
+            = link_to :View, '#', class: :view
+            = render partial: 'the_comments/manage_controls', locals: { comment: comment }
+
+= paginate @comments
