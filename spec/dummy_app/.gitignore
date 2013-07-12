@@ -8,6 +8,7 @@
 /.bundle
 
 # Ignore the default SQLite database.
+/db/*.db
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
