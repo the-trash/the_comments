@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+# Base gems
 gem 'rails', '4.0.0'
 gem 'sqlite3'
 
@@ -14,9 +15,13 @@ gem 'thin', group: [:development]
 gem 'therubyracer', platforms: :ruby
 gem 'sdoc', require: false, group: [:doc]
 
+# App gems
+gem 'haml'
 gem 'sorcery'
+gem 'awesome_nested_set'
 gem 'the_comments', path: '../../'
 
+# Test gems
 group :development, :test do
   gem 'faker'
   gem 'factory_girl'
