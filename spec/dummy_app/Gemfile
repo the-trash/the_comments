@@ -5,11 +5,18 @@ gem 'sqlite3'
 
 gem 'jquery-rails'
 gem 'jbuilder', '~> 1.2'
+
 gem 'uglifier', '>= 1.3.0'
 gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'
-gem 'therubyracer', platforms: :ruby
 
-group :doc do
-  gem 'sdoc', require: false
+gem 'thin', group: [:development]
+gem 'therubyracer', platforms: :ruby
+gem 'sdoc', require: false, group: [:doc]
+
+group :development, :test do
+  gem 'faker'
+  gem 'factory_girl'
+  gem 'database_cleaner'
+  gem 'rspec-rails', '~> 2.0'
 end
