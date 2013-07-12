@@ -18,6 +18,7 @@ gem 'sdoc', require: false, group: [:doc]
 # App gems
 gem 'haml'
 gem 'sorcery'
+gem 'haml-rails'
 gem 'awesome_nested_set'
 gem 'the_comments', path: '../../'
 

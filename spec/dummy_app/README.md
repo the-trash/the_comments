@@ -1,12 +1,18 @@
 ### Dummy App 
 
-Test app for TheComments testing
+**Test app for TheComments testing**
+
+base install commands
 
 ```
+rails g sorcery:install
 rails generate rspec:install
 
-rails generate sorcery:install
-rails generate the_comments install
-rails generate the_comments:views views
-rake the_comments_engine:install:migrations
+rails g the_comments install
+rails g the_comments:views views
+rails g model post user_id:integer title:string content:text
+
+rake the_comments_engine:install:migrations (EDIT!)
+
+rake db:bootstrap
 ```
