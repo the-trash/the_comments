@@ -28,6 +28,7 @@ class TheCommentsGenerator < Rails::Generators::NamedBase
   end
 
   def cp_models
+    copy_file 'comment.rb',               'app/models/comment.rb'
     copy_file 'ip_black_list.rb',         'app/models/ip_black_list.rb'
     copy_file 'user_agent_black_list.rb', 'app/models/user_agent_black_list.rb'
   end
