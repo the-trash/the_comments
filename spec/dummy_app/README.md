@@ -1,6 +1,38 @@
-### Dummy App 
+## TheComments Dummy App
 
-**Test app for TheComments testing**
+### First step
+
+```
+git clone https://github.com/the-teacher/the_comments.git
+
+cd the_comments/spec/dummy_app/
+
+bundle
+```
+
+### App start
+
+```
+rake db:bootstrap
+
+rails s -p 3000 -b localhost
+```
+
+Browser
+
+```
+http://localhost:3000/
+```
+
+### Tests start
+
+```
+rake db:bootstrap RAILS_ENV=test
+
+rspec
+```
+
+### Only for me (don't read this)
 
 base install commands
 
