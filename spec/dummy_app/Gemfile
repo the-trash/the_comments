@@ -14,6 +14,9 @@ gem 'thin', group: [:development]
 gem 'therubyracer', platforms: :ruby
 gem 'sdoc', require: false, group: [:doc]
 
+gem 'sorcery'
+gem 'the_comments', path: '../../'
+
 group :development, :test do
   gem 'faker'
   gem 'factory_girl'
