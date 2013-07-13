@@ -5,6 +5,44 @@ def destroy_all
   Comment.destroy_all
 end
 
+# --------------------------------------
+# Helpers
+# --------------------------------------
+def my_comments_count_assert user, count
+  user.my_comments.count.should eq count
+  user.my_comments_count.should eq count
+end
+
+def comments_count_assert(obj, values)
+  obj.comments.with_state(:draft).count.should     eq values[0]
+  obj.comments.with_state(:published).count.should eq values[1]
+  obj.comments.with_state(:deleted).count.should   eq values[2]
+end
+
+def comments_counters_assert(obj, values)
+  obj.draft_comments_count.should     eq values[0]
+  obj.published_comments_count.should eq values[1]
+  obj.deleted_comments_count.should   eq values[2]
+end
+
+def comcoms_count_assert(obj, values)
+  obj.comcoms.with_state(:draft).count.should     eq values[0]
+  obj.comcoms.with_state(:published).count.should eq values[1]
+  obj.comcoms.with_state(:deleted).count.should   eq values[2]
+end
+
+def comcoms_counters_assert(obj, values)
+  obj.draft_comcoms_count.should     eq values[0]
+  obj.published_comcoms_count.should eq values[1]
+  obj.deleted_comcoms_count.should   eq values[2]
+end
+# --------------------------------------
+# ~ Helpers
+# --------------------------------------
+
+# --------------------------------------
+# init functions
+# --------------------------------------
 def create_users_and_post
   @user = FactoryGirl.create(:user)
 
@@ -26,11 +64,15 @@ def base_testing_situation
   @user.reload
   @post_holder.reload
 end
+# --------------------------------------
+# ~ init functions
+# --------------------------------------
 
 describe User do
   context 'User leave comment to the post' do
+    after(:all){ destroy_all }
+
     before(:all){ create_users_and_post }
-    after(:all){  destroy_all           }
 
     it 'should be User' do
       @user.should        be_instance_of User
@@ -58,75 +100,96 @@ describe User do
   end
 
   context 'User leave 3 comments and Instances has expectable counter values' do
+    after(:all) { destroy_all }
+
     before(:all){ base_testing_situation }
-    after(:all) { destroy_all            }
 
     describe 'User counters' do
       it 'my_comments counter' do
-        @user.my_comments.count.should eq 3
-        @user.my_comments_count.should eq 3
+        my_comments_count_assert(@user, 3)
       end
 
       it 'Comcoms counters' do
-        @user.comcoms.count.should           eq 0
-        @user.draft_comcoms_count.should     eq 0
-        @user.published_comcoms_count.should eq 0
-        @user.deleted_comcoms_count.should   eq 0
+        @user.comcoms.count.should eq 0
+
+        comcoms_counters_assert(@user, [0,0,0])
       end
     end
 
     describe 'Holder counters' do
       it 'my_comments counter' do
-        @post_holder.my_comments.count.should eq 0
-        @post_holder.my_comments_count.should eq 0
+        my_comments_count_assert(@post_holder, 0)
       end
 
       it 'Comcoms counters' do
-        @post_holder.comcoms.count.should           eq 3
-        @post_holder.draft_comcoms_count.should     eq 3
-        @post_holder.published_comcoms_count.should eq 0
-        @post_holder.deleted_comcoms_count.should   eq 0
+        @post_holder.comcoms.count.should eq 3
+        comcoms_counters_assert(@post_holder, [3,0,0])
       end
     end
   end
 
-  context 'User leave 3 comments, 1 Comment DRAFT => PUBLISHED, counters should have expectable values' do
+  context 'User leave 3 comments, 1 Comment DRAFT => PUBLISHED' do
+    after(:all) { destroy_all }
+
     before(:all) do
       base_testing_situation
-      @comment = Comment.first.to_published
+      @comment = Comment.first
+      @comment.to_published
 
       @user.reload
+      @post.reload
+      @comment.reload
       @post_holder.reload
     end
 
-    after(:all) { destroy_all }
-
     describe 'User counters' do
       it 'has expectable values' do
-        @user.comments.count.should    eq 3
-        @user.my_comments_count.should eq 3
-        @user.comcoms.count.should     eq 0
-
-        @user.comments.with_state(:draft).count.should     eq 2
-        @user.comments.with_state(:published).count.should eq 1
-        @user.comments.with_state(:deleted).count.should   eq 0
+        my_comments_count_assert(@user, 3)
+        
+        @user.comcoms.count.should eq 0
+        comments_count_assert(@user, [2,1,0])
       end
     end
 
     describe 'Holder counters' do
       it 'has expectable values' do
-        @post_holder.comments.count.should    eq 0
-        @post_holder.my_comments_count.should eq 0
-        @post_holder.comcoms.count.should     eq 3
+        @post_holder.comcoms.count.should eq 3
 
-        @post_holder.comcoms.with_state(:draft).count.should     eq 2
-        @post_holder.comcoms.with_state(:published).count.should eq 1
-        @post_holder.comcoms.with_state(:deleted).count.should   eq 0
-
-        @post_holder.draft_comcoms_count.should     eq 2 # TODO! 3
-        @post_holder.published_comcoms_count.should eq 1
-        @post_holder.deleted_comcoms_count.should   eq 0
+        my_comments_count_assert(@post_holder, 0)
+        comcoms_count_assert    @post_holder, [2,1,0]
+        comcoms_counters_assert @post_holder, [2,1,0]
       end
+    end
+  end
+
+  context '3 comments, 1 Comment DRAFT => DELETE' do
+    after(:all) { destroy_all }
+
+    before(:all) do
+      base_testing_situation
+      @comment = Comment.first
+
+      @comment.to_published
+      @comment.to_deleted
+
+      @user.reload
+      @post.reload
+      @comment.reload
+      @post_holder.reload
+    end
+
+    it 'has correct counters values' do
+      comments_count_assert @user,        [2,0,1]
+      comments_count_assert @post_holder, [0,0,0]
+
+      comcoms_count_assert    @user, [0,0,0]
+      comcoms_counters_assert @user, [0,0,0]
+
+      comcoms_count_assert    @post_holder, [2,0,1]
+      comcoms_counters_assert @post_holder, [2,0,1]
+
+      comments_count_assert    @post, [2,0,1]
+      comments_counters_assert @post, [2,0,1]
     end
   end
 end
