@@ -90,7 +90,7 @@ describe User do
     end
   end
 
-  context 'User leave 3 comments, states was changed, counters should have expectable values' do
+  context 'User leave 3 comments, 1 Comment DRAFT => PUBLISHED, counters should have expectable values' do
     before(:all) do
       base_testing_situation
       @comment = Comment.first.to_published
