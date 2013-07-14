@@ -2,7 +2,7 @@ require 'spec_helper'
 
 def destroy_all
   User.destroy_all
-  Comment.destroy_all
+  3.times{ begin; Comment.destroy_all; rescue; end; }
 end
 
 # --------------------------------------
@@ -50,7 +50,7 @@ def create_users_and_post
   @post        = FactoryGirl.create(:post, user: @post_holder)
 end
 
-def base_testing_situation
+def base_test_situation
   create_users_and_post
 
   3.times do
@@ -60,6 +60,45 @@ def base_testing_situation
       raw_content: Faker::Lorem.paragraphs(3).join
     )
   end
+
+  @user.reload
+  @post_holder.reload
+end
+
+def tree_test_situation
+  create_users_and_post
+
+  # LEVEL 1
+  3.times do
+    @user.comments.create!(
+      commentable: @post,
+      title: Faker::Lorem.sentence,
+      raw_content: Faker::Lorem.paragraphs(3).join,
+      state: :published
+    )
+  end
+    # LEVEL 2
+    parent_comment = Comment.first
+    3.times do
+      @user.comments.create!(
+        commentable: @post,
+        parent_id: parent_comment.id,
+        title: Faker::Lorem.sentence,
+        raw_content: Faker::Lorem.paragraphs(3).join,
+        state: :published
+      )
+    end
+      # LEVEL 3
+      parent_comment = Comment.first.children.first
+      3.times do
+        @user.comments.create!(
+          commentable: @post,
+          parent_id: parent_comment.id,
+          title: Faker::Lorem.sentence,
+          raw_content: Faker::Lorem.paragraphs(3).join,
+          state: :published
+        )
+      end
 
   @user.reload
   @post_holder.reload
@@ -102,7 +141,7 @@ describe User do
   context 'User leave 3 comments and Instances has expectable counter values' do
     after(:all) { destroy_all }
 
-    before(:all){ base_testing_situation }
+    before(:all){ base_test_situation }
 
     describe 'User counters' do
       it 'my_comments counter' do
@@ -132,7 +171,7 @@ describe User do
     after(:all) { destroy_all }
 
     before(:all) do
-      base_testing_situation
+      base_test_situation
       @comment = Comment.first
       @comment.to_published
 
@@ -166,7 +205,7 @@ describe User do
     after(:all) { destroy_all }
 
     before(:all) do
-      base_testing_situation
+      base_test_situation
       @comment = Comment.first
 
       @comment.to_published
@@ -190,6 +229,51 @@ describe User do
 
       comments_count_assert    @post, [2,0,1]
       comments_counters_assert @post, [2,0,1]
+    end
+  end
+
+  context 'Comments tree, 1 branch to deleted' do
+    after(:each) { destroy_all }
+    before(:each){ tree_test_situation }
+
+    it 'has correct counters values before deleting' do
+      Comment.count.should eq 9
+
+      my_comments_count_assert @user, 9
+      comments_count_assert    @user, [0, 9, 0]
+
+      my_comments_count_assert @post_holder, 0
+      comments_count_assert    @post_holder, [0,0,0]
+      
+      comcoms_count_assert    @post_holder, [0,9,0]
+      comcoms_counters_assert @post_holder, [0,9,0]
+
+      comments_count_assert    @post, [0,9,0]
+      comments_counters_assert @post, [0,9,0]
+    end
+
+    it 'has correct counters values after branch deleting' do
+      @comment = Comment.first.children.first
+      @comment.to_deleted
+
+      @user.reload
+      @post.reload
+      @post_holder.reload
+
+      Comment.with_state(:published).count.should eq 5
+      Comment.with_state(:deleted).count.should   eq 4
+
+      my_comments_count_assert @user, 5
+      comments_count_assert    @user, [0,5,4]
+
+      my_comments_count_assert @post_holder, 0
+      comments_count_assert    @post_holder, [0,0,0]
+      
+      comcoms_count_assert    @post_holder, [0,5,4]
+      comcoms_counters_assert @post_holder, [0,5,4]
+
+      comments_count_assert    @post, [0,5,4]
+      comments_counters_assert @post, [0,5,4]
     end
   end
 end
