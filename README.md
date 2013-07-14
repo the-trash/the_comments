@@ -1,5 +1,9 @@
 # TheComments 1.0.0
 
+[![Gem Version](https://badge.fury.io/rb/the_comments.png)](http://badge.fury.io/rb/the_comments)
+
+[![Code Climate](https://codeclimate.com/github/the-teacher/the_comments.png)](https://codeclimate.com/github/the-teacher/the_comments)
+
 TheComments - just comment system for my Ruby on Rails 4 projects. [(rubygems)](http://rubygems.org/gems/the_comments)
 
 ## Keywords
@@ -40,7 +44,7 @@ Comments for Rails 4, Comments with threading, Nested Comments, Polymorphic comm
 
 * [My hopes about comments system](#my-hopes-about-comments-system)
 * [What's wrong with other gems?](#whats-wrong-with-other-gems)
-* [Comments, Posted comments & ComComs](#comments-posted-comments-comcoms)
+* [Comments, User#comments & ComComs](#comments-posted-comments-comcoms)
 * [Denormalization and Recent comments](#denormalization)
 * [Recent comments building](#recent-comments-building)
 * [AntiSpam system](#antispam-system)
@@ -291,16 +295,16 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 
 ![TheComments](https://raw.github.com/the-teacher/the_comments/master/docs/the_comments.jpg)
 
-## Comments, Posted comments, ComComs
+## Comments, User#comments, ComComs
 
-### Posted comments
+### User#comments
 
-**@user.posted_comments** (has_many)
+**@user.comments** (has_many)
 
 Set of comments, where current user is owner (creator).
 
 ```ruby
-@my_comments = @user.posted_comments # => [comment, comment, ...]
+@my_comments = @user.comments # => [comment, comment, ...]
 
 @comment =  @my_comments.first
 @user.id == @comment.user_id # => true
@@ -451,7 +455,7 @@ bundle exec rails g the_comments:views helper
 ```
 ### User methods
 
-* @user.<b>posted_comments</b> (all states)
+* @user.<b>comments</b> (all states)
 * @user.<b>my_comments</b> (draft, published)
 * @user.<b>my_comments_count</b>
 
