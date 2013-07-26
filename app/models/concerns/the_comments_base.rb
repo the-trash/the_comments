@@ -44,7 +44,7 @@ module TheCommentsBase
   end
 
   def define_default_state
-    self.state = self.class.config.default_owner_state if user && user == holder
+    self.state = TheComments.config.default_owner_state if user && user == holder
   end
 
   def denormalize_commentable
