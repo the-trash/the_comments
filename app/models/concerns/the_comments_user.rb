@@ -1,16 +1,14 @@
 module TheCommentsUser
   extend ActiveSupport::Concern
-
+  
   included do
-    has_many :comcoms,     class_name: :Comment, foreign_key: :holder_id
+    has_many :comcoms, class_name: :Comment, foreign_key: :holder_id
   end
 
-  def my_comments
-    Comment.where(user: self).with_state([:draft, :published])
-  end
+  def my_comments; Comment.where(user: self); end
 
   def recalculate_my_comments_counter!
-    self.my_comments_count = my_comments.count
+    self.my_comments_count = my_comments.active.count
     save!
   end
 

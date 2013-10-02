@@ -2,6 +2,8 @@ module TheCommentsBase
   extend ActiveSupport::Concern
 
   included do
+    scope :active, -> { with_state [:draft, :published] }
+
     # Nested Set
     acts_as_nested_set scope: [:commentable_type, :commentable_id]
 

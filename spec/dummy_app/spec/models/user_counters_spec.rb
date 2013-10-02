@@ -9,7 +9,7 @@ end
 # Helpers
 # --------------------------------------
 def my_comments_count_assert user, count
-  user.my_comments.count.should eq count
+  user.my_comments.active.count.should eq count
   user.my_comments_count.should eq count
 end
 
@@ -44,8 +44,7 @@ end
 # init functions
 # --------------------------------------
 def create_users_and_post
-  @user = FactoryGirl.create(:user)
-
+  @user        = FactoryGirl.create(:user)
   @post_holder = FactoryGirl.create(:user)
   @post        = FactoryGirl.create(:post, user: @post_holder)
 end
@@ -54,7 +53,8 @@ def base_test_situation
   create_users_and_post
 
   3.times do
-    @comment = @user.comments.create!(
+    @comment = Comment.create!(
+      user: @user,
       commentable: @post,
       title: Faker::Lorem.sentence,
       raw_content: Faker::Lorem.paragraphs(3).join
@@ -70,7 +70,8 @@ def tree_test_situation
 
   # LEVEL 1
   3.times do
-    @user.comments.create!(
+    Comment.create!(
+      user: @user,
       commentable: @post,
       title: Faker::Lorem.sentence,
       raw_content: Faker::Lorem.paragraphs(3).join,
@@ -80,7 +81,8 @@ def tree_test_situation
     # LEVEL 2
     parent_comment = Comment.first
     3.times do
-      @user.comments.create!(
+      Comment.create!(
+        user: @user,
         commentable: @post,
         parent_id: parent_comment.id,
         title: Faker::Lorem.sentence,
@@ -91,7 +93,8 @@ def tree_test_situation
       # LEVEL 3
       parent_comment = Comment.first.children.first
       3.times do
-        @user.comments.create!(
+        Comment.create!(
+          user: @user,
           commentable: @post,
           parent_id: parent_comment.id,
           title: Faker::Lorem.sentence,
@@ -127,7 +130,8 @@ describe User do
     end
 
     it 'Create new comment' do
-      @comment = @user.comments.create!(
+      @comment = Comment.create!(
+        user: @user,
         commentable: @post,
         title: Faker::Lorem.sentence,
         raw_content: Faker::Lorem.paragraphs(3).join
@@ -183,10 +187,11 @@ describe User do
 
     describe 'User counters' do
       it 'has expectable values' do
-        my_comments_count_assert(@user, 3)
-        
-        @user.comcoms.count.should eq 0
-        comments_count_assert(@user, [2,1,0])
+        comments_counters_assert @user, [0,0,0]
+        comments_count_assert    @user, [0,0,0]
+        comcoms_counters_assert  @user, [0,0,0]
+        comcoms_count_assert     @user, [0,0,0]
+        my_comments_count_assert @user, 3
       end
     end
 
@@ -207,7 +212,6 @@ describe User do
     before(:all) do
       base_test_situation
       @comment = Comment.first
-
       @comment.to_published
       @comment.to_deleted
 
@@ -218,14 +222,17 @@ describe User do
     end
 
     it 'has correct counters values' do
-      comments_count_assert @user,        [2,0,1]
-      comments_count_assert @post_holder, [0,0,0]
+      comments_counters_assert @user, [0,0,0]
+      comments_count_assert    @user, [0,0,0]
+      comcoms_count_assert     @user, [0,0,0]
+      my_comments_count_assert @user, 2
+      @user.my_comments.count.should eq 3
 
-      comcoms_count_assert    @user, [0,0,0]
-      comcoms_counters_assert @user, [0,0,0]
-
-      comcoms_count_assert    @post_holder, [2,0,1]
-      comcoms_counters_assert @post_holder, [2,0,1]
+      comments_counters_assert @post_holder, [0,0,0]
+      comments_count_assert    @post_holder, [0,0,0]
+      comcoms_count_assert     @post_holder, [2,0,1]
+      my_comments_count_assert @post_holder, 0
+      @post_holder.my_comments.count.should eq 0
 
       comments_count_assert    @post, [2,0,1]
       comments_counters_assert @post, [2,0,1]
@@ -240,7 +247,7 @@ describe User do
       Comment.count.should eq 9
 
       my_comments_count_assert @user, 9
-      comments_count_assert    @user, [0, 9, 0]
+      comments_count_assert    @user, [0,0,0]
 
       my_comments_count_assert @post_holder, 0
       comments_count_assert    @post_holder, [0,0,0]
@@ -264,7 +271,7 @@ describe User do
       Comment.with_state(:deleted).count.should   eq 4
 
       my_comments_count_assert @user, 5
-      comments_count_assert    @user, [0,5,4]
+      comments_count_assert    @user, [0,0,0]
 
       my_comments_count_assert @post_holder, 0
       comments_count_assert    @post_holder, [0,0,0]
