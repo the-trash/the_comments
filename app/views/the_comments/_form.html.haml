@@ -1,15 +1,15 @@
 %h3
-  = link_to 'New Comment', '#', id: :new_root_comment
+  = link_to t('the_comments.new'), '#', id: :new_root_comment
 
 = form_for Comment.new, remote: true, authenticity_token: true do |f|
   .error_notifier{ style: "display:none" }
-  %label title:
+  %label= t('the_comments.form.title')
   %p= f.text_field :title
 
-  %label contacts:
+  %label= t('the_comments.form.contacts')
   %p= f.text_field :contacts
 
-  %label content*:
+  %label= t('the_comments.form.content')
   %p= f.text_area :raw_content
 
   %p.trap
@@ -22,4 +22,6 @@
   = f.hidden_field :commentable_id,   value: commentable.id
   = f.hidden_field :parent_id, class: :parent_id
 
-  %p= f.submit 'Create Comment', class: :btn
+  %p
+    = f.submit t('the_comments.form.create'), class: :btn
+    = t('the_comments.form.thank_you')

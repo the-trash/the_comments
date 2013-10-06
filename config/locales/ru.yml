@@ -12,6 +12,13 @@ ru:
               # blank: '%{attribute} should not be empty'
 
   the_comments:
+    new: "Новый комментарий"
+    form:
+      title: "Ваше имя:"
+      contacts: "Контакты (не отображаются на сайте):"
+      content: "Текст комментария* :"
+      create: "Отправить комментарий"
+      thank_you:  "Спaсибо!"
     trap: Ловушка
     trap_message: Должна быть пустой
 

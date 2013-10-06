@@ -12,6 +12,13 @@ en:
               # blank: '%{attribute} should not be empty'
 
   the_comments:
+    new: "New comment"
+    form:
+      title: "Your name:"
+      contacts: "Contacts (only admin can see this):"
+      content: "Comment* :"
+      create: "Submit comment"
+      thank_you:  "Thank you!"
     trap: Trap
     trap_message: should be empty
 

@@ -24,9 +24,13 @@ BANNER
       end
 
       def copy_gem_files
+        if param_name == 'js'
+          copy_file "../assets/javascripts/the_comments.js.coffee", "app/assets/javascripts/the_comments.js.coffee"
+        if param_name == 'css'
+          copy_file "../assets/stylesheets/the_comments.css.scss", "app/assets/stylesheets/the_comments.css.scss"
         if param_name == 'assets'
-          copy_file "../assets/javascripts/the_comments", "app/assets/javascripts/the_comments"
-          copy_file "../assets/stylesheets/the_comments", "app/assets/stylesheets/the_comments"
+          copy_file "../assets/javascripts/the_comments.js.coffee", "app/assets/javascripts/the_comments.js.coffee"
+          copy_file "../assets/stylesheets/the_comments.css.scss", "app/assets/stylesheets/the_comments.css.scss"
         elsif param_name == 'views'
           directory "../views/the_comments",           "app/views/the_comments"
           directory "../views/ip_black_lists",         "app/views/ip_black_lists"
