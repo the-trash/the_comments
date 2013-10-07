@@ -92,6 +92,7 @@ $ ->
     $('.parent_id', form).val comment_id
 
     comment.siblings('.form_holder').html(form)
+    $('.error_notifier', form).empty().hide()
     form.fadeIn()
     false
 

@@ -39,14 +39,15 @@ module TheCommentsController
       skip_before_action :set_the_comments_cookies, only: [:create]
 
       # Black lists
-      before_action :stop_black_ip,           only: [:create]
-      before_action :stop_black_user_agent,   only: [:create]
+      before_action :stop_black_ip,           only: [:create], if: -> { TheComments.config.ip_protection }
+      before_action :stop_black_user_agent,   only: [:create], if: -> { TheComments.config.user_agent_protection }
 
       # Spam protection
       before_action :ajax_requests_required,  only: [:create]
       before_action :cookies_required,        only: [:create]
-      before_action :empty_trap_required,     only: [:create]
-      before_action :tolerance_time_required, only: [:create]
+
+      before_action :empty_trap_required,     only: [:create], if: -> { TheComments.config.empty_trap_protection }
+      before_action :tolerance_time_required, only: [:create], if: -> { TheComments.config.tolerance_time_protection }
 
       # preparation
       before_action :define_commentable, only: [:create]
@@ -225,5 +226,5 @@ module TheCommentsController
       end
     end
 
-  end#Base
+  end
 end

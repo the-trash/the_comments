@@ -12,7 +12,7 @@ ru:
               # blank: '%{attribute} should not be empty'
 
   the_comments:
-    new: "Новый комментарий"
+    new: "Написать новый комментарий"
     form:
       title: "Ваше имя:"
       contacts: "Контакты (не отображаются на сайте):"
