@@ -1,19 +1,20 @@
-= paginate @comments
+- content_for :comments_main do
+  = paginate @comments
 
-%ol.comments_list
-  - @comments.each do |comment|
-    %li
-      .item{ class: comment.state }
-        .body
-          .commentable
-            = comment.commentable_type
-            \:
-            = link_to comment.commentable_title, comment.commentable_url
-          .comment
-            .title
-              %b from:
-              = comment.title.blank? ? t('the_comments.guest_name') : comment.title
-            .content
-              = comment.content
+  %ol.comments_list
+    - @comments.each do |comment|
+      %li
+        .item{ class: comment.state }
+          .body
+            .commentable
+              = comment.commentable_type
+              \:
+              = link_to comment.commentable_title, comment.commentable_url
+            .comment
+              .title
+                %b from:
+                = comment.title.blank? ? t('the_comments.guest_name') : comment.title
+              .content
+                = comment.content
 
-= paginate @comments
+  = paginate @comments

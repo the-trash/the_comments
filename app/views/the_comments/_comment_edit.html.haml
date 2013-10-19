@@ -1,0 +1,12 @@
+= form_for comment, remote: true, html:{ role: :form } do |f|
+  .form-group
+    %label from:
+    = f.text_field :title, class: "form-control"
+  .form-group
+    %label contacts:
+    = f.text_field :contacts, class: "form-control"
+  .form-group
+    %label content:
+    = f.text_area  :raw_content, class: "form-control", rows: 7
+  .form-group
+    = f.submit t('the_comments.update'), class: "btn btn-primary"

@@ -1,4 +1,10 @@
-= link_to t('the_comments.to_published'), to_published_comment_url(comment), remote: true, class: :to_published, method: :post
-= link_to t('the_comments.to_draft'),     to_draft_comment_url(comment),     remote: true, class: :to_draft,     method: :post
-= link_to t('the_comments.to_spam'),      to_spam_comment_url(comment),      remote: true, class: :to_spam,      method: :post
-= link_to t('the_comments.to_deleted'),   to_trash_comment_url(comment),     remote: true, class: :to_deleted,   method: :delete, data: { confirm: t('the_comments.delete_confirm') }
+.row
+  .col-md-9
+    = link_to t('the_comments.edit'), "#", class: "btn btn-success"
+
+    = link_to t('the_comments.to_published'), to_published_comment_url(comment), remote: true, class: "btn btn-primary to_published", method: :post
+    = link_to t('the_comments.to_draft'),     to_draft_comment_url(comment),     remote: true, class: "btn btn-warning to_draft",     method: :post
+    = link_to t('the_comments.to_spam'),      to_spam_comment_url(comment),      remote: true, class: "btn btn-danger to_spam",       method: :post
+    = link_to t('the_comments.to_deleted'),   to_trash_comment_url(comment),     remote: true, class: "btn btn-danger to_deleted",    method: :delete, data: { confirm: t('the_comments.delete_confirm') }
+  .col-md-3.text-right
+    = link_to t('the_comments.external_params'), "#", class: "btn btn-success"
