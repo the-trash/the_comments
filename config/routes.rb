@@ -12,13 +12,21 @@ Rails.application.routes.draw do
       post   :to_spam
       post   :to_draft
       post   :to_published
-      delete :to_trash
+      delete :to_deleted
     end
 
     collection do
-      get :my
-      get :incoming
-      get :trash
+      get :manage
+      
+      get :total_draft
+      get :total_published
+      get :total_deleted
+      get :total_spam
+
+      get :draft
+      get :published
+      get :deleted
+      get :spam
     end
   end
 end

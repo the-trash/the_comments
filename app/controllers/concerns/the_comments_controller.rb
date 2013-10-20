@@ -55,38 +55,40 @@ module TheCommentsController
 
     # App side methods (overwrite it)
     def index
-      @comments = Comment.with_state(:published).order('created_at DESC').page(params[:page])
+      @comments = Comment.with_state(:published).recent.page(params[:page])
       render template: 'the_comments/index'
+    end
+
+    def manage
+      @comments = current_user.comcoms.active.recent.page(params[:page])
+      render template: 'the_comments/manage'
     end
 
     # Methods based on *current_user* helper
-    def edit
-      @comments = current_user.comcoms.where(id: params[:id]).page(params[:page])
+    # Methods for admin
+    %w[draft published deleted].each do |state|
+      define_method "#{state}" do
+        @comments = current_user.comcoms.with_state(state).recent.page(params[:page])
+        render template: 'the_comments/manage'
+      end
+
+      define_method "total_#{state}" do
+        @comments = Commant.with_state(state).recent.page(params[:page])
+        render template: 'the_comments/manage'
+      end
+    end
+
+    def spam
+      @comments = current_user.comcoms.where(spam: true).recent.page(params[:page])
       render template: 'the_comments/manage'
     end
 
-    def my
-      @comments = current_user.my_comments.order('created_at DESC').page(params[:page])
-      render template: 'the_comments/index'
-    end
-
-    def new
-      @comments = current_user.comcoms.with_state(:draft).order('created_at DESC').page(params[:page])
-      render template: 'the_comments/manage'
-    end
-
-    def incoming
-      @comments = current_user.comcoms.with_state(:draft, :published).order('created_at DESC').page(params[:page])
-      render template: 'the_comments/manage'
-    end
-
-    def trash
-      @comments = current_user.comcoms.with_state(:deleted).order('created_at DESC').page(params[:page])
+    def total_spam
+      @comments = Comment.where(spam: true).recent.page(params[:page])
       render template: 'the_comments/manage'
     end
 
     # BASE METHODS
-
     # Public methods
 
     def update
@@ -104,15 +106,19 @@ module TheCommentsController
       render json: { errors: @comment.errors.full_messages }
     end
 
-    # Protected methods
-
-    def to_published
-      Comment.where(id: params[:id]).first.to_published
+    # Restricted area
+    def to_draft
+      Comment.where(id: params[:id]).first.to_draft
       render nothing: :true
     end
 
-    def to_draft
-      Comment.where(id: params[:id]).first.to_draft
+    def to_deleted
+      Comment.where(id: params[:id]).first.to_deleted
+      render nothing: :true
+    end
+
+    def to_published
+      Comment.where(id: params[:id]).first.to_published
       render nothing: :true
     end
 
@@ -120,12 +126,8 @@ module TheCommentsController
       comment = Comment.where(id: params[:id]).first
       IpBlackList.where(ip: comment.ip).first_or_create.increment!(:count)
       UserAgentBlackList.where(user_agent: comment.user_agent).first_or_create.increment!(:count)
+      comment.mark_as_spam
       comment.to_deleted
-      render nothing: :true
-    end
-
-    def to_trash
-      Comment.where(id: params[:id]).first.to_deleted
       render nothing: :true
     end
 
@@ -183,7 +185,10 @@ module TheCommentsController
     end
 
     def empty_trap_required
-      # TODO: 1) inject ?, 2) fields can be removed on client site
+      # TODO:
+      # 1) inject ?
+      # 2) fields can be removed on client side
+
       is_user = true
       params.slice(*TheComments.config.empty_inputs).values.each{|v| is_user = is_user && v.blank? }
 

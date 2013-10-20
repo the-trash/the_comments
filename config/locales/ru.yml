@@ -12,6 +12,7 @@ ru:
               # blank: '%{attribute} should not be empty'
 
   the_comments:
+    management: Управление комментариями
     new: "Написать новый комментарий"
     update: "Обновить"
     additional_info: "Подробнее"
@@ -20,6 +21,9 @@ ru:
     title: "Имя или тема:"
     contacts: "Контакты:"
     content: "Сообщение:"
+
+    nav:
+      header: "Навигация"
 
     form:
       title: "Ваше имя:"

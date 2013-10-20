@@ -1,20 +1,18 @@
+- content_for :title do
+  = t "the_comments.management"
+
+- content_for :comments_sidebar do
+  = render partial: 'the_comments/sidebar'
+
 - content_for :comments_main do
   = paginate @comments
 
-  %ol.comments_list
+  .comments
     - @comments.each do |comment|
-      %li
-        .item{ class: comment.state }
-          .body
-            .commentable
-              = comment.commentable_type
-              \:
-              = link_to comment.commentable_title, comment.commentable_url
-            .comment
-              .title
-                %b from:
-                = comment.title.blank? ? t('the_comments.guest_name') : comment.title
-              .content
-                = comment.content
+      - klass = { published: :primary, draft: :warning, deleted: :danger }[comment.state.to_sym]
+      .panel{ class: "panel-#{klass}" }
+        .panel-heading= comment.title
+        .panel-body
+          = render partial: 'the_comments/comment_body', locals: { comment: comment }
 
   = paginate @comments

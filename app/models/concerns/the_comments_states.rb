@@ -51,6 +51,7 @@ module TheCommentsStates
       # from deleted
       after_transition :deleted => [:draft, :published] do |comment, transition|
         to = transition.to_name
+        comment.mark_as_not_spam
 
         @owner.try :recalculate_my_comments_counter!
 

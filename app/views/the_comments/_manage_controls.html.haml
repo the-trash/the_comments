@@ -17,7 +17,7 @@
 
     - to_hide = comment.deleted? ? hidden : nil
     - opts    = { remote: true, style: to_hide, method: :delete, data: { confirm: t('the_comments.delete_confirm') } }
-    = link_to to_trash_comment_url(comment), opts.merge(class: "btn btn-danger to_deleted") do
+    = link_to to_deleted_comment_url(comment), opts.merge(class: "btn btn-danger to_deleted") do
       = t('the_comments.to_deleted')
 
     - opts = { remote: true, method: :post}

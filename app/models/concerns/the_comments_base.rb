@@ -3,6 +3,7 @@ module TheCommentsBase
 
   included do
     scope :active, -> { with_state [:draft, :published] }
+    scope :recent, -> { order('created_at DESC') }
 
     # Nested Set
     acts_as_nested_set scope: [:commentable_type, :commentable_id]
@@ -35,6 +36,14 @@ module TheCommentsBase
     "https://2.gravatar.com/avatar/#{hash}?s=42&d=https://identicons.github.com/#{hash}.png"
   end
     
+  def mark_as_spam
+    self_and_descendants.update_all({spam: true})
+  end
+
+  def mark_as_not_spam
+    self_and_descendants.update_all({spam: false})
+  end
+
   private
 
   def define_anchor
