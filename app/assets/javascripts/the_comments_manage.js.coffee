@@ -1,57 +1,37 @@
 $ ->
+  comments = $ '.comments'
+
   # CONTROLS
-  holder = $('.comments_list')
-  
-  holder.on 'ajax:success', '.to_published', (request, response, status) ->
-    link = $ @
-    link.parents('.item').first().attr('class', 'item published')
-
-  holder.on 'ajax:success', '.to_draft', (request, response, status) ->
-    link = $ @
-    link.parents('.item').first().attr('class', 'item draft')
-
-  holder.on 'ajax:success', '.to_spam, .to_deleted', (request, response, status) ->
-    $(@).parents('li').first().hide()
-
-  $('.comments_tree').on 'ajax:success', '.delete', (request, response, status) ->
-    $(@).parents('li').first().hide()
-
-  # INPLACE EDIT
-  inplace_forms = '.comments_list .form form'
-  $(document).on 'ajax:success', inplace_forms, (request, response, status) ->
-    form = $ @
-    item = form.parents('.item')
-    item.children('.body').html(response).show()
-    item.children('.form').hide()
-
-  # FOR MANAGE SECTION
-  list = $('.comments_list')
-
-  list.on 'click', '.controls a.view', ->
-    form = $(@).parents('div.form')
-    body = form.siblings('.body')  
-    body.show()
-    form.hide()
+  comments.on 'click', 'a.additional_info', ->
+    btn    = $ @
+    holder = btn.parents('.panel-body')
+    holder.find('div.additional_info').slideToggle()
     false
 
-  list.on 'click', '.controls a.edit', ->
-    body = $(@).parents('div.body')
-    form = body.siblings('.form')
-    body.hide()
-    form.show()
+  comments.on 'click', 'a.edit', ->
+    btn    = $ @
+    holder = btn.parents('.panel-body')
+    holder.find('.edit_form, .comment_body, a.edit').toggle()
     false
 
-  # BLACK LIST
-  holder = $('.black_list')
+  comments.on 'ajax:success', '.to_published', (request, response, status) ->
+    btn    = $ @
+    holder = btn.parents('.panel')
+    holder.removeClass('panel-warning').addClass('panel-primary')
+    holder.find('.to_draft, .to_published').toggle()
 
-  holder.on 'ajax:success', '.to_warning', (request, response, status) ->
-    link = $ @
-    li = link.parents('li').first()
-    li.attr 'class', 'warning'
-    li.find('.state').html 'warning'
+  comments.on 'ajax:success', '.to_draft', (request, response, status) ->
+    btn    = $ @
+    holder = btn.parents('.panel')
+    holder.removeClass('panel-primary').addClass('panel-warning')
+    holder.find('.to_draft, .to_published').toggle()
 
-  holder.on 'ajax:success', '.to_banned', (request, response, status) ->
-    link = $ @
-    li = link.parents('li').first()
-    li.attr 'class', 'banned'
-    li.find('.state').html 'banned'
+  comments.on 'ajax:success', '.to_spam, .to_deleted', (request, response, status) ->
+    $(@).parents('.panel').hide()
+
+  # Edit form
+  comments.on 'ajax:success', '.edit_comment', (request, response, status) ->
+    form   = $ @
+    holder = form.parents('.panel-body')
+    holder.find('.edit_form, .comment_body, a.edit').toggle()
+    holder.find('.comment_body').replaceWith response

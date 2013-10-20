@@ -1,6 +1,6 @@
-%table.table.table-striped.table-hover
+%table.comment_body.table.table-striped.table-hover
   %tr
-    %td
+    %td{ style: "width: 120px;"}
       %b= comment.commentable_type
       &rarr;
     %td
@@ -8,29 +8,13 @@
       (#{comment.try(:commentable_state)})
   %tr
     %td
-      %b from:
+      %b= t('the_comments.title')
     %td= comment.title.blank? ? t('the_comments.guest_name') : comment.title
   %tr
     %td
-      %b contacts:
+      %b= t('the_comments.contacts')
     %td= comment.contacts
   %tr.success
     %td
-      %b content:
+      %b= t('the_comments.content')
     %td= comment.content
-
-= render partial: 'the_comments/manage_controls', locals: { comment: comment }
-
-.external_params
-  %br
-  %table.table.table-striped.table-hover
-    %tr
-      %th Tolerance time:
-      %th IP:
-      %th User Agent:
-      %th Referer:
-    %tr
-      %td= comment.tolerance_time || :none
-      %td= link_to(comment.ip, ip_black_lists_url(ip: comment.ip)) || :none
-      %td= link_to(comment.user_agent, user_agent_black_lists_url(agent: comment.user_agent)) || :none
-      %td= comment.referer || :none

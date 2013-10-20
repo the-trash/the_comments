@@ -1,12 +1,16 @@
 - content_for :comments_main do
   = paginate @comments
 
-  - @comments.each do |comment|
-    - klass = { published: :primary, draft: :warning }[comment.state.to_sym]
-    .panel{ class: "panel-#{klass}" }
-      .panel-heading= comment.title
-      .panel-body
-        = render partial: 'the_comments/comment_edit', locals: { comment: comment }
-        = render partial: 'the_comments/comment_body', locals: { comment: comment }
+  .comments
+    - @comments.each do |comment|
+      - klass = { published: :primary, draft: :warning, deleted: :danger }[comment.state.to_sym]
+      .panel{ class: "panel-#{klass}" }
+        .panel-heading= comment.title
+        .panel-body
+          = render partial: 'the_comments/comment_edit', locals: { comment: comment }
+          = render partial: 'the_comments/comment_body', locals: { comment: comment }
+
+          = render partial: 'the_comments/manage_controls', locals: { comment: comment }
+          = render partial: 'the_comments/additional_info', locals: { comment: comment }
         
   = paginate @comments

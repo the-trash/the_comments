@@ -1,0 +1,13 @@
+.additional_info{ style: "display:none" }
+  %br
+  %table.table.table-striped.table-hover
+    %tr
+      %th Tolerance time:
+      %th IP:
+      %th User Agent:
+      %th Referer:
+    %tr
+      %td= comment.tolerance_time || :none
+      %td= link_to(comment.ip, ip_black_lists_url(ip: comment.ip)) || :none
+      %td= link_to(comment.user_agent, user_agent_black_lists_url(agent: comment.user_agent)) || :none
+      %td= comment.referer || :none

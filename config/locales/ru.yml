@@ -13,6 +13,14 @@ ru:
 
   the_comments:
     new: "Написать новый комментарий"
+    update: "Обновить"
+    additional_info: "Подробнее"
+    cancel: "Отмена"
+
+    title: "Имя или тема:"
+    contacts: "Контакты:"
+    content: "Сообщение:"
+
     form:
       title: "Ваше имя:"
       contacts: "Контакты (не отображаются на сайте):"
