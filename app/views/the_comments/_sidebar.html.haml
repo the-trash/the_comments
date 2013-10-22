@@ -1,28 +1,27 @@
+- cuser = current_user
+
 .panel.panel-primary
   .panel-heading= t "the_comments.nav.header"
   .panel-body
-    %p= link_to raw("&larr; Назад в Кабинет"), cabinet_url
+    %p= link_to raw(t('the_comments.back_to_root')), '/'
     %hr
 
-    %h5 Входящие:
+    %h5= t 'the_comments.incoming'
     %ul
-      %li= link_to "Не опубликованные #{@user.draft_comcoms_count}",  [:draft, :comments]
-      %li= link_to "Опубликованные #{@user.published_comcoms_count}", [:published, :comments]
-      %li= link_to "Удаленные #{@user.deleted_comcoms_count}",        [:deleted, :comments]
-      %li= link_to "Спам #{@user.comcoms.where(spam: true).count}", [:spam, :comments]
-    
-    %h5 Все в системе:
-    %ul
-      %li= link_to "Не опубликованные #{Comment.with_state(:draft).count}",     [:total_draft, :comments]
-      %li= link_to "Опубликованные    #{Comment.with_state(:published).count}", [:total_published, :comments]
-      %li= link_to "Удаленные         #{Comment.with_state(:deleted).count}",   [:total_deleted, :comments]
-      %li= link_to "Спам #{Comment.where(spam: true).count}", [:total_spam, :comments]
+      %li= link_to t("the_comments.draft_coments",     num: cuser.draft_comcoms_count),     [:draft,     :comments]
+      %li= link_to t("the_comments.published_coments", num: cuser.published_comcoms_count), [:published, :comments]
+      %li= link_to t("the_comments.deleted_coments",   num: cuser.deleted_comcoms_count),   [:deleted,   :comments]
+      %li= link_to t("the_comments.spam_coments",      num: cuser.spam_comcoms_count),      [:spam,      :comments] # comcoms.where(spam: true).count
 
-    -#
-      %h5 Написанные мной:
-      %ul
-        %li= link_to "Не опубликованные #{@user.draft_comments_count}", [:new, :comment]
-        %li= link_to "Опубликованные #{@user.published_comments_count}", [:new, :comment]
-        %li= link_to "Удаленные #{@user.deleted_comments_count}", [:trash, :comments]
-        %li= link_to "Спам", [:trash, :comments]
+    %h5= t 'the_comments.in_system'
+    %ul
+      %li= link_to t("the_comments.draft_coments",     num: Comment.with_state(:draft).count),     [:total_draft,     :comments]
+      %li= link_to t("the_comments.published_coments", num: Comment.with_state(:published).count), [:total_published, :comments]
+      %li= link_to t("the_comments.deleted_coments",   num: Comment.with_state(:deleted).count),   [:total_deleted,   :comments]
+      %li= link_to t("the_comments.spam_coments",      num: Comment.where(spam: true).count),      [:total_spam,      :comments]
+
+    %h5= t 'the_comments.written_by_me'
+    %ul
+      %li= link_to t("the_comments.draft_coments",     num: cuser.draft_comments_count),     [:my_draft,     :comments]
+      %li= link_to t("the_comments.published_coments", num: cuser.published_comments_count), [:my_published, :comments]
 

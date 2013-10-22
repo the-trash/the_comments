@@ -73,8 +73,15 @@ module TheCommentsController
       end
 
       define_method "total_#{state}" do
-        @comments = Commant.with_state(state).recent.page(params[:page])
+        @comments = Comment.with_state(state).recent.page(params[:page])
         render template: 'the_comments/manage'
+      end
+
+      unless state == 'deleted'
+        define_method "my_#{state}" do
+          @comments = current_user.comments.with_state(state).recent.page(params[:page])
+          render template: 'the_comments/manage'
+        end
       end
     end
 

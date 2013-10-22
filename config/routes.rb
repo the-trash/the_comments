@@ -17,7 +17,10 @@ Rails.application.routes.draw do
 
     collection do
       get :manage
-      
+
+      get :my_draft
+      get :my_published
+
       get :total_draft
       get :total_published
       get :total_deleted
