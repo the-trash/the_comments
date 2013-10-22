@@ -32,10 +32,11 @@ module TheCommentsCommentable
   end
 
   def recalculate_comments_counters!
-    self.draft_comments_count     = comments.with_state(:draft).count
-    self.published_comments_count = comments.with_state(:published).count
-    self.deleted_comments_count   = comments.with_state(:deleted).count
-    save
+    update_attributes!({
+      draft_comments_count:     comments.with_state(:draft).count,
+      published_comments_count: comments.with_state(:published).count,
+      deleted_comments_count:   comments.with_state(:deleted).count
+    })
   end
 
   private

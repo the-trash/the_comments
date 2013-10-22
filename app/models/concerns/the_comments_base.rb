@@ -38,13 +38,19 @@ module TheCommentsBase
     
   def mark_as_spam
     self_and_descendants.update_all({spam: true})
+    update_spam_counter
   end
 
   def mark_as_not_spam
     self_and_descendants.update_all({spam: false})
+    update_spam_counter
   end
 
   private
+
+  def update_spam_counter
+    holder.try :update_comcoms_spam_counter
+  end
 
   def define_anchor
     self.anchor = SecureRandom.hex[0..5]

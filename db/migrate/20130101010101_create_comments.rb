@@ -71,8 +71,6 @@ class CreateComments < ActiveRecord::Migration
       t.integer :draft_comcoms_count,     default: 0
       t.integer :published_comcoms_count, default: 0
       t.integer :deleted_comcoms_count,   default: 0
-
-      # unusable: for future versions
       t.integer :spam_comcoms_count,      default: 0
     end
 

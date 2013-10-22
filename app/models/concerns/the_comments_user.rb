@@ -8,15 +8,19 @@ module TheCommentsUser
   def my_comments; Comment.where(user: self); end
 
   def recalculate_my_comments_counter!
-    self.my_comments_count = my_comments.active.count
-    save!
+    update!(my_comments_count: my_comments.active.count)
   end
 
   def recalculate_comcoms_counters!
-    self.draft_comcoms_count     = comcoms.with_state(:draft).count
-    self.published_comcoms_count = comcoms.with_state(:published).count
-    self.deleted_comcoms_count   = comcoms.with_state(:deleted).count
-    save
+    update_attributes!({
+      draft_comcoms_count:     comcoms.with_state(:draft).count,
+      published_comcoms_count: comcoms.with_state(:published).count,
+      deleted_comcoms_count:   comcoms.with_state(:deleted).count
+    })
+  end
+
+  def update_comcoms_spam_counter
+    update!(spam_comcoms_count: comcoms.where(spam: true).count)
   end
 
   def comments_sum
