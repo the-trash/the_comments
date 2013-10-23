@@ -12,6 +12,6 @@ class Post < ActiveRecord::Base
   end
 
   def commentable_state
-    :published
+    :published.to_s
   end
 end

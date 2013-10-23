@@ -36,9 +36,6 @@ def comcoms_counters_assert(obj, values)
   obj.published_comcoms_count.should eq values[1]
   obj.deleted_comcoms_count.should   eq values[2]
 end
-# --------------------------------------
-# ~ Helpers
-# --------------------------------------
 
 # --------------------------------------
 # init functions
@@ -139,6 +136,21 @@ describe User do
 
       @comment.user.should   eq @user
       @comment.holder.should eq @post_holder
+    end
+  end
+
+  context "Commentable Denormalization" do
+    after(:all) { destroy_all }
+    before(:all) do
+      base_test_situation
+    end
+
+    it 'should have denormalized fields' do
+      title = "New Title!"
+      @post.update_attribute(:title, title)
+      @post.title.should eq title
+      @comment = @post.comments.first
+      @comment.commentable_title.should eq title
     end
   end
 
