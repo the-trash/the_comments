@@ -206,6 +206,7 @@ class Blog < ActiveRecord::Base
   def commentable_state
     # by default:  try(:state)
     # for example: "draft"
+    # *ban_flag* -- it's can be filed of your Model
     self.ban_flag == true ? :banned : :published
   end
 end

@@ -1,12 +1,12 @@
 module TheCommentsCommentable
   extend ActiveSupport::Concern
-
+  
   included do
     has_many :comments, as: :commentable
 
     # *define_denormalize_flags* - should be placed before title or url builder filters
     before_validation :define_denormalize_flags
-    after_save        :denormalize_for_comments
+    after_save        :denormalize_for_comments, if: -> { !id_changed? }
   end
 
   # Default Denormalization methods
@@ -41,13 +41,13 @@ module TheCommentsCommentable
 
   private
 
+  # Can you make it better? I don't know how.
   def define_denormalize_flags
     @trackable_commentable_title = commentable_title
     @trackable_commentable_state = commentable_state
     @trackable_commentable_url   = commentable_url
   end
 
-  # Can you make it better? I don't know how.
   def denormalization_fields_changed?
     @title_field_changed = @trackable_commentable_title != commentable_title
     @state_field_changed = @trackable_commentable_state != commentable_state
