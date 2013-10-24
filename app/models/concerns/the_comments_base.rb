@@ -66,18 +66,31 @@ module TheCommentsBase
   end
 
   def denormalize_commentable
-    self.commentable_title = self.commentable.try :commentable_title
-    self.commentable_url   = self.commentable.try :commentable_url
-    self.commentable_state = self.commentable.try :state
+    self.commentable_title = commentable.try :commentable_title
+    self.commentable_url   = commentable.try :commentable_url
+    self.commentable_state = commentable.try :state
   end
 
   def prepare_content
     self.content = self.raw_content
   end
 
+  # Warn: increment! doesn't call validation =>
+  # before_validation filters doesn't work   =>
+  # We have few unuseful requests
+  # I impressed that I found it and reduce DB requests
+  # Awesome logic pazzl! I'm really pedant :D
   def update_cache_counters    
-    commentable.try :increment!, "#{state}_comments_count"
-    holder.try      :increment!, "#{state}_comcoms_count"
-    user.try        :recalculate_my_comments_counter!
+    user.try :recalculate_my_comments_counter!
+
+    if holder
+      holder.send :define_denormalize_flags
+      holder.increment! "#{state}_comcoms_count"
+    end
+
+    if commentable
+      commentable.send :define_denormalize_flags
+      commentable.increment! "#{state}_comments_count"
+    end
   end
 end

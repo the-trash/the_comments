@@ -17,7 +17,7 @@ module TheCommentsCommentable
   end
 
   def commentable_url
-    # /pages/1
+    # /posts/1
     ['', self.class.to_s.tableize, self.to_param].join('/')
   end
 
@@ -41,7 +41,6 @@ module TheCommentsCommentable
 
   private
 
-  # Can you make it better? I don't know how.
   def define_denormalize_flags
     @trackable_commentable_title = commentable_title
     @trackable_commentable_state = commentable_state
@@ -49,10 +48,10 @@ module TheCommentsCommentable
   end
 
   def denormalization_fields_changed?
-    @title_field_changed = @trackable_commentable_title != commentable_title
-    @state_field_changed = @trackable_commentable_state != commentable_state
-    @url_field_changed   = @trackable_commentable_url   != commentable_url
-    @title_field_changed || @url_field_changed || @state_field_changed
+    a = @trackable_commentable_title != commentable_title
+    b = @trackable_commentable_state != commentable_state
+    c = @trackable_commentable_url   != commentable_url
+    a || b || c
   end
 
   def denormalize_for_comments

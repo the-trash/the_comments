@@ -154,6 +154,26 @@ describe User do
     end
   end
 
+  # This code helps to me catch logic bugs
+  # there is no any asserts
+  # context "callbacks catch" do
+  #   after(:all) { destroy_all }
+  #   it "before validation callback with increment! must be call manually" do
+  #     @user        = FactoryGirl.create(:user)
+  #     @post_holder = FactoryGirl.create(:user)
+  #     @post        = FactoryGirl.create(:post, user: @post_holder)
+
+  #     Comment.create!(
+  #       user: @user,
+  #       commentable: @post,
+  #       title: Faker::Lorem.sentence,
+  #       raw_content: Faker::Lorem.paragraphs(3).join,
+  #       state: :deleted
+  #     )
+  #     Comment.first.to_published
+  #   end
+  # end
+
   context 'User leave 3 comments and Instances has expectable counter values' do
     after(:all) { destroy_all }
 

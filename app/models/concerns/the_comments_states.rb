@@ -31,11 +31,17 @@ module TheCommentsStates
         from = transition.from_name
         to   = transition.to_name
 
-        @holder.try :increment!, "#{to}_comcoms_count"
-        @holder.try :decrement!, "#{from}_comcoms_count"
+        if @holder
+          @holder.send       :define_denormalize_flags
+          @holder.increment! "#{to}_comcoms_count"
+          @holder.decrement! "#{from}_comcoms_count"
+        end
 
-        @commentable.try :increment!, "#{to}_comments_count"
-        @commentable.try :decrement!, "#{from}_comments_count"
+        if @commentable
+          @commentable.send       :define_denormalize_flags
+          @commentable.increment! "#{to}_comments_count"
+          @commentable.decrement! "#{from}_comments_count"
+        end
       end
 
       # to deleted (cascade like query)
@@ -55,11 +61,17 @@ module TheCommentsStates
 
         @owner.try :recalculate_my_comments_counter!
 
-        @holder.try :decrement!, :deleted_comcoms_count
-        @holder.try :increment!, "#{to}_comcoms_count"
+        if @holder
+          @holder.send       :define_denormalize_flags
+          @holder.decrement! :deleted_comcoms_count
+          @holder.increment! "#{to}_comcoms_count"
+        end
 
-        @commentable.try :decrement!, :deleted_comments_count
-        @commentable.try :increment!, "#{to}_comments_count"
+        if @commentable
+          @commentable.send       :define_denormalize_flags
+          @commentable.decrement! :deleted_comments_count
+          @commentable.increment! "#{to}_comments_count"
+        end
       end
     end
   end
