@@ -28,12 +28,14 @@ posts = Post.all
   user = users.sample
   post = posts.sample
 
-  user.comments.create!(
+  Comment.create!(
+    user: user,
     commentable: post,
-
     title: Faker::Lorem.sentence,
-    raw_content: Faker::Lorem.paragraphs(3).join
+    raw_content: Faker::Lorem.paragraphs(3).join,
+    state: :published
   )
+
   print '.'
 end
 
