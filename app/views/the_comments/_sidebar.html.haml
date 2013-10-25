@@ -13,12 +13,13 @@
       %li= link_to t("the_comments.deleted_coments",   num: cuser.deleted_comcoms_count),   [:deleted,   :comments]
       %li= link_to t("the_comments.spam_coments",      num: cuser.spam_comcoms_count),      [:spam,      :comments] # comcoms.where(spam: true).count
 
-    %h5= t 'the_comments.in_system'
-    %ul
-      %li= link_to t("the_comments.draft_coments",     num: Comment.with_state(:draft).count),     [:total_draft,     :comments]
-      %li= link_to t("the_comments.published_coments", num: Comment.with_state(:published).count), [:total_published, :comments]
-      %li= link_to t("the_comments.deleted_coments",   num: Comment.with_state(:deleted).count),   [:total_deleted,   :comments]
-      %li= link_to t("the_comments.spam_coments",      num: Comment.where(spam: true).count),      [:total_spam,      :comments]
+    - if cuser.comments_admin?
+      %h5= t 'the_comments.in_system'
+      %ul
+        %li= link_to t("the_comments.draft_coments",     num: Comment.with_state(:draft).count),     [:total_draft,     :comments]
+        %li= link_to t("the_comments.published_coments", num: Comment.with_state(:published).count), [:total_published, :comments]
+        %li= link_to t("the_comments.deleted_coments",   num: Comment.with_state(:deleted).count),   [:total_deleted,   :comments]
+        %li= link_to t("the_comments.spam_coments",      num: Comment.where(spam: true).count),      [:total_spam,      :comments]
 
     %h5= t 'the_comments.written_by_me'
     %ul

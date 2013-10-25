@@ -1,8 +1,11 @@
 .comments_tree, .comments_list, .black_list{  
   font-family: Arial;
 
-  margin:0; padding:0;
-  *{ margin: 0; padding: 0; }
+  margin:0;
+  padding:0;
+  margin-bottom: 30px;
+
+  *{ margin: 0; padding: 0; font-size: inherit; }
 
   a{ text-decoration: none; }
   a:hover{ text-decoration: underline; }
@@ -23,9 +26,11 @@
   font-family: Arial;
   font-size: 13px;
 
+  h3{ font-size: 1.6em; }
+
   .error_notifier{    
     background-color: #F2DEDE;
-    border-color: #EED3D7;
+    border: 1px solid #B94A48;
     color: #B94A48;
     
     border-radius: 4px;
@@ -36,9 +41,11 @@
     p{ margin: 0 0 10px 0; }
   }
   form{
-    background: white;
-    border: 1px solid gray;
-    border-radius: 3px;
+    
+    background: #e0e4f5;
+
+    border: 1px solid #c6cff5;
+    border-radius: 5px;
     padding: 10px;
     
     p{ margin: 0 0 10px 0; }
@@ -48,6 +55,7 @@
       padding: 4px;
       width: 75%;
     }
+    label{ font-size: 15px; }
     textarea{
       border: 1px solid gray;
       font-family: Arial;
@@ -99,7 +107,7 @@
       float: left;
       width: 50px;
 
-      img{ margin-bottom: 10px; }
+      img{ margin-bottom: 10px; width: 42px; height: 42px; }
     }
     .userbar, .cbody{
       margin: 0 0 5px 55px;
@@ -118,10 +126,12 @@
       .to_published{ display: none; }
     }
     .cbody{
-      border-bottom: 1px solid LightGray;
+      font-size: 15px;
+      border-bottom: 1px solid #eee;
       padding-bottom: 10px;
       line-height: 135%;
-      margin-bottom: 0;
+      margin-bottom: 3px;
+      overflow: hidden;
     }
     .reply{
       margin: 0 0 5px 55px;

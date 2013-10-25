@@ -12,13 +12,44 @@ en:
               # blank: '%{attribute} should not be empty'
 
   the_comments:
+    incoming: "Incoming:"
+    in_system: "In system:"
+    written_by_me: "Written by me:"
+    back_to_root: "&larr; To root"
+    
+    draft_coments:     "New (%{num})"
+    published_coments: "Published (%{num})"
+    deleted_coments:   "Deleted (%{num})"
+    spam_coments:      "Spam (%{num})"
+
+    management: Comments management
     new: "New comment"
+    update: "Update comment"
+    additional_info: "Additional info"
+    cancel: "Cancel"
+
+    title: "Title on name:"
+    contacts: "Contacts:"
+    content: "Message:"
+
+    guest_name: Guest
+    reply: Reply to this comment
+    edit: Edit
+    to_spam: Spam!
+    to_draft: Draft
+    to_published: Publicate
+    to_deleted:   Delete
+
+    nav:
+      header: "Navigation"
+
     form:
       title: "Your name:"
       contacts: "Contacts (only admin can see this):"
       content: "Comment* :"
       create: "Submit comment"
       thank_you:  "Thank you!"
+
     trap: Trap
     trap_message: should be empty
 
@@ -35,14 +66,6 @@ en:
 
     black_user_agent: Black User Agent
     black_user_agent_message: Sorry! Your User Agent banned
-
-    guest_name: Guest
-    reply: Reply to this comment
-    edit: Edit
-    to_spam: Spam!
-    to_draft: Draft
-    to_published: Publicate
-    to_deleted:   Delete
 
     delete_confirm: Are you sure?
 

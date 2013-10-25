@@ -9,7 +9,6 @@ ru:
           attributes:
             raw_content:
               blank: 'Не может быть пустым'
-              # blank: '%{attribute} should not be empty'
 
   the_comments:
     incoming: "Входящие:"
@@ -32,6 +31,14 @@ ru:
     contacts: "Контакты:"
     content: "Сообщение:"
 
+    guest_name: Гость
+    reply: Ответить на этот комментарий
+    edit: Править
+    to_spam: Спам!
+    to_draft: Черновик
+    to_published: Публиковать
+    to_deleted:   Удалить
+
     nav:
       header: "Навигация"
 
@@ -41,6 +48,7 @@ ru:
       content: "Текст комментария* :"
       create: "Отправить комментарий"
       thank_you:  "Спaсибо!"
+
     trap: Ловушка
     trap_message: Должна быть пустой
 
@@ -57,14 +65,6 @@ ru:
 
     black_user_agent: Черный User Agent
     black_user_agent_message: Ваш User Agent в бан-листе
-
-    guest_name: Гость
-    reply: Ответить на этот комментарий
-    edit: Править
-    to_spam: Спам!
-    to_draft: Черновик
-    to_published: Публиковать
-    to_deleted:   Удалить
 
     delete_confirm: Вы уверены?
 

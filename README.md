@@ -175,9 +175,14 @@ class User < ActiveRecord::Base
     self == User.first
   end
 
+  # Comments admin checking (simple example)
+  def comments_admin?
+    admin?
+  end
+
   # Comments moderator checking (simple example)
   # Usually comment's holder should be moderator
-  def comment_moderator? comment
+  def comments_moderator? comment
     admin? || id == comment.holder_id
   end
 end

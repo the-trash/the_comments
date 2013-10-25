@@ -84,7 +84,7 @@ module TheCommentsBase
     user.try :recalculate_my_comments_counter!
 
     if holder
-      holder.send :define_denormalize_flags
+      holder.send :try, :define_denormalize_flags
       holder.increment! "#{state}_comcoms_count"
     end
 

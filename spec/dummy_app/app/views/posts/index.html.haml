@@ -1,4 +1,9 @@
-%h3 Posts
+%h3 Posts:
 %ul
   - @posts.each do |post|
     %li= link_to post.title, post_url(post)
+
+%h3 Autologin Users:
+%ul
+  - User.all.each do |user|
+    %li= link_to user.username, autologin_url(user)

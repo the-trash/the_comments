@@ -6,7 +6,15 @@ class User < ActiveRecord::Base
   has_many :posts
 
   # can be replaced to TheCommentsUser as default
-  def comment_moderator? comment
+  def admin?
+    self == User.first
+  end
+
+  def comments_admin?
+    admin?
+  end
+
+  def comments_moderator? comment
     id == comment.holder_id
   end
 end

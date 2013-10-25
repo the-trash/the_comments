@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Base gems
-gem 'rails', '4.0.0'
+gem 'rails', '4.0.0' #github: 'rails/rails', branch: 'master'
 gem 'sqlite3'
 
 gem 'jquery-rails'
@@ -18,16 +18,26 @@ gem 'sdoc', require: false, group: [:doc]
 # App gems
 gem 'haml'
 gem 'sorcery'
+gem 'kaminari'
 gem 'haml-rails'
-gem 'the_comments', path: '../../'
-gem 'awesome_nested_set', git: 'https://github.com/collectiveidea/awesome_nested_set.git', branch: 'master'
+
+# TheComments requires
+gem 'the_comments',
+  path: '../../'
+
+gem 'bootstrap-sass',
+  github: 'thomas-mcdonald/bootstrap-sass'
+
+gem 'awesome_nested_set',
+  git: 'https://github.com/collectiveidea/awesome_nested_set.git',
+  branch: 'master'
 
 # Test gems
 group :development, :test do
   gem 'faker'
   gem 'factory_girl'
   gem "factory_girl_rails"
-
-  gem 'database_cleaner'
   gem 'rspec-rails', '~> 2.0'
+
+  # gem 'database_cleaner'
 end

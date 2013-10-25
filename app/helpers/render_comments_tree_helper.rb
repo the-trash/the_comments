@@ -27,7 +27,7 @@ module RenderCommentsTreeHelper
       end
 
       def moderator?
-        controller.try(:current_user).try(:comment_moderator?, @comment)
+        controller.try(:current_user).try(:comments_moderator?, @comment)
       end
 
       # Render Methods

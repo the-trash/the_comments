@@ -13,7 +13,7 @@ bundle
 ### App start
 
 ```
-rake db:bootstrap
+rake db:bootstrap_and_seed
 
 rails s -p 3000 -b localhost
 ```

@@ -32,7 +32,7 @@ module TheCommentsStates
         to   = transition.to_name
 
         if @holder
-          @holder.send       :define_denormalize_flags
+          @holder.send :try, :define_denormalize_flags
           @holder.increment! "#{to}_comcoms_count"
           @holder.decrement! "#{from}_comcoms_count"
         end
@@ -62,7 +62,7 @@ module TheCommentsStates
         @owner.try :recalculate_my_comments_counter!
 
         if @holder
-          @holder.send       :define_denormalize_flags
+          @holder.send :try, :define_denormalize_flags
           @holder.decrement! :deleted_comcoms_count
           @holder.increment! "#{to}_comcoms_count"
         end
