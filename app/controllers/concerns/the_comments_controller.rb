@@ -64,6 +64,11 @@ module TheCommentsController
       render template: 'the_comments/manage'
     end
 
+    def edit
+      @comments = current_user.comcoms.where(id: params[:id]).page(params[:page])
+      render template: 'the_comments/manage'
+    end
+
     # Methods based on *current_user* helper
     # Methods for admin
     %w[draft published deleted].each do |state|
@@ -97,7 +102,6 @@ module TheCommentsController
 
     # BASE METHODS
     # Public methods
-
     def update
       comment = Comment.where(id: params[:id]).first
       comment.update_attributes!(patch_comment_params)
@@ -114,28 +118,18 @@ module TheCommentsController
     end
 
     # Restricted area
-    def to_draft
-      Comment.where(id: params[:id]).first.to_draft
-      render nothing: :true
-    end
-
-    def to_deleted
-      Comment.where(id: params[:id]).first.to_deleted
-      render nothing: :true
-    end
-
-    def to_published
-      Comment.where(id: params[:id]).first.to_published
-      render nothing: :true
+    %w[draft published deleted].each do |state|
+      define_method "to_#{state}" do
+        Comment.where(id: params[:id]).first.try "to_#{state}"
+        render nothing: true
+      end
     end
 
     def to_spam
       comment = Comment.where(id: params[:id]).first
-      IpBlackList.where(ip: comment.ip).first_or_create.increment!(:count)
-      UserAgentBlackList.where(user_agent: comment.user_agent).first_or_create.increment!(:count)
-      comment.mark_as_spam
+      comment.to_spam
       comment.to_deleted
-      render nothing: :true
+      render nothing: true
     end
 
     private
@@ -193,9 +187,9 @@ module TheCommentsController
 
     def empty_trap_required
       # TODO:
+      # I forgot what it's do. I should to think about it later
       # 1) inject ?
       # 2) fields can be removed on client side
-
       is_user = true
       params.slice(*TheComments.config.empty_inputs).values.each{|v| is_user = is_user && v.blank? }
 

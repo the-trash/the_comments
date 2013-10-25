@@ -1,9 +1,14 @@
 %h3 Posts:
 %ul
   - @posts.each do |post|
-    %li= link_to post.title, post_url(post)
+    %li
+      = link_to post_url(post) do
+        = "#{post.title} (#{post.comments_sum})"
 
 %h3 Autologin Users:
 %ul
   - User.all.each do |user|
-    %li= link_to user.username, autologin_url(user)
+    %li
+      = link_to autologin_url(user) do
+        - admin = user.comments_admin? ? '[Admin]' : nil
+        = "#{user.username} (#{user.draft_comcoms_count}) #{admin}"

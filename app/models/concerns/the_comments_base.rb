@@ -37,13 +37,21 @@ module TheCommentsBase
   end
     
   def mark_as_spam
-    self_and_descendants.update_all({spam: true})
+    count = self_and_descendants.update_all({spam: true})
     update_spam_counter
+    count
   end
 
   def mark_as_not_spam
-    self_and_descendants.update_all({spam: false})
+    count = self_and_descendants.update_all({spam: false})
     update_spam_counter
+    count
+  end
+
+  def to_spam
+    spam_count = mark_as_spam
+    IpBlackList.where(ip: self.ip).first_or_create.increment!(:count, spam_count)
+    UserAgentBlackList.where(user_agent: self.user_agent).first_or_create.increment!(:count, spam_count)
   end
 
   private
