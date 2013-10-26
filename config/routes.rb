@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 
       get :my_draft
       get :my_published
+      get :my_comments
 
       get :total_draft
       get :total_published

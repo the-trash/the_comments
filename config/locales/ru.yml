@@ -16,10 +16,11 @@ ru:
     written_by_me: "Написанные мной:"
     back_to_root: "&larr; На главную"
     
-    draft_coments:     "Новые (%{num})"
-    published_coments: "Опубликованные (%{num})"
-    deleted_coments:   "Удаленные (%{num})"
-    spam_coments:      "Спам (%{num})"
+    my_comments:        "Мои комментарии (%{num})"
+    draft_comments:     "Новые (%{num})"
+    published_comments: "Опубликованные (%{num})"
+    deleted_comments:   "Удаленные (%{num})"
+    spam_comments:      "Спам (%{num})"
 
     management: Управление комментариями
     new: "Написать новый комментарий"

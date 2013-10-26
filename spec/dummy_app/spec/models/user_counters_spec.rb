@@ -139,6 +139,23 @@ describe User do
     end
   end
 
+  context "Written by me counters" do
+    after(:all) { destroy_all }
+    before(:all){ create_users_and_post }
+    it 'should has correct My counters values' do 
+      @comment = Comment.create!(
+        user: @user,
+        commentable: @post,
+        title: Faker::Lorem.sentence,
+        raw_content: Faker::Lorem.paragraphs(3).join
+      )
+      @user.reload
+      @user.my_draft_comments.count.should     eq 1
+      @user.my_published_comments.count.should eq 0
+      @user.my_deleted_comments.count.should   eq 0
+    end
+  end
+
   context "Commentable Denormalization" do
     after(:all) { destroy_all }
     before(:all) do
@@ -314,5 +331,9 @@ describe User do
       comments_count_assert    @post, [0,5,4]
       comments_counters_assert @post, [0,5,4]
     end
+
+    it 'has correct counters after comment destroy' do 
+      pending("has correct counters after comment destroy")
+    end 
   end
 end

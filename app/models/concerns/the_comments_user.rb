@@ -6,6 +6,12 @@ module TheCommentsUser
   end
 
   def my_comments; Comment.where(user: self); end
+  
+  %w[draft published deleted].each do |state|
+    define_method "my_#{state}_comments" do
+      my_comments.with_state(state)
+    end
+  end
 
   def recalculate_my_comments_counter!
     update!(my_comments_count: my_comments.active.count)

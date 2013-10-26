@@ -16,11 +16,12 @@ en:
     in_system: "In system:"
     written_by_me: "Written by me:"
     back_to_root: "&larr; To root"
-    
-    draft_coments:     "New (%{num})"
-    published_coments: "Published (%{num})"
-    deleted_coments:   "Deleted (%{num})"
-    spam_coments:      "Spam (%{num})"
+
+    my_comments:        "My comments (%{num})"
+    draft_comments:     "New (%{num})"
+    published_comments: "Published (%{num})"
+    deleted_comments:   "Deleted (%{num})"
+    spam_comments:      "Spam (%{num})"
 
     management: Comments management
     new: "New comment"
