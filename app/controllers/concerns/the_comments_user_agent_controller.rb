@@ -5,7 +5,7 @@ module TheCommentsUserAgentController
     @ip_black_lists = if params[:ip]
       UserAgentBlackList.where(ip: params[:ip])
     else
-      UserAgentBlackList.order('count DESC').page(params[:page])
+      UserAgentBlackList.recent.page(params[:page])
     end
   end
 

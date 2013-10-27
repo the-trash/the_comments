@@ -6,7 +6,7 @@ module TheCommentsIpController
       @ip_black_lists = if params[:ip]
         IpBlackList.where(ip: params[:ip])
       else
-        IpBlackList.order('count DESC').page(params[:page])
+        IpBlackList.recent.page(params[:page])
       end
     end
 

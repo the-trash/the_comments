@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130712070055) do
+ActiveRecord::Schema.define(version: 20131027185335) do
 
   create_table "comments", force: true do |t|
     t.integer  "user_id"
@@ -65,20 +65,22 @@ ActiveRecord::Schema.define(version: 20130712070055) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "username",                             null: false
+    t.string   "username",                                null: false
     t.string   "email"
     t.string   "crypted_password"
     t.string   "salt"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "my_comments_count",        default: 0
-    t.integer  "draft_comcoms_count",      default: 0
-    t.integer  "published_comcoms_count",  default: 0
-    t.integer  "deleted_comcoms_count",    default: 0
-    t.integer  "spam_comcoms_count",       default: 0
-    t.integer  "draft_comments_count",     default: 0
-    t.integer  "published_comments_count", default: 0
-    t.integer  "deleted_comments_count",   default: 0
+    t.integer  "my_draft_comments_count",     default: 0
+    t.integer  "my_published_comments_count", default: 0
+    t.integer  "my_comments_count",           default: 0
+    t.integer  "draft_comcoms_count",         default: 0
+    t.integer  "published_comcoms_count",     default: 0
+    t.integer  "deleted_comcoms_count",       default: 0
+    t.integer  "spam_comcoms_count",          default: 0
+    t.integer  "draft_comments_count",        default: 0
+    t.integer  "published_comments_count",    default: 0
+    t.integer  "deleted_comments_count",      default: 0
   end
 
 end

@@ -150,9 +150,9 @@ describe User do
         raw_content: Faker::Lorem.paragraphs(3).join
       )
       @user.reload
-      @user.my_draft_comments.count.should     eq 1
-      @user.my_published_comments.count.should eq 0
-      @user.my_deleted_comments.count.should   eq 0
+      @user.my_comments_count.should           eq 1
+      @user.my_draft_comments_count.should     eq 1
+      @user.my_published_comments_count.should eq 0
     end
   end
 

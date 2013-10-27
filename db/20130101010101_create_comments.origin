@@ -66,6 +66,11 @@ class CreateComments < ActiveRecord::Migration
       # posted_comments.with_state([:draft,:published])
       t.integer :my_comments_count, default: 0
 
+      # "Written by me" cache counters
+      t.integer :my_draft_comments,      default: 0
+      t.integer :my_published_comments,  default: 0
+      t.integer :my_comments_count,      default: 0
+
       # commentable's comments => comcoms (cache)
       # Relation through Comment#holder_id field
       t.integer :draft_comcoms_count,     default: 0
