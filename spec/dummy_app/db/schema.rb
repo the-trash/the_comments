@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131027185335) do
+ActiveRecord::Schema.define(version: 20131027185334) do
 
   create_table "comments", force: true do |t|
     t.integer  "user_id"
@@ -41,12 +41,6 @@ ActiveRecord::Schema.define(version: 20131027185335) do
     t.datetime "updated_at"
   end
 
-  create_table "ip_black_lists", force: true do |t|
-    t.string  "ip"
-    t.integer "count", default: 0
-    t.string  "state", default: "warning"
-  end
-
   create_table "posts", force: true do |t|
     t.integer  "user_id"
     t.string   "title"
@@ -56,12 +50,6 @@ ActiveRecord::Schema.define(version: 20131027185335) do
     t.integer  "draft_comments_count",     default: 0
     t.integer  "published_comments_count", default: 0
     t.integer  "deleted_comments_count",   default: 0
-  end
-
-  create_table "user_agent_black_lists", force: true do |t|
-    t.string  "user_agent"
-    t.integer "count",      default: 0
-    t.string  "state",      default: "warning"
   end
 
   create_table "users", force: true do |t|

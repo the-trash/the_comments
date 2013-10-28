@@ -8,8 +8,6 @@ TheComments.configure do |config|
   config.empty_inputs        = [:commentBody]      # array of spam trap fields
   config.default_title       = 'Undefined title'   # default commentable_title for denormalization
 
-  config.ip_protection             = false
   config.empty_trap_protection     = true
-  config.user_agent_protection     = true
   config.tolerance_time_protection = true
 end
