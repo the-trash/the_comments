@@ -1,12 +1,4 @@
 Rails.application.routes.draw do
-  resources :ip_black_lists do
-    patch :to_state
-  end
-
-  resources :user_agent_black_lists do 
-    patch :to_state
-  end
-
   resources :comments do
     member do
       post   :to_spam

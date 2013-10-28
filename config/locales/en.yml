@@ -57,18 +57,10 @@ en:
     tolerance_time: Page view time
     tolerance_time_message: "Please wait %{time} seconds before send a comment and try again"
 
-    cookies: Cookies
-    cookies_required: 'Please enable cookies and try to reload page'
-
-    ajax_requests_required: 'Sorry, JavaScript/Ajax Requests required'
-
-    black_ip: Black IP adress
-    black_ip_message: Sorry! Your IP banned
-
-    black_user_agent: Black User Agent
-    black_user_agent_message: Sorry! Your User Agent banned
-
     delete_confirm: Are you sure?
 
+    cookies: Cookies
+    cookies_required: 'Please enable cookies and try to reload page'
+    ajax_requests_required: 'Sorry, JavaScript/Ajax Requests required'
+
     waiting_for_moderation: Waiting for moderation
-    item_not_found: Black list Item not found

@@ -33,8 +33,6 @@ BANNER
           copy_file "../assets/stylesheets/the_comments.css.scss", "app/assets/stylesheets/the_comments.css.scss"
         elsif param_name == 'views'
           directory "../views/the_comments",           "app/views/the_comments"
-          directory "../views/ip_black_lists",         "app/views/ip_black_lists"
-          directory "../views/user_agent_black_lists", "app/views/user_agent_black_lists"
         elsif param_name == 'helper'
           copy_file "../helpers/render_comments_tree_helper.rb", "app/helpers/render_comments_tree_helper.rb"
         else

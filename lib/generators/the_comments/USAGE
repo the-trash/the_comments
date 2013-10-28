@@ -9,20 +9,12 @@ Generators:
 
   This will create:
    config/initializers/the_comments.rb
-   
-   app/models/ip_black_list.rb
-   app/models/user_agent_black_list.rb
-
    app/controllers/comments_controller.rb
-   app/controllers/ip_black_lists_controller.rb
-   app/controllers/user_agent_black_lists_controller.rb
 
   bundle exec rails g the_comments controllers
 
   This will create:
     app/controllers/comments_controller.rb
-    app/controllers/ip_black_lists_controller.rb
-    app/controllers/user_agent_black_lists_controller.rb
 
 View Generators:
   bundle exec rails g the_comments:views assets

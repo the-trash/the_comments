@@ -38,9 +38,6 @@ module TheCommentsController
       # Attention! We should not set TheComments cookie before create
       skip_before_action :set_the_comments_cookies, only: [:create]
 
-      # Black lists
-      before_action :stop_black_ip,           only: [:create], if: -> { TheComments.config.ip_protection }
-      before_action :stop_black_user_agent,   only: [:create], if: -> { TheComments.config.user_agent_protection }
 
       # Spam protection
       before_action :ajax_requests_required,  only: [:create]
@@ -145,7 +142,7 @@ module TheCommentsController
       @commentable ? { commentable_title: title, commentable_url: url } : {}
     end
 
-    def request_data_for_black_lists
+    def request_data_for_comment
       r = request
       { ip: r.ip, referer: CGI::unescape(r.referer  || 'direct_visit'), user_agent: r.user_agent }
     end
@@ -165,7 +162,7 @@ module TheCommentsController
         .merge(user: current_user, view_token: comments_view_token)
         .merge(denormalized_fields)
         .merge( tolerance_time: params[:tolerance_time].to_i )
-        .merge(request_data_for_black_lists)
+        .merge(request_data_for_comment)
     end
 
     def patch_comment_params
@@ -184,8 +181,6 @@ module TheCommentsController
 
     def ajax_requests_required
       unless request.xhr?
-        IpBlackList.where(ip: request.ip).first_or_create.increment!(:count)
-        UserAgentBlackList.where(user_agent: request.user_agent).first_or_create.increment!(:count)
         return render(text: t('the_comments.ajax_requests_required'))
       end
     end
@@ -199,8 +194,6 @@ module TheCommentsController
       params.slice(*TheComments.config.empty_inputs).values.each{|v| is_user = is_user && v.blank? }
 
       unless is_user
-        IpBlackList.where(ip: request.ip).first_or_create.increment!(:count)
-        UserAgentBlackList.where(user_agent: request.user_agent).first_or_create.increment!(:count)
         @errors << [t('the_comments.trap'), t('the_comments.trap_message')].join(' ')
         return render(json: { errors: @errors })
       end
@@ -211,20 +204,6 @@ module TheCommentsController
       this_time = params[:tolerance_time].to_i
       if this_time < min_time
         @errors << [t('the_comments.tolerance_time'), t('the_comments.tolerance_time_message', time: min_time - this_time )].join(' ')
-        return render(json: { errors: @errors })
-      end
-    end
-
-    def stop_black_ip
-      if IpBlackList.where(ip: request.ip, state: :banned).first
-        @errors << [t('the_comments.black_ip'), t('the_comments.black_ip_message')].join(' ')
-        return render(json: { errors: @errors })
-      end
-    end
-
-    def stop_black_user_agent
-      if UserAgentBlackList.where(user_agent: request.user_agent, state: :banned).first
-        @errors << [t('the_comments.black_user_agent'), t('the_comments.black_user_agent_message')].join(' ')
         return render(json: { errors: @errors })
       end
     end

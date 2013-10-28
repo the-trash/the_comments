@@ -139,13 +139,7 @@ bundle exec rails g the_comments install
 
 ```ruby
 config/initializers/the_comments.rb
-
-app/models/ip_black_list.rb
-app/models/user_agent_black_list.rb
-
 app/controllers/comments_controller.rb
-app/controllers/ip_black_lists_controller.rb
-app/controllers/user_agent_black_lists_controller.rb
 ```
 
 **4)** Run view generator for coping view files into your App
@@ -158,8 +152,6 @@ bundle exec rails g the_comments:views views
 
 ```ruby
 app/views/the_comments/*.haml
-app/views/ip_black_lists/*.haml
-app/views/user_agent_black_lists/*.haml
 ```
 
 ## Tuning
@@ -280,7 +272,6 @@ end
 * Cache counters for commentable objects and User
 * Moderation for comments and simple Admin UI
 * Spam traps instead Captcha. *I hate Captcha*
-* Blacklists for IP and UserAgent
 * Denormalization for fast and Request-free Recent comments building
 * Ready for external content filters (<b>sanitize</b>, <b>RedCloth</b>, <b>Markdown</b>, etc)
 * Highlighting and Jumping to comment via anchor
@@ -419,8 +410,6 @@ _Usually spambots puts data in fake inputs_
 * User should be few seconds on page, before comment sending (by default 5 sec)
 
 _Usually spambots works faster, than human. We can try to use this feature of behavior_
-
-**5) IP and User Agent blacklists**
 
 
 ### Strong dependencies of gem

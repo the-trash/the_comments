@@ -59,15 +59,6 @@ ru:
     cookies: Куки
     cookies_required: 'Включите куки и перезагрузите страницу'
 
-    ajax_requests_required: 'Извините, ожидается JavaScript/Ajax запрос'
-
-    black_ip: Черный IP
-    black_ip_message: Ваш IP в бан-листе
-
-    black_user_agent: Черный User Agent
-    black_user_agent_message: Ваш User Agent в бан-листе
-
     delete_confirm: Вы уверены?
-
     waiting_for_moderation: Ожидает модерации
-    item_not_found: Элемент черного списка не найден
+    ajax_requests_required: 'Извините, ожидается JavaScript/Ajax запрос'

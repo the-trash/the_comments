@@ -1,4 +1,4 @@
-.comments_tree, .comments_list, .black_list{  
+.comments_tree, .comments_list{
   font-family: Arial;
 
   margin:0;
@@ -239,24 +239,5 @@
         a{ margin-right: 15px; }
       }
     }
-  }
-}
-
-.black_list{
-  li{
-    border: 1px solid gray;
-    border-radius: 5px;
-    padding: 10px;
-    &.warning{
-      border-left: 5px solid orange;
-      .to_warning{ display: none; }
-    }
-    &.banned{
-      border-left: 5px solid black;
-      .to_banned{ display: none; }
-    }
-  }
-  p{
-    margin-bottom: 10px;
   }
 }

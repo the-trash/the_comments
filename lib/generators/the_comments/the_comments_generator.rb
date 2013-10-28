@@ -29,13 +29,9 @@ class TheCommentsGenerator < Rails::Generators::NamedBase
 
   def cp_models
     copy_file 'comment.rb',               'app/models/comment.rb'
-    copy_file 'ip_black_list.rb',         'app/models/ip_black_list.rb'
-    copy_file 'user_agent_black_list.rb', 'app/models/user_agent_black_list.rb'
   end
 
   def cp_controllers
-    copy_file 'comments_controller.rb',               'app/controllers/comments_controller.rb'
-    copy_file 'ip_black_lists_controller.rb',         'app/controllers/ip_black_lists_controller.rb'
-    copy_file 'user_agent_black_lists_controller.rb', 'app/controllers/user_agent_black_lists_controller.rb'
+    copy_file 'comments_controller.rb', 'app/controllers/comments_controller.rb'
   end
 end
