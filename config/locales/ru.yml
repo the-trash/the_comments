@@ -40,6 +40,8 @@ ru:
     to_published: Публиковать
     to_deleted:   Удалить
 
+    no_comments_here: Здесь нет комментариев
+
     nav:
       header: "Навигация"
 

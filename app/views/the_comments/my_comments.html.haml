@@ -1,3 +1,5 @@
+- cuser = current_user
+
 - content_for :title do
   = t "the_comments.management"
 
@@ -16,10 +18,11 @@
       .panel{ class: "panel-#{klass}" }
         .panel-heading= comment.title
         .panel-body
-          = render partial: 'the_comments/comment_edit', locals: { comment: comment }
           = render partial: 'the_comments/comment_body', locals: { comment: comment }
-
-          = render partial: 'the_comments/manage_controls', locals: { comment: comment }
-          = render partial: 'the_comments/additional_info', locals: { comment: comment }
+          
+          - if cuser.comments_admin?
+            = render partial: 'the_comments/comment_edit',    locals: { comment: comment }
+            = render partial: 'the_comments/manage_controls', locals: { comment: comment }
+            = render partial: 'the_comments/additional_info', locals: { comment: comment }
         
   = paginate @comments

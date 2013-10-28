@@ -41,6 +41,8 @@ en:
     to_published: Publicate
     to_deleted:   Delete
 
+    no_comments_here: No comments here
+
     nav:
       header: "Navigation"
 

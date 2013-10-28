@@ -63,7 +63,7 @@ module TheCommentsController
 
     def my_comments
       @comments = current_user.my_comments.active.recent.page(params[:page])
-      render template: 'the_comments/manage'
+      render template: 'the_comments/my_comments'
     end
 
     def edit
@@ -87,7 +87,7 @@ module TheCommentsController
       unless state == 'deleted'
         define_method "my_#{state}" do
           @comments = current_user.my_comments.with_state(state).recent.page(params[:page])
-          render template: 'the_comments/manage'
+          render template: 'the_comments/my_comments'
         end
       end
     end
