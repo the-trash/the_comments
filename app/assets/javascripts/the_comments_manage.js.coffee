@@ -1,4 +1,6 @@
 $ ->
+  hide_comment_panel = (btn) -> $(btn).parents('.panel').slideUp()
+
   comments = $ '.comments'
 
   # CONTROLS
@@ -14,20 +16,8 @@ $ ->
     holder.find('.edit_form, .comment_body, a.edit').toggle()
     false
 
-  comments.on 'ajax:success', '.to_published', (request, response, status) ->
-    btn    = $ @
-    holder = btn.parents('.panel')
-    holder.removeClass('panel-warning').addClass('panel-primary')
-    holder.find('.to_draft, .to_published').toggle()
-
-  comments.on 'ajax:success', '.to_draft', (request, response, status) ->
-    btn    = $ @
-    holder = btn.parents('.panel')
-    holder.removeClass('panel-primary').addClass('panel-warning')
-    holder.find('.to_draft, .to_published').toggle()
-
-  comments.on 'ajax:success', '.to_spam, .to_deleted', (request, response, status) ->
-    $(@).parents('.panel').hide()
+  comments.on 'ajax:success', '.to_published, .to_draft, .to_spam, .to_deleted', ->
+    hide_comment_panel @
 
   # Edit form
   comments.on 'ajax:success', '.edit_comment', (request, response, status) ->
