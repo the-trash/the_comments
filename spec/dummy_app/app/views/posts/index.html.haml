@@ -12,3 +12,11 @@
       = link_to autologin_url(user) do
         - admin = user.comments_admin? ? '[Admin]' : nil
         = "#{user.username} (#{user.draft_comcoms_count}) #{admin}"
+
+%h3 Recent Comments:
+%ul
+  - @recent_comments.each do |comment|
+    %p
+      %b= link_to comment.commentable_title, comment.commentable_url
+      %br
+      %i= comment.content
