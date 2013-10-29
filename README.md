@@ -1,12 +1,21 @@
-# TheComments 1.0.0
+# TheComments
 
 [![Gem Version](https://badge.fury.io/rb/the_comments.png)](http://badge.fury.io/rb/the_comments) | [![Build Status](https://travis-ci.org/the-teacher/the_comments.png?branch=master)](https://travis-ci.org/the-teacher/the_comments) | [![Code Climate](https://codeclimate.com/github/the-teacher/the_comments.png)](https://codeclimate.com/github/the-teacher/the_comments)
 
-TheComments - just comment system for my Ruby on Rails 4 projects. [(rubygems)](http://rubygems.org/gems/the_comments)
+TheComments - probably, best commenting system for rails  [(rubygems)](http://rubygems.org/gems/the_comments)
+
+### Main features
+
+* Threaded comments
+* Usefull cache counters
+* Admin UI for moderation
+* Online Support via skype: **ilya.killich**
+* [Denormalization](#denormalization) for Recent comments
+* Production-ready commenting system for Rails 4+
 
 ## Keywords
 
-Comments for Rails 4, Comments with threading, Nested Comments, Polymorphic comments, Acts as commentable, Comment functionality, Comments, Threading, Rails 4, Comments with moderation, I hate captcha!
+Comments for Rails 4, Comments with threading, Nested Comments, Polymorphic comments, Acts as commentable, Comment functionality, Rails 4, Comments with moderation, I hate captcha!
 
 ## Screenshots
 
@@ -29,14 +38,7 @@ Comments for Rails 4, Comments with threading, Nested Comments, Polymorphic comm
   </tr>
 </table>
 
-### Main features
 
-* Threaded comments
-* Tree rendering via [TheSortableTree](https://github.com/the-teacher/the_sortable_tree)
-* [Denormalization](#denormalization) for Recent comments
-* Usefull cache counters
-* Basic AntiSpam system
-* Online Support via skype: **ilya.killich**
 
 ### Intro (understanding)
 
