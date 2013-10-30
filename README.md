@@ -30,12 +30,10 @@ Comments for Rails 4, Comments with threading, Nested Comments, Polymorphic comm
 **Gemfile**
 
 ```ruby
-gem 'the_comments'
+gem 'the_comments', "~> 2.0"
 
-gem 'haml'
-gem 'kaminari'
-gem 'bootstrap-sass'
-gem 'awesome_nested_set'
+gem 'haml'                # or gem 'slim'
+gem 'awesome_nested_set'  # or same gem
 ```
 
 **Bundle**
@@ -116,7 +114,7 @@ end
 **app/views/posts/show.html.haml**
 
 ```haml
-= render partial: 'the_comments/tree', locals: { commentable: @post, comments_tree: @comments }
+= render partial: 'the_comments/haml/tree', locals: { commentable: @post, comments_tree: @comments }
 ```
 
 ### MIT License
