@@ -133,6 +133,8 @@ end
 = render partial: 'the_comments/haml/tree', locals: { commentable: @post, comments_tree: @comments }
 ```
 
+Please, read [Documentation](https://github.com/the-teacher/the_comments/wiki/Documentation) for understanding, advanced installation and using admin interface.
+
 ### MIT License
 
 Copyright (c) 2013 Ilya N. Zykin
