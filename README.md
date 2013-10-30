@@ -7,24 +7,16 @@ TheComments - probably, best commenting system for Rails
 ### Main features
 
 * Threaded comments
-* Usefull cache counters
+* Useful cache counters
 * Admin UI for moderation
 * Online Support via skype: **ilya.killich**
 * [Denormalization](https://github.com/the-teacher/the_comments/wiki/Understanding#denormalization) for Recent comments
 * Production-ready commenting system for Rails 4+
 * Designed for preprocessors Sanitize, Textile, Markdawn etc.
 
-## Keywords
+### Documentation
 
-Comments for Rails 4, Comments with threading, Nested Comments, Polymorphic comments, Acts as commentable, Comment functionality, Rails 4, Comments with moderation, I hate captcha!
-
-## Documentation
-
-* [Screenshots](https://github.com/the-teacher/the_comments/wiki/Screenshots)
-* [Understanding](https://github.com/the-teacher/the_comments/wiki/Understanding)
-* [Installation](https://github.com/the-teacher/the_comments/wiki/Installation)
-* [User Model API](https://github.com/the-teacher/the_comments/wiki/User-Model-API)
-* [Customization](https://github.com/the-teacher/the_comments/wiki/Customization)
+* [Documentation](https://github.com/the-teacher/the_comments/wiki/Documentation)
 
 ## Quick Start Installation
 
@@ -115,10 +107,24 @@ end
 **app/controllers/posts_controllers.rb**
 
 ```ruby
-  def show
-    @post     = Post.find params[:id]
-    @comments = @post.comments.with_state([:draft, :published])
-  end
+def show
+  @post     = Post.find params[:id]
+  @comments = @post.comments.with_state([:draft, :published])
+end
+```
+
+**app/assets/stylesheets/application.css**
+
+```css
+/*
+ *= require the_comments
+*/
+```
+
+**app/assets/javascripts/application.js**
+
+```js
+//= require the_comments
 ```
 
 **app/views/posts/show.html.haml**
