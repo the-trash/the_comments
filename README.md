@@ -25,7 +25,7 @@ Comments for Rails 4, Comments with threading, Nested Comments, Polymorphic comm
 * [User Model API](https://github.com/the-teacher/the_comments/wiki/User-Model-API)
 * [Customization](https://github.com/the-teacher/the_comments/wiki/Customization)
 
-## Installation
+## Quick Start Installation
 
 **Gemfile**
 
@@ -81,15 +81,15 @@ class Post < ActiveRecord::Base
   belongs_to :user
 
   def commentable_title
-    title
+    "Undefined Post Title"
   end
 
   def commentable_url
-    ['', self.class.to_s.tableize, id].join('/')
+    "#"
   end
 
   def commentable_state
-    :published.to_s
+    "published"
   end
 end
 ```
