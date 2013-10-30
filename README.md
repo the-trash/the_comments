@@ -12,6 +12,7 @@ TheComments - probably, best commenting system for Rails
 * Online Support via skype: **ilya.killich**
 * [Denormalization](https://github.com/the-teacher/the_comments/wiki/Understanding#denormalization) for Recent comments
 * Production-ready commenting system for Rails 4+
+* Designed for preprocessors Sanitize, Textile, Markdawn etc.
 
 ## Keywords
 
