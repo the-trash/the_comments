@@ -42,11 +42,20 @@ gem 'awesome_nested_set'  # or same gem
 bundle
 ```
 
-**Copy migrations and run**
+**Copy migrations**
 
 ```
 rake the_comments_engine:install:migrations
+```
 
+<hr>
+**OPEN EACH OF CREATED MIGRATION FILES AND FOLLOW AN INSTRUCTIONS**
+<hr>
+
+
+**Invoke migrations**
+
+```
 rake db:migrate
 ```
 
