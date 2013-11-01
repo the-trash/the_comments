@@ -1,6 +1,6 @@
 ### What is ComComs?
 
-:warning: &nbsp; **comcoms** - is main method to get comments related with current user.
+:warning: &nbsp; **comcoms** - is main method to get all comments related with user's commentable models.
 
 :warning: &nbsp; **comments** - is main method to get comments related with any commentable model.
 
