@@ -56,7 +56,7 @@ rake db:migrate
 bundle exec rails g the_comments config
 ```
 
-open and change **initializers/the_comments.rb***
+open and change **config/initializers/the_comments.rb**
 
 **app/models/user.rb**
 
