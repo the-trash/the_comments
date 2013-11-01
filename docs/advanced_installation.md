@@ -1,3 +1,5 @@
+### Advanced Installation
+
 **Gemfile**
 
 ```ruby
@@ -20,7 +22,25 @@ rake the_comments_engine:install:migrations
 ```
 
 <hr>
-:warning: &nbsp;  **OPEN EACH OF CREATED MIGRATION FILES AND FOLLOW AN INSTRUCTIONS**
+:warning: &nbsp; **Open and change commentable migration**
+
+```ruby
+class ChangeCommentable < ActiveRecord::Migration
+  def change
+    # Add fields to Commentable Models
+    # [:posts, :articles, ... ]
+
+    # There is only Post model is commentable
+    [:posts].each do |table_name|
+      change_table table_name do |t|
+        t.integer :draft_comments_count,     default: 0
+        t.integer :published_comments_count, default: 0
+        t.integer :deleted_comments_count,   default: 0
+      end
+    end
+  end
+end
+```
 <hr>
 
 
@@ -38,10 +58,12 @@ class User < ActiveRecord::Base
 
   has_many :posts
 
+  # Your way to define privileged users
   def admin?
     self == User.first
   end
 
+  # Required TheComments methods for users restrictions
   def comments_admin?
     admin?
   end
@@ -61,26 +83,68 @@ class Post < ActiveRecord::Base
   belongs_to :user
 
   # Denormalization methods
-  # Please, read about advanced using
+  # Migration: t.string :title
+  # => "My new awesome post"
   def commentable_title
-    "Undefined Post Title"
+    title
   end
 
+  # => your way to build URL
+  # => "/posts/254"
   def commentable_url
-    "#"
+    ['', self.class.to_s.tableize, id].join('/')
   end
 
+  # gem 'state_machine'
+  # Migration: t.string :state
+  # => "published" | "draft" | "deleted"
   def commentable_state
-    "published"
+    state
   end
 end
 ```
 
 **app/models/comment.rb**
 
+```
+bundle exec rails g the_comments models
+```
+
+will create **app/models/comment.rb**
+
 ```ruby
 class Comment < ActiveRecord::Base
   include TheCommentsBase
+
+  # ---------------------------------------------------
+  # Define comment's avatar url
+  # Usually we use Comment#user (owner of comment) to define avatar
+  # @blog.comments.includes(:user) <= use includes(:user) to decrease queries count
+  # comment#user.avatar_url
+  # ---------------------------------------------------
+
+  # ---------------------------------------------------
+  # Simple way to define avatar url
+
+  # def avatar_url
+  #   hash = Digest::MD5.hexdigest self.id.to_s
+  #   "http://www.gravatar.com/avatar/#{hash}?s=30&d=identicon"
+  # end
+  # ---------------------------------------------------
+
+  # ---------------------------------------------------
+  # Define your filters for content
+  # Expample for: gem 'RedCloth', gem 'sanitize'
+  # your personal SmilesProcessor
+
+  # def prepare_content
+  #   text = self.raw_content
+  #   text = RedCloth.new(text).to_html
+  #   text = SmilesProcessor.new(text)
+  #   text = Sanitize.clean(text, Sanitize::Config::RELAXED)
+  #   self.content = text
+  # end
+  # ---------------------------------------------------
 end
 ```
 
@@ -111,4 +175,10 @@ end
 
 ```haml
 = render partial: 'the_comments/haml/tree', locals: { commentable: @post, comments_tree: @comments }
+```
+
+if you use SLIM
+
+```haml
+= render partial: 'the_comments/slim/tree', locals: { commentable: @post, comments_tree: @comments }
 ```
