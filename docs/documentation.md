@@ -3,7 +3,7 @@
 * :pencil: &nbsp; [ADMIN UI INSTALLATION](admin_ui_installation.md)
 
 #### API
-* :no_entry_sign: &nbsp; [User API](user_api.md)
+* :white_check_marks: &nbsp; [User API](user_api.md)
 * :no_entry_sign: &nbsp; [Comment API](comment_api.md)
 * :no_entry_sign: &nbsp; [Commentable API](commentable_api.md)
 
