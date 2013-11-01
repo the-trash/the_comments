@@ -21,5 +21,5 @@
 
 #### Q&A
 * :no_entry_sign: &nbsp; [I want not to use kaminari for Admin UI](#)
-* :no_entry_sign: &nbsp; [How can I run tests?](#)
-* :no_entry_sign: &nbsp; [Where is example application?](#)
+* :white_check_mark: &nbsp; [How can I run tests?](https://github.com/the-teacher/the_comments/blob/master/docs/where_is_example_application.md#run-tests)
+* :white_check_mark: &nbsp; [Where is example application?](https://github.com/the-teacher/the_comments/blob/master/docs/where_is_example_application.md)
