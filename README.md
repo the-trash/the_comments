@@ -16,7 +16,7 @@ TheComments - probably, best commenting system for Rails
 * Production-ready commenting system for Rails 4+
 * Designed for preprocessors Sanitize, Textile, Markdawn etc.
 
-### :books: &nbsp; [Documentation](https://github.com/the-teacher/the_comments/wiki/Documentation)
+### :books: &nbsp; [Documentation](docs/documentation.md)
 
 ## Quick Start Installation
 
