@@ -6,7 +6,7 @@ Following rails generator will copy default config file into your application
 bundle exec rails g the_comments config
 ```
 
-**initializers/the_comments.rb**
+**config/initializers/the_comments.rb**
 
 ```ruby
 # TheComments.config.param_name => value
