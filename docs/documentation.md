@@ -4,7 +4,7 @@
 
 #### API
 * :white_check_mark: &nbsp; [User API](user_api.md)
-* :no_entry_sign: &nbsp; [Comment API](comment_api.md)
+* :white_check_mark: &nbsp; [Comment API](comment_api.md)
 * :no_entry_sign: &nbsp; [Commentable API](commentable_api.md)
 
 #### Understanding

@@ -7,8 +7,8 @@
 @comment.user # => User
 
 # Comment holder
-# shouldn't be nil
-# should be define on create
+# Owner of commentable object
+# shouldn't be nil, should be defined on create
 @comment.holder  # => User
 
 # Commentable object
