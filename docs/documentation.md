@@ -21,5 +21,5 @@
 
 #### Q&A
 * :no_entry_sign: &nbsp; [I want not to use kaminari for Admin UI](#)
-* :no_entry_sign: &nbsp; [How can I run  tests?](#)
-* :no_entry_sign: &nbsp; [I need example application](#)
+* :no_entry_sign: &nbsp; [How can I run tests?](#)
+* :no_entry_sign: &nbsp; [Where is example application?](#)
