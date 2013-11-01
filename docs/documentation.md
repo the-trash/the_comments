@@ -11,6 +11,7 @@
 * :white_check_mark: &nbsp; [What is ComComs?](what_is_comcoms.md)
 * :white_check_mark: &nbsp; [Denormalization and Recent comments](denormalization_and_recent_comments.md)
 * :white_check_mark: &nbsp; [What's wrong with other gems?](whats_wrong_with_other_gems.md)
+* :white_check_mark: &nbsp; [Why TheComments is better than others gems?](whats_wrong_with_other_gems.md#why-thecomments-is-better-than-others-gems)
 
 #### Customazation
 * :no_entry_sign: &nbsp; [Views](#)
@@ -21,6 +22,6 @@
 
 #### Q&A
 * :no_entry_sign: &nbsp; [I want not to use kaminari for Admin UI](#)
-* :white_check_mark: &nbsp; [Where is example application?](https://github.com/the-teacher/the_comments/blob/master/docs/where_is_example_application.md)
-* :white_check_mark: &nbsp; [How can I run tests?](https://github.com/the-teacher/the_comments/blob/master/docs/where_is_example_application.md#run-tests)
+* :white_check_mark: &nbsp; [Where is example application?](where_is_example_application.md)
+* :white_check_mark: &nbsp; [How can I run tests?](where_is_example_application.md#run-tests)
 
