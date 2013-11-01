@@ -3,9 +3,9 @@
 * :pencil: &nbsp; [ADMIN UI INSTALLATION](admin_ui_installation.md)
 
 #### API
-* :no_entry_sign: &nbsp; [User API](#)
-* :no_entry_sign: &nbsp; [Comment API](#)
-* :no_entry_sign: &nbsp; [Commentable API](#)
+* :no_entry_sign: &nbsp; [User API](user_api.md)
+* :no_entry_sign: &nbsp; [Comment API](comment_api.md)
+* :no_entry_sign: &nbsp; [Commentable API](commentable_api.md)
 
 #### Understanding
 * :white_check_mark: &nbsp; [What is ComComs?](what_is_comcoms.md)
