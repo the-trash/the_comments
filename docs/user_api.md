@@ -11,6 +11,9 @@ class User < ActiveRecord::Base
 end
 ```
 
+:warning: &nbsp; Please, read this: [What is ComComs?](what_is_comcoms.md)
+
+
 We can use following methods
 
 ```ruby
