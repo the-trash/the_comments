@@ -14,6 +14,13 @@
 # Commentable object
 @comment.commentable # => Post
 
+# Raw user input
+@comment.raw_content
+
+# Processed user input
+# method *prepare_content* should be redefined by developer
+@comment.content
+
 # Denormalization fields
 @comment.commentable_title  # => "Harum sint error odit."
 @comment.commentable_url    # => "/posts/7"
@@ -31,4 +38,15 @@
 
 # Spam flag
 @comment.spam # => true
+
+# Alias for *mark_as_spam*
+@comment.to_spam
+
+# mark this comment and all descendants as spam/not spam
+@comment.mark_as_spam
+@comment.mark_as_not_spam
+
+# Comment's creator avatar
+# this method should be redefined by developer
+@comment.avatar_url # => "https://2.gravatar.com/avatar/015e ... 2f05?s=42&d=https://identicons.github.com/AVATAR.png" 
 ```

@@ -50,6 +50,9 @@ We can use following methods
 @user.my_draft_comments      # => ActiveRecord::Relation
 @user.my_published_comments  # => ActiveRecord::Relation
 @user.my_deleted_comments    # => ActiveRecord::Relation
+
+# recalculate cache counters
+@user.recalculate_my_comments_counter!
 ```
 
 **When User is commentable model**
