@@ -1,6 +1,6 @@
 #### INSTALLATION
 * :white_check_mark: &nbsp; [ADVANCED INSTALLATION](https://github.com/the-teacher/the_comments/blob/master/docs/advanced_installation.md)
-* :pencil: [ADMIN UI INSTALLATION](https://github.com/the-teacher/the_comments/wiki/Screenshots)
+* :pencil: &nbsp; [ADMIN UI INSTALLATION](https://github.com/the-teacher/the_comments/wiki/Screenshots)
 
 #### API
 * :no_entry_sign: &nbsp; [User API](https://github.com/the-teacher/the_comments/wiki/Screenshots)
