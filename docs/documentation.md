@@ -17,7 +17,7 @@
 * :no_entry_sign: &nbsp; [Text Preprocessors - Sanitize, Markdown etc.](#)
 
 #### Configuration
-* :no_entry_sign: &nbsp; [initializers/the_comments.rb](#)
+* :white_check_mark: &nbsp; [the_comments.rb config file](config_file.md)
 
 #### Q&A
 * :no_entry_sign: &nbsp; [I want not to use kaminari for Admin UI](#)
