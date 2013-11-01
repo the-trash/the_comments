@@ -27,7 +27,7 @@ rake the_comments_engine:install:migrations
 ```ruby
 class ChangeCommentable < ActiveRecord::Migration
   def change
-    # Add fields to Commentable Models
+    # Additional fields to Commentable Models
     # [:posts, :articles, ... ]
 
     # There is only Post model is commentable
