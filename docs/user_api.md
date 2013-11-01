@@ -13,7 +13,7 @@ end
 
 We can use following methods
 
-```
+```ruby
 @user = User.first
 
 @user.comcoms #=> all comments for posts and products, where user is owner
