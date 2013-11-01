@@ -50,6 +50,14 @@ end
 rake db:migrate
 ```
 
+**Config TheComments gem**
+
+```ruby
+bundle exec rails g the_comments config
+```
+
+open and change *initializers/the_comments.rb***
+
 **app/models/user.rb**
 
 ```ruby
