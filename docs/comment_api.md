@@ -47,6 +47,10 @@
 @comment.mark_as_not_spam
 
 # Comment's creator avatar
-# this method should be redefined by developer
+# this method can be redefined by developer
 @comment.avatar_url # => "https://2.gravatar.com/avatar/015e ... 2f05?s=42&d=https://identicons.github.com/AVATAR.png" 
+
+# Anchor of comment
+# this method can be redefined by developer
+@comment.anchor # => b58020
 ```
