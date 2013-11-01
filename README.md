@@ -60,6 +60,7 @@ class ChangeCommentable < ActiveRecord::Migration
     end
   end
 end
+```
 <hr>
 
 
