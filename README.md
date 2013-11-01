@@ -16,7 +16,7 @@ TheComments - probably, best commenting system for Rails
 * Production-ready commenting system for Rails 4+
 * Designed for preprocessors Sanitize, Textile, Markdawn etc.
 
-### &rarr; [Documentation](https://github.com/the-teacher/the_comments/wiki/Documentation) &larr;
+### :books: &nbsp; [Documentation](https://github.com/the-teacher/the_comments/wiki/Documentation)
 
 ## Quick Start Installation
 
@@ -42,7 +42,7 @@ rake the_comments_engine:install:migrations
 ```
 
 <hr>
-**OPEN EACH OF CREATED MIGRATION FILES AND FOLLOW AN INSTRUCTIONS**
+:warning: &nbsp;  **OPEN EACH OF CREATED MIGRATION FILES AND FOLLOW AN INSTRUCTIONS**
 <hr>
 
 
