@@ -1,6 +1,6 @@
 #### INSTALLATION
 * :white_check_mark: &nbsp; [ADVANCED INSTALLATION](advanced_installation.md)
-* :pencil: &nbsp; [ADMIN UI INSTALLATION](https://github.com/the-teacher/the_comments/wiki/Screenshots)
+* :pencil: &nbsp; [ADMIN UI INSTALLATION](admin_ui_installation.md)
 
 #### API
 * :no_entry_sign: &nbsp; [User API](#)
@@ -20,6 +20,6 @@
 * :no_entry_sign: &nbsp; [Text Preprocessors - Sanitize, Markdown etc.](#)
 
 #### Q&A
-* :no_entry_sign: &nbsp; [I want not to use kaminari](#)
+* :no_entry_sign: &nbsp; [I want not to use kaminari for Admin UI](#)
 * :no_entry_sign: &nbsp; [How can I run  tests?](#)
 * :no_entry_sign: &nbsp; [I need example application](#)
