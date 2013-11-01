@@ -14,7 +14,7 @@
 * :white_check_mark: &nbsp; [Why TheComments is better than others gems?](whats_wrong_with_other_gems.md#why-thecomments-is-better-than-others-gems)
 
 #### Customazation
-* :no_entry_sign: &nbsp; [Views](#)
+* :white_check_mark: &nbsp; [Views](customazation_of_views.md)
 * :no_entry_sign: &nbsp; [Text Preprocessors - Sanitize, Markdown etc.](#)
 
 #### Configuration
