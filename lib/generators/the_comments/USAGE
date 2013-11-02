@@ -2,7 +2,7 @@ Description:
   TheComments generator will copy files for organize comments tree in your web project
 
 This text:
-  bundle exec rails g the_comments --help
+  > bundle exec rails g the_comments --help
 
 Main generators:
   > bundle exec rails g the_comments install
