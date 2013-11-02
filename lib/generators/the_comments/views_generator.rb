@@ -6,6 +6,8 @@ module TheComments
       def self.banner
 <<-BANNER.chomp
 
+bundle exec rails g the_comments:views js
+bundle exec rails g the_comments:views css
 bundle exec rails g the_comments:views assets
 bundle exec rails g the_comments:views views
 bundle exec rails g the_comments:views helper
