@@ -15,7 +15,7 @@
 
 #### Customazation
 * :white_check_mark: &nbsp; [Views](customazation_of_views.md)
-* :no_entry_sign: &nbsp; [Text Preprocessors - Sanitize, Markdown etc.](#)
+* :white_check_mark: &nbsp; [Text Preprocessors - Sanitize, Markdown etc.](content_preprocessors.md)
 
 #### Configuration
 * :white_check_mark: &nbsp; [the_comments.rb config file](config_file.md)
