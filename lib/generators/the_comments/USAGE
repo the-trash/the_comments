@@ -1,35 +1,41 @@
 Description:
-  TheComments generator will copy files for organize comments tree in your web project
+  TheComments: generators will copy files for organize comments tree in your web project
 
-This text:
-  > bundle exec rails g the_comments --help
+  Usage: [bundle exec] rails g the_comments NAME
+  Usage: [bundle exec] rails g the_comments:views NAME
 
-Main generators:
-  > bundle exec rails g the_comments install
+# This text:
+  > rails g the_comments --help
+
+# Main generators:
+  > rails g the_comments install
 
   This will create:
    config/initializers/the_comments.rb
    app/controllers/comments_controller.rb
    app/models/comment.rb
 
-Controller generators:
-  > bundle exec rails g the_comments controllers
+# Controller generators:
+  > rails g the_comments controllers
 
   This will create:
     app/controllers/comments_controller.rb
     
-Model generators:
-  > bundle exec rails g the_comments models
+# Model generators:
+  > rails g the_comments models
   
   This will create:
     app/models/comment.rb
 
-View Generators:
-  > bundle exec rails g the_comments:views js
-  > bundle exec rails g the_comments:views css
-  > bundle exec rails g the_comments:views assets
-  > bundle exec rails g the_comments:views helper
-  > bundle exec rails g the_comments:views views
+# Config generators:
+  > rails g the_comments config
 
-Migrations:
-  > bundle exec rake the_comments_engine:install:migrations
+# View Generators:
+  > rails g the_comments:views js
+  > rails g the_comments:views css
+  > rails g the_comments:views assets
+  > rails g the_comments:views helper
+  > rails g the_comments:views views
+
+# Migrations:
+  > rake the_comments_engine:install:migrations

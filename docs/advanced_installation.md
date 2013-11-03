@@ -182,11 +182,7 @@ end
 **app/views/posts/show.html.haml**
 
 ```haml
-= render partial: 'the_comments/haml/tree', locals: { commentable: @post, comments_tree: @comments }
+= render partial: 'the_comments/tree', locals: { commentable: @post, comments_tree: @comments }
 ```
 
-if you use SLIM
-
-```haml
-= render partial: 'the_comments/slim/tree', locals: { commentable: @post, comments_tree: @comments }
-```
+(and same code for SLIM)

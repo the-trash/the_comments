@@ -1,19 +1,21 @@
 module TheComments
   module Generators
     class ViewsGenerator < Rails::Generators::NamedBase
-      source_root File.expand_path('../../../../app/views', __FILE__)
+      source_root TheComments::Engine.root
 
       def self.banner
 <<-BANNER.chomp
 
-bundle exec rails g the_comments:views js
-bundle exec rails g the_comments:views css
-bundle exec rails g the_comments:views assets
+USAGE: [bundle exec] rails g the_comments:views NAME
 
-bundle exec rails g the_comments:views views
-bundle exec rails g the_comments:views helper
+> rails g the_comments:views js
+> rails g the_comments:views css
+> rails g the_comments:views assets
 
-bundle exec rails g the_comments:views all
+> rails g the_comments:views views
+> rails g the_comments:views helper
+
+> rails g the_comments:views all
 
 BANNER
       end
@@ -31,9 +33,9 @@ BANNER
       def copy_gem_files
         if param_name == 'js'
           js_copy          
-        if param_name == 'css'
+        elsif param_name == 'css'
           css_copy
-        if param_name == 'assets'
+        elsif param_name == 'assets'
           js_copy; css_copy
         elsif param_name == 'views'
           views_copy
@@ -45,24 +47,25 @@ BANNER
           views_copy
           helper_copy
         else
+          puts 'TheComments View Generator - wrong Name'
           puts "Wrong params - use only [ js | css | assets | views | helper | all] values"
         end
       end
 
       def js_copy
-        copy_file "../assets/javascripts/the_comments.js.coffee", "app/assets/javascripts/the_comments.js.coffee"
+        copy_file "app/assets/javascripts/the_comments.js.coffee", "app/assets/javascripts/the_comments.js.coffee"
       end
 
       def css_copy
-        copy_file "../assets/stylesheets/the_comments.css.scss", "app/assets/stylesheets/the_comments.css.scss"
+        copy_file "app/assets/stylesheets/the_comments.css.scss", "app/assets/stylesheets/the_comments.css.scss"
       end
 
       def views_copy
-        directory "../views/the_comments", "app/views/the_comments"
+        directory "app/views/the_comments", "app/views/the_comments"
       end
 
       def helper_copy
-        copy_file "../helpers/render_comments_tree_helper.rb", "app/helpers/render_comments_tree_helper.rb"
+        copy_file "app/helpers/render_comments_tree_helper.rb", "app/helpers/render_comments_tree_helper.rb"
       end
     end
   end
