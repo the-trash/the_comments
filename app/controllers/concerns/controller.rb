@@ -1,13 +1,11 @@
-module TheCommentsController
+module TheComments
   COMMENTS_COOKIES_TOKEN = 'JustTheCommentsCookies'
 
   # Cookies and View token for spam protection
-  #
-  # class ApplicationController < ActionController::Base
-  #   include TheCommentsController::ViewToken
-  # end
+  # include TheComments::ViewToken
   module ViewToken
     extend ActiveSupport::Concern
+
     included { before_action :set_the_comments_cookies }
 
     def comments_view_token
@@ -17,27 +15,25 @@ module TheCommentsController
     private
 
     def set_the_comments_cookies
-      cookies[:the_comment_cookies] = { value: TheCommentsController::COMMENTS_COOKIES_TOKEN, expires: 1.year.from_now }
+      cookies[:the_comment_cookies] = { value: TheComments::COMMENTS_COOKIES_TOKEN, expires: 1.year.from_now }
       cookies[:comments_view_token] = { value: SecureRandom.hex, expires: 7.days.from_now } unless cookies[:comments_view_token]
     end
   end
 
   # Base functionality of Comments Controller
-  #
   # class CommentsController < ApplicationController
-  #   include TheCommentsController::Base
+  #   include TheComments::Controller
   # end
-  module Base
+  module Controller
     extend ActiveSupport::Concern
 
     included do
-      include TheCommentsController::ViewToken
+      include TheComments::ViewToken
 
       before_action -> { @errors = [] }
 
       # Attention! We should not set TheComments cookie before create
       skip_before_action :set_the_comments_cookies, only: [:create]
-
 
       # Spam protection
       before_action :ajax_requests_required,  only: [:create]
@@ -52,23 +48,23 @@ module TheCommentsController
 
     # App side methods (overwrite it)
     def index
-      @comments = Comment.with_state(:published).recent.page(params[:page])
-      render template: 'the_comments/index'
+      @comments = ::Comment.with_state(:published).recent.page(params[:page])
+      render comment_template(:index)
     end
 
     def manage
       @comments = current_user.comcoms.active.recent.page(params[:page])
-      render template: 'the_comments/manage'
+      render comment_template(:manage)
     end
 
     def my_comments
       @comments = current_user.my_comments.active.recent.page(params[:page])
-      render template: 'the_comments/my_comments'
+      render comment_template(:my_comments)
     end
 
     def edit
       @comments = current_user.comcoms.where(id: params[:id]).page(params[:page])
-      render template: 'the_comments/manage'
+      render comment_template(:manage)
     end
 
     # Methods based on *current_user* helper
@@ -76,45 +72,45 @@ module TheCommentsController
     %w[draft published deleted].each do |state|
       define_method "#{state}" do
         @comments = current_user.comcoms.with_state(state).recent.page(params[:page])
-        render template: 'the_comments/manage'
+        render comment_template(:manage)
       end
 
       define_method "total_#{state}" do
-        @comments = Comment.with_state(state).recent.page(params[:page])
-        render template: 'the_comments/manage'
+        @comments = ::Comment.with_state(state).recent.page(params[:page])
+        render comment_template(:manage)
       end
 
       unless state == 'deleted'
         define_method "my_#{state}" do
           @comments = current_user.my_comments.with_state(state).recent.page(params[:page])
-          render template: 'the_comments/my_comments'
+          render comment_template(:my_comments)
         end
       end
     end
 
     def spam
       @comments = current_user.comcoms.where(spam: true).recent.page(params[:page])
-      render template: 'the_comments/manage'
+      render comment_template(:manage)
     end
 
     def total_spam
-      @comments = Comment.where(spam: true).recent.page(params[:page])
-      render template: 'the_comments/manage'
+      @comments = ::Comment.where(spam: true).recent.page(params[:page])
+      render comment_template(:manage)
     end
 
     # BASE METHODS
     # Public methods
     def update
-      comment = Comment.where(id: params[:id]).first
+      comment = ::Comment.find(params[:id])
       comment.update_attributes!(patch_comment_params)
-      render(layout: false, partial: 'the_comments/comment_body', locals: { comment: comment })
+      render(layout: false, partial: comment_partial(:comment_body), locals: { comment: comment })
     end
 
     def create
       @comment = @commentable.comments.new comment_params
       if @comment.valid?
         @comment.save
-        return render layout: false, partial: 'the_comments/comment', locals: { tree: @comment }
+        return render layout: false, partial: comment_partial(:comment), locals: { tree: @comment }
       end
       render json: { errors: @comment.errors.full_messages }
     end
@@ -122,19 +118,27 @@ module TheCommentsController
     # Restricted area
     %w[draft published deleted].each do |state|
       define_method "to_#{state}" do
-        Comment.where(id: params[:id]).first.try "to_#{state}"
+        ::Comment.find(params[:id]).try "to_#{state}"
         render nothing: true
       end
     end
 
     def to_spam
-      comment = Comment.where(id: params[:id]).first
+      comment = ::Comment.find(params[:id])
       comment.to_spam
       comment.to_deleted
       render nothing: true
     end
 
     private
+
+    def comment_template template
+      { template: "the_comments/#{TheComments.config.template_engine}/#{template}" }
+    end
+
+    def comment_partial partial
+      "the_comments/#{TheComments.config.template_engine}/#{partial}"
+    end
 
     def denormalized_fields
       title = @commentable.commentable_title
@@ -151,7 +155,7 @@ module TheCommentsController
       commentable_klass = params[:comment][:commentable_type].constantize
       commentable_id    = params[:comment][:commentable_id]
 
-      @commentable = commentable_klass.where(id: commentable_id).first
+      @commentable = commentable_klass.find(commentable_id)
       return render(json: { errors: ['Commentable object is undefined'] }) unless @commentable
     end
 
@@ -173,7 +177,7 @@ module TheCommentsController
 
     # Protection tricks
     def cookies_required
-      unless cookies[:the_comment_cookies] == TheCommentsController::COMMENTS_COOKIES_TOKEN
+      unless cookies[:the_comment_cookies] == TheComments::COMMENTS_COOKIES_TOKEN
         @errors << [t('the_comments.cookies'), t('the_comments.cookies_required')].join(' ')
         return render(json: { errors: @errors })
       end
@@ -215,6 +219,5 @@ module TheCommentsController
         return render(json: { errors: errors })
       end
     end
-
   end
 end

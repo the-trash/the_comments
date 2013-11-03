@@ -9,6 +9,11 @@ module TheComments
 end
 
 # Loading of concerns
+
+# controllers
+require "../../app/controllers/concerns/controller"
+
+# models
 %w[ comment_states comment user commentable ].each do |concern|
   require "../../app/models/concerns/#{concern}"
 end

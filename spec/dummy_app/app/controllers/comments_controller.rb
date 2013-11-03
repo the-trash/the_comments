@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
   # before_action :moderator_required, only: [:update, :to_published, :to_draft, :to_spam, :to_trash]
 
   layout 'admin'
-  include TheCommentsController::Base
+  include TheComments::Controller
 
   # Public methods:
   #

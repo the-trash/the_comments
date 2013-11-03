@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # Base gems
-gem 'rails', '4.0.0' #github: 'rails/rails', branch: 'master'
+gem 'rails', '4.0.1' #github: 'rails/rails', branch: 'master'
 gem 'sqlite3'
 
 gem 'jquery-rails'

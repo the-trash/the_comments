@@ -28,7 +28,7 @@ class TheCommentsGenerator < Rails::Generators::NamedBase
   end
 
   def cp_models
-    copy_file 'comment.rb',               'app/models/comment.rb'
+    copy_file 'comment.rb', 'app/models/comment.rb'
   end
 
   def cp_controllers

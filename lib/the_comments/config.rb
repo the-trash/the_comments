@@ -10,15 +10,16 @@ module TheComments
   # Configuration class
   class Configuration
     include ActiveSupport::Configurable
-    config_accessor :tolerance_time,
-                    :empty_inputs,
-                    :max_reply_depth,
+
+    config_accessor :max_reply_depth,
+                    :tolerance_time,
                     :default_state,
                     :default_owner_state,
+                    :empty_inputs,
                     :default_title,
+                    :template_engine,
                     :empty_trap_protection,
                     :tolerance_time_protection
-
   end
 
   configure do |config|
@@ -28,6 +29,7 @@ module TheComments
     config.default_owner_state = :published
     config.empty_inputs        = [:message]
     config.default_title       = 'Undefined title'
+    config.template_engine     = :haml
 
     config.empty_trap_protection     = true
     config.tolerance_time_protection = true

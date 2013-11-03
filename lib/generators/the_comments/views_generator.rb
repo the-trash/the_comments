@@ -9,8 +9,11 @@ module TheComments
 bundle exec rails g the_comments:views js
 bundle exec rails g the_comments:views css
 bundle exec rails g the_comments:views assets
+
 bundle exec rails g the_comments:views views
 bundle exec rails g the_comments:views helper
+
+bundle exec rails g the_comments:views all
 
 BANNER
       end
@@ -27,21 +30,40 @@ BANNER
 
       def copy_gem_files
         if param_name == 'js'
-          copy_file "../assets/javascripts/the_comments.js.coffee", "app/assets/javascripts/the_comments.js.coffee"
+          js_copy          
         if param_name == 'css'
-          copy_file "../assets/stylesheets/the_comments.css.scss", "app/assets/stylesheets/the_comments.css.scss"
+          css_copy
         if param_name == 'assets'
-          copy_file "../assets/javascripts/the_comments.js.coffee", "app/assets/javascripts/the_comments.js.coffee"
-          copy_file "../assets/stylesheets/the_comments.css.scss", "app/assets/stylesheets/the_comments.css.scss"
+          js_copy; css_copy
         elsif param_name == 'views'
-          directory "../views/the_comments",           "app/views/the_comments"
+          views_copy
         elsif param_name == 'helper'
-          copy_file "../helpers/render_comments_tree_helper.rb", "app/helpers/render_comments_tree_helper.rb"
+          helper_copy
+        elsif param_name == 'all'
+          js_copy
+          css_copy
+          views_copy
+          helper_copy
         else
-          puts "Wrong params - use only [assets | views | helper] values"
+          puts "Wrong params - use only [ js | css | assets | views | helper | all] values"
         end
       end
 
+      def js_copy
+        copy_file "../assets/javascripts/the_comments.js.coffee", "app/assets/javascripts/the_comments.js.coffee"
+      end
+
+      def css_copy
+        copy_file "../assets/stylesheets/the_comments.css.scss", "app/assets/stylesheets/the_comments.css.scss"
+      end
+
+      def views_copy
+        directory "../views/the_comments", "app/views/the_comments"
+      end
+
+      def helper_copy
+        copy_file "../helpers/render_comments_tree_helper.rb", "app/helpers/render_comments_tree_helper.rb"
+      end
     end
   end
 end
