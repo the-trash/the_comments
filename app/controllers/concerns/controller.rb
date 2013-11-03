@@ -34,6 +34,8 @@ module TheComments
       skip_before_action :set_the_comments_cookies, only: [:create]
 
       # Spam protection
+      before_action -> { @errors = [] }, only: [:create]
+
       before_action :ajax_requests_required,  only: [:create]
       before_action :cookies_required,        only: [:create]
 
@@ -42,6 +44,9 @@ module TheComments
 
       # preparation
       before_action :define_commentable, only: [:create]
+
+      # raise an errors
+      before_action -> { return render(json: { errors: @errors }) unless @errors.blank? }, only: [:create]
     end
 
     # App side methods (overwrite it)
@@ -181,10 +186,8 @@ module TheComments
     end
 
     def cookies_required
-      errors = []
-      unless cookies[:the_comment_cookies] == TheComments::COMMENTS_COOKIES_TOKEN
-        errors << [t('the_comments.cookies'), t('the_comments.cookies_required')].join(' ')
-        return render(json: { errors: errors })
+      if cookies[:the_comment_cookies] != TheComments::COMMENTS_COOKIES_TOKEN
+        @errors << [t('the_comments.cookies'), t('the_comments.cookies_required')].join(': ')
       end
     end
 
@@ -192,25 +195,21 @@ module TheComments
     # 1) inject ?
     # 2) fields can be removed on client side
     def empty_trap_required
-      errors   = []
       is_human = true
       params.slice(*TheComments.config.empty_inputs).values.each{|v| is_user = (is_human && v.blank?) }
 
-      unless is_human
-        errors << [t('the_comments.trap'), t('the_comments.trap_message')].join(' ')
-        return render(json: { errors: errors })
+      if !is_human
+        @errors << [t('the_comments.trap'), t('the_comments.trap_message')].join(': ')
       end
     end
 
     def tolerance_time_required
-      errors    = []
       this_time = params[:tolerance_time].to_i
       min_time  = TheComments.config.tolerance_time.to_i
 
       if this_time < min_time
         tdiff   = min_time - this_time
-        errors << [t('the_comments.tolerance_time'), t('the_comments.tolerance_time_message', time: tdiff )].join(' ')
-        return render(json: { errors: errors })
+        @errors << [t('the_comments.tolerance_time'), t('the_comments.tolerance_time_message', time: tdiff )].join(': ')
       end
     end
   end
