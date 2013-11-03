@@ -1,4 +1,7 @@
 %h3= @post.title
 %p=  @post.content
 
+%p
+  Comments count: #{@post.comments_sum}
+
 = render partial: 'the_comments/tree', locals: { commentable: @post, comments_tree: @comments }

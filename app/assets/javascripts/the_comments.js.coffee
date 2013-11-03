@@ -1,5 +1,5 @@
 # ERROR MSG BUILDER
-@error_text_builder = (errors) ->
+@comments_errors_builder = (errors) ->
   error_msgs = ''
   for error in errors
     error_msgs += "<p><b>#{ error }</b></p>"
@@ -15,7 +15,7 @@
 @comments_error_notifier = (form, text) ->
   form.children('.error_notifier').empty().hide().append(text).show()
 
-# JUST HELPER
+# TIME HELPER
 @unixsec = (t) -> Math.round(t.getTime() / 1000)
 
 # HIGHTLIGHT ANCHOR
@@ -26,12 +26,11 @@
 
 $ ->
   window.tolerance_time_start = unixsec(new Date)
-
-  comment_forms  = "#new_comment, .reply_comments_form"
   tolerance_time = $('[data-comments-tolarance-time]').first().data('comments-tolarance-time')
 
   # Button Click => AJAX Before Send
   submits = '#new_comment input[type=submit], .reply_comments_form input[type=submit]'
+
   $(document).on 'click', submits, (e) ->
     button    = $ e.target
     form      = button.parents('form').first()
@@ -39,7 +38,7 @@ $ ->
 
     if tolerance_time && (time_diff < tolerance_time)
       delta  = tolerance_time - time_diff
-      error_msgs = error_text_builder(["Please wait #{delta} secs"])
+      error_msgs = comments_errors_builder(["Please wait #{delta} secs"])
       comments_error_notifier(form, error_msgs)
       return false
 
@@ -47,14 +46,17 @@ $ ->
     button.hide()
     true
 
-  # AJAX ERROR
+  ################ COMMENTS FORMS ################
+  comment_forms  = "#new_comment, .reply_comments_form"
+
+  # ERROR
   $(document).on 'ajax:error', comment_forms, (request, response, status) ->
     form = $ @
     $('input[type=submit]', form).show()
-    error_msgs = error_text_builder(["Server Error: #{response.status}"])
+    error_msgs = comments_errors_builder(["Server Error: #{response.status}"])
     comments_error_notifier(form, error_msgs)
 
-  # COMMENT FORMS => SUCCESS
+  # SUCCESS
   $(document).on 'ajax:success', comment_forms, (request, response, status) ->
     form = $ @
     $('input[type=submit]', form).show()
@@ -70,7 +72,7 @@ $ ->
       tree.append(response)
       document.location.hash = anchor
     else
-      error_msgs = error_text_builder(response.errors)
+      error_msgs = comments_errors_builder(response.errors)
       comments_error_notifier(form, error_msgs)
 
   # NEW ROOT BUTTON

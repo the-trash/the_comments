@@ -30,8 +30,6 @@ module TheComments
     included do
       include TheComments::ViewToken
 
-      before_action -> { @errors = [] }
-
       # Attention! We should not set TheComments cookie before create
       skip_before_action :set_the_comments_cookies, only: [:create]
 
@@ -175,47 +173,43 @@ module TheComments
         .permit(:title, :contacts, :raw_content, :parent_id)
     end
 
-    # Protection tricks
-    def cookies_required
-      unless cookies[:the_comment_cookies] == TheComments::COMMENTS_COOKIES_TOKEN
-        @errors << [t('the_comments.cookies'), t('the_comments.cookies_required')].join(' ')
-        return render(json: { errors: @errors })
-      end
-    end
-
+    # Protection hooks
     def ajax_requests_required
       unless request.xhr?
         return render(text: t('the_comments.ajax_requests_required'))
       end
     end
 
-    def empty_trap_required
-      # TODO:
-      # I forgot what it's do. I should to think about it later
-      # 1) inject ?
-      # 2) fields can be removed on client side
-      is_user = true
-      params.slice(*TheComments.config.empty_inputs).values.each{|v| is_user = is_user && v.blank? }
+    def cookies_required
+      errors = []
+      unless cookies[:the_comment_cookies] == TheComments::COMMENTS_COOKIES_TOKEN
+        errors << [t('the_comments.cookies'), t('the_comments.cookies_required')].join(' ')
+        return render(json: { errors: errors })
+      end
+    end
 
-      unless is_user
-        @errors << [t('the_comments.trap'), t('the_comments.trap_message')].join(' ')
-        return render(json: { errors: @errors })
+    # TODO:
+    # 1) inject ?
+    # 2) fields can be removed on client side
+    def empty_trap_required
+      errors   = []
+      is_human = true
+      params.slice(*TheComments.config.empty_inputs).values.each{|v| is_user = (is_human && v.blank?) }
+
+      unless is_human
+        errors << [t('the_comments.trap'), t('the_comments.trap_message')].join(' ')
+        return render(json: { errors: errors })
       end
     end
 
     def tolerance_time_required
-      min_time  = TheComments.config.tolerance_time
+      errors    = []
       this_time = params[:tolerance_time].to_i
-      if this_time < min_time
-        @errors << [t('the_comments.tolerance_time'), t('the_comments.tolerance_time_message', time: min_time - this_time )].join(' ')
-        return render(json: { errors: @errors })
-      end
-    end
+      min_time  = TheComments.config.tolerance_time.to_i
 
-    def time_tolerance_required
-      if params[:time_tolerance].to_i < TheComments.config.tolerance_time
-        errors = {}
-        errors[t('the_comments.time_tolerance')] = [t('the_comments.time_tolerance_message')]
+      if this_time < min_time
+        tdiff   = min_time - this_time
+        errors << [t('the_comments.tolerance_time'), t('the_comments.tolerance_time_message', time: tdiff )].join(' ')
         return render(json: { errors: errors })
       end
     end
