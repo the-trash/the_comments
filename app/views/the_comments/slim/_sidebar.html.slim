@@ -1,0 +1,28 @@
+- cuser = current_user
+
+.panel.panel-primary
+  .panel-heading= t "the_comments.nav.header"
+  .panel-body
+    p= link_to raw(t('the_comments.back_to_root')), '/'
+    hr
+
+    h5= t 'the_comments.incoming'
+    ul
+      li= link_to t("the_comments.draft_comments",     num: cuser.draft_comcoms_count),     [:draft,     :comments]
+      li= link_to t("the_comments.published_comments", num: cuser.published_comcoms_count), [:published, :comments]
+      li= link_to t("the_comments.deleted_comments",   num: cuser.deleted_comcoms_count),   [:deleted,   :comments]
+      li= link_to t("the_comments.spam_comments",      num: cuser.spam_comcoms_count),      [:spam,      :comments] # comcoms.where(spam: true).count
+
+    h5= t 'the_comments.written_by_me'
+    ul
+      li= link_to t("the_comments.draft_comments",     num: cuser.my_draft_comments.count),     [:my_draft,     :comments]
+      li= link_to t("the_comments.published_comments", num: cuser.my_published_comments.count), [:my_published, :comments]
+      li= link_to t("the_comments.my_comments",        num: cuser.my_comments_count),           [:my_comments,  :comments]
+
+    - if cuser.comments_admin?
+      h5= t 'the_comments.in_system'
+      ul
+        li= link_to t("the_comments.draft_comments",     num: Comment.with_state(:draft).count),     [:total_draft,     :comments]
+        li= link_to t("the_comments.published_comments", num: Comment.with_state(:published).count), [:total_published, :comments]
+        li= link_to t("the_comments.deleted_comments",   num: Comment.with_state(:deleted).count),   [:total_deleted,   :comments]
+        li= link_to t("the_comments.spam_comments",      num: Comment.where(spam: true).count),      [:total_spam,      :comments]

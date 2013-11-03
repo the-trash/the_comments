@@ -1,5 +1,5 @@
 class Post < ActiveRecord::Base
-  include TheCommentsCommentable
+  include TheComments::Commentable
 
   belongs_to :user
 

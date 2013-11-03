@@ -1,0 +1,20 @@
+table.comment_body.table.table-striped.table-hover
+  tr
+    td  style: "width: 120px;" 
+      b= comment.commentable_type
+      | &rarr;
+    td
+      = link_to comment.commentable_title, comment.commentable_url
+      | (#{comment.try(:commentable_state)})
+  tr
+    td
+      b= t('the_comments.title')
+    td= comment.title.blank? ? t('the_comments.guest_name') : comment.title
+  tr
+    td
+      b= t('the_comments.contacts')
+    td= comment.contacts
+  tr.success
+    td
+      b= t('the_comments.content')
+    td= comment.content

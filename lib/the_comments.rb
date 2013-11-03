@@ -7,3 +7,8 @@ require 'the_comments/version'
 module TheComments
   class Engine < Rails::Engine; end
 end
+
+# Loading of concerns
+%w[ comment_states comment user commentable ].each do |concern|
+  require "../../app/models/concerns/#{concern}"
+end

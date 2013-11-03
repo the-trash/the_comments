@@ -1,0 +1,25 @@
+- content_for :title do
+  = t "the_comments.management"
+
+- content_for :comments_sidebar do
+  = render partial: 'the_comments/haml/sidebar'
+
+- content_for :comments_main do
+  = paginate @comments
+
+  - if @comments.blank?
+    .alert.alert-info= t 'the_comments.no_comments_here'
+
+  .comments
+    - @comments.each do |comment|
+      - klass = { published: :primary, draft: :warning, deleted: :danger }[comment.state.to_sym]
+      .panel{ class: "panel-#{klass}" }
+        .panel-heading= comment.title
+        .panel-body
+          = render partial: 'the_comments/haml/comment_edit', locals: { comment: comment }
+          = render partial: 'the_comments/haml/comment_body', locals: { comment: comment }
+
+          = render partial: 'the_comments/haml/manage_controls', locals: { comment: comment }
+          = render partial: 'the_comments/haml/additional_info', locals: { comment: comment }
+        
+  = paginate @comments
