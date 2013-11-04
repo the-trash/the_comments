@@ -37,7 +37,7 @@ class CommentsController < ApplicationController
   # You should redefine them if you use something else
   #
   # public
-  # %w[ manage index ]
+  # %w[ manage index edit ]
   # %w[ draft published deleted spam ]
   # %w[ my_comments my_draft my_published ]
   # %w[ total_draft total_published total_deleted total_spam ]
