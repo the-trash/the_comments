@@ -21,7 +21,7 @@ TheComments - probably, best commenting system for Rails
 
 ## How to start dummy app (screencast)
 
-<a href="http://vk.com/video_ext.php?oid=49225742&id=166578209&hash=10be1dba625149bb&hd=2"><image src="docs/screencast.jpg"></a>
+[![Foo](https://raw.github.com/the-teacher/the_comments/master/docs/screencast.jpg)](http://vk.com/video_ext.php?oid=49225742&id=166578209&hash=10be1dba625149bb&hd=3)
 
 ## Quick Start Installation
 
