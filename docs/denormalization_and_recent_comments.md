@@ -1,3 +1,5 @@
+&larr; &nbsp; [documentation](documentation.md)
+
 ## Denormalization
 
 For building of Recent comments list (for polymorphic relationship) we need to have many additional requests to database. It's classic problem of polymorphic comments.

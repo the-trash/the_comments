@@ -1,3 +1,5 @@
+&larr; &nbsp; [documentation](documentation.md)
+
 ## Admin UI installation
 
 ### 1. Gems install

@@ -1,3 +1,5 @@
+&larr; &nbsp; [documentation](documentation.md)
+
 ### Text preprocessors
 
 TheComments designed for using with text preprocessors: Textile, Markdown, Sanitize, Coderay etc.

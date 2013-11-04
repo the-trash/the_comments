@@ -1,3 +1,5 @@
+&larr; &nbsp; [documentation](documentation.md)
+
 ### What's wrong with other gems?
 
 Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_comments). What we can see?

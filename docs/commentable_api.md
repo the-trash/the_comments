@@ -1,3 +1,5 @@
+&larr; &nbsp; [documentation](documentation.md)
+
 ### Commentable API
 
 ```ruby

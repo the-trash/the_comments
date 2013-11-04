@@ -1,3 +1,5 @@
+&larr; &nbsp; [documentation](documentation.md)
+
 ### Dummy Application
 
 Repo of TheComments has dummy application for developmet and testing.

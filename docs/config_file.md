@@ -1,3 +1,5 @@
+&larr; &nbsp; [documentation](documentation.md)
+
 ### TheComments config
 
 Following rails generator will copy default config file into your application

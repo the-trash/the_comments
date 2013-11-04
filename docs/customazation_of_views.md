@@ -1,3 +1,5 @@
+&larr; &nbsp; [documentation](documentation.md)
+
 ## Customization
 
 You can use **rails generators** for copy files into your Application. After that you can customize almost everything

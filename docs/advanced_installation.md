@@ -1,3 +1,5 @@
+&larr; &nbsp; [documentation](documentation.md)
+
 ## Advanced Installation
 
 ### 1. Gems install

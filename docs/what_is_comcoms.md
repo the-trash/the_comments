@@ -1,3 +1,5 @@
+&larr; &nbsp; [documentation](documentation.md)
+
 ### What is ComComs?
 
 :warning: &nbsp; **comcoms** - is main method to get all comments related with user's commentable models.
