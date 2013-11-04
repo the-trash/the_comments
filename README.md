@@ -1,5 +1,3 @@
-### This Repo under development!
-
 # TheComments
 
 [![Gem Version](https://badge.fury.io/rb/the_comments.png)](http://badge.fury.io/rb/the_comments) | [![Build Status](https://travis-ci.org/the-teacher/the_comments.png?branch=master)](https://travis-ci.org/the-teacher/the_comments) | [![Code Climate](https://codeclimate.com/github/the-teacher/the_comments.png)](https://codeclimate.com/github/the-teacher/the_comments) | [(rubygems)](http://rubygems.org/gems/the_comments)
@@ -16,6 +14,8 @@ TheComments - probably, best commenting system for Rails
 * [Denormalization](docs/denormalization_and_recent_comments.md) for Recent comments
 * Production-ready commenting system for Rails 4+
 * Designed for preprocessors Sanitize, Textile, Markdawn etc.
+
+:speech_balloon: &nbsp; My twitter: [@iam_teacher](https://twitter.com/iam_teacher) &nbsp; &nbsp; &nbsp; hashtag: **#the_comments**
 
 ### :books: &nbsp; [Documentation](docs/documentation.md)
 
