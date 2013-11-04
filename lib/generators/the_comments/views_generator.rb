@@ -53,20 +53,25 @@ BANNER
       end
 
       def js_copy
-        copy_file "app/assets/javascripts/the_comments.js.coffee", "app/assets/javascripts/the_comments.js.coffee"
-        copy_file "app/assets/javascripts/the_comments.js.coffee", "app/assets/javascripts/the_comments_manage.js.coffee"
+        f1 = "app/assets/javascripts/the_comments.js.coffee"
+        f2 = "app/assets/javascripts/the_comments_manage.js.coffee"
+        copy_file f1, f1
+        copy_file f2, f2
       end
 
       def css_copy
-        copy_file "app/assets/stylesheets/the_comments.css.scss", "app/assets/stylesheets/the_comments.css.scss"
+        f1 = "app/assets/stylesheets/the_comments.css.scss"
+        copy_file f1, f1
       end
 
       def views_copy
-        directory "app/views/the_comments", "app/views/the_comments"
+        d1 = "app/views/the_comments"
+        directory d1, d1
       end
 
       def helper_copy
-        copy_file "app/helpers/render_comments_tree_helper.rb", "app/helpers/render_comments_tree_helper.rb"
+        f1 = "app/helpers/render_comments_tree_helper.rb"
+        copy_file f1, f1
       end
     end
   end
