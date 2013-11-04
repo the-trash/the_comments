@@ -20,6 +20,8 @@ TheComments - probably, best commenting system for Rails
 
 ## Quick Start Installation
 
+### 1. Gems install
+
 **Gemfile**
 
 ```ruby
@@ -35,14 +37,21 @@ gem 'awesome_nested_set'  # or same gem
 bundle
 ```
 
+### 2. Migrations install
+
 **Copy migrations**
 
 ```
 rake the_comments_engine:install:migrations
 ```
 
-<hr>
-:warning: &nbsp; **Open and change commentable migration**
+Will create:
+
+* xxxxx_change_user.rb
+* xxxxx_create_comments.rb
+* xxxxx_change_commentable.rb
+
+:warning: &nbsp; **Open and change xxxxx_change_commentable.rb migration**
 
 ```ruby
 class ChangeCommentable < ActiveRecord::Migration
@@ -61,8 +70,6 @@ class ChangeCommentable < ActiveRecord::Migration
   end
 end
 ```
-<hr>
-
 
 **Invoke migrations**
 
@@ -70,11 +77,27 @@ end
 rake db:migrate
 ```
 
+### 3. Code install
+
+```ruby
+rails g the_comments install
+```
+
+Will create:
+
+* config/initializers/the_comments.rb
+* app/controllers/comments_controller.rb
+* app/models/comment.rb
+ 
+:warning: &nbsp; **Open each file and follow an instructions**
+
+### 4. Models modifictions
+
 **app/models/user.rb**
 
 ```ruby
 class User < ActiveRecord::Base
-  include TheCommentsUser
+  include TheComments::User
 
   has_many :posts
 
@@ -96,7 +119,7 @@ end
 
 ```ruby
 class Post < ActiveRecord::Base
-  include TheCommentsCommentable
+  include TheComments::Commentable
 
   belongs_to :user
 
@@ -116,22 +139,7 @@ class Post < ActiveRecord::Base
 end
 ```
 
-**app/models/comment.rb**
-
-```ruby
-class Comment < ActiveRecord::Base
-  include TheCommentsBase
-end
-```
-
-**app/controllers/posts_controllers.rb**
-
-```ruby
-def show
-  @post     = Post.find params[:id]
-  @comments = @post.comments.with_state([:draft, :published])
-end
-```
+### 5. Assets install
 
 **app/assets/stylesheets/application.css**
 
@@ -147,11 +155,26 @@ end
 //= require the_comments
 ```
 
+### 6. Controller code example
+
+**app/controllers/posts_controllers.rb**
+
+```ruby
+def show
+  @post     = Post.find params[:id]
+  @comments = @post.comments.with_state([:draft, :published])
+end
+```
+
+### 7. View code example
+
 **app/views/posts/show.html.haml**
 
 ```haml
 = render partial: 'the_comments/tree', locals: { commentable: @post, comments_tree: @comments }
 ```
+
+<hr>
 
 ### MIT License
 
