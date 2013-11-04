@@ -1,4 +1,4 @@
-Rails.application.routes.draw do
+TheComments::Engine.routes.draw do
   resources :ip_black_lists do
     patch :to_state
   end

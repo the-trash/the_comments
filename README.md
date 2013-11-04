@@ -156,6 +156,16 @@ app/views/ip_black_lists/*.haml
 app/views/user_agent_black_lists/*.haml
 ```
 
+**4)** Mount engine routes
+```
+config/routes.rb
+<YourApp>::Application.routes.draw do
+
+  mount TheComments::Engine => '/'
+end
+ ```
+
+
 ## Tuning
 
 ### User Model
