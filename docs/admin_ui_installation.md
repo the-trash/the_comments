@@ -91,7 +91,7 @@ by default your comments controller looks like this:
 
 ```ruby
 class CommentsController < ApplicationController
-  include TheCommentsController::Base
+  include TheComments::Controller
 end
 ```
 
