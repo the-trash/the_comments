@@ -1,4 +1,4 @@
-Rails.application.routes.draw do
+TheComments::Engine.routes.draw do
   resources :comments do
     member do
       post   :to_spam

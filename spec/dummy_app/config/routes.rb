@@ -1,5 +1,6 @@
 App::Application.routes.draw do
   root 'posts#index'
+
   get "autologin/:id" => "users#autologin",  as: :autologin
 
   # Login system
@@ -9,4 +10,6 @@ App::Application.routes.draw do
   post   "sessions" => "sessions#create",  as: :sessions
 
   resources :posts
+
+  mount TheComments::Engine => '/', as: :comments
 end

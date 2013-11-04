@@ -1,6 +1,7 @@
 #### INSTALLATION
 * :white_check_mark: &nbsp; [ADVANCED INSTALLATION](advanced_installation.md)
-* :pencil: &nbsp; [ADMIN UI INSTALLATION](admin_ui_installation.md)
+* :white_check_mark: &nbsp; [ADMIN UI INSTALLATION](admin_ui_installation.md)
+* :no_entry_sign: &nbsp; [Mountable Routing](#)
 
 #### API
 * :white_check_mark: &nbsp; [User API](user_api.md)

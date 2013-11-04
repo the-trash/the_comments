@@ -11,6 +11,7 @@ TheComments - probably, best commenting system for Rails
 * Threaded comments
 * Useful cache counters
 * Admin UI for moderation
+* Mountable Engine.routes
 * Online Support via skype: **ilya.killich**
 * [Denormalization](docs/denormalization_and_recent_comments.md) for Recent comments
 * Production-ready commenting system for Rails 4+
@@ -139,7 +140,24 @@ class Post < ActiveRecord::Base
 end
 ```
 
-### 5. Assets install
+### 5. Mount Engine routes
+
+**config/routes.rb**
+
+```ruby
+MyApp::Application.routes.draw do
+  root 'posts#index'
+  resources :posts
+
+  # ...
+
+  mount TheComments::Engine => '/', as: :comments
+end
+```
+
+Please, read [documentation](docs/documentation.md) to learn more
+
+### 6. Assets install
 
 **app/assets/stylesheets/application.css**
 
@@ -155,7 +173,7 @@ end
 //= require the_comments
 ```
 
-### 6. Controller code example
+### 7. Controller code example
 
 **app/controllers/posts_controllers.rb**
 
@@ -166,7 +184,7 @@ def show
 end
 ```
 
-### 7. View code example
+### 8. View code example
 
 **app/views/posts/show.html.haml**
 

@@ -196,7 +196,7 @@ module TheComments
     # 2) fields can be removed on client side
     def empty_trap_required
       is_human = true
-      params.slice(*TheComments.config.empty_inputs).values.each{|v| is_user = (is_human && v.blank?) }
+      params.slice(*TheComments.config.empty_inputs).values.each{|v| is_human = (is_human && v.blank?) }
 
       if !is_human
         @errors << [t('the_comments.trap'), t('the_comments.trap_message')].join(': ')

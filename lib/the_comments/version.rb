@@ -1,3 +1,1 @@
-module TheComments
-  VERSION = "2.0.0"
-end
+require File.expand_path('../../../gem_version', __FILE__)
