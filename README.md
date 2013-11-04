@@ -198,6 +198,15 @@ end
 
 <hr>
 
+### Acknowledgment
+
+* Anna Nechaeva (my wife) - for love and my happy life
+* @tanraya (Andrew Kozlov) - for code review
+* @solenko (Anton Petrunich) - for mountable routes
+* @pyromaniac (Arkadiy Zabazhanov) - for consalting
+
+<hr>
+
 ### MIT License
 
 Copyright (c) 2013 Ilya N. Zykin
