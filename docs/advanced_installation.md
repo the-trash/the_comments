@@ -1,4 +1,6 @@
-### Advanced Installation
+## Advanced Installation
+
+### 1. Gems install
 
 **Gemfile**
 
@@ -15,14 +17,21 @@ gem 'awesome_nested_set'  # or same gem
 bundle
 ```
 
+### 2. Migrations install
+
 **Copy migrations**
 
 ```
 rake the_comments_engine:install:migrations
 ```
 
-<hr>
-:warning: &nbsp; **Open and change commentable migration**
+Will create:
+
+* xxxxx_change_user.rb
+* xxxxx_create_comments.rb
+* xxxxx_change_commentable.rb
+
+:warning: &nbsp; **Open and change xxxxx_change_commentable.rb migration**
 
 ```ruby
 class ChangeCommentable < ActiveRecord::Migration
@@ -41,8 +50,6 @@ class ChangeCommentable < ActiveRecord::Migration
   end
 end
 ```
-<hr>
-
 
 **Invoke migrations**
 
@@ -50,19 +57,27 @@ end
 rake db:migrate
 ```
 
-**Config TheComments gem**
+### 3. Code install
 
 ```ruby
-bundle exec rails g the_comments config
+rails g the_comments install
 ```
 
-open and change **config/initializers/the_comments.rb**
+Will create:
+
+* config/initializers/the_comments.rb
+* app/controllers/comments_controller.rb
+* app/models/comment.rb
+ 
+:warning: &nbsp; **Open each file and follow an instructions**
+
+### 4. Models modifictions
 
 **app/models/user.rb**
 
 ```ruby
 class User < ActiveRecord::Base
-  include TheCommentsUser
+  include TheComments::User
 
   has_many :posts
 
@@ -86,7 +101,7 @@ end
 
 ```ruby
 class Post < ActiveRecord::Base
-  include TheCommentsCommentable
+  include TheComments::Commentable
 
   belongs_to :user
 
@@ -94,7 +109,7 @@ class Post < ActiveRecord::Base
   # Migration: t.string :title
   # => "My new awesome post"
   def commentable_title
-    title
+    try(:title) || "Undefined post title"
   end
 
   # => your way to build URL
@@ -107,63 +122,12 @@ class Post < ActiveRecord::Base
   # Migration: t.string :state
   # => "published" | "draft" | "deleted"
   def commentable_state
-    state
+    try(:state) || "published"
   end
 end
 ```
 
-**app/models/comment.rb**
-
-```
-bundle exec rails g the_comments models
-```
-
-will create **app/models/comment.rb**
-
-```ruby
-class Comment < ActiveRecord::Base
-  include TheCommentsBase
-
-  # ---------------------------------------------------
-  # Define comment's avatar url
-  # Usually we use Comment#user (owner of comment) to define avatar
-  # @blog.comments.includes(:user) <= use includes(:user) to decrease queries count
-  # comment#user.avatar_url
-  # ---------------------------------------------------
-
-  # ---------------------------------------------------
-  # Simple way to define avatar url
-
-  # def avatar_url
-  #   hash = Digest::MD5.hexdigest self.id.to_s
-  #   "http://www.gravatar.com/avatar/#{hash}?s=30&d=identicon"
-  # end
-  # ---------------------------------------------------
-
-  # ---------------------------------------------------
-  # Define your filters for content
-  # Expample for: gem 'RedCloth', gem 'sanitize'
-  # your personal SmilesProcessor
-
-  # def prepare_content
-  #   text = self.raw_content
-  #   text = RedCloth.new(text).to_html
-  #   text = SmilesProcessor.new(text)
-  #   text = Sanitize.clean(text, Sanitize::Config::RELAXED)
-  #   self.content = text
-  # end
-  # ---------------------------------------------------
-end
-```
-
-**app/controllers/posts_controllers.rb**
-
-```ruby
-def show
-  @post     = Post.find params[:id]
-  @comments = @post.comments.with_state([:draft, :published])
-end
-```
+### 5. Assets install
 
 **app/assets/stylesheets/application.css**
 
@@ -179,10 +143,21 @@ end
 //= require the_comments
 ```
 
+### 6. Controller code example
+
+**app/controllers/posts_controllers.rb**
+
+```ruby
+def show
+  @post     = Post.find params[:id]
+  @comments = @post.comments.with_state([:draft, :published])
+end
+```
+
+### 7. View code example
+
 **app/views/posts/show.html.haml**
 
 ```haml
 = render partial: 'the_comments/tree', locals: { commentable: @post, comments_tree: @comments }
 ```
-
-(and same code for SLIM)
