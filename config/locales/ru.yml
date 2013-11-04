@@ -64,3 +64,4 @@ ru:
     delete_confirm: Вы уверены?
     waiting_for_moderation: Ожидает модерации
     ajax_requests_required: 'Извините, ожидается JavaScript/Ajax запрос'
+    undefined_commentable: Комментируемый объект не определен

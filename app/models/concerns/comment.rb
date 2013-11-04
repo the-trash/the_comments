@@ -33,7 +33,6 @@ module TheComments
       src = title unless title.blank?
       src = contacts if !contacts.blank? && /@/ =~ contacts
       hash = Digest::MD5.hexdigest(src)
-      # "http://www.gravatar.com/avatar/#{hash}?s=40&d=identicon"
       "https://2.gravatar.com/avatar/#{hash}?s=42&d=https://identicons.github.com/#{hash}.png"
     end
       

@@ -64,5 +64,5 @@ en:
     cookies: Cookies
     cookies_required: 'Please enable cookies and try to reload page'
     ajax_requests_required: 'Sorry, JavaScript/Ajax Requests required'
-
     waiting_for_moderation: Waiting for moderation
+    undefined_commentable: Commentable object is undefined

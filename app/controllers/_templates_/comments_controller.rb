@@ -1,26 +1,44 @@
 class CommentsController < ApplicationController
+  # layout 'admin'
+
   # Define your restrict methods and use them like this:
   #
-  # before_action :user_required,      except: [:index, :create]
-  # 
-  # before_action :owner_required,     only: [:my, :incoming, :edit, :trash]
-  # before_action :moderator_required, only: [:update, :to_published, :to_draft, :to_spam, :to_trash]
+  # before_action :user_required,  except: %w[index create]
+  # before_action :owner_required, except: %w[index create]
+  # before_action :admin_required, only:   %w[total_draft total_published total_deleted total_spam]
+  
+  include TheComments::Controller
 
-  include TheCommentsController::Base
-
-  # Public methods:
+  # >>> include TheComments::Controller <<<
+  # (!) Almost all methods based on *current_user* method
   #
-  # [:index, :create]
-
-  # Application side methods:
-  # Overwrite following default methods if it's need
-  # Following methods based on *current_user* helper method
-  # Look here: https://github.com/the-teacher/the_comments/blob/master/app/controllers/concerns/the_comments_controller.rb#L62
+  # 1. Controller's public methods list:
+  # You can redifine it for your purposes
+  # public
+  # %w[ manage index create edit update ]
+  # %w[ my_comments my_draft my_published ]
+  # %w[ draft published deleted spam ]
+  # %w[ to_draft to_published to_deleted to_spam ]
+  # %w[ total_draft total_published total_deleted total_spam ]
   #
-  # [:my, :incoming, :edit, :trash]
-
-  # You must protect following methods
-  # Only comments moderator (holder or admin) can invoke following actions
   #
-  # [:update, :to_published, :to_draft, :to_spam, :to_trash]
+  # 2. Controller's private methods list:
+  # You can redifine it for your purposes
+  #
+  # private
+  # %w[ comment_template comment_partial ]
+  # %w[ denormalized_fields request_data_for_comment define_commentable ]
+  # %w[ comment_params patch_comment_params ]
+  # %w[ ajax_requests_required cookies_required ]
+  # %w[ empty_trap_required tolerance_time_required ]
+
+  # KAMINARI pagination:
+  # following methods based on gem "kaminari"
+  # You should redefine them if you use something else
+  #
+  # public
+  # %w[ manage index ]
+  # %w[ draft published deleted spam ]
+  # %w[ my_comments my_draft my_published ]
+  # %w[ total_draft total_published total_deleted total_spam ]
 end

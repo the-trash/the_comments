@@ -49,7 +49,7 @@ module TheComments
       before_action -> { return render(json: { errors: @errors }) unless @errors.blank? }, only: [:create]
     end
 
-    # App side methods (overwrite it)
+    # App side methods (you can overwrite them)
     def index
       @comments = ::Comment.with_state(:published).recent.page(params[:page])
       render comment_template(:index)
@@ -159,17 +159,17 @@ module TheComments
       commentable_id    = params[:comment][:commentable_id]
 
       @commentable = commentable_klass.find(commentable_id)
-      return render(json: { errors: ['Commentable object is undefined'] }) unless @commentable
+      return render(json: { errors: [t('the_comments.undefined_commentable')] }) unless @commentable
     end
 
     def comment_params
       params
         .require(:comment)
         .permit(:title, :contacts, :raw_content, :parent_id)
-        .merge(user: current_user, view_token: comments_view_token)
         .merge(denormalized_fields)
-        .merge( tolerance_time: params[:tolerance_time].to_i )
         .merge(request_data_for_comment)
+        .merge(tolerance_time: params[:tolerance_time].to_i)
+        .merge(user: current_user, view_token: comments_view_token)
     end
 
     def patch_comment_params

@@ -31,24 +31,25 @@ BANNER
       end
 
       def copy_gem_files
-        if param_name == 'js'
-          js_copy          
-        elsif param_name == 'css'
-          css_copy
-        elsif param_name == 'assets'
-          js_copy; css_copy
-        elsif param_name == 'views'
-          views_copy
-        elsif param_name == 'helper'
-          helper_copy
-        elsif param_name == 'all'
-          js_copy
-          css_copy
-          views_copy
-          helper_copy
-        else
-          puts 'TheComments View Generator - wrong Name'
-          puts "Wrong params - use only [ js | css | assets | views | helper | all] values"
+        case param_name
+          when 'js'
+            js_copy
+          when 'css'
+            css_copy
+          when 'assets'
+            js_copy; css_copy
+          when 'views'
+            views_copy
+          when 'helper'
+            helper_copy
+          when 'all'
+            js_copy
+            css_copy
+            views_copy
+            helper_copy
+          else
+            puts 'TheComments View Generator - wrong Name'
+            puts "Wrong params - use only [ js | css | assets | views | helper | all ] values"
         end
       end
 

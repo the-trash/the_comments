@@ -4,19 +4,22 @@ class TheCommentsGenerator < Rails::Generators::NamedBase
 
   # > rails g the_comments NAME
   def generate_controllers
-    if gen_name == 'models'
-      cp_models
-    elsif gen_name == 'controllers'
-      cp_controllers
-    elsif gen_name == 'config'
-      cp_config
-    elsif gen_name == 'install'
-      cp_config
-      cp_models
-      cp_controllers
-    else
-      puts 'TheComments Generator - wrong Name'
-      puts 'Try to use [ install | config | controllers | models ]'
+    case gen_name
+      when 'locales'
+        cp_locales
+      when 'models'
+        cp_models
+      when 'controllers'
+        cp_controllers
+      when 'config'
+        cp_config
+      when 'install'
+        cp_config
+        cp_models
+        cp_controllers
+      else
+        puts 'TheComments Generator - wrong Name'
+        puts 'Try to use [ install | config | controllers | models ]'
     end
   end
 
@@ -41,5 +44,13 @@ class TheCommentsGenerator < Rails::Generators::NamedBase
   def cp_controllers
     copy_file "#{root_path}/app/controllers/_templates_/comments_controller.rb",
               "app/controllers/comments_controller.rb"
+  end
+
+  def cp_locales
+    copy_file "#{root_path}/config/locales/en.yml",
+              "config/locales/en.the_comments.yml"
+
+    copy_file "#{root_path}/config/locales/ru.yml",
+              "config/locales/ru.the_comments.yml"
   end
 end

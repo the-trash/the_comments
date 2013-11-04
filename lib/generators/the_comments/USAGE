@@ -30,6 +30,9 @@ Description:
 # Config generators:
   > rails g the_comments config
 
+# Locals generators:
+  > rails g the_comments locales
+
 # View Generators:
   > rails g the_comments:views js
   > rails g the_comments:views css
