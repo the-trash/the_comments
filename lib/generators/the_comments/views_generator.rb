@@ -54,6 +54,7 @@ BANNER
 
       def js_copy
         copy_file "app/assets/javascripts/the_comments.js.coffee", "app/assets/javascripts/the_comments.js.coffee"
+        copy_file "app/assets/javascripts/the_comments.js.coffee", "app/assets/javascripts/the_comments_manage.js.coffee"
       end
 
       def css_copy
