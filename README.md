@@ -19,6 +19,10 @@ TheComments - probably, best commenting system for Rails
 
 ### :books: &nbsp; [Documentation](docs/documentation.md)
 
+## How to start dummy app (screencast)
+
+<a href="http://vk.com/video_ext.php?oid=49225742&id=166578209&hash=10be1dba625149bb&hd=2"><image src="docs/screencast.jpg"></a>
+
 ## Quick Start Installation
 
 ### 1. Gems install
