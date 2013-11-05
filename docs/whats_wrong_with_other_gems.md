@@ -19,6 +19,7 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 6. TheComments has admin UI based on bootstrap 3
 7. TheComments is "all-in-one" solutions.<br>
    It has: Models and Controllers logic (via concerns), Generators, Views, Helper for fast Tree rendering and Admin UI.
+8. I'll try to help you via skype: **ilya.killich**, if you have problems with TheComments
    
 ### TheComments based on:
 
