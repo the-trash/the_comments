@@ -30,7 +30,7 @@ TheComments - probably, best commenting system for Rails
 **Gemfile**
 
 ```ruby
-gem 'the_comments', "~> 2.0"
+gem "the_comments", "~> 2.0.1"
 
 gem 'haml'                # or gem 'slim'
 gem 'awesome_nested_set'  # or same gem
@@ -207,7 +207,7 @@ end
 * Anna Nechaeva (my wife) - for love and my happy life
 * @tanraya (Andrew Kozlov) - for code review
 * @solenko (Anton Petrunich) - for mountable routes
-* @pyromaniac (Arkadiy Zabazhanov) - for consalting
+* @pyromaniac (Arkadiy Zabazhanov) - for consulting
 
 <hr>
 
