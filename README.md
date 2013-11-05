@@ -30,7 +30,7 @@ TheComments - probably, best commenting system for Rails
 **Gemfile**
 
 ```ruby
-gem "the_comments", "~> 2.0.1"
+gem "the_comments", "~> 2.1.0"
 
 gem 'haml'                # or gem 'slim'
 gem 'awesome_nested_set'  # or same gem
