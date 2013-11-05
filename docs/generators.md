@@ -13,7 +13,7 @@ rails g the_comments:views NAME
 rake the_comments_engine:install:migrations
 ```
 
-Full list
+### Full list
 
 ```ruby
 rails g the_comments --help
@@ -64,8 +64,6 @@ rails g the_comments locales
 ```
 
 #### Views
-
-# View Generators:
 
 ```ruby
 rails g the_comments:views js
