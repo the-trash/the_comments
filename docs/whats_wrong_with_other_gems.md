@@ -11,11 +11,17 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 
 ### Why TheComments is better than others gems?
 
-1. **Only TheComments has special helper for tree rendering** (based on [TheSortableTree](https://github.com/the-teacher/the_sortable_tree)).
-2. TheComments designed to reduce requests to database. I say about useful cache counters.
-3. TheComments has solution for [building of Recent Comments](https://github.com/the-teacher/the_comments/blob/master/docs/denormalization_and_recent_comments.md) (for polymorphic relations)
-4. TheComments designed for text preprocessors (Textile, Markdown, Sanitize, Coderay etc.)
-5. TheComments has admin UI based on bootstrap 3
-6. TheComments is "all-in-one" solutions.<br>
+1. TheComments allows for threaded comments
+2. **Only TheComments has special helper for tree rendering** (based on [TheSortableTree](https://github.com/the-teacher/the_sortable_tree)).
+3. TheComments designed to reduce requests to database. I say about useful cache counters.
+4. TheComments has solution for [building of Recent Comments](https://github.com/the-teacher/the_comments/blob/master/docs/denormalization_and_recent_comments.md) (for polymorphic relations)
+5. TheComments designed for text preprocessors (Textile, Markdown, Sanitize, Coderay etc.)
+6. TheComments has admin UI based on bootstrap 3
+7. TheComments is "all-in-one" solutions.<br>
    It has: Models and Controllers logic (via concerns), Generators, Views, Helper for fast Tree rendering and Admin UI.
    
+### TheComments based on:
+
+1. [AwesomeNestedSet](https://github.com/collectiveidea/awesome_nested_set) - for comments threading
+2. [TheSortableTree](https://github.com/the-teacher/the_sortable_tree) - for fast render of comments tree
+3. [State Machine](https://github.com/pluginaweek/state_machine) - to provide easy and correct recalculation cache counters on states transitions
