@@ -11,7 +11,7 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 
 ### Why TheComments is better than others gems?
 
-1. Only TheComments has special helper for tree rendering ([TheSortableTree](https://github.com/the-teacher/the_sortable_tree)).
+1. **Only TheComments has special helper for tree rendering** (based on [TheSortableTree](https://github.com/the-teacher/the_sortable_tree)).
 2. TheComments designed to reduce requests to database. I say about useful cache counters.
 3. TheComments has solution for [building of Recent Comments](https://github.com/the-teacher/the_comments/blob/master/docs/denormalization_and_recent_comments.md) (for polymorphic relations)
 4. TheComments designed for text preprocessors (Textile, Markdown, Sanitize, Coderay etc.)
