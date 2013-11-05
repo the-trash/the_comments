@@ -4,6 +4,8 @@
 
 TheComments - probably, best commenting system for Rails
 
+:question: &nbsp; [Why TheComments is better than others gems?](docs/whats_wrong_with_other_gems.md#why-thecomments-is-better-than-others-gems)
+
 ### Main features
 
 * Threaded comments
@@ -14,8 +16,6 @@ TheComments - probably, best commenting system for Rails
 * [Denormalization](docs/denormalization_and_recent_comments.md) for Recent comments
 * Production-ready commenting system for Rails 4+
 * Designed for preprocessors Sanitize, Textile, Markdawn etc.
-
-:speech_balloon: &nbsp; My twitter: [@iam_teacher](https://twitter.com/iam_teacher) &nbsp; &nbsp; &nbsp; hashtag: **#the_comments**
 
 ### :books: &nbsp; [Documentation](docs/documentation.md)
 
@@ -197,6 +197,10 @@ end
 ```
 
 <hr>
+
+### Feedback
+
+:speech_balloon: &nbsp; My twitter: [@iam_teacher](https://twitter.com/iam_teacher) &nbsp; &nbsp; &nbsp; hashtag: **#the_comments**
 
 ### Acknowledgment
 
