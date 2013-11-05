@@ -16,3 +16,6 @@ Just look at [Ruby-Toolbox](https://www.ruby-toolbox.com/categories/rails_commen
 3. TheComments has solution for [building of Recent Comments](https://github.com/the-teacher/the_comments/blob/master/docs/denormalization_and_recent_comments.md) (for polymorphic relations)
 4. TheComments designed for text preprocessors (Textile, Markdown, Sanitize, Coderay etc.)
 5. TheComments has admin UI based on bootstrap 3
+6. TheComments is "all-in-one" solutions.<br>
+   It has: Models and Controllers logic (via concerns), Generators, Views, Helper for fast Tree rendering and Admin UI.
+   
