@@ -1,30 +1,30 @@
-Rails.application.routes.draw do
-  concern :the_comments do
-    member do
-      post   :to_spam
-      post   :to_draft
-      post   :to_published
-      delete :to_deleted
-    end
+module TheComments
+  class RouteConcern
+    def call mapper, options = {}
+      mapper.member do
+        mapper.post   :to_spam
+        mapper.post   :to_draft
+        mapper.post   :to_published
+        mapper.delete :to_deleted
+      end
 
-    collection do
-      get :manage
+      mapper.collection do
+        mapper.get :manage
 
-      get :my_draft
-      get :my_published
-      get :my_comments
+        mapper.get :my_draft
+        mapper.get :my_published
+        mapper.get :my_comments
 
-      get :total_draft
-      get :total_published
-      get :total_deleted
-      get :total_spam
+        mapper.get :total_draft
+        mapper.get :total_published
+        mapper.get :total_deleted
+        mapper.get :total_spam
 
-      get :draft
-      get :published
-      get :deleted
-      get :spam
+        mapper.get :draft
+        mapper.get :published
+        mapper.get :deleted
+        mapper.get :spam
+      end
     end
   end
-
-  # resources :comments, concerns: :the_comments
 end
