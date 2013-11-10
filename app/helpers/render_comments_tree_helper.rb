@@ -89,7 +89,7 @@ module RenderCommentsTreeHelper
 
       def moderator_controls
         if moderator?
-          h.link_to(t('the_comments.edit'), h.comments.edit_comment_url(@comment), class: :edit)
+          h.link_to(t('the_comments.edit'), h.edit_comment_url(@comment), class: :edit)
         end
       end
 

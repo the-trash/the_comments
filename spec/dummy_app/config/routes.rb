@@ -12,6 +12,7 @@ App::Application.routes.draw do
   resources :posts
 
   # TheComments routes
-  concern   :the_comments, TheComments::RouteConcern.new
-  resources :comments, concerns: :the_comments
+  concern   :user_comments,  TheComments::UserRoutes.new
+  concern   :admin_comments, TheComments::AdminRoutes.new
+  resources :comments, concerns:  [:user_comments, :admin_comments]
 end

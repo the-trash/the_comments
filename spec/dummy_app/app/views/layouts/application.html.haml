@@ -14,7 +14,7 @@
       - if current_user
         User: #{current_user.username}
         \|
-        = link_to "Comments Manage (+#{current_user.draft_comcoms_count})", comments.manage_comments_path
+        = link_to "Comments Manage (+#{current_user.draft_comcoms_count})", manage_comments_path
       - else
         Guest
     = yield

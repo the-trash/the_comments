@@ -1,5 +1,5 @@
 .edit_form{ style: "display:none" }
-  = form_for [comments, comment], remote: true, html:{ role: :form } do |f|
+  = form_for comment, remote: true, html:{ role: :form } do |f|
     %table.table.table-striped.table-hover
       %tr{ style: "width: 100px;"}
         %td
