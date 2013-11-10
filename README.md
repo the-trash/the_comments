@@ -144,7 +144,7 @@ class Post < ActiveRecord::Base
 end
 ```
 
-### 5. Mount Engine routes
+### 5. Add routes
 
 **config/routes.rb**
 
@@ -155,7 +155,10 @@ MyApp::Application.routes.draw do
 
   # ...
 
-  mount TheComments::Engine => '/', as: :comments
+  # TheComments routes
+  concern   :user_comments,  TheComments::UserRoutes.new
+  concern   :admin_comments, TheComments::AdminRoutes.new
+  resources :comments, concerns:  [:user_comments, :admin_comments]
 end
 ```
 

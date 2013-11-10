@@ -1,7 +1,7 @@
 #### INSTALLATION
 * :white_check_mark: &nbsp; [ADVANCED INSTALLATION](advanced_installation.md)
 * :white_check_mark: &nbsp; [ADMIN UI INSTALLATION](admin_ui_installation.md)
-* :white_check_mark: &nbsp; [Mountable Routing](mountable_routes.md)
+* :white_check_mark: &nbsp; [Routing](routes.md)
 * :white_check_mark: &nbsp; [Generators](generators.md)
 
 #### API

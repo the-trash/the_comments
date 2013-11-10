@@ -140,7 +140,10 @@ MyApp::Application.routes.draw do
 
   # ...
 
-  mount TheComments::Engine => '/', as: :comments
+  # TheComments routes
+  concern   :user_comments,  TheComments::UserRoutes.new
+  concern   :admin_comments, TheComments::AdminRoutes.new
+  resources :comments, concerns:  [:user_comments, :admin_comments]
 end
 ```
 

@@ -1,12 +1,6 @@
 &larr; &nbsp; [documentation](documentation.md)
 
-## Mountable Routes
-
-Now gem has mountable routes. It's was not my idea, but guys said - it's very helpful. So, ok!
-
-You should mount routes to your app.
-
-:warning: &nbsp; Default views based on **as: :comments** argument. If, you want to change it - you should customize default views.
+## TheComments Routes
 
 **config/routes.rb**
 
@@ -17,7 +11,10 @@ MyApp::Application.routes.draw do
 
   # ...
 
-  mount TheComments::Engine => '/', as: :comments
+  # TheComments routes
+  concern   :user_comments,  TheComments::UserRoutes.new
+  concern   :admin_comments, TheComments::AdminRoutes.new
+  resources :comments, concerns:  [:user_comments, :admin_comments]
 end
 ```
 
@@ -60,21 +57,21 @@ And now you can use url helpers with 2 ways:
 ### Way 1. Url Helpers
 
 ```ruby
-= link_to 'link', comments.comments_path
-= link_to 'link', comments.manage_comments_path
-= link_to 'link', comments.new_comment_path
+= link_to 'link', comments_path
+= link_to 'link', manage_comments_path
+= link_to 'link', new_comment_path
 
-= link_to 'link', comments.comment_path(@comment)
-= link_to 'link', comments.to_spam_comment_path(@comment)
+= link_to 'link', comment_path(@comment)
+= link_to 'link', to_spam_comment_path(@comment)
 ```
 
 ### Way 2. Array notation
 
 ```ruby
-= link_to 'link', [comments, :index]
-= link_to 'link', [comments, :manage]
-= link_to 'link', [comments, :new]
+= link_to 'link', [:index,  :comments]
+= link_to 'link', [:manage, :comments]
+= link_to 'link', [:draft,  :comments]
 
-= link_to 'link', [comments, @comment]
-= link_to 'link', [comments, :to_spam, @comment]
+= link_to 'link', [@comment]
+= link_to 'link', [:to_spam, @comment]
 ```
