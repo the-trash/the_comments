@@ -10,6 +10,7 @@ App::Application.routes.draw do
   post   "sessions" => "sessions#create",  as: :sessions
 
   resources :posts
-
-  mount TheComments::Engine => '/', as: :comments
+  
+  # TheComments routes
+  resources :comments, concerns: :the_comments
 end

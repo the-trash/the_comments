@@ -1,5 +1,5 @@
-TheComments::Engine.routes.draw do
-  resources :comments do
+Rails.application.routes.draw do
+  concern :the_comments do
     member do
       post   :to_spam
       post   :to_draft
@@ -25,4 +25,6 @@ TheComments::Engine.routes.draw do
       get :spam
     end
   end
+
+  # resources :comments, concerns: :the_comments
 end
