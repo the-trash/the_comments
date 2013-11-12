@@ -57,13 +57,15 @@ module TheComments
     end
 
     def denormalize_for_comments
-      if denormalization_fields_changed?
-        comments.update_all({
-          commentable_title: commentable_title,
-          commentable_state: commentable_state,
-          commentable_url:   commentable_url
-        })
-      end 
+      denormalize_for_comments! if denormalization_fields_changed?
+    end
+
+    def denormalize_for_comments!
+      comments.update_all({
+        commentable_title: commentable_title,
+        commentable_state: commentable_state,
+        commentable_url:   commentable_url
+      })
     end
   end
 end
