@@ -10,7 +10,7 @@
   - if @comments.blank?
     .alert.alert-info= t 'the_comments.no_comments_here'
 
-  .comments
+  .comments.comments_management
     - @comments.each do |comment|
       - klass = { published: :primary, draft: :warning, deleted: :danger }[comment.state.to_sym]
       .panel{ class: "panel-#{klass}" }

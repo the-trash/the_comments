@@ -1,7 +1,7 @@
 $ ->
   hide_comment_panel = (btn) -> $(btn).parents('.panel').slideUp()
 
-  comments = $ '.comments'
+  comments = $ '.comments_management'
 
   # CONTROLS
   comments.on 'click', 'a.additional_info', ->
