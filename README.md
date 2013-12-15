@@ -19,6 +19,10 @@ TheComments - probably, best commenting system for Rails
 
 ### :books: &nbsp; [Documentation](docs/documentation.md)
 
+## If you have any questions
+
+Please before ask anything try to launch Dummy App in spec folder. Maybe example of integration will be better than any documentation. Thank you!
+
 ## How to start dummy app (screencast)
 
 [![Foo](https://raw.github.com/the-teacher/the_comments/master/docs/screencast.jpg)](http://vk.com/video_ext.php?oid=49225742&id=166578209&hash=10be1dba625149bb&hd=3)
@@ -164,7 +168,17 @@ end
 
 Please, read [documentation](docs/documentation.md) to learn more
 
-### 6. Assets install
+### 6. Controller's addon
+
+class ApplicationController < ActionController::Base
+  include TheComments::ViewToken
+
+  # Prevent CSRF attacks by raising an exception.
+  # For APIs, you may want to use :null_session instead.
+  protect_from_forgery with: :exception
+end
+
+### 7. Assets install
 
 **app/assets/stylesheets/application.css**
 
@@ -180,7 +194,7 @@ Please, read [documentation](docs/documentation.md) to learn more
 //= require the_comments
 ```
 
-### 7. Controller code example
+### 8. Controller code example
 
 **app/controllers/posts_controllers.rb**
 
@@ -191,7 +205,7 @@ def show
 end
 ```
 
-### 8. View code example
+### 9. View code example
 
 **app/views/posts/show.html.haml**
 
