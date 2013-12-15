@@ -1,1 +1,1 @@
-rvm use ruby-1.9.3-p392@the_comments --create
+rvm use ruby-2.0.0-p353@the_comments --create
