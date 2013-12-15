@@ -170,6 +170,7 @@ Please, read [documentation](docs/documentation.md) to learn more
 
 ### 6. Controller's addon
 
+```ruby
 class ApplicationController < ActionController::Base
   include TheComments::ViewToken
 
@@ -177,6 +178,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 end
+```
 
 ### 7. Assets install
 
