@@ -21,7 +21,7 @@ TheComments - probably, best commenting system for Rails
 
 ## If you have any questions
 
-Please before ask anything try to launch Dummy App in spec folder. Maybe example of integration will be better than any documentation. Thank you!
+Please before ask anything try to launch and play with **[Dummy App](spec/dummy_app)** in spec folder. Maybe example of integration will be better than any documentation. Thank you!
 
 ## How to start dummy app (screencast)
 
