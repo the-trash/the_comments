@@ -1,0 +1,11 @@
+windows:
+  - name: "TheComments"
+    root: "~/rails/opensource/the_comments"
+    filters:
+      before: "rvm use ruby-2.0.0-p353; rvm gemset use the_comments"
+    layout: tiled
+    panes:
+      - cmd: "clear;"
+      - cmd: "clear;"
+      - cmd: "cd spec/dummy_app; clear"
+      - cmd: "cd spec/dummy_app; clear; rake db:bootstrap RAILS_ENV=test; rspec"
