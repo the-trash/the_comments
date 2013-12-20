@@ -14,6 +14,7 @@ coverage
 Gemfile.lock
 InstalledFiles
 lib/bundler/man
+spec/dummy_app/public/assets
 
 tmp
 doc

@@ -1,8 +1,8 @@
 h3
   = link_to t('the_comments.new'), '#', id: :new_root_comment
 
-= form_for Comment.new, remote: true, authenticity_token: true do |f|
-  .error_notifier  style: "display:none"  
+= form_for new_comment_path, remote: true, authenticity_token: true do |f|
+  .error_notifier style="display:none"  
   label= t('the_comments.form.title')
   p= f.text_field :title
 

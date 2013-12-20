@@ -1,4 +1,4 @@
-class ChangeCommentable < ActiveRecord::Migration
+class TheCommentsChangeCommentable < ActiveRecord::Migration
   def change
     # Uncomment this. Add fields to Commentable Models
     #

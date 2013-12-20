@@ -1,4 +1,4 @@
-class CreateComments < ActiveRecord::Migration
+class TheCommentsCreateComments < ActiveRecord::Migration
   def change
     create_table :comments do |t|
       # relations

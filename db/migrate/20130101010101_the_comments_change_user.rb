@@ -1,5 +1,5 @@
 # null: false => de-facto db-level validation
-class ChangeUser < ActiveRecord::Migration
+class TheCommentsChangeUser < ActiveRecord::Migration
   def change
     change_table :users do |t|
       # "Written by me" (cache counters)
