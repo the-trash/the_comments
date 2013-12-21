@@ -34,7 +34,7 @@ Please before ask anything try to launch and play with **[Dummy App](spec/dummy_
 **Gemfile**
 
 ```ruby
-gem "the_comments", "~> 2.1.0"
+gem "the_comments", "~> 2.2.1"
 
 gem 'haml'                # or gem 'slim'
 gem 'awesome_nested_set'  # or same gem
