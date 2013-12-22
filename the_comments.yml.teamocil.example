@@ -2,7 +2,7 @@ windows:
   - name: "TheComments"
     root: "~/rails/opensource/the_comments"
     filters:
-      before: "rvm use ruby-2.0.0-p353; rvm gemset use the_comments"
+      before: "rvm use ruby-2.0.0-p353; rvm gemset use the_comments --create"
     layout: tiled
     panes:
       - cmd: "clear;"
