@@ -2,7 +2,7 @@ require 'spec_helper'
 
 def destroy_all
   User.destroy_all
-  3.times{ begin; Comment.destroy_all; rescue; end; }
+  3.times { begin; Comment.destroy_all; rescue; end; }
 end
 
 # --------------------------------------
@@ -109,9 +109,9 @@ end
 
 describe User do
   context 'User leave comment to the post' do
-    after(:all){ destroy_all }
+    after(:all) { destroy_all }
 
-    before(:all){ create_users_and_post }
+    before(:all) { create_users_and_post }
 
     it 'should be User' do
       @user.should        be_instance_of User
@@ -141,8 +141,8 @@ describe User do
 
   context "Written by me counters" do
     after(:all) { destroy_all }
-    before(:all){ create_users_and_post }
-    it 'should has correct My counters values' do 
+    before(:all) { create_users_and_post }
+    it 'should has correct My counters values' do
       @comment = Comment.create!(
         user: @user,
         commentable: @post,
@@ -156,14 +156,14 @@ describe User do
     end
   end
 
-  context "Commentable Denormalization" do
+  context 'Commentable Denormalization' do
     after(:all) { destroy_all }
     before(:all) do
       base_test_situation
     end
 
     it 'should have denormalized fields' do
-      title = "New Title!"
+      title = 'New Title!'
       @post.update_attribute(:title, title)
       @post.title.should eq title
       @comment = @post.comments.first
@@ -174,7 +174,7 @@ describe User do
   context 'User leave 3 comments and Instances has expectable counter values' do
     after(:all) { destroy_all }
 
-    before(:all){ base_test_situation }
+    before(:all) { base_test_situation }
 
     describe 'User counters' do
       it 'my_comments counter' do
@@ -184,7 +184,7 @@ describe User do
       it 'Comcoms counters' do
         @user.comcoms.count.should eq 0
 
-        comcoms_counters_assert(@user, [0,0,0])
+        comcoms_counters_assert(@user, [0, 0, 0])
       end
     end
 
@@ -195,7 +195,7 @@ describe User do
 
       it 'Comcoms counters' do
         @post_holder.comcoms.count.should eq 3
-        comcoms_counters_assert(@post_holder, [3,0,0])
+        comcoms_counters_assert(@post_holder, [3, 0, 0])
       end
     end
   end
@@ -216,10 +216,10 @@ describe User do
 
     describe 'User counters' do
       it 'has expectable values' do
-        comments_counters_assert @user, [0,0,0]
-        comments_count_assert    @user, [0,0,0]
-        comcoms_counters_assert  @user, [0,0,0]
-        comcoms_count_assert     @user, [0,0,0]
+        comments_counters_assert @user, [0, 0, 0]
+        comments_count_assert    @user, [0, 0, 0]
+        comcoms_counters_assert  @user, [0, 0, 0]
+        comcoms_count_assert     @user, [0, 0, 0]
         my_comments_count_assert @user, 3
       end
     end
@@ -229,8 +229,8 @@ describe User do
         @post_holder.comcoms.count.should eq 3
 
         my_comments_count_assert(@post_holder, 0)
-        comcoms_count_assert    @post_holder, [2,1,0]
-        comcoms_counters_assert @post_holder, [2,1,0]
+        comcoms_count_assert    @post_holder, [2, 1, 0]
+        comcoms_counters_assert @post_holder, [2, 1, 0]
       end
     end
   end
@@ -251,41 +251,41 @@ describe User do
     end
 
     it 'has correct counters values' do
-      comments_counters_assert @user, [0,0,0]
-      comments_count_assert    @user, [0,0,0]
-      comcoms_count_assert     @user, [0,0,0]
+      comments_counters_assert @user, [0, 0, 0]
+      comments_count_assert    @user, [0, 0, 0]
+      comcoms_count_assert     @user, [0, 0, 0]
       my_comments_count_assert @user, 2
       @user.my_comments.count.should eq 3
 
-      comments_counters_assert @post_holder, [0,0,0]
-      comments_count_assert    @post_holder, [0,0,0]
-      comcoms_count_assert     @post_holder, [2,0,1]
+      comments_counters_assert @post_holder, [0, 0, 0]
+      comments_count_assert    @post_holder, [0, 0, 0]
+      comcoms_count_assert     @post_holder, [2, 0, 1]
       my_comments_count_assert @post_holder, 0
       @post_holder.my_comments.count.should eq 0
 
-      comments_count_assert    @post, [2,0,1]
-      comments_counters_assert @post, [2,0,1]
+      comments_count_assert    @post, [2, 0, 1]
+      comments_counters_assert @post, [2, 0, 1]
     end
   end
 
   context 'Comments tree, 1 branch to deleted' do
     after(:each) { destroy_all }
-    before(:each){ tree_test_situation }
+    before(:each) { tree_test_situation }
 
     it 'has correct counters values before deleting' do
       Comment.count.should eq 9
 
       my_comments_count_assert @user, 9
-      comments_count_assert    @user, [0,0,0]
+      comments_count_assert    @user, [0, 0, 0]
 
       my_comments_count_assert @post_holder, 0
-      comments_count_assert    @post_holder, [0,0,0]
-      
-      comcoms_count_assert    @post_holder, [0,9,0]
-      comcoms_counters_assert @post_holder, [0,9,0]
+      comments_count_assert    @post_holder, [0, 0, 0]
 
-      comments_count_assert    @post, [0,9,0]
-      comments_counters_assert @post, [0,9,0]
+      comcoms_count_assert    @post_holder, [0, 9, 0]
+      comcoms_counters_assert @post_holder, [0, 9, 0]
+
+      comments_count_assert    @post, [0, 9, 0]
+      comments_counters_assert @post, [0, 9, 0]
     end
 
     it 'has correct counters values after branch deleting' do
@@ -300,16 +300,16 @@ describe User do
       Comment.with_state(:deleted).count.should   eq 4
 
       my_comments_count_assert @user, 5
-      comments_count_assert    @user, [0,0,0]
+      comments_count_assert    @user, [0, 0, 0]
 
       my_comments_count_assert @post_holder, 0
-      comments_count_assert    @post_holder, [0,0,0]
-      
-      comcoms_count_assert    @post_holder, [0,5,4]
-      comcoms_counters_assert @post_holder, [0,5,4]
+      comments_count_assert    @post_holder, [0, 0, 0]
 
-      comments_count_assert    @post, [0,5,4]
-      comments_counters_assert @post, [0,5,4]
+      comcoms_count_assert    @post_holder, [0, 5, 4]
+      comcoms_counters_assert @post_holder, [0, 5, 4]
+
+      comments_count_assert    @post, [0, 5, 4]
+      comments_counters_assert @post, [0, 5, 4]
     end
 
     # This code helps to me to catch logic bugs
@@ -332,7 +332,7 @@ describe User do
     #   end
     # end
 
-    # it 'has correct counters after comment destroy' do 
+    # it 'has correct counters after comment destroy' do
     #   pending("has correct counters after comment destroy")
     # end
   end
