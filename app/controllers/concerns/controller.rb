@@ -115,7 +115,7 @@ module TheComments
         @comment.save
         return render layout: false, partial: comment_partial(:comment), locals: { tree: @comment }
       end
-      render json: { errors: @comment.errors.full_messages }
+      render json: { errors: @comment.errors }
     end
 
     # Restricted area

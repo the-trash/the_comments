@@ -1,8 +1,9 @@
 # ERROR MSG BUILDER
 @comments_errors_builder = (errors) ->
   error_msgs = ''
-  for error in errors
-    error_msgs += "<p><b>#{ error }</b></p>"
+  for field, errs of errors
+    for err in errs
+      error_msgs += "<p><b>#{ field }:</b> #{ err }</p>"
   error_msgs
 
 # FORM CLEANER
@@ -38,7 +39,7 @@ $ ->
 
     if tolerance_time && (time_diff < tolerance_time)
       delta  = tolerance_time - time_diff
-      error_msgs = comments_errors_builder(["Please wait #{delta} secs"])
+      error_msgs = comments_errors_builder({ delay: ["Please wait #{delta} secs"] })
       comments_error_notifier(form, error_msgs)
       return false
 
@@ -53,7 +54,7 @@ $ ->
   $(document).on 'ajax:error', comment_forms, (request, response, status) ->
     form = $ @
     $('input[type=submit]', form).show()
-    error_msgs = comments_errors_builder(["Server Error: #{response.status}"])
+    error_msgs = comments_errors_builder({ "Server Error: ": [response.status] })
     comments_error_notifier(form, error_msgs)
 
   # SUCCESS
@@ -86,7 +87,7 @@ $ ->
   $(document).on 'click', '.reply_link', ->
     link    = $ @
     comment = link.parent().parent().parent()
-  
+
     $(comment_forms).hide()
     form = $('#new_comment').clone().removeAttr('id').addClass('reply_comments_form')
 
