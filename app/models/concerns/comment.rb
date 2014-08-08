@@ -10,13 +10,13 @@ module TheComments
       acts_as_nested_set scope: [:commentable_type, :commentable_id]
 
       # simple sort scopes
-      include TheSimpleSort::Base
+      include ::TheSimpleSort::Base
+
+      # TheSortableTree
+      include ::TheSortableTree::Scopes
 
       # Comments State Machine
       include TheComments::CommentStates
-
-      # TheSortableTree
-      include TheSortableTree::Scopes
 
       validates :raw_content, presence: true
 
