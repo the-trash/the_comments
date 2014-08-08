@@ -51,17 +51,17 @@ module TheComments
 
     # App side methods (you can overwrite them)
     def index
-      @comments = ::Comment.with_state(:published).recent.page(params[:page])
+      @comments = ::Comment.with_state(:published).with_users.recent.page(params[:page])
       render comment_template(:index)
     end
 
     def manage
-      @comments = current_user.comcoms.active.recent.page(params[:page])
+      @comments = current_user.comcoms.with_users.active.recent.page(params[:page])
       render comment_template(:manage)
     end
 
     def my_comments
-      @comments = current_user.my_comments.active.recent.page(params[:page])
+      @comments = current_user.my_comments.with_users.active.recent.page(params[:page])
       render comment_template(:manage)
     end
 
@@ -74,30 +74,30 @@ module TheComments
     # Methods for admin
     %w[draft published deleted].each do |state|
       define_method "#{state}" do
-        @comments = current_user.comcoms.with_state(state).recent.page(params[:page])
+        @comments = current_user.comcoms.with_users.with_state(state).recent.page(params[:page])
         render comment_template(:manage)
       end
 
       define_method "total_#{state}" do
-        @comments = ::Comment.with_state(state).recent.page(params[:page])
+        @comments = ::Comment.with_state(state).with_users.recent.page(params[:page])
         render comment_template(:manage)
       end
 
       unless state == 'deleted'
         define_method "my_#{state}" do
-          @comments = current_user.my_comments.with_state(state).recent.page(params[:page])
+          @comments = current_user.my_comments.with_users.with_state(state).recent.page(params[:page])
           render comment_template(:my_comments)
         end
       end
     end
 
     def spam
-      @comments = current_user.comcoms.where(spam: true).recent.page(params[:page])
+      @comments = current_user.comcoms.with_users.where(spam: true).recent.page(params[:page])
       render comment_template(:manage)
     end
 
     def total_spam
-      @comments = ::Comment.where(spam: true).recent.page(params[:page])
+      @comments = ::Comment.where(spam: true).with_users.recent.page(params[:page])
       render comment_template(:manage)
     end
 

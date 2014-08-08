@@ -9,7 +9,12 @@
   %tr
     %td
       %b= t('the_comments.title')
-    %td= comment.title.blank? ? t('the_comments.guest_name') : comment.title
+    %td
+      - if comment.try(:user)
+        - name = comment.user.try(:username) || comment.user.try(:login) || :User
+        = link_to name, comment.user
+      - else
+        = comment.header_title
   %tr
     %td
       %b= t('the_comments.contacts')

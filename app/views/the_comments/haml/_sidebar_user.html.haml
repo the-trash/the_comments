@@ -1,0 +1,11 @@
+- cuser = current_user
+
+%h5= t 'the_comments.written_by_me'
+
+%ul
+  %li= link_to "Все мои (#{ cuser.my_comments.count })",                [:my_comments,  :comments]
+  %li= link_to "Опубликованы (#{ cuser.my_published_comments.count })", [:my_published, :comments]
+  %li= link_to "На модерации (#{ cuser.my_draft_comments.count })",     [:my_draft,     :comments]
+
+  - if !cuser.my_deleted_comments.count.zero?
+    %li= "Удалены (#{ cuser.my_deleted_comments.count })"

@@ -5,6 +5,7 @@ module TheComments
     included do
       scope :active, -> { with_state [:draft, :published] }
       scope :recent, -> { order('created_at DESC') }
+      scope :with_users, -> { includes(:user) }
 
       # Nested Set
       acts_as_nested_set scope: [:commentable_type, :commentable_id]
@@ -28,7 +29,7 @@ module TheComments
       before_save   :prepare_content
     end
 
-    def header_text
+    def header_title
       title.present? ? title : I18n.t('the_comments.guest_name')
     end
 
