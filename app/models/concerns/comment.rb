@@ -4,11 +4,13 @@ module TheComments
 
     included do
       scope :active, -> { with_state [:draft, :published] }
-      scope :recent, -> { order('created_at DESC') }
       scope :with_users, -> { includes(:user) }
 
       # Nested Set
       acts_as_nested_set scope: [:commentable_type, :commentable_id]
+
+      # simple sort scopes
+      include TheSimpleSort::Base
 
       # Comments State Machine
       include TheComments::CommentStates
