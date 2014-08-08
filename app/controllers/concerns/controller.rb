@@ -86,7 +86,7 @@ module TheComments
       unless state == 'deleted'
         define_method "my_#{state}" do
           @comments = current_user.my_comments.with_users.with_state(state).recent.page(params[:page])
-          render comment_template(:my_comments)
+          render comment_template(:manage)
         end
       end
     end
