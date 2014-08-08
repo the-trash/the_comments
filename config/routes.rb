@@ -3,10 +3,12 @@ module TheComments
     def call mapper, options = {}
       mapper.collection do
         mapper.get :manage
+        mapper.get :my_comments
 
         mapper.get :my_draft
         mapper.get :my_published
-        mapper.get :my_comments
+        mapper.get :my_deleted
+        mapper.get :my_spam
 
         mapper.get :draft
         mapper.get :published

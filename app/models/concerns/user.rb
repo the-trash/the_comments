@@ -1,7 +1,7 @@
 module TheComments
   module User
     extend ActiveSupport::Concern
-    
+
     included do
       has_many :comcoms, class_name: :Comment, foreign_key: :holder_id
     end
@@ -16,6 +16,10 @@ module TheComments
       define_method "#{state}_comcoms" do
         comcoms.with_state state
       end
+    end
+
+    def my_spam_comments
+      my_comments.where(spam: true)
     end
 
     # I think we shouldn't to have my_deleted_comments cache counter

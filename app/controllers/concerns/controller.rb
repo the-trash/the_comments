@@ -83,16 +83,19 @@ module TheComments
         render comment_template(:manage)
       end
 
-      unless state == 'deleted'
-        define_method "my_#{state}" do
-          @comments = current_user.my_comments.with_users.with_state(state).recent.page(params[:page])
-          render comment_template(:manage)
-        end
+      define_method "my_#{state}" do
+        @comments = current_user.my_comments.with_users.with_state(state).recent.page(params[:page])
+        render comment_template(:manage)
       end
     end
 
     def spam
       @comments = current_user.comcoms.with_users.where(spam: true).recent.page(params[:page])
+      render comment_template(:manage)
+    end
+
+    def my_spam
+      @comments = current_user.my_comments.with_users.where(spam: true).recent.page(params[:page])
       render comment_template(:manage)
     end
 
