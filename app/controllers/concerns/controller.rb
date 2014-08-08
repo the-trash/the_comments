@@ -62,7 +62,7 @@ module TheComments
 
     def my_comments
       @comments = current_user.my_comments.active.recent.page(params[:page])
-      render comment_template(:my_comments)
+      render comment_template(:manage)
     end
 
     def edit

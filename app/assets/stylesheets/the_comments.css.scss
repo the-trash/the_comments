@@ -22,17 +22,19 @@
   }
 }
 
+.action_btns a{ margin-right: 15px; }
+
 .comments, .comments_tree{
   font-family: Arial;
   font-size: 13px;
 
   h3{ font-size: 1.6em; }
 
-  .error_notifier{    
+  .error_notifier{
     background-color: #F2DEDE;
     border: 1px solid #B94A48;
     color: #B94A48;
-    
+
     border-radius: 4px;
     margin: 0 0 15px 0;
     padding: 10px 10px 0 10px;
@@ -41,13 +43,13 @@
     p{ margin: 0 0 10px 0; }
   }
   form{
-    
+
     background: #e0e4f5;
 
     border: 1px solid #c6cff5;
     border-radius: 5px;
     padding: 10px;
-    
+
     p{ margin: 0 0 10px 0; }
 
     input[type=text]{
@@ -88,7 +90,7 @@
   }
 
   .form_holder{ margin-left: 40px; }
-  
+
   .edit, .delete{
     margin-bottom: 3px;
     text-align:center;
@@ -142,6 +144,7 @@
   .controls{
     position: absolute;
     top: 53px; left: 5px;
+
     a{
       font-size:11px;
       display:block;
@@ -161,7 +164,7 @@
   }
 
   .form_holder{
-    form{ margin: 10px 0; } 
+    form{ margin: 10px 0; }
   }
 }
 
@@ -187,7 +190,7 @@
       border-left: 5px solid orange;
 
       .controls{
-        a.to_draft{ display: none }   
+        a.to_draft{ display: none }
       }
     }
     .published{

@@ -15,7 +15,7 @@ ru:
     in_system: "Все в системе:"
     written_by_me: "Написанные мной:"
     back_to_root: "&larr; На главную"
-    
+
     my_comments:        "Мои комментарии (%{num})"
     draft_comments:     "Новые (%{num})"
     published_comments: "Опубликованные (%{num})"

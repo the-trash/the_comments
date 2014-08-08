@@ -28,6 +28,10 @@ module TheComments
       before_save   :prepare_content
     end
 
+    def header_text
+      title.present? ? title : I18n.t('the_comments.guest_name')
+    end
+
     def avatar_url
       src = id.to_s
       src = title unless title.blank?
@@ -35,7 +39,7 @@ module TheComments
       hash = Digest::MD5.hexdigest(src)
       "https://2.gravatar.com/avatar/#{hash}?s=42&d=https://identicons.github.com/#{hash}.png"
     end
-      
+
     def mark_as_spam
       count = self_and_descendants.update_all({spam: true})
       update_spam_counter
@@ -86,7 +90,7 @@ module TheComments
     # We have few unuseful requests
     # I impressed that I found it and reduce DB requests
     # Awesome logic pazzl! I'm really pedant :D
-    def update_cache_counters    
+    def update_cache_counters
       user.try :recalculate_my_comments_counter!
 
       if holder
