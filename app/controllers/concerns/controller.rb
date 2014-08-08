@@ -50,10 +50,6 @@ module TheComments
     end
 
     # App side methods (you can overwrite them)
-    def index
-      @comments = ::Comment.with_state(:published).with_users.recent.page(params[:page])
-      render comment_template(:index)
-    end
 
     def manage
       @comments = current_user.comcoms.with_users.active.recent.page(params[:page])
@@ -62,11 +58,6 @@ module TheComments
 
     def my_comments
       @comments = current_user.my_comments.with_users.active.recent.page(params[:page])
-      render comment_template(:manage)
-    end
-
-    def edit
-      @comments = current_user.comcoms.where(id: params[:id]).page(params[:page])
       render comment_template(:manage)
     end
 
@@ -105,12 +96,8 @@ module TheComments
     end
 
     # BASE METHODS
+
     # Public methods
-    def update
-      comment = ::Comment.find(params[:id])
-      comment.update_attributes!(patch_comment_params)
-      render(layout: false, partial: comment_partial(:comment_body), locals: { comment: comment })
-    end
 
     def create
       @comment = @commentable.comments.new comment_params
@@ -122,6 +109,18 @@ module TheComments
     end
 
     # Restricted area
+
+    def edit
+      @comments = current_user.comcoms.where(id: params[:id]).page(params[:page])
+      render comment_template(:manage)
+    end
+
+    def update
+      comment = ::Comment.find(params[:id])
+      comment.update_attributes!(patch_comment_params)
+      render(layout: false, partial: comment_partial(:comment_body), locals: { comment: comment })
+    end
+
     %w[draft published deleted].each do |state|
       define_method "to_#{state}" do
         ::Comment.find(params[:id]).try "to_#{state}"
