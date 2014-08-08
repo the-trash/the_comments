@@ -35,6 +35,10 @@ module TheComments
       title.present? ? title : I18n.t('the_comments.guest_name')
     end
 
+    def user_name
+      user.try(:username) || user.try(:login) || header_title
+    end
+
     def avatar_url
       src = id.to_s
       src = title unless title.blank?
@@ -98,12 +102,14 @@ module TheComments
 
       if holder
         holder.send :try, :define_denormalize_flags
-        holder.increment! "#{state}_comcoms_count"
+        holder.increment! "#{ state }_comcoms_count"
+        # holder.class.increment_counter("#{ state }_comcoms_count", holder.id)
       end
 
       if commentable
         commentable.send :define_denormalize_flags
-        commentable.increment! "#{state}_comments_count"
+        commentable.increment! "#{ state }_comments_count"
+        # holder.class.increment_counter("#{ state }_comments_count", holder.id)
       end
     end
   end
