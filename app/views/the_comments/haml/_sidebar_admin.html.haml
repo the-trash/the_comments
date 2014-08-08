@@ -2,21 +2,17 @@
 
 %h5= t 'the_comments.incoming'
 
-%p= link_to t("the_comments.draft_comments",     num: cuser.draft_comcoms_count),     [:draft,     :comments], class: 'btn btn-primary btn-sm'
 %p= link_to t("the_comments.published_comments", num: cuser.published_comcoms_count), [:published, :comments], class: 'btn btn-primary btn-sm'
-%p= link_to t("the_comments.deleted_comments",   num: cuser.deleted_comcoms_count),   [:deleted,   :comments], class: 'btn btn-primary btn-sm'
-%p= link_to t("the_comments.spam_comments",      num: cuser.spam_comcoms_count),      [:spam,      :comments], class: 'btn btn-primary btn-sm'
+%p= link_to t("the_comments.draft_comments",     num: cuser.draft_comcoms_count),     [:draft,     :comments], class: 'btn btn-info btn-sm'
+%p= link_to t("the_comments.deleted_comments",   num: cuser.deleted_comcoms_count),   [:deleted,   :comments], class: 'btn btn-warning btn-sm'
+%p= link_to t("the_comments.spam_comments",      num: cuser.spam_comcoms_count),      [:spam,      :comments], class: 'btn btn-danger btn-sm'
 
-%h5= t 'the_comments.written_by_me'
-
-%p= link_to t("the_comments.draft_comments",     num: cuser.my_draft_comments.count),     [:my_draft,     :comments], class: 'btn btn-primary btn-sm'
-%p= link_to t("the_comments.published_comments", num: cuser.my_published_comments.count), [:my_published, :comments], class: 'btn btn-primary btn-sm'
-%p= link_to t("the_comments.my_comments",        num: cuser.my_comments_count),           [:my_comments,  :comments], class: 'btn btn-primary btn-sm'
+= render partial: 'the_comments/haml/sidebar_user'
 
 - if cuser.comments_admin?
   %h5= t 'the_comments.in_system'
 
-  %p= link_to t("the_comments.draft_comments",     num: Comment.with_state(:draft).count),     [:total_draft,     :comments], class: 'btn btn-primary btn-sm'
   %p= link_to t("the_comments.published_comments", num: Comment.with_state(:published).count), [:total_published, :comments], class: 'btn btn-primary btn-sm'
-  %p= link_to t("the_comments.deleted_comments",   num: Comment.with_state(:deleted).count),   [:total_deleted,   :comments], class: 'btn btn-primary btn-sm'
-  %p= link_to t("the_comments.spam_comments",      num: Comment.where(spam: true).count),      [:total_spam,      :comments], class: 'btn btn-primary btn-sm'
+  %p= link_to t("the_comments.draft_comments",     num: Comment.with_state(:draft).count),     [:total_draft,     :comments], class: 'btn btn-info btn-sm'
+  %p= link_to t("the_comments.deleted_comments",   num: Comment.with_state(:deleted).count),   [:total_deleted,   :comments], class: 'btn btn-warning btn-sm'
+  %p= link_to t("the_comments.spam_comments",      num: Comment.where(spam: true).count),      [:total_spam,      :comments], class: 'btn btn-danger btn-sm'

@@ -11,7 +11,7 @@
     - @comments.each do |comment|
       - klass = { published: :primary, draft: :warning, deleted: :danger }[comment.state.to_sym]
       .panel{ class: "panel-#{klass}" }
-        .panel-heading= comment.title
+        .panel-heading= comment.header_title
         .panel-body
           = render partial: 'the_comments/haml/comment_body', locals: { comment: comment }
 
