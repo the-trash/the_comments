@@ -45,7 +45,9 @@ ru:
     no_comments_here: Здесь нет комментариев
 
     nav:
-      header: "Навигация"
+      header: Комментарии
+      to_root: На главную
+      all_incoming: Все входящие
 
     form:
       title: "Ваше имя:"
