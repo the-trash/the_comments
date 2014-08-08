@@ -11,8 +11,7 @@ table.comment_body.table.table-striped.table-hover
       b= t('the_comments.title')
     td
       - if comment.try(:user)
-        - name = comment.user.try(:username) || comment.user.try(:login) || :User
-        = link_to name, comment.user
+        = link_to comment.user_name, comment.user
       - else
         = comment.header_title
   tr
