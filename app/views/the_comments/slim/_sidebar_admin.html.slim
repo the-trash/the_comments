@@ -1,0 +1,12 @@
+- cuser = current_user
+
+= render partial: 'the_comments/slim/sidebar_user'
+
+- if cuser.comments_admin?
+  br
+  h5= t 'the_comments.in_system', num: Comment.count
+  p= link_to t("the_comments.published_comments", num: Comment.with_state(:published).count), [:total_published, :comments], class: 'btn btn-success btn-sm'
+  p= link_to t("the_comments.draft_comments",     num: Comment.with_state(:draft).count),     [:total_draft,     :comments], class: 'btn btn-info btn-sm'
+  p
+    = link_to t("the_comments.deleted_comments",   num: Comment.with_state(:deleted).count),   [:total_deleted,   :comments], class: 'btn btn-default btn-sm'
+    = link_to t("the_comments.spam_comments",      num: Comment.where(spam: true).count),      [:total_spam,      :comments], class: 'btn btn-default btn-sm'

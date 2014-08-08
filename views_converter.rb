@@ -1,4 +1,4 @@
-# gem install haml2slim --nori --nordoc
+# gem install haml2slim --no-ri --no-rdoc
 # ruby views_converter.rb
 
 from = "./app/views/the_comments/haml"

@@ -1,0 +1,18 @@
+.logined_comment_form
+  .user_data
+    = link_to user_path(current_user), nopin: :nopin do
+      = image_tag current_user.avatar.url(:thumb)
+  .comment_data
+    = hidden_field_tag :tolerance_time, 0, id: nil, class: :tolerance_time
+    = f.hidden_field :commentable_type, value: commentable.class
+    = f.hidden_field :commentable_id,   value: commentable.id
+    = f.hidden_field :parent_id, class: :parent_id
+
+    .user_name
+      b= current_user.username.present? ? current_user.username : current_user.login
+    label= t('the_comments.form.content')
+    p= f.text_area :raw_content
+
+    p
+      = f.submit t('the_comments.form.create'), class: :btn
+      = t('the_comments.form.thank_you')

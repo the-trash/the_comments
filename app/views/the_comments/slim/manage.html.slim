@@ -12,14 +12,15 @@
 
   .comments
     - @comments.each do |comment|
-      - klass = { published: :primary, draft: :warning, deleted: :danger }[comment.state.to_sym]
+      - klass = { published: :success, draft: :info, deleted: :danger }[comment.state.to_sym]
       .panel  class: "panel-#{klass}"  
-        .panel-heading= comment.title
+        .panel-heading= comment.header_title
         .panel-body
-          = render partial: 'the_comments/slim/comment_edit', locals: { comment: comment }
           = render partial: 'the_comments/slim/comment_body', locals: { comment: comment }
 
-          = render partial: 'the_comments/slim/manage_controls', locals: { comment: comment }
-          = render partial: 'the_comments/slim/additional_info', locals: { comment: comment }
-        
+          - if current_user.comments_admin?
+            = render partial: 'the_comments/slim/comment_edit', locals: { comment: comment }
+            = render partial: 'the_comments/slim/manage_controls', locals: { comment: comment }
+            = render partial: 'the_comments/slim/additional_info', locals: { comment: comment }
+
   = paginate @comments

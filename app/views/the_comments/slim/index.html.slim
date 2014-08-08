@@ -9,9 +9,9 @@
 
   .comments
     - @comments.each do |comment|
-      - klass = { published: :primary, draft: :warning, deleted: :danger }[comment.state.to_sym]
+      - klass = { published: :success, draft: :info, deleted: :danger }[comment.state.to_sym]
       .panel  class: "panel-#{klass}"  
-        .panel-heading= comment.title
+        .panel-heading= comment.header_title
         .panel-body
           = render partial: 'the_comments/slim/comment_body', locals: { comment: comment }
 
