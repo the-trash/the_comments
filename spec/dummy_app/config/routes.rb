@@ -10,6 +10,7 @@ App::Application.routes.draw do
   post   "sessions" => "sessions#create",  as: :sessions
 
   resources :posts
+  resources :users
 
   # TheComments routes
   concern   :user_comments,  TheComments::UserRoutes.new

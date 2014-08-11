@@ -1,4 +1,4 @@
-- if commentable.comments_on?
+- if commentable.try(:comments_on?) || true
   %h4.comments_sum
     - if commentable.comments_sum.zero?
       Вы можете стать первым, кто оставит комментарий!
