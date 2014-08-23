@@ -21,4 +21,5 @@
   %tr.success
     %td
       %b= t('the_comments.content')
-    %td= comment.content
+    %td{ style: 'word-break: break-all;' }= raw comment.content
+
