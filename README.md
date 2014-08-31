@@ -198,7 +198,7 @@ end
 
 ### 8. Controller code example
 
-**app/controllers/posts_controllers.rb**
+**app/controllers/posts_controller.rb**
 
 ```ruby
 def show
