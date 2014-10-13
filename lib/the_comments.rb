@@ -7,19 +7,16 @@ require 'the_sortable_tree'
 require 'the_comments/config'
 require 'the_comments/version'
 
-_root_ = File.expand_path('../../',  __FILE__)
-
 module TheComments
-  class Engine < Rails::Engine; end
+  class Engine < Rails::Engine
+    config.autoload_paths += Dir["#{config.root}/app/controllers/concerns/**/"]
+    config.autoload_paths += Dir["#{config.root}/app/models/concerns/**/"]
+  end
 end
 
 # Loading of concerns
+_root_ = File.expand_path('../../',  __FILE__)
 require "#{_root_}/config/routes.rb"
-require "#{_root_}/app/controllers/concerns/controller.rb"
-
-%w[ comment_states comment user commentable ].each do |concern|
-  require "#{_root_}/app/models/concerns/#{concern}.rb"
-end
 
 if StateMachine::VERSION.to_f <= 1.2
   puts '~' * 50
