@@ -1,6 +1,4 @@
 module TheComments
-  COMMENTS_COOKIES_TOKEN = 'JustTheCommentsCookies'
-
   # Base functionality of Comments Controller
   # class CommentsController < ApplicationController
   #   include TheComments::Controller
