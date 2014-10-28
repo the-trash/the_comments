@@ -21,7 +21,7 @@
 
 # TheCommentsHighlight.init()
 @TheCommentsHighlight = do ->
-  @highlight_anchor = ->
+  highlight_anchor: ->
     hash = document.location.hash
     if hash.match('#comment_')
       $(hash).addClass 'highlighted'
