@@ -8,8 +8,6 @@ require 'the_comments/config'
 require 'the_comments/version'
 
 module TheComments
-  COMMENTS_COOKIES_TOKEN = 'JustTheCommentsCookies'
-
   class Engine < Rails::Engine
     config.autoload_paths += Dir["#{config.root}/app/controllers/concerns/**/"]
     config.autoload_paths += Dir["#{config.root}/app/models/concerns/**/"]

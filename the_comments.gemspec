@@ -20,6 +20,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'state_machine',     '~> 1.2.0'
   gem.add_dependency 'the_sortable_tree', '~> 2.5.0'
   gem.add_dependency 'the_simple_sort',   '~> 0.0.2'
+  gem.add_dependency 'the_notification',  '~> 0.0.1'
 
   # gem.add_dependency 'rails', '>= 4.0'
 end

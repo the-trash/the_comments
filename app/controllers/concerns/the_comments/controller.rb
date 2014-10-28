@@ -25,7 +25,7 @@ module TheComments
       before_action :define_commentable, only: [:create]
 
       # raise an errors
-      before_action -> { return render(json: { errors: @errors }) unless @errors.blank? }, only: [:create]
+      before_action -> { return render(json: { errors: @errors }, status: 422) unless @errors.blank? }, only: [:create]
     end
 
     # App side methods (you can overwrite them)
@@ -84,7 +84,7 @@ module TheComments
         @comment.save
         return render layout: false, partial: comment_partial(:comment), locals: { tree: @comment }
       end
-      render json: { errors: @comment.errors }
+      render json: { errors: @comment.errors }, status: 422
     end
 
     # Restricted area
@@ -140,7 +140,7 @@ module TheComments
       commentable_id    = params[:comment][:commentable_id]
 
       @commentable = commentable_klass.find(commentable_id)
-      return render(json: { errors: [t('the_comments.undefined_commentable')] }) unless @commentable
+      return render(json: { errors: [t('the_comments.undefined_commentable')] }, status: 422) unless @commentable
     end
 
     def comment_params
@@ -167,7 +167,7 @@ module TheComments
     end
 
     def cookies_required
-      if cookies[:the_comment_cookies] != TheComments::COMMENTS_COOKIES_TOKEN
+      if cookies[:the_comment_cookies] != TheComments::ViewToken::COMMENTS_COOKIES_TOKEN
         @errors << [t('the_comments.cookies'), t('the_comments.cookies_required')].join(': ')
       end
     end
