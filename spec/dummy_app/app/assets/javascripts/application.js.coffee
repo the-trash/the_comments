@@ -3,10 +3,12 @@
 
 #= require the_notification/vendors/toastr
 #= require the_notification
+#= require the_comments_default_notificator
 
 #= require the_log
 #= require the_comments
 
 $ ->
-  TheComments.init()
+  notificator = TheCommentsDefaultNotificator
+  TheComments.init(notificator)
   TheCommentsHighlight.init()

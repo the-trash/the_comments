@@ -1,6 +1,12 @@
 # TIME HELPER
 @unixsec = (t) -> Math.round(t.getTime() / 1000)
 
+# INTERPOLATION HELPER
+String::supplant = (o) ->
+  @replace /{([^{}]*)}/g, (a, b) ->
+    r = o[b]
+    (if typeof r is "string" or typeof r is "number" then r else a)
+
 # TheCommentsHighlight.init()
 @TheCommentsHighlight = do ->
   highlight_anchor: ->
@@ -19,7 +25,12 @@
 @TheComments = do ->
   comment_forms: "#new_comment, .reply_comments_form"
 
-  init: ->
+  i18n:
+    server_error: "Server Error: {code} code"
+    please_wait:  "Please wait for {sec} sec"
+    succesful_created: "Comment was created"
+
+  init: (@notificator) ->
     do @reply_button_init
     do @ajaxian_form_init
     do @new_comment_link_init
@@ -62,9 +73,12 @@
       $('input[type=submit]', form).show()
 
       if errors = response?.responseJSON?.errors
-        TheNotification.show_errors errors
+        TheComments.notificator.show_errors(errors, form)
       else
-        TheNotification.show_error "Server Error: #{ response.status }"
+        TheComments.notificator.show_error(
+          TheComments.i18n.server_error.supplant({ code: response.status }),
+          form
+        )
 
     # SUCCESS
     $(document).on 'ajax:success', @comment_forms, (request, response, status) ->
@@ -82,6 +96,10 @@
       tree = $('ol.comments_tree') if tree.length is 0
       tree.append(response)
 
+      TheComments.notificator.show_flash({
+        flash: [ TheComments.i18n.succesful_created ]
+      })
+
       document.location.hash = anchor
 
   new_comment_submit_btn_init: ->
@@ -91,7 +109,7 @@
     # Button Click => AJAX Before Send
     submits = '#new_comment input[type=submit], .reply_comments_form input[type=submit]'
 
-    $(document).on 'click', submits, (e) ->
+    $(document).on 'click', submits, (e) =>
       button    = $ e.target
       form      = button.parents('form').first()
       time_diff = unixsec(new Date) - window.tolerance_time_start
@@ -99,7 +117,11 @@
       if tolerance_time && (time_diff < tolerance_time)
         delta = tolerance_time - time_diff
 
-        TheNotification.show_error "Please wait #{ delta } secs"
+        TheComments.notificator.show_error(
+          TheComments.i18n.please_wait.supplant({ sec: delta }),
+          form
+        )
+
         return false
 
       $('.tolerance_time').val time_diff
