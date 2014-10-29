@@ -2,7 +2,7 @@ class CommentsController < ApplicationController
   # Define your restrict methods and use them like this:
   #
   # before_action :user_required,      except: [:index, :create]
-  # 
+  #
   # before_action :owner_required,     only: [:my, :incoming, :edit, :trash]
   # before_action :moderator_required, only: [:update, :to_published, :to_draft, :to_spam, :to_trash]
 

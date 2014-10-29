@@ -1,5 +1,5 @@
 !!!
-%html
+%html{ data: { the_log: Rails.env.development? } }
 %head
   %title TheComments Dummy App
   = stylesheet_link_tag    :application, media: :all
@@ -8,6 +8,8 @@
 
 %body
   .body
+    = render partial: 'the_notification/flash', locals: { format: :json }
+
     %p
       = link_to 'Home', root_path
       \|

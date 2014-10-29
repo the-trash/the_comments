@@ -13,7 +13,7 @@ module TheComments
       skip_before_action :set_the_comments_cookies, only: [:create]
 
       # Spam protection
-      before_action -> { @errors = [] }, only: [:create]
+      before_action -> { @errors = {} }, only: [:create]
 
       before_action :ajax_requests_required,  only: [:create]
       before_action :cookies_required,        only: [:create]
@@ -80,10 +80,12 @@ module TheComments
 
     def create
       @comment = @commentable.comments.new comment_params
+
       if @comment.valid?
         @comment.save
         return render layout: false, partial: comment_partial(:comment), locals: { tree: @comment }
       end
+
       render json: { errors: @comment.errors }, status: 422
     end
 
@@ -167,8 +169,8 @@ module TheComments
     end
 
     def cookies_required
-      if cookies[:the_comment_cookies] != TheComments::ViewToken::COMMENTS_COOKIES_TOKEN
-        @errors << [t('the_comments.cookies'), t('the_comments.cookies_required')].join(': ')
+      if cookies[:the_comment_cookies] != comments_cookies_token
+        @errors[t('the_comments.cookies')] = t('the_comments.cookies_required')
       end
     end
 
@@ -180,7 +182,7 @@ module TheComments
       params.slice(*TheComments.config.empty_inputs).values.each{|v| is_human = (is_human && v.blank?) }
 
       if !is_human
-        @errors << [t('the_comments.trap'), t('the_comments.trap_message')].join(': ')
+        @errors[t('the_comments.trap')] = t('the_comments.trap_message')
       end
     end
 
@@ -189,8 +191,8 @@ module TheComments
       min_time  = TheComments.config.tolerance_time.to_i
 
       if this_time < min_time
-        tdiff   = min_time - this_time
-        @errors << [t('the_comments.tolerance_time'), t('the_comments.tolerance_time_message', time: tdiff )].join(': ')
+        tdiff = min_time - this_time
+        @errors[t('the_comments.tolerance_time')] = t('the_comments.tolerance_time_message', time: tdiff )
       end
     end
   end

@@ -12,7 +12,6 @@ gem 'coffee-rails', '~> 4.0.0'
 
 gem 'thin', group: [:development]
 # gem 'therubyracer', platforms: :ruby
-gem 'sdoc', require: false, group: [:doc]
 
 # App gems
 gem 'haml'
@@ -20,9 +19,19 @@ gem 'sorcery'
 gem 'kaminari'
 gem 'haml-rails'
 
+gem 'pry-rails'
+
+# The Log
+gem 'the_log'
+  # path: '../../../the_log'
+
 # TheComments requires
 gem 'the_comments',
   path: '../../'
+
+gem 'the_notification',
+  github: 'TheProfitCMS/the_notification',
+  branch: 'master'
 
 gem 'bootstrap-sass',
   github: 'thomas-mcdonald/bootstrap-sass'
