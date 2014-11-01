@@ -1,3 +1,14 @@
+.new_comment_link{
+  margin: 20px 0;
+
+  a{
+    color: #0078e7;
+    font-size: 25px;
+    text-decoration: underline;
+    &:hover{ text-decoration: none; }
+  }
+}
+
 .comments_tree, .comments_list{
   font-family: Arial;
 
@@ -7,7 +18,10 @@
 
   *{ margin: 0; padding: 0; font-size: inherit; }
 
-  a{ text-decoration: none; }
+  a{
+    text-decoration: none;
+    color: #0078e7;
+  }
   a:hover{ text-decoration: underline; }
 
   ol{
@@ -28,8 +42,6 @@
   font-family: Arial;
   font-size: 13px;
 
-  h3{ font-size: 1.6em; }
-
   .error_notifier{
     background-color: #F2DEDE;
     border: 1px solid #B94A48;
@@ -42,30 +54,70 @@
 
     p{ margin: 0 0 10px 0; }
   }
+
   form{
+    background: #fbfcfe;
+    box-shadow: inset 0 0 2px #a5d2fb;
+    padding: 15px 15px 0 15px;
+    border: 1px solid #c1daf2;
+    border-radius: 3px;
+    margin-bottom: 10px;
 
-    background: #e0e4f5;
+    p{ margin: 0 0 15px 0; }
 
-    border: 1px solid #c6cff5;
-    border-radius: 5px;
-    padding: 10px;
-
-    p{ margin: 0 0 10px 0; }
-
-    input[type=text]{
-      border: 1px solid gray;
-      padding: 4px;
-      width: 75%;
+    label{
+      display: block;
+      font-size: 15px;
+      margin-bottom: 3px;
     }
-    label{ font-size: 15px; }
-    textarea{
-      border: 1px solid gray;
+
+    input[type=text], textarea{
+      border: 1px solid #c1daf2;
+      border-radius: 2px;
       font-family: Arial;
-      font-size: 13px;
-      height: 150px;
-      padding: 4px;
-      width: 75%;
+      font-size: 16px;
+      padding: 7px;
+
+      -webkit-transition: box-shadow 0.15s linear;
+      -o-transition: box-shadow 0.15s linear;
+      -moz-transition: box-shadow 0.15s linear;
+      -ms-transition: box-shadow 0.15s linear;
+      -kthtml-transition: box-shadow 0.15s linear;
+      transition: box-shadow 0.15s linear;
+
+      &:focus{
+        box-shadow: 0 0 3px #d5e8fb inset;
+
+        -webkit-transition: box-shadow 0.15s linear;
+        -o-transition: box-shadow 0.15s linear;
+        -moz-transition: box-shadow 0.15s linear;
+        -ms-transition: box-shadow 0.15s linear;
+        -kthtml-transition: box-shadow 0.15s linear;
+        transition: box-shadow 0.15s linear;
+      }
     }
+
+    input[type=text]{ width: 275px; }
+    textarea{ height: 150px; width: 75%; }
+
+    input[type=submit]{
+      color: white;
+      border: none;
+      font-size: 18px;
+      border-radius: 2px;
+      background: #0078e7;
+
+      &:disabled{ background: #eee; }
+
+      &:hover{
+        background-image: linear-gradient(
+          transparent,
+          rgba(0, 0, 0, 0.05) 40%,
+          rgba(0, 0, 0, 0.1)
+        )
+      }
+    }
+
     .trap{
       margin: 0; padding: 0;
       filter: alpha(opacity=0.001);
@@ -78,18 +130,21 @@
 
 .comments_tree{
   .nested_set{
-    border-left: 1px dotted lightGray;
+    border-left: 5px solid #eee;
   }
 
   li{
     .comment.draft{
-      border: 1px solid gray;
-      background: #eff5f3;
+      border: 1px solid #c1daf2;
+      background: #fbfcfe;
       padding: 10px;
     }
   }
 
-  .form_holder{ margin-left: 40px; }
+  .form_holder{
+    border-left: 5px solid orange;
+    padding-left: 20px;
+  }
 
   .edit, .delete{
     margin-bottom: 3px;
@@ -105,39 +160,37 @@
     overflow: hidden; zoom: 1;
 
     .userpic{
-      overflow: hidden; zoom: 1;
-      float: left;
       width: 50px;
+      float: left;
+      overflow: hidden; zoom: 1;
 
-      img{ margin-bottom: 10px; width: 42px; height: 42px; }
+      img{ margin-bottom: 10px; width: 50px; height: 50px; }
     }
-    .userbar, .cbody{
-      margin: 0 0 5px 55px;
-      padding: 3px;
-    }
-    .userbar{
-      background: #eff5f3;
+
+    .userbar, .comment_body{
+      margin: 0 0 5px 60px;
+      border: 1px solid #eee;
+      padding: 5px 5px 4px;
       border-radius: 3px;
-      padding-left: 7px;
+      background: white;
+      line-height: 160%;
+      overflow: hidden;
+      font-size: 13px;
     }
+
     &.draft{
-      .userbar{ background: #ffa768; }
       .to_draft{ display: none; }
     }
     &.published{
+      .comment_body{
+        border-bottom: 1px solid lightgray;
+      }
       .to_published{ display: none; }
     }
-    .cbody{
-      font-size: 15px;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 10px;
-      line-height: 135%;
-      margin-bottom: 3px;
-      overflow: hidden;
-    }
+
     .reply{
-      margin: 0 0 5px 55px;
-      font-size: 12px;
+      font-size: 13px;
+      margin: 15px 10px 6px 62px;
     }
   }
 
@@ -159,12 +212,8 @@
       border-radius: 3px;
       padding: 5px;
     }
-    &.highlighted{ border: 1px dashed #ff6633 !important; }
+    &.highlighted{ border: 1px dashed #5e85f3 !important; }
 
-  }
-
-  .form_holder{
-    form{ margin: 10px 0; }
   }
 }
 
@@ -177,6 +226,10 @@
 }
 
 .comments_list{
+  a{
+    color: #0078e7;
+  }
+
   li{
     margin-bottom: 20px;
 
@@ -210,8 +263,6 @@
     }
 
     .comment{
-      div{ margin: 0 0 10px 0; }
-
       label{
         width: 75px;
         font-weight: bold;

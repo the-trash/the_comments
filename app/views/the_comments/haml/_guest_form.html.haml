@@ -15,7 +15,7 @@
 
 = f.hidden_field :commentable_type, value: commentable.class
 = f.hidden_field :commentable_id,   value: commentable.id
-= f.hidden_field :parent_id, class: :parent_id
+= f.hidden_field :parent_id, data: { role: :parent_id }
 
 %p
   = f.submit t('the_comments.form.create'), class: :btn

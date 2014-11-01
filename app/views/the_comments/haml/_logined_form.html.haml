@@ -6,7 +6,7 @@
     = hidden_field_tag :tolerance_time, 0, id: nil, class: :tolerance_time
     = f.hidden_field :commentable_type, value: commentable.class
     = f.hidden_field :commentable_id,   value: commentable.id
-    = f.hidden_field :parent_id, class: :parent_id
+    = f.hidden_field :parent_id, data: { role: :parent_id }
 
     .user_name
       %b= current_user.username.present? ? current_user.username : current_user.login

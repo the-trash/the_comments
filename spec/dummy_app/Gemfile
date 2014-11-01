@@ -20,6 +20,8 @@ gem 'kaminari'
 gem 'haml-rails'
 
 gem 'pry-rails'
+gem 'the_data_role_block_rails'
+# path: '../../../the_data_role_block_rails'
 
 # The Log
 gem 'the_log'

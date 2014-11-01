@@ -8,7 +8,7 @@
 # or use h.html_escape(node.content)
 # for escape potentially dangerous content
 module RenderCommentsTreeHelper
-  module Render 
+  module Render
     class << self
       attr_accessor :h, :options
 
@@ -61,10 +61,10 @@ module RenderCommentsTreeHelper
       def published_comment
         "<li>
           <div id='comment_#{@comment.anchor}' class='comment #{@comment.state}' data-comment-id='#{@comment.to_param}'>
-            <div>
+            <div class='comment_data'>
               #{ avatar }
               #{ userbar }
-              <div class='cbody'>#{ @comment.content }</div>
+              <div class='comment_body'>#{ @comment.content }</div>
               #{ reply }
             </div>
           </div>
@@ -77,7 +77,7 @@ module RenderCommentsTreeHelper
       def avatar
         "<div class='userpic'>
           <img src='#{ @comment.avatar_url }' alt='userpic' />
-          #{ controls }
+          #{ moderator_controls }
         </div>"
       end
 
@@ -89,7 +89,9 @@ module RenderCommentsTreeHelper
 
       def moderator_controls
         if moderator?
-          h.link_to(t('the_comments.edit'), h.edit_comment_url(@comment), class: :edit)
+          "<div class='controls'>#{
+            h.link_to(t('the_comments.edit'), h.edit_comment_url(@comment), class: :edit)
+          }</div>"
         end
       end
 
@@ -97,10 +99,6 @@ module RenderCommentsTreeHelper
         if @comment.depth < (@max_reply_depth - 1)
           "<p class='reply'><a href='#' class='reply_link'>#{ t('the_comments.reply') }</a>"
         end
-      end
-
-      def controls
-        "<div class='controls'>#{ moderator_controls }</div>"
       end
 
       def children
