@@ -1,30 +1,16 @@
+#= require ./the_string_interpolate
+#= require ./the_comments_highlight
+
 # BASE HELPERS
 @unixsec = (t) -> Math.round(t.getTime() / 1000)
 
-# INTERPOLATION HELPER
-String::_interpolate = (o) ->
-  @replace /{([^{}]*)}/g, (a, b) ->
-    r = o[b]
-    (if typeof r is "string" or typeof r is "number" then r else a)
-
-# TheCommentsHighlight.init()
-@TheCommentsHighlight = do ->
-  highlight_anchor: ->
-    hash = document.location.hash
-    if hash.match('#comment_')
-      $(hash).addClass 'highlighted'
-
-  init: ->
-    @highlight_anchor()
-
-    $(window).on 'hashchange', =>
-      $('.comment.highlighted').removeClass 'highlighted'
-      @highlight_anchor()
+# data-block (@@) for containers
+# data-role (@) for items with handlers or values
 
 # TheComments.init()
 @TheComments = do ->
   comment_forms: "[data-role='new_comment'], .reply_comments_form"
-  submits:       '.comments input[type=submit]'
+  submits:       '@@comments input[type=submit]'
 
   i18n:
     server_error: "Server Error: {code} code"
@@ -56,9 +42,9 @@ String::_interpolate = (o) ->
       false
 
   reply_button_init: ->
-    $(document).on 'click', '.reply_link', (e) =>
+    $(document).on 'click', '@reply_link', (e) =>
       link    = $ e.currentTarget
-      comment = link.parents('.comment')
+      comment = link.parents('@comment')
 
       $(@comment_forms).hide()
       form = $('@new_comment').clone().addRole('reply_comments_form')
@@ -66,7 +52,7 @@ String::_interpolate = (o) ->
       comment_id = comment.data('comment-id')
       $("@parent_id", form).val comment_id
 
-      comment.siblings('.form_holder').html(form)
+      comment.siblings('@@form_holder').html(form)
       form.fadeIn()
       false
 
@@ -96,7 +82,7 @@ String::_interpolate = (o) ->
       TheComments.clear_comment_form()
 
       # append to nested tree or to root level?
-      tree = form.parent().siblings('.nested_set')
+      tree = form.parent().siblings('@@nested_set')
       tree = $('ol.comments_tree') if tree.length is 0
 
       # append comment
@@ -108,7 +94,7 @@ String::_interpolate = (o) ->
       })
 
       # set anchor
-      anchor = $(response).find('.comment').attr('id')
+      anchor = $(response).find('@comment').attr('id')
       document.location.hash = anchor
 
   new_comment_submit_btn_init: ->
@@ -131,7 +117,7 @@ String::_interpolate = (o) ->
 
         return false
 
-      $('.tolerance_time').val time_diff
+      $('@tolerance_time').val time_diff
       do @disable_submit_button
 
       true

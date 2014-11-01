@@ -7,6 +7,12 @@
 # Prepare your data on server side for rendering
 # or use h.html_escape(node.content)
 # for escape potentially dangerous content
+
+# DATA-ATTRIBUTES notice:
+#
+# data-block (@@) for containers
+# data-role (@) for items with handlers or values
+
 module RenderCommentsTreeHelper
   module Render
     class << self
@@ -49,7 +55,7 @@ module RenderCommentsTreeHelper
           published_comment
         else
           "<li class='draft'>
-            <div class='comment draft' id='comment_#{@comment.anchor}'>
+            <div data-role='comment' class='comment draft' id='comment_#{ @comment.anchor }'>
               #{ t('the_comments.waiting_for_moderation') }
               #{ h.link_to '#', '#comment_' + @comment.anchor }
             </div>
@@ -60,7 +66,7 @@ module RenderCommentsTreeHelper
 
       def published_comment
         "<li>
-          <div id='comment_#{@comment.anchor}' class='comment #{@comment.state}' data-comment-id='#{@comment.to_param}'>
+          <div data-role='comment' id='comment_#{ @comment.anchor }' class='comment #{ @comment.state }' data-comment-id='#{ @comment.to_param }'>
             <div class='comment_data'>
               #{ avatar }
               #{ userbar }
@@ -69,7 +75,7 @@ module RenderCommentsTreeHelper
             </div>
           </div>
 
-          <div class='form_holder'></div>
+          <div class='form_holder' data-block='form_holder'></div>
           #{ children }
         </li>"
       end
@@ -97,12 +103,16 @@ module RenderCommentsTreeHelper
 
       def reply
         if @comment.depth < (@max_reply_depth - 1)
-          "<p class='reply'><a href='#' class='reply_link'>#{ t('the_comments.reply') }</a>"
+          "<p class='reply_holder'>
+            <a href='#' data-role='reply_link'>
+              #{ t('the_comments.reply') }
+            </a>
+          </p>"
         end
       end
 
       def children
-        "<ol class='nested_set'>#{ options[:children] }</ol>"
+        "<ol class='nested_set' data-block='nested_set'>#{ options[:children] }</ol>"
       end
     end
   end
