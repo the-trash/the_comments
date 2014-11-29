@@ -42,18 +42,18 @@ module TheComments
 
     # Methods based on *current_user* helper
     # Methods for admin
-    %w[draft published deleted].each do |state|
-      define_method "#{state}" do
+    %w[ draft published deleted ].each do |state|
+      define_method "#{ state }" do
         @comments = current_user.comcoms.with_users.with_state(state).recent.page(params[:page])
         render comment_template(:manage)
       end
 
-      define_method "total_#{state}" do
+      define_method "total_#{ state }" do
         @comments = ::Comment.with_state(state).with_users.recent.page(params[:page])
         render comment_template(:manage)
       end
 
-      define_method "my_#{state}" do
+      define_method "my_#{ state }" do
         @comments = current_user.my_comments.with_users.with_state(state).recent.page(params[:page])
         render comment_template(:manage)
       end
@@ -81,12 +81,11 @@ module TheComments
     def create
       @comment = @commentable.comments.new comment_params
 
-      if @comment.valid?
-        @comment.save
-        return render layout: false, partial: comment_partial(:comment), locals: { tree: @comment }
+      if @comment.save
+        render template: view_context.comment_template('create.success')
+      else
+        render template: view_context.comment_template('create.errors'), status: 422
       end
-
-      render json: { errors: @comment.errors }, status: 422
     end
 
     # Restricted area
@@ -99,12 +98,12 @@ module TheComments
     def update
       comment = ::Comment.find(params[:id])
       comment.update_attributes!(patch_comment_params)
-      render(layout: false, partial: comment_partial(:comment_body), locals: { comment: comment })
+      render(layout: false, partial: comment_template(:comment_body), locals: { comment: comment })
     end
 
-    %w[draft published deleted].each do |state|
-      define_method "to_#{state}" do
-        ::Comment.find(params[:id]).try "to_#{state}"
+    %w[ draft published deleted ].each do |state|
+      define_method "to_#{ state }" do
+        ::Comment.find(params[:id]).try "to_#{ state }"
         render nothing: true
       end
     end
@@ -117,14 +116,6 @@ module TheComments
     end
 
     private
-
-    def comment_template template
-      { template: "the_comments/#{TheComments.config.template_engine}/#{template}" }
-    end
-
-    def comment_partial partial
-      "the_comments/#{TheComments.config.template_engine}/#{partial}"
-    end
 
     def denormalized_fields
       title = @commentable.commentable_title
