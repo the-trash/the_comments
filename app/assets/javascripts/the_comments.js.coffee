@@ -9,6 +9,9 @@
 
 # Add to your app:
 #
+# Notificator as dependency injection
+#
+#
 # $ ->
 #   TheComments.init( TheCommentsDefaultNotificator )
 
@@ -54,9 +57,6 @@
       tree = form.parent().siblings('@@nested_set')
       tree = $('@@comments_tree') if tree.length is 0
 
-      log "tree => ", tree
-      log data.comment
-
       # append comment
       tree.append(data.comment)
 
@@ -70,15 +70,15 @@
       document.location.hash = anchor
 
     # ERROR
-    $(document).on 'ajax:error', @comment_forms, (request, response, status) ->
-      form = $ @
-      do TheComments.enable_submit_button
+    $(document).on 'ajax:error', @comment_forms, (request, response, status) =>
+      form = $ request.currentTarget
+      do @enable_submit_button
 
       if errors = response?.responseJSON?.errors
-        TheComments.notificator.show_errors(errors, form)
+        @notificator.show_errors(errors, form)
       else
-        TheComments.notificator.show_error(
-          TheComments.i18n.server_error._interpolate({ code: response.status }),
+        @notificator.show_error(
+          @i18n.server_error._interpolate({ code: response.status }),
           form
         )
 
