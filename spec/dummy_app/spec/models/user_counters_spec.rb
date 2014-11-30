@@ -254,6 +254,7 @@ describe User do
       comments_counters_assert @user, [0,0,0]
       comments_count_assert    @user, [0,0,0]
       comcoms_count_assert     @user, [0,0,0]
+
       my_comments_count_assert @user, 2
       @user.my_comments.count.should eq 3
 

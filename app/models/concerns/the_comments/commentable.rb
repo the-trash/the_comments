@@ -2,7 +2,7 @@ module TheComments
   module Commentable
 
     extend ActiveSupport::Concern
-    
+
     included do
       has_many :comments, as: :commentable
 
@@ -63,7 +63,7 @@ module TheComments
           commentable_state: commentable_state,
           commentable_url:   commentable_url
         })
-      end 
+      end
     end
   end
 end

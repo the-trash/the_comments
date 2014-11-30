@@ -2,6 +2,12 @@ module TheComments
   module CommentStates
     extend ActiveSupport::Concern
 
+    # TODO: Counters updates shouldn't touch commentable object
+    #
+    # http://api.rubyonrails.org/classes/ActiveRecord/Persistence.html#method-i-update_column
+    # update_columns(attributes)
+    # replace .increment! && .decrement! with .update_columns
+
     included do
       # :draft | :published | :deleted
       state_machine :state, :initial => TheComments.config.default_state do
@@ -33,15 +39,25 @@ module TheComments
           to   = transition.to_name
 
           if @holder
-            @holder.send :try, :define_denormalize_flags
-            @holder.increment! "#{to}_comcoms_count"
-            @holder.decrement! "#{from}_comcoms_count"
+            # @holder.send :try, :define_denormalize_flags
+            # @holder.increment! "#{ to }_comcoms_count"
+            # @holder.decrement! "#{ from }_comcoms_count"
+
+            @holder.update_columns({
+              "#{ to }_comcoms_count"   => @holder.send("#{ to }_comcoms_count")   + 1,
+              "#{ from }_comcoms_count" => @holder.send("#{ from }_comcoms_count") - 1
+            })
           end
 
           if @commentable
-            @commentable.send       :define_denormalize_flags
-            @commentable.increment! "#{to}_comments_count"
-            @commentable.decrement! "#{from}_comments_count"
+            # @commentable.send       :define_denormalize_flags
+            # @commentable.increment! "#{ to }_comments_count"
+            # @commentable.decrement! "#{ from }_comments_count"
+
+            @commentable.update_columns({
+              "#{ to }_comments_count"   => @commentable.send("#{ to }_comments_count")   + 1,
+              "#{ from }_comments_count" => @commentable.send("#{ from }_comments_count") - 1
+            })
           end
         end
 
@@ -63,15 +79,25 @@ module TheComments
           @owner.try :recalculate_my_comments_counter!
 
           if @holder
-            @holder.send :try, :define_denormalize_flags
-            @holder.decrement! :deleted_comcoms_count
-            @holder.increment! "#{to}_comcoms_count"
+            # @holder.send :try, :define_denormalize_flags
+            # @holder.decrement! :deleted_comcoms_count
+            # @holder.increment! "#{ to }_comcoms_count"
+
+            @holder.update_columns({
+              "deleted_comcoms_count" => @holder.send("deleted_comcoms_count") - 1,
+              "#{ to }_comcoms_count" => @holder.send("#{ to }_comcoms_count") + 1
+            })
           end
 
           if @commentable
-            @commentable.send       :define_denormalize_flags
-            @commentable.decrement! :deleted_comments_count
-            @commentable.increment! "#{to}_comments_count"
+            # @commentable.send       :define_denormalize_flags
+            # @commentable.decrement! :deleted_comments_count
+            # @commentable.increment! "#{ to }_comments_count"
+
+            @commentable.update_columns({
+              "deleted_comments_count" => @commentable.send("deleted_comments_count") - 1,
+              "#{ to }_comments_count" => @commentable.send("#{ to }_comments_count") + 1
+            })
           end
         end
       end
