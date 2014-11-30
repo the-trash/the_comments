@@ -10,7 +10,7 @@
 # Add to your app:
 #
 # $ ->
-#   TheComments.init()
+#   TheComments.init( TheCommentsDefaultNotificator )
 
 @TheComments = do ->
   #####################################################
