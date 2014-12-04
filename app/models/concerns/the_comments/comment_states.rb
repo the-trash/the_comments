@@ -27,7 +27,7 @@ module TheComments
           @commentable = comment.commentable
         end
 
-        # between draft and published
+        # between delete, draft and published
         after_transition %i[ deleted draft published ] => %i[ draft published ] do |comment, transition|
           from = transition.from_name
           to   = transition.to_name

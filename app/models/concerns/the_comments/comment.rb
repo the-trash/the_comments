@@ -48,13 +48,13 @@ module TheComments
     end
 
     def mark_as_spam
-      count = self_and_descendants.update_all({spam: true})
+      count = self_and_descendants.update_all({ spam: true })
       update_spam_counter
       count
     end
 
     def mark_as_not_spam
-      count = self_and_descendants.update_all({spam: false})
+      count = self_and_descendants.update_all({ spam: false })
       update_spam_counter
       count
     end
@@ -92,34 +92,19 @@ module TheComments
       self.content = self.raw_content
     end
 
-    # Warn: increment! doesn't call validation =>
-    # before_validation filters doesn't work   =>
-    # We have few unuseful requests
-    # I impressed that I found it and reduce DB requests
-    # Awesome logic pazzl! I'm really pedant :D
     def update_cache_counters
       user.try :recalculate_my_comments_counter!
 
       if holder
-        # holder.send :try, :define_denormalize_flags
-        # holder.increment! "#{ state }_comcoms_count"
-
         holder.update_columns({
           "#{ state }_comcoms_count" => holder.send("#{ state }_comcoms_count") + 1
         })
-
-        # holder.class.increment_counter("#{ state }_comcoms_count", holder.id)
       end
 
       if commentable
-        # commentable.send :define_denormalize_flags
-        # commentable.increment! "#{ state }_comments_count"
-
         commentable.update_columns({
           "#{ state }_comments_count" => commentable.send("#{ state }_comments_count") + 1
         })
-
-        # holder.class.increment_counter("#{ state }_comments_count", holder.id)
       end
     end
   end
