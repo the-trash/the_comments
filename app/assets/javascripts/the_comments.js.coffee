@@ -4,7 +4,6 @@
 # BASE HELPERS
 @unixsec = (t) -> Math.round(t.getTime() / 1000)
 
-# data-block (@@) for containers
 # data-role (@) for items with handlers or values
 
 # Add to your app:
@@ -20,7 +19,7 @@
   # MODULE COMMON VARS
   #####################################################
   comment_forms: "@new_comment, .reply_comments_form"
-  submits:       '@@comments input[type=submit]'
+  submits:       '@comments input[type=submit]'
 
   i18n:
     server_error: "Server Error: {code} code"
@@ -48,17 +47,21 @@
       do @enable_submit_button
 
       # clean up env
-      form.hide()
       $('@parent_id').val('')
       $('@new_comment').fadeIn()
       @clear_comment_form()
 
       # append to nested tree or to root level?
-      tree = form.parent().siblings('@@nested_set')
-      tree = $('@@comments_tree') if tree.length is 0
+      tree = form.parent().siblings('@nested_set')
+      tree = $('@comments_tree') if tree.length is 0
+
+      # remove nested reply form
+      if form.hasRole('reply_comments_form')
+        form.fadeOut => form.remove
 
       # append comment
       tree.append(data.comment)
+      $('@comments_sum').text(data.comments_sum)
 
       # show notification
       @notificator.show_flash({
@@ -115,7 +118,7 @@
       comment_id = comment.data('comment-id')
       $("@parent_id", form).val comment_id
 
-      comment.siblings('@@form_holder').html(form)
+      comment.siblings('@form_holder').html(form)
       form.fadeIn()
       false
 
@@ -129,8 +132,8 @@
     $(@submits).prop('disabled', false)
 
   clear_comment_form: ->
-    $("@@comments input[name='comment[title]']").val('')
-    $("@@comments textarea[name='comment[raw_content]']").val('')
+    $("@comments input[name='comment[title]']").val('')
+    $("@comments textarea[name='comment[raw_content]']").val('')
 
   #####################################################
   # PROTECTION AND ANTI-SPAM HELPERS

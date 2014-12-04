@@ -10,7 +10,6 @@
 
 # DATA-ATTRIBUTES notice:
 #
-# data-block (@@) for containers
 # data-role (@) for items with handlers or values
 
 module RenderCommentsTreeHelper
@@ -75,7 +74,7 @@ module RenderCommentsTreeHelper
             </div>
           </div>
 
-          <div class='form_holder' data-block='form_holder'></div>
+          <div class='form_holder' data-role='form_holder'></div>
           #{ children }
         </li>"
       end
@@ -112,7 +111,7 @@ module RenderCommentsTreeHelper
       end
 
       def children
-        "<ol class='nested_set' data-block='nested_set'>#{ options[:children] }</ol>"
+        "<ol class='nested_set' data-role='nested_set'>#{ options[:children] }</ol>"
       end
     end
   end

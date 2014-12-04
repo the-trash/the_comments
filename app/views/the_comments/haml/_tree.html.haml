@@ -10,7 +10,7 @@
       %p &mdash; Комментарий можно оставить <b>без регистрации</b>, для этого достаточно заполнить одно обязательное поле <b class='nobr'>Текст комментария</b>. Анонимные комментарии проходят модерацию и до момента одобрения видны только в браузере автора
       %p &mdash; Комментарии зарегистрированных пользователей публикуются сразу после создания
 
-.comments@@comments
-  %ol.comments_tree@@comments_tree@tolarance_time_holder{ data: { comments: { tolarance_time: TheComments.config.tolerance_time  } } }
+.comments@comments
+  %ol.comments_tree@comments_tree@tolarance_time_holder{ data: { comments: { tolarance_time: TheComments.config.tolerance_time  } } }
     = render partial: 'the_comments/haml/comment', locals: { tree: comments_tree }
   = render partial: 'the_comments/haml/form', locals: { commentable: commentable }

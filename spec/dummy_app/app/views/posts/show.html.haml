@@ -2,6 +2,7 @@
 %p=  @post.content
 
 %p
-  Comments count: #{@post.comments_sum}
+  Comments count:
+  %span@comments_sum= @post.comments_sum
 
 = render partial: 'the_comments/tree', locals: { commentable: @post, comments_tree: @comments }
