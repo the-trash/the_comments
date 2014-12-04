@@ -26,7 +26,8 @@ module TheComments
     def recalculate_my_comments_counter!
       dcount = my_draft_comments.count
       pcount = my_published_comments.count
-      update_attributes!({
+
+      update_columns({
         my_draft_comments_count:     dcount,
         my_published_comments_count: pcount,
         my_comments_count:           dcount + pcount
@@ -34,7 +35,7 @@ module TheComments
     end
 
     def recalculate_comcoms_counters!
-      update_attributes!({
+      update_columns({
         draft_comcoms_count:     draft_comcoms.count,
         published_comcoms_count: published_comcoms.count,
         deleted_comcoms_count:   deleted_comcoms.count

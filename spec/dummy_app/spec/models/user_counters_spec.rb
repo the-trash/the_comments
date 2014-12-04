@@ -107,6 +107,57 @@ end
 # ~ init functions
 # --------------------------------------
 
+describe 'Holder and Commentable' do
+  context 'should not to be touched (for cache reasons) on comment create/update' do
+    after(:all){ destroy_all }
+    before(:all){ create_users_and_post }
+
+    it 'Create new comment, owner, holder, post should not be touched' do
+      user   = @user
+      holder = @post_holder
+
+      @user.id.should_not eq @post_holder.id
+
+      # TODO: remove with time machine
+      sleep 2
+
+      expect {
+        @comment = Comment.create!(
+          user: @user,
+          commentable: @post,
+          title: Faker::Lorem.sentence,
+          raw_content: Faker::Lorem.paragraphs(3).join
+        )
+      }.to_not change{
+        @user.updated_at.to_s
+      }
+
+      expect {
+        @comment = Comment.create!(
+          user: @user,
+          commentable: @post,
+          title: Faker::Lorem.sentence,
+          raw_content: Faker::Lorem.paragraphs(3).join
+        )
+      }.to_not change{
+        @post.updated_at.to_s
+      }
+
+      expect {
+        @comment = Comment.create!(
+          user: @user,
+          commentable: @post,
+          title: Faker::Lorem.sentence,
+          raw_content: Faker::Lorem.paragraphs(3).join
+        )
+      }.to_not change{
+        @post_holder.updated_at.to_s
+      }
+    end
+
+  end
+end
+
 describe User do
   context 'User leave comment to the post' do
     after(:all){ destroy_all }
