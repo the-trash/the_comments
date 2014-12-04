@@ -6,35 +6,41 @@ module TheComments
     included do
       has_many :comments, as: :commentable
 
-      # *define_denormalize_flags* - should be placed before title or url builder filters
+      # `define_denormalize_flags` - should be placed before title or url builder filters
       before_validation :define_denormalize_flags
       after_save        :denormalize_for_comments, if: -> { !id_changed? }
     end
 
+    #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     # Default Denormalization methods
-    # Overwrite it with your Application
+    # Overwrite it in your Application
+    #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+    # => 'My first blog post'
     def commentable_title
-      # My first blog post
       try(:title) || TheComments.config.default_title
     end
 
+    # => '/posts/1'
     def commentable_url
-      # /posts/1
       ['', self.class.to_s.tableize, self.to_param].join('/')
     end
 
+    # => 'draft'
     def commentable_state
-      # 'draft'
       try(:state)
     end
+    #<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
+    #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     # Helper methods
+    #>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     def comments_sum
       published_comments_count + draft_comments_count
     end
 
     def recalculate_comments_counters!
-      update_attributes!({
+      update_columns({
         draft_comments_count:     comments.with_state(:draft).count,
         published_comments_count: comments.with_state(:published).count,
         deleted_comments_count:   comments.with_state(:deleted).count

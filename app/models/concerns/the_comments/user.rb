@@ -13,7 +13,7 @@ module TheComments
         my_comments.with_state state
       end
 
-      define_method "#{state}_comcoms" do
+      define_method "#{ state }_comcoms" do
         comcoms.with_state state
       end
     end
@@ -43,7 +43,7 @@ module TheComments
     end
 
     def update_comcoms_spam_counter
-      update!(spam_comcoms_count: comcoms.where(spam: true).count)
+      update_columns(spam_comcoms_count: comcoms.where(spam: true).count)
     end
 
     def comments_sum

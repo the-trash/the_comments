@@ -45,6 +45,7 @@ gem 'awesome_nested_set',
 # Test gems
 group :development, :test do
   gem 'faker'
+  gem 'timecop'
   gem 'factory_girl'
   gem "factory_girl_rails"
   gem 'rspec-rails', '~> 2.0'

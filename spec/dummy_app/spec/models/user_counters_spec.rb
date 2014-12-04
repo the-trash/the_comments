@@ -118,8 +118,8 @@ describe 'Holder and Commentable' do
 
       @user.id.should_not eq @post_holder.id
 
-      # TODO: remove with time machine
-      sleep 2
+      new_time = Time.now + 5.days
+      Timecop.freeze(new_time)
 
       expect {
         @comment = Comment.create!(
