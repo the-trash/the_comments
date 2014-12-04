@@ -56,11 +56,12 @@
   }
 
   form{
-    background: #fbfcfe;
-    box-shadow: inset 0 0 2px #a5d2fb;
-    padding: 15px 15px 0 15px;
-    border: 1px solid #c1daf2;
     border-radius: 3px;
+    background: #fbfcfe;
+    border: 1px solid #c1daf2;
+    box-shadow: inset 0 0 2px #a5d2fb;
+
+    padding: 15px 15px 0 15px;
     margin-bottom: 10px;
 
     p{ margin: 0 0 15px 0; }
@@ -135,14 +136,24 @@
 
   li{
     .comment.draft{
-      border: 1px solid #c1daf2;
-      background: #fbfcfe;
+      border: 1px solid #ddd;
+      background: #fdfdfd;
       padding: 10px;
+    }
+
+    .comment.published{
+      padding: 10px;
+      border-radius: 3px;
+      background: #fbfcfe;
+      border: 1px solid #c1daf2;
+      box-shadow: inset 0 0 2px #a5d2fb;
+
+      .userbar{ border-bottom: 1px solid #c1daf2; }
     }
   }
 
   .form_holder{
-    border-left: 5px solid orange;
+    border-left: 5px solid #0078e7;
     padding-left: 20px;
   }
 
@@ -164,33 +175,38 @@
       float: left;
       overflow: hidden; zoom: 1;
 
-      img{ margin-bottom: 10px; width: 50px; height: 50px; }
+      img{
+        width:  50px;
+        height: 50px;
+        margin-bottom: 10px;
+      }
     }
 
     .userbar, .comment_body{
       margin: 0 0 5px 60px;
-      border: 1px solid #eee;
       padding: 5px 5px 4px;
-      border-radius: 3px;
-      background: white;
       line-height: 160%;
       overflow: hidden;
       font-size: 13px;
     }
 
-    &.draft{
-      .to_draft{ display: none; }
+    .userbar{
+      padding-top: 0;
+      font-weight: bold;
+      border-bottom: 1px solid #eee;
+
+      a{ font-weight: normal; }
     }
-    &.published{
-      .comment_body{
-        border-bottom: 1px solid lightgray;
-      }
-      .to_published{ display: none; }
-    }
+
+    &.draft .to_draft{ display: none; }
+    &.published .to_published{ display: none; }
 
     .reply_holder{
       font-size: 13px;
       margin: 15px 10px 6px 62px;
+
+      a{ color: #ddd }
+      a:hover{ color: #0078e7; text-decoration: none }
     }
   }
 
@@ -217,12 +233,10 @@
   }
 }
 
-.new_comment{
-  .btn{
-    padding: 7px;
-    margin-top: 5px;
-    cursor: pointer;
-  }
+.new_comment .btn{
+  padding: 7px;
+  margin-top: 5px;
+  cursor: pointer;
 }
 
 .comments_list{
@@ -242,16 +256,12 @@
     .draft{
       border-left: 5px solid orange;
 
-      .controls{
-        a.to_draft{ display: none }
-      }
+      .controls a.to_draft{ display: none }
     }
     .published{
       border-left: 5px solid green;
 
-      .controls{
-        a.to_published{ display: none; }
-      }
+      .controls a.to_published{ display: none; }
     }
 
     .deleted{
