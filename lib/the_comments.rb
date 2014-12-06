@@ -9,6 +9,9 @@ require 'the_sortable_tree'
 require 'the_comments/config'
 require 'the_comments/version'
 
+require 'the_viking'
+require 'yandex_cleanweb'
+
 module TheComments
   class Engine < Rails::Engine
     config.autoload_paths += Dir["#{ config.root }/app/controllers/concerns/**/"]

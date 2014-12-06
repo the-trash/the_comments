@@ -28,6 +28,7 @@ module TheComments
       @comment = @commentable.comments.new comment_params
 
       if @comment.save
+        @comment.antispam_services_check(request)
         render template: view_context.comment_template('create.success')
       else
         render template: view_context.comment_template('create.errors'), status: 422

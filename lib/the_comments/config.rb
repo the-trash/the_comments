@@ -19,7 +19,10 @@ module TheComments
                     :default_title,
                     :template_engine,
                     :empty_trap_protection,
-                    :tolerance_time_protection
+                    :tolerance_time_protection,
+                    :yandex_cleanweb_api_key,
+                    :akismet_api_key,
+                    :akismet_blog
   end
 
   configure do |config|
@@ -33,5 +36,10 @@ module TheComments
 
     config.empty_trap_protection     = true
     config.tolerance_time_protection = true
+
+    # Anti-spam services
+    config.yandex_cleanweb_api_key = nil
+    config.akismet_api_key         = nil
+    config.akismet_blog            = nil
   end
 end

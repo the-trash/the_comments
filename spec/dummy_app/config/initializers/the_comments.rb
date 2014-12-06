@@ -11,4 +11,8 @@ TheComments.configure do |config|
 
   config.empty_trap_protection     = true
   config.tolerance_time_protection = true
+
+  # config.yandex_cleanweb_api_key  = nil
+  # config.akismet_api_key          = nil
+  # config.akismet_blog             = nil
 end

@@ -16,3 +16,5 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+config/initializers/the_comments_antispam_keys.rb

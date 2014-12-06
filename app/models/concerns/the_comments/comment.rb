@@ -9,14 +9,17 @@ module TheComments
       # Nested Set
       acts_as_nested_set scope: [:commentable_type, :commentable_id]
 
-      # simple sort scopes
+      # Simple sort scopes
       include ::TheSimpleSort::Base
 
       # TheSortableTree
       include ::TheSortableTree::Scopes
 
       # Comments State Machine
-      include TheComments::CommentStates
+      include ::TheComments::CommentStates
+
+      # AntiSpam services check methods
+      include ::TheComments::AntiSpamModel
 
       validates :raw_content, presence: true
 
