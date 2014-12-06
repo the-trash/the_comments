@@ -9,26 +9,24 @@ module TheComments
       # Nested Set
       acts_as_nested_set scope: [:commentable_type, :commentable_id]
 
-      # Simple sort scopes
+      # 1. Simple sort scopes
+      # 2. AntiSpam services check methods
+      # 3. TheSortableTree
+      # 4. Comments State Machine
+      #
       include ::TheSimpleSort::Base
-
-      # TheSortableTree
+      include ::TheComments::AntiSpam
       include ::TheSortableTree::Scopes
-
-      # Comments State Machine
       include ::TheComments::CommentStates
-
-      # AntiSpam services check methods
-      include ::TheComments::AntiSpamModel
 
       validates :raw_content, presence: true
 
-      # relations
+      # Relations
       belongs_to :user
       belongs_to :holder, class_name: :User
       belongs_to :commentable, polymorphic: true
 
-      # callbacks
+      # Callbacks
       before_create :define_holder, :define_default_state, :define_anchor, :denormalize_commentable
       after_create  :update_cache_counters
       before_save   :prepare_content

@@ -1,19 +1,19 @@
 module TheComments
   module AntiSpam
-    module YandexCleanWeb
+    module YandexCleanweb
       private
 
-      def yandex_cleanweb_antispam_check request
+      def cleanweb_antispam_check request
         comment = self
         ycw_key = ::TheComments.config.yandex_cleanweb_api_key
 
         if ycw_key.present?
-          data = yandex_antispam_html_data(request).compact
-          delayed_yandex_clean_web_check(comment, ycw_key, data)
+          data = cleanweb_html_data(request).compact
+          delayed_cleanweb_check(comment, ycw_key, data)
         end
       end
 
-      def yandex_antispam_html_data request
+      def cleanweb_html_data request
         email = self.try(:user).try(:email) || self.contacts
         email = nil unless email.to_s.match /@/
 
@@ -26,22 +26,15 @@ module TheComments
         }
       end
 
-      def delayed_yandex_clean_web_check comment, ycw_key, data
+      def delayed_cleanweb_check comment, ycw_key, data
         ::YandexCleanweb.api_key = ycw_key
 
         if result = ::YandexCleanweb.spam?(data)
           ya_id = result.try(:[], :id)
-          spam  = result.try(:[], :links).size > 0 ? :spam : :default
-
           comment.update_columns(
             yandex_cleanweb_id: ya_id,
-            yandex_cleanweb_state: spam
+            yandex_cleanweb_state: :spam
           )
-
-          if spam == :spam
-            comment.to_spam
-            comment.to_deleted
-          end
         end
       end
     end

@@ -20,6 +20,8 @@ module TheComments
 end
 
 # Loading of concerns
+require "#{ _root_ }/app/models/concerns/the_comments/yandex_cleanweb"
+require "#{ _root_ }/app/models/concerns/the_comments/akismet"
 require "#{ _root_ }/config/routes.rb"
 
 if StateMachine::VERSION.to_f <= 1.2
