@@ -37,8 +37,8 @@ module TheComments
     private
 
     def define_commentable
-      commentable_klass = params[:comment][:commentable_type].constantize
       commentable_id    = params[:comment][:commentable_id]
+      commentable_klass = params[:comment][:commentable_type].constantize
 
       # Will raise an exception in wrong case
       @commentable = commentable_klass.find(commentable_id)
@@ -54,8 +54,8 @@ module TheComments
     def request_data_for_comment
       {
         ip:         request.ip,
-        referer:    CGI::unescape(request.referer || 'direct_visit'),
-        user_agent: request.user_agent
+        user_agent: request.user_agent,
+        referer:    CGI::unescape(request.referer || 'direct_visit')
       }
     end
 

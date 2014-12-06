@@ -28,7 +28,7 @@ module TheComments
         end
 
         # between delete, draft and published
-        after_transition %i[ deleted draft published ] => %i[ draft published ] do |comment, transition|
+        after_transition [ :deleted, :draft, :published ] => [ :draft, :published ] do |comment, transition|
           from = transition.from_name
           to   = transition.to_name
 
@@ -53,7 +53,7 @@ module TheComments
         end
 
         # to deleted (cascade like query)
-        after_transition %i[ draft published ] => :deleted do |comment|
+        after_transition [ :draft, :published ] => :deleted do |comment|
           ids = comment.self_and_descendants.map(&:id)
           ::Comment.where(id: ids).update_all(state: :deleted)
 

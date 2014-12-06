@@ -32,6 +32,7 @@
   init: (@notificator) ->
     do @ajaxian_form_init
     do @reply_button_init
+    do @reset_tolerance_time
     do @enable_submit_button
     do @new_comment_link_init
     do @tolerance_time_protection_init
@@ -45,8 +46,10 @@
       button = $ e.currentTarget
       form   = button.parents('form').first()
 
-      # return false unless @acceptable_tolerance_time_for(form)
-      # do @disable_submit_button
+      do @set_tolerance_time
+      return false unless @acceptable_tolerance_time_for(form)
+
+      do @disable_submit_button
       true
 
     # AJAX:SUCCESS
@@ -136,15 +139,22 @@
   #####################################################
   # PROTECTION AND ANTI-SPAM HELPERS
   #####################################################
+  reset_tolerance_time: ->
+    $('@tolerance_time').val 0
+
   tolerance_time_protection_init: ->
     window.tolerance_time_start = unixsec(new Date)
 
-  acceptable_tolerance_time_for: (form) ->
+  set_tolerance_time: ->
     tolerance_time = $('@tolarance_time_holder').data('comments-tolarance-time')
     time_diff      = unixsec(new Date) - window.tolerance_time_start
-    delta          = tolerance_time - time_diff
 
     $('@tolerance_time').val time_diff
+
+  acceptable_tolerance_time_for: (form) ->
+    tolerance_time = $('@tolarance_time_holder').data('comments-tolarance-time')
+    time_diff      = $('@tolerance_time').val()
+    delta          = tolerance_time - time_diff
 
     return true unless tolerance_time && (time_diff < tolerance_time)
 
