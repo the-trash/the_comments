@@ -2,6 +2,6 @@
 
 = form_for Comment.new, remote: true, id: nil, data: { type: :json, role: :new_comment }, authenticity_token: true do |f|
   - if current_user
-    = render partial: 'the_comments/haml/logined_form', locals: { f: f, commentable: commentable }
+    = render partial: 'the_comments/haml/form.logined', locals: { f: f, commentable: commentable }
   - else
-    = render partial: 'the_comments/haml/guest_form', locals: { f: f, commentable: commentable }
+    = render partial: 'the_comments/haml/form.guest', locals: { f: f, commentable: commentable }
