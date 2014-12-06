@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131027185334) do
+ActiveRecord::Schema.define(version: 20141206122809) do
 
   create_table "comments", force: true do |t|
     t.integer  "user_id"
@@ -27,18 +27,21 @@ ActiveRecord::Schema.define(version: 20131027185334) do
     t.text     "raw_content"
     t.text     "content"
     t.string   "view_token"
-    t.string   "state",             default: "draft"
-    t.string   "ip",                default: "undefined"
-    t.string   "referer",           default: "undefined"
-    t.string   "user_agent",        default: "undefined"
+    t.string   "state",                 default: "draft"
+    t.string   "ip",                    default: "undefined"
+    t.string   "referer",               default: "undefined"
+    t.string   "user_agent",            default: "undefined"
     t.integer  "tolerance_time"
-    t.boolean  "spam",              default: false
+    t.boolean  "spam",                  default: false
     t.integer  "parent_id"
     t.integer  "lft"
     t.integer  "rgt"
-    t.integer  "depth",             default: 0
+    t.integer  "depth",                 default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "akismet_state",         default: "default"
+    t.string   "yandex_cleanweb_state", default: "default"
+    t.string   "yandex_cleanweb_id",    default: ""
   end
 
   create_table "posts", force: true do |t|
