@@ -40,13 +40,8 @@ module TheComments
       commentable_klass = params[:comment][:commentable_type].constantize
       commentable_id    = params[:comment][:commentable_id]
 
+      # Will raise an exception in wrong case
       @commentable = commentable_klass.find(commentable_id)
-
-      unless @commentable
-        k = t('the_comments.undefined_commentable')
-        v = t('the_comments.undefined_commentable')
-        @errors[ k ] = [ v ]
-      end
     end
 
     def denormalized_fields
