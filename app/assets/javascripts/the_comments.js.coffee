@@ -30,18 +30,26 @@
   # MODULE INITIALIZER
   #####################################################
   init: (@notificator) ->
-    do @reply_button_init
     do @ajaxian_form_init
+    do @reply_button_init
     do @enable_submit_button
     do @new_comment_link_init
-    do @new_comment_submit_btn_init
     do @tolerance_time_protection_init
 
   #####################################################
   # FORM AJAXIAN BEHAVIOR
   #####################################################
   ajaxian_form_init: ->
-    # SUCCESS
+    # AJAX:BEFORE_SEND
+    $(document).on 'ajax:before', @comment_forms, (e) =>
+      button = $ e.currentTarget
+      form   = button.parents('form').first()
+
+      # return false unless @acceptable_tolerance_time_for(form)
+      # do @disable_submit_button
+      true
+
+    # AJAX:SUCCESS
     $(document).on 'ajax:success', @comment_forms, (request, data, status) =>
       form = $ request.currentTarget
       do @enable_submit_button
@@ -72,7 +80,7 @@
       anchor = $(data).find('@comment').attr('id')
       document.location.hash = anchor
 
-    # ERROR
+    # AJAX:ERROR
     $(document).on 'ajax:error', @comment_forms, (request, response, status) =>
       form = $ request.currentTarget
       do @enable_submit_button
@@ -94,16 +102,6 @@
       $('@new_comment').fadeIn()
       $('@parent_id').val('')
       false
-
-  new_comment_submit_btn_init: ->
-    # Button Click => de-facto: AJAX Before Send
-    $(document).on 'click', @submits, (e) =>
-      button    = $ e.currentTarget
-      form      = button.parents('form').first()
-
-      return false unless @acceptable_tolerance_time_for(form)
-      do @disable_submit_button
-      true
 
   reply_button_init: ->
     $(document).on 'click', '@reply_link', (e) =>

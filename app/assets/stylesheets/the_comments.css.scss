@@ -1,4 +1,10 @@
+$the_comments_font: Arial;
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// NEW COMMENT LINK
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 .new_comment_link{
+  font-family: $the_comments_font;
   margin: 20px 0;
 
   a{
@@ -8,9 +14,13 @@
     &:hover{ text-decoration: none; }
   }
 }
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-.comments_tree, .comments_list{
-  font-family: Arial;
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// BASE TREE STYLES
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+.comments_tree{
+  font-family: $the_comments_font;
 
   margin:0;
   padding:0;
@@ -19,65 +29,65 @@
   *{ margin: 0; padding: 0; font-size: inherit; }
 
   a{
-    text-decoration: none;
     color: #0078e7;
+    text-decoration: none;
+
+    &:hover{ text-decoration: underline; }
   }
-  a:hover{ text-decoration: underline; }
+
 
   ol{
     margin: 0;
     padding: 0 0 0 20px;
     list-style: none outside none;
   }
+
   li{
     margin-bottom: 5px;
     position: relative;
     list-style: none outside none;
   }
 }
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-.action_btns a{ margin-right: 15px; }
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// NEW COMMENT FORM
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+form.new_comment{
+  font-family: $the_comments_font;
 
-.comments, .comments_tree{
-  font-family: Arial;
-  font-size: 13px;
+  border-radius: 3px;
+  background: #fbfcfe;
+  border: 1px solid #c1daf2;
+  box-shadow: inset 0 0 2px #a5d2fb;
 
-  .error_notifier{
-    background-color: #F2DEDE;
-    border: 1px solid #B94A48;
-    color: #B94A48;
+  padding: 15px 15px 0 15px;
+  margin-bottom: 10px;
 
-    border-radius: 4px;
-    margin: 0 0 15px 0;
-    padding: 10px 10px 0 10px;
-    overflow: hidden;
+  p{ margin: 0 0 15px 0; }
 
-    p{ margin: 0 0 10px 0; }
+  label{
+    display: block;
+    font-size: 15px;
+    margin-bottom: 3px;
   }
 
-  form{
-    border-radius: 3px;
-    background: #fbfcfe;
+  input[type=text], textarea{
     border: 1px solid #c1daf2;
-    box-shadow: inset 0 0 2px #a5d2fb;
+    border-radius: 2px;
+    font-family: Arial;
+    font-size: 16px;
+    padding: 7px;
 
-    padding: 15px 15px 0 15px;
-    margin-bottom: 10px;
+    -webkit-transition: box-shadow 0.15s linear;
+    -o-transition: box-shadow 0.15s linear;
+    -moz-transition: box-shadow 0.15s linear;
+    -ms-transition: box-shadow 0.15s linear;
+    -kthtml-transition: box-shadow 0.15s linear;
+    transition: box-shadow 0.15s linear;
 
-    p{ margin: 0 0 15px 0; }
-
-    label{
-      display: block;
-      font-size: 15px;
-      margin-bottom: 3px;
-    }
-
-    input[type=text], textarea{
-      border: 1px solid #c1daf2;
-      border-radius: 2px;
-      font-family: Arial;
-      font-size: 16px;
-      padding: 7px;
+    &:focus{
+      box-shadow: 0 0 3px #d5e8fb inset;
 
       -webkit-transition: box-shadow 0.15s linear;
       -o-transition: box-shadow 0.15s linear;
@@ -85,90 +95,74 @@
       -ms-transition: box-shadow 0.15s linear;
       -kthtml-transition: box-shadow 0.15s linear;
       transition: box-shadow 0.15s linear;
-
-      &:focus{
-        box-shadow: 0 0 3px #d5e8fb inset;
-
-        -webkit-transition: box-shadow 0.15s linear;
-        -o-transition: box-shadow 0.15s linear;
-        -moz-transition: box-shadow 0.15s linear;
-        -ms-transition: box-shadow 0.15s linear;
-        -kthtml-transition: box-shadow 0.15s linear;
-        transition: box-shadow 0.15s linear;
-      }
     }
+  }
 
-    input[type=text]{ width: 275px; }
-    textarea{ height: 150px; width: 75%; }
+  input[type=text]{ width: 275px; }
+  textarea{ height: 150px; width: 75%; }
 
-    input[type=submit]{
-      color: white;
-      border: none;
-      font-size: 18px;
-      border-radius: 2px;
-      background: #0078e7;
+  input[type=submit]{
+    color: white;
+    border: none;
+    font-size: 18px;
+    border-radius: 2px;
+    background: #0078e7;
 
-      &:disabled{ background: #eee; }
+    padding: 7px;
+    margin-top: 5px;
+    cursor: pointer;
 
-      &:hover{
-        background-image: linear-gradient(
-          transparent,
-          rgba(0, 0, 0, 0.05) 40%,
-          rgba(0, 0, 0, 0.1)
-        )
-      }
+    &:disabled{ background: #eee; }
+
+    &:hover{
+      background-image: linear-gradient(
+        transparent,
+        rgba(0, 0, 0, 0.05) 40%,
+        rgba(0, 0, 0, 0.1)
+      )
     }
+  }
 
-    .trap{
-      margin: 0; padding: 0;
-      filter: alpha(opacity=0.001);
-      height: 0.1px;
-      opacity: 0.001;
-      overflow: hidden;
-    }
+  .trap{
+    margin: 0; padding: 0;
+    filter: alpha(opacity=0.001);
+    height: 0.1px;
+    opacity: 0.001;
+    overflow: hidden;
   }
 }
 
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// HOLDERS
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 .comments_tree{
-  .nested_set{
-    border-left: 5px solid #eee;
-  }
-
-  li{
-    .comment.draft{
-      border: 1px solid #ddd;
-      background: #fdfdfd;
-      padding: 10px;
-    }
-
-    .comment.published{
-      padding: 10px;
-      border-radius: 3px;
-      background: #fbfcfe;
-      border: 1px solid #c1daf2;
-      box-shadow: inset 0 0 2px #a5d2fb;
-
-      .userbar{ border-bottom: 1px solid #c1daf2; }
-    }
-  }
-
   .form_holder{
     border-left: 5px solid #0078e7;
     padding-left: 20px;
   }
 
-  .edit, .delete{
-    margin-bottom: 3px;
-    text-align:center;
-    line-height: 130%;
-    background: #336;
-    color: white;
-    padding: 1px;
-  }
-  .delete{ background: gray; }
+  .reply_holder{
+    font-size: 13px;
+    margin: 15px 10px 6px 62px;
 
+    a{ color: #ddd }
+    a:hover{ color: #0078e7; text-decoration: none }
+  }
+
+  .nested_set{
+    border-left: 5px solid #eee;
+  }
+}
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// BASE COMMENT STYLE
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+.comments_tree{
   .comment{
     overflow: hidden; zoom: 1;
+    margin-bottom: 10px;
+    font-size: 13px;
 
     .userpic{
       width: 50px;
@@ -197,113 +191,166 @@
 
       a{ font-weight: normal; }
     }
-
-    &.draft .to_draft{ display: none; }
-    &.published .to_published{ display: none; }
-
-    .reply_holder{
-      font-size: 13px;
-      margin: 15px 10px 6px 62px;
-
-      a{ color: #ddd }
-      a:hover{ color: #0078e7; text-decoration: none }
-    }
   }
+}
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-  .controls{
-    position: absolute;
-    top: 53px; left: 5px;
-
-    a{
-      font-size:11px;
-      display:block;
-    }
-  }
-
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+// STATE COMMENT STYLE
+// >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+.comments_tree{
   .comment{
-    margin-bottom: 10px;
-
-    &.published, &.draft{
-      margin-bottom: 10px;
-      border-radius: 3px;
-      padding: 5px;
-    }
-    &.highlighted{ border: 1px dashed #5e85f3 !important; }
-
-  }
-}
-
-.new_comment .btn{
-  padding: 7px;
-  margin-top: 5px;
-  cursor: pointer;
-}
-
-.comments_list{
-  a{
-    color: #0078e7;
-  }
-
-  li{
-    margin-bottom: 20px;
-
-    .item{
-      border: 1px solid gray;
-      border-radius: 5px;
+    &.draft{
+      border: 1px solid #ddd;
+      background: #fdfdfd;
       padding: 10px;
     }
 
-    .draft{
-      border-left: 5px solid orange;
+    &.published{
+      padding: 10px;
+      border-radius: 3px;
+      background: #fbfcfe;
+      border: 1px solid #c1daf2;
+      box-shadow: inset 0 0 2px #a5d2fb;
 
-      .controls a.to_draft{ display: none }
-    }
-    .published{
-      border-left: 5px solid green;
-
-      .controls a.to_published{ display: none; }
-    }
-
-    .deleted{
-      border-left: 5px solid red;
-
-      .controls{
-        a.to_deleted, a.to_spam{ display: none; }
-      }
-    }
-
-    .comment{
-      label{
-        width: 75px;
-        font-weight: bold;
-        display: inline-block;
-      }
-      input[type=text]{
-        width: 70%;
-        padding: 4px;
-      }
-      input[type=submit]{
-        padding: 5px;
-        cursor: pointer;
-      }
-      textarea{
-        width: 70%;
-        padding: 4px;
-        height: 150px;
-      }
-      .content{
-        line-height: 130%;
-        background: #ddd;
-        padding: 10px;
-      }
-      .commentable{
-        margin-bottom: 10px;
-      }
-      .controls{
-        background: lightgray;
-        padding: 3px;
-        a{ margin-right: 15px; }
-      }
+      .userbar{ border-bottom: 1px solid #c1daf2; }
     }
   }
 }
+
+// <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+// .action_btns a{ margin-right: 15px; }
+// .comments, .comments_tree{
+//   font-family: Arial;
+//   font-size: 13px;
+
+//   .error_notifier{
+//     background-color: #F2DEDE;
+//     border: 1px solid #B94A48;
+//     color: #B94A48;
+
+//     border-radius: 4px;
+//     margin: 0 0 15px 0;
+//     padding: 10px 10px 0 10px;
+//     overflow: hidden;
+
+//     p{ margin: 0 0 10px 0; }
+//   }
+// }
+
+// .comments_tree{
+
+
+//   li{
+//   }
+
+//   .edit, .delete{
+//     margin-bottom: 3px;
+//     text-align:center;
+//     line-height: 130%;
+//     background: #336;
+//     color: white;
+//     padding: 1px;
+//   }
+//   .delete{ background: gray; }
+
+//   .comment{
+
+
+//     &.draft .to_draft{ display: none; }
+//     &.published .to_published{ display: none; }
+
+//   }
+
+//   .controls{
+//     position: absolute;
+//     top: 53px; left: 5px;
+
+//     a{
+//       font-size:11px;
+//       display:block;
+//     }
+//   }
+
+//   .comment{
+//
+
+//     &.published, &.draft{
+//       margin-bottom: 10px;
+//       border-radius: 3px;
+//       padding: 5px;
+//     }
+//     &.highlighted{ border: 1px dashed #5e85f3 !important; }
+
+//   }
+// }
+
+// .comments_list{
+//   a{
+//     color: #0078e7;
+//   }
+
+//   li{
+//     margin-bottom: 20px;
+
+//     .item{
+//       border: 1px solid gray;
+//       border-radius: 5px;
+//       padding: 10px;
+//     }
+
+//     .draft{
+//       border-left: 5px solid orange;
+
+//       .controls a.to_draft{ display: none }
+//     }
+//     .published{
+//       border-left: 5px solid green;
+
+//       .controls a.to_published{ display: none; }
+//     }
+
+//     .deleted{
+//       border-left: 5px solid red;
+
+//       .controls{
+//         a.to_deleted, a.to_spam{ display: none; }
+//       }
+//     }
+
+//     .comment{
+//       label{
+//         width: 75px;
+//         font-weight: bold;
+//         display: inline-block;
+//       }
+//       input[type=text]{
+//         width: 70%;
+//         padding: 4px;
+//       }
+//       input[type=submit]{
+//         padding: 5px;
+//         cursor: pointer;
+//       }
+//       textarea{
+//         width: 70%;
+//         padding: 4px;
+//         height: 150px;
+//       }
+//       .content{
+//         line-height: 130%;
+//         background: #ddd;
+//         padding: 10px;
+//       }
+//       .commentable{
+//         margin-bottom: 10px;
+//       }
+//       .controls{
+//         background: lightgray;
+//         padding: 3px;
+//         a{ margin-right: 15px; }
+//       }
+//     }
+//   }
+// }
