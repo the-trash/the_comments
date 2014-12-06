@@ -80,7 +80,7 @@
       })
 
       # set anchor
-      anchor = $(data).find('@comment').attr('id')
+      anchor = $(data.comment).find('@comment').attr('id')
       document.location.hash = anchor
 
     # AJAX:ERROR
