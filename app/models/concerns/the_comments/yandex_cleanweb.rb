@@ -8,25 +8,26 @@ module TheComments
         ycw_key = ::TheComments.config.yandex_cleanweb_api_key
 
         if ycw_key.present?
-          data = cleanweb_html_data(request).compact
-          delayed_cleanweb_check(comment, ycw_key, data)
+          data = cleanweb_html_data(comment, request)
+          cleanweb_check(comment, ycw_key, data)
         end
       end
 
-      def cleanweb_html_data request
-        email = self.try(:user).try(:email) || self.contacts
+      def cleanweb_html_data comment, request
+        name  = comment.try(:user).try(:username) || comment.contacts
+        email = comment.try(:user).try(:email) || comment.contacts
         email = nil unless email.to_s.match /@/
 
         {
+          name:  name,
           email: email,
-          ip: request.try(:ip),
-          body_html: self.content,
-          login: self.try(:user).try(:login),
-          name:  self.try(:user).try(:username) || self.contacts
-        }
+          ip:    request.try(:ip),
+          body_html: comment.content,
+          login: comment.try(:user).try(:login)
+        }.compact
       end
 
-      def delayed_cleanweb_check comment, ycw_key, data
+      def cleanweb_check comment, ycw_key, data
         ::YandexCleanweb.api_key = ycw_key
 
         if result = ::YandexCleanweb.spam?(data)

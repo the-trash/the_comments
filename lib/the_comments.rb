@@ -4,6 +4,7 @@ require 'state_machine'
 require 'state_machine/version'
 
 require 'the_simple_sort'
+require 'the_notification'
 require 'the_sortable_tree'
 
 require 'the_comments/config'
@@ -13,16 +14,21 @@ require 'the_viking'
 require 'yandex_cleanweb'
 
 module TheComments
-  class Engine < Rails::Engine
-    config.autoload_paths += Dir["#{ config.root }/app/controllers/concerns/**/"]
-    config.autoload_paths += Dir["#{ config.root }/app/models/concerns/**/"]
-  end
+  class Engine < Rails::Engine; end
 end
 
-# Loading of concerns
-require "#{ _root_ }/app/models/concerns/the_comments/yandex_cleanweb"
-require "#{ _root_ }/app/models/concerns/the_comments/akismet"
-require "#{ _root_ }/config/routes.rb"
+# Routing cocerns loading
+require "#{ _root_ }/config/routes"
+
+# Model concerns loading
+%w[ user comment commentable anti_spam akismet yandex_cleanweb ].each do |file_name|
+  require "#{ _root_ }/app/models/concerns/the_comments/#{ file_name }"
+end
+
+# Controllers concerns loading
+%w[ view_token controller manage_actions spam_traps ].each do |file_name|
+  require "#{ _root_ }/app/controllers/concerns/the_comments/#{ file_name }"
+end
 
 if StateMachine::VERSION.to_f <= 1.2
   puts '~' * 50

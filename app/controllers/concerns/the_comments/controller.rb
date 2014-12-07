@@ -10,9 +10,9 @@ module TheComments
     included do
       before_action -> { @errors = {} }, only: :create
 
-      include TheComments::ViewToken
-      include TheComments::ManageActions
-      include TheComments::SpamProtectionTraps
+      include ::TheComments::ViewToken
+      include ::TheComments::SpamTraps
+      include ::TheComments::ManageActions
 
       before_action :define_commentable, only: :create
 
@@ -28,7 +28,10 @@ module TheComments
       @comment = @commentable.comments.new comment_params
 
       if @comment.save
+        # Move this to background with SideKiq or DelayedJob
+        # app/models/concerns/the_comments/anti_spam.rb
         @comment.antispam_services_check(request)
+
         render template: view_context.comment_template('create.success')
       else
         render template: view_context.comment_template('create.errors'), status: 422

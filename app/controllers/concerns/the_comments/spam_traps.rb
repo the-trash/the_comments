@@ -1,8 +1,8 @@
 # Spam protection hooks for CREATE action
 #
-# include TheComments::SpamProtectionTraps
+# include TheComments::SpamTraps
 module TheComments
-  module SpamProtectionTraps
+  module SpamTraps
     extend ActiveSupport::Concern
 
     included do
