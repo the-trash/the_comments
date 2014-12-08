@@ -60,10 +60,6 @@ module TheComments
       count
     end
 
-    def to_spam
-      mark_as_spam
-    end
-
     private
 
     def update_spam_counter

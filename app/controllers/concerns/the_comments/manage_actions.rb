@@ -68,8 +68,8 @@ module TheComments
 
     def to_spam
       comment = ::Comment.find(params[:id])
-      comment.to_spam
       comment.to_deleted
+      comment.mark_as_spam
       render nothing: true
     end
   end
