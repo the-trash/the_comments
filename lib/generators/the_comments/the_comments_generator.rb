@@ -19,7 +19,7 @@ class TheCommentsGenerator < Rails::Generators::NamedBase
         cp_controllers
       else
         puts 'TheComments Generator - wrong Name'
-        puts 'Try to use [ install | config | controllers | models ]'
+        puts 'Try to use [ install | config | controllers | models | locales ]'
     end
   end
 
@@ -32,25 +32,28 @@ class TheCommentsGenerator < Rails::Generators::NamedBase
   end
 
   def cp_config
-    copy_file "#{root_path}/config/initializers/the_comments.rb",
+    copy_file "#{ root_path }/config/initializers/the_comments.rb",
               "config/initializers/the_comments.rb"
   end
 
   def cp_models
-    copy_file "#{root_path}/app/models/_templates_/comment.rb",
+    copy_file "#{ root_path }/app/models/_templates_/comment.rb",
               "app/models/comment.rb"
+
+    copy_file "#{ root_path }/app/models/_templates_/comment_subscription.rb",
+              "app/models/comment_subscription.rb"
   end
 
   def cp_controllers
-    copy_file "#{root_path}/app/controllers/_templates_/comments_controller.rb",
+    copy_file "#{ root_path }/app/controllers/_templates_/comments_controller.rb",
               "app/controllers/comments_controller.rb"
   end
 
   def cp_locales
-    copy_file "#{root_path}/config/locales/en.yml",
+    copy_file "#{ root_path }/config/locales/en.yml",
               "config/locales/en.the_comments.yml"
 
-    copy_file "#{root_path}/config/locales/ru.yml",
+    copy_file "#{ root_path }/config/locales/ru.yml",
               "config/locales/ru.the_comments.yml"
   end
 end

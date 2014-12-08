@@ -15,13 +15,17 @@ require 'yandex_cleanweb'
 
 module TheComments
   class Engine < Rails::Engine; end
+
+  # simple and almost perfect
+  # anything[at]anything[dot]anything{2-15}
+  EMAIL_REGEXP = /\A(\S+)@(\S+)\.(\S{2,15})\z/
 end
 
 # Routing cocerns loading
 require "#{ _root_ }/config/routes"
 
 # Model concerns loading
-%w[ user comment commentable anti_spam akismet yandex_cleanweb ].each do |file_name|
+%w[ user comment commentable comment_subscription anti_spam akismet yandex_cleanweb ].each do |file_name|
   require "#{ _root_ }/app/models/concerns/the_comments/#{ file_name }"
 end
 

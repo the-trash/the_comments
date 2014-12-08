@@ -1,3 +1,3 @@
 class CommentSubscription < ActiveRecord::Base
-  include ::TheComments::CommentSubscription::User
+  include TheComments::CommentSubscription
 end

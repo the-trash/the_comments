@@ -28,7 +28,9 @@ module TheComments
       @comment = @commentable.comments.new comment_params
 
       if @comment.save
-        @comment.subscribe_to_thread!(current_user)
+        # Add subscriber by Email or UserId
+        # app/models/concerns/the_comments/comment_subscription.rb
+        @comment.add_subscriber(current_user)
 
         # Move this to background with SideKiq or DelayedJob
         # app/models/concerns/the_comments/anti_spam.rb

@@ -21,6 +21,7 @@ module TheComments
       include ::TheComments::AntiSpam
       include ::TheSortableTree::Scopes
       include ::TheComments::CommentStates
+      include ::TheComments::CommentSubscription::Comment
 
       validates :raw_content, presence: true
 
@@ -35,22 +36,6 @@ module TheComments
       before_save   :prepare_content
     end
 
-    def subscribe_to_thread!(current_user)
-      return unless subscribe_to_thread_flag
-
-      return subscribe_email_to_thread! unless current_user
-      # subscribe_logined_user_to_thread!(current_user)
-    end
-
-    def subscribe_email_to_thread!
-      email_ergexp = /\A(\S+)@(\S+)\.(\S{2,15})\z/
-      _contacts    = normalize_email contacts
-
-      if _contacts.match email_ergexp
-        self.comments_subscribers.create(email: _contacts)
-      end
-    end
-
     def header_title
       title.present? ? title : I18n.t('the_comments.guest_name')
     end
@@ -60,11 +45,14 @@ module TheComments
     end
 
     def avatar_url
-      src = id.to_s
-      src = title unless title.blank?
-      src = contacts if !contacts.blank? && /@/ =~ contacts
+      src    = id.to_s
+      src    = title unless title.blank?
+
+      _email = normalize_email(contacts)
+      src    = _email if _email.match ::TheComments::EMAIL_REGEXP
+
       hash = Digest::MD5.hexdigest(src)
-      "https://2.gravatar.com/avatar/#{hash}?s=42&d=https://identicons.github.com/#{hash}.png"
+      "https://2.gravatar.com/avatar/#{ hash }?s=42&d=https://identicons.github.com/#{ hash }.png"
     end
 
     def mark_as_spam

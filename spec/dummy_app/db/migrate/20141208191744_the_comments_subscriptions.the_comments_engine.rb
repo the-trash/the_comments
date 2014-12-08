@@ -1,3 +1,4 @@
+# This migration comes from the_comments_engine (originally 20130101010105)
 class TheCommentsSubscriptions < ActiveRecord::Migration
   def change
     create_table :comment_subscriptions do |t|
