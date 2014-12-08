@@ -46,7 +46,7 @@
 
 # mark this comment and all descendants as spam/not spam
 @comment.mark_as_spam
-@comment.mark_as_not_spam
+@comment.mark_as_ham
 
 # Comment's creator avatar
 # this method can be redefined by developer

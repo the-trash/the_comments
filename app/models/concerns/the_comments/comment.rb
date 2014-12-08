@@ -61,7 +61,7 @@ module TheComments
       count
     end
 
-    def mark_as_not_spam
+    def mark_as_ham
       count = self_and_descendants.update_all({ spam: false })
       update_spam_counter
       count

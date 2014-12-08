@@ -33,7 +33,7 @@ module TheComments
           to   = transition.to_name
 
           if from.to_s == 'deleted'
-            comment.mark_as_not_spam
+            comment.mark_as_ham
             @owner.try :recalculate_my_comments_counter!
           end
 
