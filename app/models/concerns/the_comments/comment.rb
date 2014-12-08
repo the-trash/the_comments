@@ -6,6 +6,9 @@ module TheComments
       scope :active, -> { with_state [:draft, :published] }
       scope :with_users, -> { includes(:user) }
 
+      # subscribe notifications
+      attr_accessor :subscribe_to_thread_flag
+
       # Nested Set
       acts_as_nested_set scope: [:commentable_type, :commentable_id]
 
@@ -30,6 +33,22 @@ module TheComments
       before_create :define_holder, :define_default_state, :define_anchor, :denormalize_commentable
       after_create  :update_cache_counters
       before_save   :prepare_content
+    end
+
+    def subscribe_to_thread!(current_user)
+      return unless subscribe_to_thread_flag
+
+      return subscribe_email_to_thread! unless current_user
+      # subscribe_logined_user_to_thread!(current_user)
+    end
+
+    def subscribe_email_to_thread!
+      email_ergexp = /\A(\S+)@(\S+)\.(\S{2,15})\z/
+      _contacts    = normalize_email contacts
+
+      if _contacts.match email_ergexp
+        self.comments_subscribers.create(email: _contacts)
+      end
     end
 
     def header_title
@@ -104,5 +123,10 @@ module TheComments
         })
       end
     end
+
+    def normalize_email str
+      str.to_s.squish.strip.gsub(/\s*/, '')
+    end
+
   end
 end

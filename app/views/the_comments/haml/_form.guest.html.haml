@@ -12,7 +12,3 @@
     = text_field_tag name, nil, autocomplete: :off, tabindex: -1, id: nil
 
 = render partial: 'the_comments/haml/form.hidden_fields', locals: { f: f, commentable: commentable }
-
-%p
-  = f.submit t('the_comments.form.create'), class: :btn
-  = t('the_comments.form.thank_you')

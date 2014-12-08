@@ -28,6 +28,8 @@ module TheComments
       @comment = @commentable.comments.new comment_params
 
       if @comment.save
+        @comment.subscribe_to_thread!(current_user)
+
         # Move this to background with SideKiq or DelayedJob
         # app/models/concerns/the_comments/anti_spam.rb
         @comment.antispam_services_check(request)
@@ -66,7 +68,13 @@ module TheComments
     def comment_params
       params
         .require(:comment)
-        .permit(:title, :contacts, :raw_content, :parent_id)
+        .permit(
+          :title,
+          :contacts,
+          :raw_content,
+          :parent_id,
+          :subscribe_to_thread_flag
+        )
         .merge(denormalized_fields)
         .merge(request_data_for_comment)
         .merge(tolerance_time: params[:tolerance_time].to_i)
