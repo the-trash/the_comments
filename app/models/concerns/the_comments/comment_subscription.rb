@@ -17,7 +17,11 @@ module TheComments
       extend ActiveSupport::Concern
 
       included do
-        has_many :comment_subscriptions
+        has_one :comment_subscription
+
+        has_one :active_subscription,
+          -> { where(state: :active) },
+          class_name: :CommentSubscription
       end
 
       def add_subscriber(current_user)
@@ -31,6 +35,25 @@ module TheComments
             self.comment_subscriptions.create(email: _email)
           end
         end
+      end
+
+      def send_notifications_to_subscribers
+        # binding.pry
+        emails = subscribers_emails
+      end
+
+      private
+
+      def subscribers_emails
+        parents = self.ancestors.includes(:comment_subscription)
+
+        subscriptions = parents.map(&:active_subscription).compact
+        users = ::User.where(id: subscriptions.map(&:user_id).compact)
+
+        u_emails = users.map(&:email).compact
+        g_emails = subscriptions.map(&:email).compact
+
+        u_emails | g_emails
       end
     end # module Comment
   end

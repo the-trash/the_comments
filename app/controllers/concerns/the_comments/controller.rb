@@ -28,14 +28,7 @@ module TheComments
       @comment = @commentable.comments.new comment_params
 
       if @comment.save
-        # Add subscriber by Email or UserId
-        # app/models/concerns/the_comments/comment_subscription.rb
-        @comment.add_subscriber(current_user)
-
-        # Move this to background with SideKiq or DelayedJob
-        # app/models/concerns/the_comments/anti_spam.rb
-        @comment.antispam_services_check(request)
-
+        comment_after_create_actions
         render template: view_context.comment_template('create.success')
       else
         render template: view_context.comment_template('create.errors'), status: 422
@@ -43,6 +36,19 @@ module TheComments
     end
 
     private
+
+    def comment_after_create_actions
+      # Something happened. They should know
+      @comment.send_notifications_to_subscribers
+
+      # Add subscriber by Email or UserId
+      # app/models/concerns/the_comments/comment_subscription.rb
+      @comment.add_subscriber(current_user)
+
+      # Move this to background with SideKiq or DelayedJob
+      # app/models/concerns/the_comments/anti_spam.rb
+      @comment.antispam_services_check(request)
+    end
 
     def define_commentable
       commentable_id    = params[:comment][:commentable_id]
