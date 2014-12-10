@@ -15,23 +15,14 @@ require 'yandex_cleanweb'
 
 module TheComments
   class Engine < Rails::Engine
-    _root_ = config.root
-
     # http://stackoverflow.com/questions/24244519
     #
     # 1. Removing all the require / require_relative
     # 2. Add needed paths to Rails autoload paths
     # 3. Put files at the right places with the right names so Rails can infer where to look for code to load.
 
-    # Model concerns loading
-    %w[ user comment commentable comment_subscription akismet yandex_cleanweb anti_spam  ].each do |file_name|
-      config.autoload_paths << "#{ _root_ }/app/models/concerns/the_comments/#{ file_name }"
-    end
-
-    # Controllers concerns loading
-    %w[ view_token controller manage_actions spam_traps ].each do |file_name|
-      config.autoload_paths << "#{ _root_ }/app/controllers/concerns/the_comments/#{ file_name }"
-    end
+    config.autoload_paths << "#{ config.root }/app/models/concerns/the_comments/**"
+    config.autoload_paths << "#{ config.root }/app/controllers/concerns/the_comments/**"
   end
 
   # simple and almost perfect
