@@ -3,8 +3,8 @@ module TheComments
     extend ActiveSupport::Concern
 
     included do
-      include ::TheComments::AntiSpam::Akismet
-      include ::TheComments::AntiSpam::YandexCleanweb
+      include ::TheComments::Akismet
+      include ::TheComments::YandexCleanweb
     end
 
     # Move this to background with SideKiq or DelayedJob
