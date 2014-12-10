@@ -1,0 +1,16 @@
+mailer:
+  service: smtp
+  host: 'localhost:3000'
+
+  sandmail:
+    location:  '/usr/sbin/sendmail'
+    arguments: '-i -t'
+
+  smtp:
+    email:    'hello-world-mailbox@yandex.ru'
+    password: MyMeGAPass
+
+    authentication: plain
+    address: 'smtp.yandex.ru'
+    domain:  'yandex.ru'
+    port:    25

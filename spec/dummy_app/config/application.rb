@@ -19,5 +19,40 @@ module App
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
+
+    # ======================================================
+    #  Mailer settings
+    # ======================================================
+    config.action_mailer.default_url_options = { host: Settings.mailer.host }
+
+    if Settings.mailer.service == 'smtp'
+      config.action_mailer.delivery_method = :smtp
+      config.action_mailer.raise_delivery_errors = true
+
+      config.action_mailer.smtp_settings = {
+        address: Settings.mailer.smtp.address,
+        domain:  Settings.mailer.smtp.domain,
+        port:    Settings.mailer.smtp.port,
+
+        user_name: Settings.mailer.smtp.email,
+        password:  Settings.mailer.smtp.password,
+
+        authentication: Settings.mailer.smtp.authentication,
+        enable_starttls_auto: true
+      }
+    elsif Settings.mailer.service == 'sandmail'
+      config.action_mailer.raise_delivery_errors = true
+
+      config.action_mailer.sendmail_settings = {
+        location:  Settings.mailer.sandmail.location,
+        arguments: Settings.mailer.sandmail.arguments
+      }
+    else
+      config.action_mailer.delivery_method = :test
+      config.action_mailer.raise_delivery_errors = false
+    end
+    # ======================================================
+    #  ~ Mailer settings
+    # ======================================================
   end
 end

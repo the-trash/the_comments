@@ -22,7 +22,8 @@ module TheComments
                     :tolerance_time_protection,
                     :yandex_cleanweb_api_key,
                     :akismet_api_key,
-                    :akismet_blog
+                    :akismet_blog,
+                    :default_mailer_email
   end
 
   configure do |config|
@@ -41,5 +42,8 @@ module TheComments
     config.yandex_cleanweb_api_key = nil
     config.akismet_api_key         = nil
     config.akismet_blog            = nil
+
+    # etc
+    config.default_mailer_email = 'the_comments@the_platform.com'
   end
 end

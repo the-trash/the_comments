@@ -15,4 +15,6 @@ TheComments.configure do |config|
   # config.yandex_cleanweb_api_key  = nil
   # config.akismet_api_key          = nil
   # config.akismet_blog             = nil
+
+  config.default_mailer_email = 'mixer@open-cook.ru'
 end

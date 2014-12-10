@@ -38,8 +38,8 @@ module TheComments
       end
 
       def send_notifications_to_subscribers
-        # binding.pry
         emails = subscribers_emails
+        binding.pry
       end
 
       private
@@ -53,7 +53,7 @@ module TheComments
         u_emails = users.map(&:email).compact
         g_emails = subscriptions.map(&:email).compact
 
-        u_emails | g_emails
+        (u_emails | g_emails).uniq
       end
     end # module Comment
   end
