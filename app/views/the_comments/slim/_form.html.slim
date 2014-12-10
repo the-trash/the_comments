@@ -1,8 +1,0 @@
-h3
-  = link_to t('the_comments.new'), '#', id: :new_root_comment
-
-= form_for Comment.new, remote: true, authenticity_token: true do |f|
-  - if current_user
-    = render partial: 'the_comments/slim/logined_form', locals: { f: f, commentable: commentable }
-  - else
-    = render partial: 'the_comments/slim/guest_form', locals: { f: f, commentable: commentable }

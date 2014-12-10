@@ -1,0 +1,3 @@
+# THIS FILE WILL BE REWRITEN WITH DEPLOY TOOL
+puts "Redis: try to init on port: 6010!"
+$redis = Redis.new(port: 6010)

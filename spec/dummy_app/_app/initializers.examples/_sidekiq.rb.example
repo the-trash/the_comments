@@ -1,0 +1,16 @@
+# THIS FILE WILL BE REWRITEN WITH DEPLOY TOOL
+puts "Sidekiq: try to connect to Redis on port: 6010!"
+
+Sidekiq.configure_server do |config|
+  config.redis = {
+    :url => "redis://localhost:6010/12",
+    :namespace => "rails_project_name"
+  }
+end
+
+Sidekiq.configure_client do |config|
+  config.redis = {
+    :url => "redis://localhost:6010/12",
+    :namespace => "rails_project_name"
+  }
+end

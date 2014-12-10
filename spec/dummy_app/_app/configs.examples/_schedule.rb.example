@@ -1,0 +1,25 @@
+# THIS FILE WILL BE REWRITEN WITH DEPLOY TOOL
+# whenever --set environment=development
+
+rails_root = File.expand_path('../../', __FILE__)
+
+# ruby vars
+ruby   = 'ruby-2.1.1'
+gemset = 'default'
+
+# local machine vars
+set :rails_root,  rails_root
+set :env_var,     'RAILS_ENV'
+set :rvm_path,    `which rvm`
+set :rvm_do,      (rvm_do = "#{ rvm_path } #{ ruby }@#{ gemset } do")
+set :bundle_exec, "#{ rvm_do } bundle exec"
+
+# log cron tasks
+set :output, { :error => "#{ rails_root }/log/cron.err.log", :standard => "#{ rails_root }/log/cron.log" }
+
+# define rake
+job_type :rake, "cd #{ rails_root } && #{ bundle_exec } rake :task :env_var=:environment :output"
+
+every 1.minute do
+  rake "cron_tasks:check"
+end

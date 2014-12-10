@@ -11,14 +11,18 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.0.0'
 
 gem 'thin', group: [:development]
-gem 'rails_config'
 # gem 'therubyracer', platforms: :ruby
+
+# delayed jobs
+gem 'redis'
+gem 'sidekiq'
 
 # App gems
 gem 'haml'
 gem 'sorcery'
 gem 'kaminari'
 gem 'haml-rails'
+gem 'rails_config'
 
 gem 'pry-rails'
 gem 'the_data_role_block_rails'

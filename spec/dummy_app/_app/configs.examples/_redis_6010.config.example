@@ -1,0 +1,14 @@
+# THIS FILE WILL BE REWRITEN WITH DEPLOY TOOL
+daemonize yes
+port 6010
+
+dir ./redis_db
+dbfilename redis_6010.rdb
+
+loglevel debug
+logfile ../redis_db/redis.log
+pidfile ../redis_db/redis.pid
+
+save 900 1
+save 300 1
+save 60  1

@@ -1,0 +1,15 @@
+# THIS FILE WILL BE REWRITEN WITH DEPLOY TOOL
+# <% root_path = Rails.root %>
+development:
+  mysql41: 9400
+  address: localhost
+  morphology: stem_ru
+
+  indices_location:   "<%= root_path %>/sphinx_indices"
+  configuration_file: "<%= root_path %>/config/sphinx.conf"
+
+  log:         "<%= root_path %>/log/searchd.log"
+  query_log:   "<%= root_path %>/log/searchd.query.log"
+
+  pid_file:    "<%= root_path %>/tmp/pids/searchd.pid"
+  binlog_path: "<%= root_path %>/tmp/binlog/development"

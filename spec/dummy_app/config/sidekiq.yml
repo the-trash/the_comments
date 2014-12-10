@@ -1,0 +1,13 @@
+---
+:verbose: true
+:concurrency: 10
+:pidfile: ./tmp/pids/sidekiq.pid
+:logfile: ./log/sidekiq.log
+
+:queues:
+  - [the_comments, 5]
+  - [single, 1]
+
+:limits:
+  the_comments: 5
+  single: 1
