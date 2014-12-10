@@ -9,8 +9,24 @@ module TheComments
 
     # Move this to background with SideKiq or DelayedJob
     def antispam_services_check request
-      cleanweb_antispam_check(request)
-      akismet_antispam_check(request)
+      comment = self
+
+      request_data = {
+        user_ip:    request.try(:ip),
+        referrer:   request.try(:referrer),
+        user_agent: request.try(:user_agent)
+      }.compact
+
+      if ::TheComments.config.async_processing
+        TheCommentsAntiSpamWorker.perform_async(comment.id, request_data)
+      else
+        antispam_services_check_batch(request_data)
+      end
+    end
+
+    def antispam_services_check_batch request_data
+      cleanweb_antispam_check(request_data)
+      akismet_antispam_check(request_data)
       action_after_spam_checking
     end
 

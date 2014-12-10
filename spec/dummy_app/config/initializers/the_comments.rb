@@ -17,4 +17,5 @@ TheComments.configure do |config|
   # config.akismet_blog             = nil
 
   config.default_mailer_email = 'mixer@open-cook.ru'
+  config.async_processing     = true
 end

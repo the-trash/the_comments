@@ -23,7 +23,8 @@ module TheComments
                     :yandex_cleanweb_api_key,
                     :akismet_api_key,
                     :akismet_blog,
-                    :default_mailer_email
+                    :default_mailer_email,
+                    :async_processing
   end
 
   configure do |config|
@@ -45,5 +46,6 @@ module TheComments
 
     # etc
     config.default_mailer_email = 'the_comments@the_platform.com'
+    config.async_processing     = false
   end
 end

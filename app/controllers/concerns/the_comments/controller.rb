@@ -39,15 +39,17 @@ module TheComments
 
     def comment_after_create_actions
       # Something happened. They should know
+      # ::Async::
       @comment.send_notifications_to_subscribers
+
+      # app/models/concerns/the_comments/anti_spam.rb
+      # Check with anti-spam services
+      # ::Async::
+      @comment.antispam_services_check(request)
 
       # Add subscriber by Email or UserId
       # app/models/concerns/the_comments/comment_subscription.rb
       @comment.add_subscriber(current_user)
-
-      # Move this to background with SideKiq or DelayedJob
-      # app/models/concerns/the_comments/anti_spam.rb
-      @comment.antispam_services_check(request)
     end
 
     def define_commentable

@@ -38,8 +38,15 @@ module TheComments
       end
 
       def send_notifications_to_subscribers
-        emails = subscribers_emails
-        binding.pry
+        comment = self
+
+        subscribers_emails.each do |email|
+          if ::TheComments.config.async_processing
+            TheCommentsNotificationsWorker.perform_async(email, comment.id)
+          else
+            CommentSubscriberMailer.notificate(email, comment).deliver
+          end
+        end
       end
 
       private

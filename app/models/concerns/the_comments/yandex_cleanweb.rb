@@ -2,25 +2,25 @@ module TheComments
   module YandexCleanweb
     private
 
-    def cleanweb_antispam_check request
+    def cleanweb_antispam_check request_data
       comment = self
       ycw_key = ::TheComments.config.yandex_cleanweb_api_key
 
       if ycw_key.present?
-        data = cleanweb_html_data(comment, request)
+        data = cleanweb_html_data(comment, request_data)
         cleanweb_check(comment, ycw_key, data)
       end
     end
 
-    def cleanweb_html_data comment, request
+    def cleanweb_html_data comment, request_data
       name  = comment.try(:user).try(:username) || comment.contacts
       email = comment.try(:user).try(:email) || comment.contacts
-      email = nil unless email.to_s.match /@/
+      email = nil unless email.to_s.match ::TheComments::EMAIL_REGEXP
 
       {
         name:  name,
         email: email,
-        ip:    request.try(:ip),
+        ip:    request_data.try(:[], :ip),
         body_html: comment.content,
         login: comment.try(:user).try(:login)
       }.compact
