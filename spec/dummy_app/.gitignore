@@ -12,6 +12,7 @@
 /db/*.db
 /db/*.sqlite3
 /db/*.sqlite3-journal
+redis_db/*
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
