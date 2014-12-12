@@ -1,6 +1,4 @@
 module TheComments
-  # Base functionality of Comments Controller
-  #
   # class CommentsController < ApplicationController
   #   include TheComments::Controller
   # end

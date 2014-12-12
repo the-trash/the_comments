@@ -23,10 +23,11 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'jbuilder',          '~> 1.5.3'
 
   # My tools
-  gem.add_dependency 'the_log',           '~> 0.0.1'
-  gem.add_dependency 'the_simple_sort',   '~> 0.0.2'
-  gem.add_dependency 'the_notification',  '~> 0.0.1'
-  gem.add_dependency 'the_sortable_tree', '~> 2.5.0'
+  gem.add_dependency 'the_log',              '~> 0.0.1'
+  gem.add_dependency 'the_simple_sort',      '~> 0.0.2'
+  gem.add_dependency 'the_notification',     '~> 0.0.1'
+  gem.add_dependency 'the_sortable_tree',    '~> 2.5.0'
+  gem.add_dependency 'the_encrypted_string', '~> 0.0.3'
 
   # Anti-spam services
   gem.add_dependency 'the_viking',      '~> 1.0.0'

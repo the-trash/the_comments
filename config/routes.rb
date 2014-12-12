@@ -1,6 +1,7 @@
 module TheComments
   # TheComments::UserRoutes.mixin(self)
   # TheComments::AdminRoutes.mixin(self)
+  # TheComments::SubscriptionRoutes.mixin(self)
 
   class UserRoutes
     def self.mixin mapper
@@ -40,6 +41,14 @@ module TheComments
           mapper.get :total_spam
         end
       end
+    end
+  end
+
+  class SubscriptionRoutes
+    def self.mixin mapper
+      mapper.get "/unsubscribe_comment/:type/:id"     => "comment_subscriptions#unsubscribe_comment",     as: :unsubscribe_comment
+      mapper.get "/unsubscribe_commentable/:type/:id" => "comment_subscriptions#unsubscribe_commentable", as: :unsubscribe_commentable
+      mapper.get "/unsubscribe_all/:type/:id"         => "comment_subscriptions#unsubscribe_all",         as: :unsubscribe_all
     end
   end
 end

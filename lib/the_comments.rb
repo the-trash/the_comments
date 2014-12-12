@@ -6,6 +6,7 @@ require 'state_machine/version'
 require 'the_simple_sort'
 require 'the_notification'
 require 'the_sortable_tree'
+require 'the_encrypted_string'
 
 require 'the_comments/config'
 require 'the_comments/version'

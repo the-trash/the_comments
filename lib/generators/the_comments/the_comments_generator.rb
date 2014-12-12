@@ -3,6 +3,7 @@ class TheCommentsGenerator < Rails::Generators::NamedBase
   # argument :xname, type: :string, default: :xname
 
   # > rails g the_comments NAME
+  # example: rails g the_comments controllers
   def generate_controllers
     case gen_name
       when 'locales'
@@ -37,23 +38,25 @@ class TheCommentsGenerator < Rails::Generators::NamedBase
   end
 
   def cp_models
-    copy_file "#{ root_path }/app/models/_templates_/comment.rb",
-              "app/models/comment.rb"
+    _path = "#{ root_path }/app/models/_templates_"
 
-    copy_file "#{ root_path }/app/models/_templates_/comment_subscription.rb",
-              "app/models/comment_subscription.rb"
+    %w[ comment.rb comment_subscription.rb ].each do |file_name|
+      copy_file "#{ _path }/#{ file_name }", "app/models/#{ file_name }"
+    end
   end
 
   def cp_controllers
-    copy_file "#{ root_path }/app/controllers/_templates_/comments_controller.rb",
-              "app/controllers/comments_controller.rb"
+    _path = "#{ root_path }/app/controllers/_templates_"
+    %w[ comments_controller.rb comment_subscriptions_controller.rb ].each do |file_name|
+      copy_file "#{ _path }/#{ file_name }", "app/controllers/#{ file_name }"
+    end
   end
 
   def cp_locales
-    copy_file "#{ root_path }/config/locales/en.yml",
-              "config/locales/en.the_comments.yml"
+    _path = "#{ root_path }/config/locales"
 
-    copy_file "#{ root_path }/config/locales/ru.yml",
-              "config/locales/ru.the_comments.yml"
+    %w[ en.the_comments.yml ru.the_comments.yml ].each do |file_name|
+      copy_file "#{ _path }/#{ file_name }", "config/locales/#{ file_name }"
+    end
   end
 end

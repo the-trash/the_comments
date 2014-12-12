@@ -1,3 +1,9 @@
+%h3 Unsubscribe links:
+
+%p= link_to "Unsub comment",     unsubscribe_comment_path(:user, User.first.id.to_s.to_the_encrypted)
+%p= link_to "Unsub commentable", unsubscribe_comment_path(:guest, "test@email.com".to_the_encrypted)
+%p= link_to "Unsub all",         unsubscribe_all_path(:user, User.first.id.to_s.to_the_encrypted)
+
 %h3 Posts:
 %ul
   - @posts.each do |post|

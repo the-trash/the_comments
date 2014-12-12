@@ -14,4 +14,5 @@ App::Application.routes.draw do
 
   TheComments::UserRoutes.mixin(self)
   TheComments::AdminRoutes.mixin(self)
+  TheComments::SubscriptionRoutes.mixin(self)
 end
