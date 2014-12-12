@@ -12,8 +12,6 @@ App::Application.routes.draw do
   resources :posts
   resources :users
 
-  # TheComments routes
-  concern   :user_comments,  TheComments::UserRoutes.new
-  concern   :admin_comments, TheComments::AdminRoutes.new
-  resources :comments, concerns:  [:user_comments, :admin_comments]
+  TheComments::UserRoutes.mixin(self)
+  TheComments::AdminRoutes.mixin(self)
 end
