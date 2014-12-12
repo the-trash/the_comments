@@ -1,3 +1,3 @@
 class CommentSubscriptionsController < ApplicationController
-  include TheComments::SubscriptionsController
+  include ::TheComments::SubscriptionsController
 end
