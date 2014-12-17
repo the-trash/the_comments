@@ -29,6 +29,11 @@ module TheComments
   # simple and almost perfect
   # anything[at]anything[dot]anything{2-15}
   EMAIL_REGEXP = /\A(\S+)@(\S+)\.(\S{2,15})\z/
+
+  # "  hello @ world .com  " => "hello@world.com"
+  def self.normalize_email str
+    str.to_s.squish.strip.gsub(/\s*/, '')
+  end
 end
 
 # Routing cocerns loading

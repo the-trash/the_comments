@@ -1,6 +1,18 @@
 module TheComments
   module CommentSubscription
 
+    module Relations
+      extend ActiveSupport::Concern
+
+      included do
+        has_many :comment_subscriptions
+
+        has_many :active_subscriptions,
+          -> { where(state: :active) },
+          class_name: :CommentSubscription
+      end
+    end
+
     module User
       extend ActiveSupport::Concern
 
@@ -16,23 +28,18 @@ module TheComments
     module Comment
       extend ActiveSupport::Concern
 
-      included do
-        has_one :comment_subscription
-
-        has_one :active_subscription,
-          -> { where(state: :active) },
-          class_name: :CommentSubscription
-      end
+      included { include ::TheComments::CommentSubscription::Relations }
 
       def add_subscriber(current_user)
         return unless subscribe_to_thread_flag
+        comment = self
 
         if current_user
-          self.comment_subscriptions.create(user: current_user)
+          comment.comment_subscriptions.create(user_id: current_user.id)
         else
-          _email = normalize_email(contacts)
+          _email = ::TheComments.normalize_email(contacts)
           if _email.match ::TheComments::EMAIL_REGEXP
-            self.comment_subscriptions.create(email: _email)
+            comment.comment_subscriptions.create(email: _email)
           end
         end
       end
@@ -52,9 +59,10 @@ module TheComments
       private
 
       def subscribers_emails
-        parents = self.ancestors.includes(:comment_subscription)
+        comment = self
+        parents = comment.ancestors.includes(:comment_subscriptions)
 
-        subscriptions = parents.map(&:active_subscription).compact
+        subscriptions = parents.map(&:active_subscriptions).compact.flatten
         users = ::User.where(id: subscriptions.map(&:user_id).compact)
 
         u_emails = users.map(&:email).compact

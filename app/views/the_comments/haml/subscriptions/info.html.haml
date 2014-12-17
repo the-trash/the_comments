@@ -1,0 +1,29 @@
+%h3 TheComments Subscribtion info
+
+- unless %w[ user email ].include? @type
+  %p BAD REQUEST
+- else
+  %p
+    Comment Subscriptions was switched off:
+    = @subs_count
+  %p
+    Active Comment Subscriptions (Total):
+    = @total_active_subscriptions
+  %p
+    Total Active Comment Subscriptions (for Commentable):
+    = @commentable_active_subscriptions
+
+  %h4 Manage comments subscriptions
+  - if @type == 'user'
+    - url_data = [ 'user', @comment.id, @user.id ].map{|i| i.to_s.to_the_encrypted }
+
+    %p= link_to "Unsub comment",     unsubscribe_comment_path(*url_data)
+    %p= link_to "Unsub commentable", unsubscribe_commentable_path(*url_data)
+    %p= link_to "Unsub all",         unsubscribe_all_path('user'.to_the_encrypted, @user.id.to_s.to_the_encrypted)
+
+  - if @type == 'email'
+    - url_data = [ 'email', @comment.id, @email ].map{|i| i.to_s.to_the_encrypted }
+
+    %p= link_to "Unsub comment",     unsubscribe_comment_path(*url_data)
+    %p= link_to "Unsub commentable", unsubscribe_commentable_path(*url_data)
+    %p= link_to "Unsub all",         unsubscribe_all_path('email'.to_the_encrypted, @email.to_the_encrypted)

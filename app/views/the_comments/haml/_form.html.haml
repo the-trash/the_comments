@@ -6,9 +6,9 @@
   - else
     = render partial: 'the_comments/haml/form.guest', locals: { f: f, commentable: commentable }
 
-    %p
-      = f.check_box :subscribe_to_thread_flag, { autocomplete: :off, checked: true }, true, false
-      = t('.the_comments.subscribe_to_thread')
-    %p
-      = f.submit t('the_comments.form.create'), class: :btn
-      = t('the_comments.form.thank_you')
+  %p
+    = f.check_box :subscribe_to_thread_flag, { autocomplete: :off, checked: true }, true, false
+    = t('.the_comments.subscribe_to_thread')
+  %p
+    = f.submit t('the_comments.form.create'), class: :btn
+    = t('the_comments.form.thank_you')

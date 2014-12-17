@@ -48,7 +48,7 @@ module TheComments
       src    = id.to_s
       src    = title unless title.blank?
 
-      _email = normalize_email(contacts)
+      _email = ::TheComments.normalize_email(contacts)
       src    = _email if _email.match ::TheComments::EMAIL_REGEXP
 
       hash = Digest::MD5.hexdigest(src)
@@ -110,10 +110,6 @@ module TheComments
           "#{ state }_comments_count" => commentable.send("#{ state }_comments_count") + 1
         })
       end
-    end
-
-    def normalize_email str
-      str.to_s.squish.strip.gsub(/\s*/, '')
     end
 
   end

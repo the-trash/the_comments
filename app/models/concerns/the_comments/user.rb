@@ -3,8 +3,9 @@ module TheComments
     extend ActiveSupport::Concern
 
     included do
+      include ::TheComments::CommentSubscription::Relations
+
       has_many :comcoms, class_name: :Comment, foreign_key: :holder_id
-      has_many :comment_subscriptions
     end
 
     def my_comments; ::Comment.where(user: self); end
