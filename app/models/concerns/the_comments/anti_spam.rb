@@ -7,7 +7,6 @@ module TheComments
       include ::TheComments::YandexCleanweb
     end
 
-    # Move this to background with SideKiq or DelayedJob
     def antispam_services_check request
       comment = self
 

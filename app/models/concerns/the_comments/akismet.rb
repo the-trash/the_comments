@@ -14,9 +14,9 @@ module TheComments
     end
 
     def akismet_html_data comment, request_data
-      author  = comment.try(:user).try(:username) || comment.contacts
-      email   = self.try(:user).try(:email) || comment.contacts
-      email   = nil unless email.to_s.match ::TheComments::EMAIL_REGEXP
+      author = comment.try(:user).try(:username) || comment.contacts
+      email  = self.try(:user).try(:email) || comment.contacts
+      email  = nil unless email.to_s.match ::TheComments::EMAIL_REGEXP
 
       {
         comment_author: author,
