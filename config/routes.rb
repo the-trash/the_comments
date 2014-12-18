@@ -5,7 +5,7 @@ module TheComments
 
   class UserRoutes
     def self.mixin mapper
-      mapper.resources :comments, only: [:create] do
+      mapper.resources :comments, only: [:create, :edit] do
         mapper.collection do
           mapper.get :manage
           mapper.get :my_comments

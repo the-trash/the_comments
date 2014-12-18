@@ -20,7 +20,7 @@
 
           - if current_user.comments_admin?
             = render partial: 'the_comments/haml/comment_edit', locals: { comment: comment }
-            = render partial: 'the_comments/haml/manage_controls', locals: { comment: comment }
+            = render partial: 'the_comments/haml/manage/controls', locals: { comment: comment }
             = render partial: 'the_comments/haml/additional_info', locals: { comment: comment }
 
   = paginate @comments

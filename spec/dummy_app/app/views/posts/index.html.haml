@@ -1,9 +1,3 @@
-%h3 Unsubscribe links:
-
-%p= link_to "Unsub comment",     unsubscribe_comment_path('user'.to_the_encrypted,  Comment.last.id.to_s.to_the_encrypted, User.first.id.to_s.to_the_encrypted)
-%p= link_to "Unsub commentable", unsubscribe_commentable_path('guest'.to_the_encrypted, Comment.last.id.to_s.to_the_encrypted, "test@email.com".to_the_encrypted)
-%p= link_to "Unsub all",         unsubscribe_all_path('user'.to_the_encrypted,      User.first.id.to_s.to_the_encrypted)
-
 %h3 Posts:
 %ul
   - @posts.each do |post|
@@ -26,3 +20,23 @@
       %b= link_to comment.commentable_title, comment.commentable_url
       %br
       %i= comment.content
+
+%hr
+%h3 Unsubscribe links:
+
+%hr
+%p
+  %b
+    User.last / Comment.last
+%p= link_to "Unsub comment",     unsubscribe_comment_path('user'.to_the_encrypted,  Comment.last.id.to_s.to_the_encrypted,    User.last.id.to_s.to_the_encrypted)
+%p= link_to "Unsub commentable", unsubscribe_commentable_path('user'.to_the_encrypted, Comment.last.id.to_s.to_the_encrypted, User.last.id.to_s.to_the_encrypted)
+%p= link_to "Unsub all",         unsubscribe_all_path('user'.to_the_encrypted, User.first.id.to_s.to_the_encrypted)
+
+%hr
+%p
+  %b
+    email test@test.com / Comment.last
+
+%p= link_to "Unsub comment",     unsubscribe_comment_path('user'.to_the_encrypted,  Comment.last.id.to_s.to_the_encrypted, User.first.id.to_s.to_the_encrypted)
+%p= link_to "Unsub commentable", unsubscribe_commentable_path('email'.to_the_encrypted, Comment.last.id.to_s.to_the_encrypted, "test@email.com".to_the_encrypted)
+%p= link_to "Unsub all",         unsubscribe_all_path('user'.to_the_encrypted,      User.first.id.to_s.to_the_encrypted)
