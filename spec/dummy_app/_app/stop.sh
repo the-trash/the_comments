@@ -19,17 +19,17 @@ source $CURRENT_DIR/_vars.sh
 # service_notification "SPHINX" "try to stop"
 # (execute "$RAKE_DO ts:stop") || (error_message "Sphinx can't be stopped")
 
-########################################
-# REDIS
-########################################
-service_notification "Redis" "try to stop"
-(execute "redis-cli -h localhost -p $REDIS_PORT shutdown") || (error_message "Redis can't be stopped")
-
 #######################################
 # SIDEKIQ
 #######################################
 service_notification "Sidekiq" "try to stop"
 (execute "$BUNDLE_EXEC bin/sidekiqctl stop $RAILS_ROOT/tmp/pids/sidekiq.pid") || (error_message "SidqKiq can't be stoppped")
+
+########################################
+# REDIS
+########################################
+service_notification "Redis" "try to stop"
+(execute "redis-cli -h localhost -p $REDIS_PORT shutdown") || (error_message "Redis can't be stopped")
 
 #######################################
 # DELAYED JOB
