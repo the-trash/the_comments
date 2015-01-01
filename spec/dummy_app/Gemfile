@@ -1,7 +1,8 @@
 source 'https://rubygems.org'
 
 # Base gems
-gem 'rails', '4.1.6' #github: 'rails/rails', branch: 'master'
+
+gem 'rails', '~> 4.2.0'
 gem 'sqlite3'
 
 gem 'jquery-rails'
@@ -25,8 +26,15 @@ gem 'haml-rails'
 gem 'rails_config'
 
 gem 'pry-rails'
-gem 'the_data_role_block_rails'
-# path: '../../../the_data_role_block_rails'
+
+gem 'the_data_role_block_jquery',
+  path: '../../../the_data_role_block_jquery'
+
+gem 'the_data_role_block_haml_41',
+  path: '../../../the_data_role_block_haml_41'
+
+# gem 'the_data_role_block_haml_40',
+#   path: '../../../the_data_role_block_haml_40'
 
 # The Log
 gem 'the_log'
