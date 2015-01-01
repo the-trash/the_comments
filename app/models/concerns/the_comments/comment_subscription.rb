@@ -51,7 +51,7 @@ module TheComments
           if ::TheComments.config.async_processing
             TheCommentsNotificationsJob.perform_async(email, comment.id)
           else
-            CommentSubscriberMailer.notificate(email, comment).deliver
+            CommentSubscriberMailer.notificate(email, comment).deliver_now
           end
         end
       end

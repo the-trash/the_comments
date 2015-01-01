@@ -5,12 +5,9 @@ class TheCommentsNotificationsJob < ActiveJob::Base
   # TheCommentsNotificationsJob.perform_now(email, comment_id)
   def perform(email, comment_id)
     comment = Comment.find(comment_id)
-    CommentSubscriberMailer.notificate(email, comment).deliver
+    CommentSubscriberMailer.notificate(email, comment).deliver_now
   end
 end
 
-# include Sidekiq::Worker
-#
-# sidekiq_options queue: :the_comments_workers,
-#                 retry: true,
-#                 backtrace: true
+# retry: true,
+# backtrace: true

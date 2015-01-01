@@ -3,7 +3,8 @@ class CommentSubscriberMailer < ActionMailer::Base
 
   include TheCommentsViewHelper
 
-  # CommentSubscriberMailer.notificate(email, comment).deliver
+  # CommentSubscriberMailer.notificate(email, comment).deliver_now
+  # CommentSubscriberMailer.notificate(email, comment).deliver_later
   def notificate email, comment
     @email       = email
     @comment     = comment
