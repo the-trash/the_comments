@@ -3,6 +3,14 @@ module TheComments
 
     extend ActiveSupport::Concern
 
+    class_methods do
+      # service method
+      # only for development purposes => can takes a while
+      def recalculate_comments_counters!
+        self.all.each { |commentable| commentable.try :recalculate_comments_counters! }
+      end
+    end
+
     included do
       has_many :comments, as: :commentable
 

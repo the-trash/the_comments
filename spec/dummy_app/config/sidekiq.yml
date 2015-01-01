@@ -5,9 +5,9 @@
 :logfile: ./log/sidekiq.log
 
 :queues:
-  - [the_comments_workers, 5]
+  - ['development.the_comments_jobs', 5]
   - [single, 1]
 
 :limits:
-  the_comments_workers: 5
+  'development.the_comments_jobs': 5
   single: 1

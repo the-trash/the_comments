@@ -21,6 +21,16 @@ module App
     # config.i18n.default_locale = :de
 
     # ======================================================
+    # ACTIVE JOB settings
+    # ======================================================
+    config.active_job.queue_adapter        = :sidekiq
+    config.active_job.queue_name_prefix    = Rails.env
+    config.active_job.queue_name_delimiter = '.'
+    # ======================================================
+    # ~ ACTIVE JOB settings
+    # ======================================================
+
+    # ======================================================
     #  Mailer settings
     # ======================================================
     config.action_mailer.default_url_options = { host: Settings.mailer.host }

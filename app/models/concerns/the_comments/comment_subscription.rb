@@ -49,7 +49,7 @@ module TheComments
 
         subscribers_emails.each do |email|
           if ::TheComments.config.async_processing
-            TheCommentsNotificationsWorker.perform_async(email, comment.id)
+            TheCommentsNotificationsJob.perform_async(email, comment.id)
           else
             CommentSubscriberMailer.notificate(email, comment).deliver
           end

@@ -17,7 +17,7 @@ module TheComments
       }.compact
 
       if ::TheComments.config.async_processing
-        TheCommentsAntiSpamWorker.perform_async(comment.id, request_data)
+        TheCommentsAntiSpamJob.perform_async(comment.id, request_data)
       else
         antispam_services_check_batch(request_data)
       end
@@ -31,8 +31,8 @@ module TheComments
 
     private
 
-    # Reload this method into your App
-    # Do something if spam services return true
+    # Overload this method into your App
+    # Do something if spam services return `true`
     def action_after_spam_checking
       comment = self
 
@@ -41,8 +41,8 @@ module TheComments
 
       # for example mark it as SPAM
       # and move to DELETED comments
-      #
-      if spam_flag_1 || spam_flag_2
+      # || or &&
+      if spam_flag_1 && spam_flag_2
         comment.mark_as_spam
         comment.to_deleted
       end
