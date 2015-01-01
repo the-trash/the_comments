@@ -1,0 +1,4 @@
+.comments@comments
+  ol.comments_tree@comments_tree@tolarance_time_holder  data: { comments: { tolarance_time: TheComments.config.tolerance_time  } }  
+    = render partial: 'the_comments/slim/comment', locals: { tree: comments_tree }
+  = render partial: 'the_comments/slim/form', locals: { commentable: commentable }

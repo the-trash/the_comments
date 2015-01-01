@@ -1,0 +1,9 @@
+.panel.panel-default
+  .panel-heading= t "the_comments.nav.header"
+  .panel-body
+    = render partial: 'the_comments/slim/sidebar_backlink'
+
+    - if current_user.comments_admin?
+      = render partial: 'the_comments/slim/sidebar_admin'
+    - else
+      = render partial: 'the_comments/slim/sidebar_user'

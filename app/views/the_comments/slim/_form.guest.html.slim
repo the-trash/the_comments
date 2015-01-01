@@ -1,0 +1,14 @@
+label= t('the_comments.form.title')
+p= f.text_field :title, class: 'form-control'
+
+label= t('the_comments.form.contacts')
+p= f.text_field :contacts, class: 'form-control'
+
+label= t('the_comments.form.content')
+p= f.text_area :raw_content, class: 'form-control'
+
+p.trap
+  - TheComments.config.empty_inputs.each do |name|
+    = text_field_tag name, nil, autocomplete: :off, tabindex: -1, id: nil
+
+= render partial: 'the_comments/slim/form.hidden_fields', locals: { f: f, commentable: commentable }

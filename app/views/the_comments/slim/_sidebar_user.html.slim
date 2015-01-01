@@ -1,0 +1,29 @@
+- cuser = current_user
+
+h5=t 'the_comments.written_by_me', num: cuser.my_comments.count
+
+p= link_to t("the_comments.published_comments", num: cuser.my_published_comments.count), [:my_published, :comments], class: 'btn btn-success btn-sm'
+p= link_to t("the_comments.draft_comments",     num: cuser.my_draft_comments.count),     [:my_draft,     :comments], class: 'btn btn-info btn-sm'
+
+p
+  - if cuser.comments_admin?
+    = link_to t("the_comments.deleted_comments",   num: cuser.my_deleted_comments.count),   [:my_deleted, :comments], class: 'btn btn-default btn-sm'
+    = link_to t("the_comments.spam_comments",      num: cuser.my_spam_comments.count),      [:my_spam,    :comments], class: 'btn btn-default btn-sm'
+  - else
+    span.btn.btn-default.btn-sm= t("the_comments.deleted_comments",   num: cuser.my_deleted_comments.count)
+    span.btn.btn-default.btn-sm= t("the_comments.spam_comments",      num: cuser.my_spam_comments.count)
+
+br
+h5= t 'the_comments.for_my_posts', num: cuser.comcoms.count
+
+p= link_to t("the_comments.published_comments", num: cuser.published_comcoms_count), [:published, :comments], class: 'btn btn-success btn-sm'
+p= link_to t("the_comments.draft_comments",     num: cuser.draft_comcoms_count),     [:draft,     :comments], class: 'btn btn-info btn-sm'
+p
+  - if cuser.comments_admin?
+    = link_to t("the_comments.deleted_comments",   num: cuser.deleted_comcoms_count),   [:deleted,   :comments], class: 'btn btn-default btn-sm'
+    = link_to t("the_comments.spam_comments",      num: cuser.spam_comcoms_count),      [:spam,      :comments], class: 'btn btn-default btn-sm'
+  - else
+    span.btn.btn-default.btn-sm= t("the_comments.deleted_comments",   num: cuser.deleted_comcoms_count)
+    span.btn.btn-default.btn-sm= t("the_comments.spam_comments",      num: cuser.spam_comcoms_count)
+
+

@@ -1,0 +1,26 @@
+.edit_form  style: "display:none"  
+  = form_for comment, remote: true, html:{ role: :form } do |f|
+    table.table.table-striped.table-hover
+      tr  style: "width: 100px;" 
+        td
+          b= comment.commentable_type
+          | &rarr;
+        td
+          = link_to comment.commentable_title, comment.commentable_url
+          | (#{comment.try(:commentable_state)})
+      tr
+        td
+          b= t('the_comments.title')
+        td= f.text_field :title, class: "form-control"
+      tr
+        td
+          b= t('the_comments.contacts')
+        td= f.text_field :contacts, class: "form-control"
+      tr
+        td
+          b= t('the_comments.content')
+        td= f.text_area  :raw_content, class: "form-control", rows: 7
+      tr
+        td
+        td= f.submit t('the_comments.update'), class: "btn btn-success"
+  hr

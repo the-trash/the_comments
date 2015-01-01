@@ -1,0 +1,30 @@
+- hidden = "display:none"
+
+.row.controls
+  .col-md-9.action_btns
+    = link_to '#', class: "edit btn btn-success" do
+      = t('the_comments.edit')
+
+    = link_to '#', class: "btn btn-warning edit", style: "display:none" do
+      = t('the_comments.cancel')
+
+    - unless to_hide = comment.published? ? hidden : nil
+      - opts    = { remote: true, style: to_hide, method: :post }
+      = link_to [:to_published, comment], opts.merge(class: "btn btn-primary to_published") do
+        = t('the_comments.to_published')
+
+    - unless to_hide = comment.draft? ? hidden : nil
+      - opts    = { remote: true, style: to_hide, method: :post }
+      = link_to [:to_draft, comment], opts.merge(class: "btn btn-warning to_draft") do
+        = t('the_comments.to_draft')
+
+    - unless to_hide = comment.deleted? ? hidden : nil
+      - opts    = { remote: true, style: to_hide, method: :delete, data: { confirm: t('the_comments.delete_confirm') } }
+      = link_to [:to_deleted, comment], opts.merge(class: "btn btn-danger to_deleted") do
+        = t('the_comments.to_deleted')
+
+    - opts = { remote: true, method: :post}
+    = link_to [:to_spam, comment], opts.merge(class: "btn btn-danger to_spam") do
+      = t('the_comments.to_spam')
+  .col-md-3.text-right
+    = link_to t('the_comments.additional_info'), "#", class: "additional_info btn btn-info"
