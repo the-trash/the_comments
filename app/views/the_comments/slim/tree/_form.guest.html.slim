@@ -11,4 +11,4 @@ p.trap
   - TheComments.config.empty_inputs.each do |name|
     = text_field_tag name, nil, autocomplete: :off, tabindex: -1, id: nil
 
-= render partial: 'the_comments/slim/form.hidden_fields', locals: { f: f, commentable: commentable }
+= render partial: comment_template('tree/form.hidden_fields'), locals: { f: f, commentable: commentable }

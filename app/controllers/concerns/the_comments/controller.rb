@@ -1,7 +1,8 @@
+# class CommentsController < ApplicationController
+#   include TheComments::Controller
+# end
+
 module TheComments
-  # class CommentsController < ApplicationController
-  #   include TheComments::Controller
-  # end
   module Controller
     extend ActiveSupport::Concern
 
@@ -27,9 +28,9 @@ module TheComments
 
       if @comment.save
         comment_after_create_actions
-        render template: view_context.comment_template('create.success')
+        render template: view_context.comment_template('tree/create.success')
       else
-        render template: view_context.comment_template('create.errors'), status: 422
+        render template: view_context.comment_template('tree/create.errors'), status: 422
       end
     end
 

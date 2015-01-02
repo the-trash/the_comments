@@ -30,8 +30,8 @@ gem 'pry-rails'
 gem 'the_data_role_block_jquery',
   path: '../../../the_data_role_block_jquery'
 
-gem 'the_data_role_block_haml_41',
-  path: '../../../the_data_role_block_haml_41'
+gem 'the_data_role_block_slim',
+  path: '../../../the_data_role_block_slim'
 
 # gem 'the_data_role_block_haml_40',
 #   path: '../../../the_data_role_block_haml_40'

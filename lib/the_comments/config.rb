@@ -34,7 +34,7 @@ module TheComments
     config.default_owner_state = :published
     config.empty_inputs        = [:message]
     config.default_title       = 'Undefined title'
-    config.template_engine     = :haml
+    config.template_engine     = :slim
 
     config.empty_trap_protection     = true
     config.tolerance_time_protection = true

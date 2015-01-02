@@ -3,7 +3,7 @@
     = link_to user_path(current_user), nopin: :nopin do
       = image_tag current_user.try(:avatar).try(:url, :thumb)
   .comment_data
-    = render partial: 'the_comments/slim/form.hidden_fields', locals: { f: f, commentable: commentable }
+    = render partial: comment_template('tree/form.hidden_fields'), locals: { f: f, commentable: commentable }
 
     .user_name
       b= current_user.username.present? ? current_user.username : current_user.login

@@ -1,7 +1,7 @@
-module TheComments
-  # Cookies and View token for spam protection
-  # include TheComments::ViewToken
+# Cookies and View token for spam protection
+# include TheComments::ViewToken
 
+module TheComments
   module ViewToken
     extend ActiveSupport::Concern
 
