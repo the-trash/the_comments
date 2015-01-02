@@ -1,6 +1,6 @@
 - cuser = current_user
 
-= render partial: 'the_comments/slim/sidebar_user'
+= render partial: comment_template('manage/sidebar/user')
 
 - if cuser.comments_admin?
   br
