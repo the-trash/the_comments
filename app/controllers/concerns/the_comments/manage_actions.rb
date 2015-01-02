@@ -2,7 +2,10 @@ module TheComments
   module ManageActions
     extend ActiveSupport::Concern
 
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # App side methods (you can overwrite them)
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     def manage
       @comments = current_user.comcoms.with_users.active.recent.page(params[:page])
       render view_context.comment_template('manage/manage')
@@ -13,8 +16,12 @@ module TheComments
       render view_context.comment_template('manage/manage')
     end
 
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Methods based on *current_user* helper
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     # Methods for admin
+
     %w[ draft published deleted ].each do |state|
       define_method state do
         @comments = current_user.comcoms.with_users.with_state(state).recent.page(params[:page])
@@ -47,7 +54,10 @@ module TheComments
       render view_context.comment_template('manage/manage')
     end
 
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     # Restricted area
+    # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
     def edit
       @comments = current_user.comcoms.where(id: params[:id]).page(params[:page])
       render view_context.comment_template('manage/manage')
@@ -56,7 +66,7 @@ module TheComments
     def update
       comment = ::Comment.find(params[:id])
       comment.update_attributes!(patch_comment_params)
-      render(layout: false, partial: view_context.comment_template(:comment_body), locals: { comment: comment })
+      render(layout: false, partial: view_context.comment_template('manage/comment/body'), locals: { comment: comment })
     end
 
     %w[ draft published deleted ].each do |state|

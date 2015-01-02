@@ -1,28 +1,28 @@
 @TheCommentsManagePanel = do ->
   init: ->
-    hide_comment_panel = (btn) -> $(btn).parents('.panel').slideUp()
+    hide_comment_panel = (btn) -> $(btn).parents('@@panel').slideUp()
 
-    comments = $ '.comments'
+    comments = $ '@@comments'
 
     # CONTROLS
-    comments.on 'click', 'a.additional_info', ->
+    comments.on 'click', '@comment_info', ->
       btn    = $ @
-      holder = btn.parents('.panel-body')
-      holder.find('div.additional_info').slideToggle()
+      holder = btn.parents('@@panel-body')
+      holder.find('@@comment_info').slideToggle()
       false
 
-    comments.on 'click', 'a.edit', ->
+    comments.on 'click', '@comment_edit', ->
       btn    = $ @
-      holder = btn.parents('.panel-body')
-      holder.find('.edit_form, .comment_body, a.edit').toggle()
+      holder = btn.parents('@@panel-body')
+      holder.find('@@comment_edit_form, @@comment_body, @comment_edit').toggle()
       false
 
-    comments.on 'ajax:success', '.to_published, .to_draft, .to_spam, .to_deleted', ->
+    comments.on 'ajax:success', '@to_published, @to_draft, @to_spam, @to_deleted', ->
       hide_comment_panel @
 
     # Edit form
-    comments.on 'ajax:success', '.edit_comment', (request, response, status) ->
+    comments.on 'ajax:success', '@@comment_edit_form', (request, response, status) ->
       form   = $ @
-      holder = form.parents('.panel-body')
-      holder.find('.edit_form, .comment_body, a.edit').toggle()
-      holder.find('.comment_body').replaceWith response
+      holder = form.parents('@@panel-body')
+      holder.find('@@comment_edit_form, @@comment_body, @comment_edit').toggle()
+      holder.find('@@comment_body').replaceWith response

@@ -18,7 +18,7 @@
   #####################################################
   # MODULE COMMON VARS
   #####################################################
-  comment_forms: "@new_comment, .reply_comments_form"
+  comment_forms: "@new_comment, @reply_comments_form"
   submits:       '@comments input[type=submit]'
 
   i18n:

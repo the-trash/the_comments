@@ -5,22 +5,16 @@
   = render partial: comment_template('manage/sidebar/sidebar')
 
 - content_for :comments_main do
+  css:
+    .mr10{ margin-right: 10px; }
+
   = paginate @comments
 
   - if @comments.blank?
     .alert.alert-info= t 'the_comments.no_comments_here'
 
-  .comments
+  .comments@@comments
     - @comments.each do |comment|
-      - klass = { published: :success, draft: :info, deleted: :danger }[comment.state.to_sym]
-      .panel class="panel-#{klass}"
-        .panel-heading= comment.header_title
-        .panel-body
-          = render partial: comment_template('manage/comment_body'), locals: { comment: comment }
-
-          - if current_user.comments_admin?
-            = render partial: comment_template('manage/comment_edit'), locals: { comment: comment }
-            = render partial: comment_template('manage/controls'), locals: { comment: comment }
-            = render partial: comment_template('manage/additional_info'), locals: { comment: comment }
+      = render partial: comment_template('manage/comment/comment'), locals: { comment: comment }
 
   = paginate @comments

@@ -1,0 +1,10 @@
+- klass = { published: :success, draft: :info, deleted: :danger }[comment.state.to_sym]
+.panel@@panel class="panel-#{ klass }"
+  .panel-heading= comment.header_title
+  .panel-body@@panel-body
+    = render partial: comment_template('manage/comment/body'), locals: { comment: comment }
+
+    - if current_user.comments_admin?
+      = render partial: comment_template('manage/comment/edit_form'), locals: { comment: comment }
+      = render partial: comment_template('manage/comment/controls'),  locals: { comment: comment }
+      = render partial: comment_template('manage/comment/info'),      locals: { comment: comment }
