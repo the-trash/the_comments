@@ -1,9 +1,0 @@
-/*
-  *= require the_comments
-  *= require the_notification/vendors/toastr
-*/
-
-.body{
-  margin: auto;
-  width: 800px;
-}

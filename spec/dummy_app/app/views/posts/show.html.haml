@@ -1,8 +1,0 @@
-%h3= @post.title
-%p=  @post.content
-
-%p
-  Comments count:
-  %span@comments_sum= @post.comments_sum
-
-= render partial: comment_template('tree'), locals: { commentable: @post, comments_tree: @comments }
