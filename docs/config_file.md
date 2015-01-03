@@ -11,9 +11,9 @@ bundle exec rails g the_comments config
 **config/initializers/the_comments.rb**
 
 ```ruby
-# TheComments.config.param_name => value
+# TheCommentsBase.config.param_name => value
 
-TheComments.configure do |config|
+TheCommentsBase.configure do |config|
   config.max_reply_depth     = 3                 # comments tree depth
   config.tolerance_time      = 5                 # sec - after this delay user can post a comment
   config.default_state       = :draft            # default state for comment
