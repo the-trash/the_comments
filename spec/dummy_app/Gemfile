@@ -41,8 +41,19 @@ gem 'the_log'
   # path: '../../../the_log'
 
 # TheComments requires
-gem 'the_comments',
-  path: '../../'
+gem 'the_comments', path: '../../'
+
+gem 'the_comments_base',
+  path: '../../../the_comments_base'
+
+gem 'the_comments_subscriptions',
+  path: '../../../the_comments_subscriptions'
+
+gem 'the_comments_antispam_services',
+  path: '../../../the_comments_antispam_services'
+
+gem 'the_comments_manager',
+  path: '../../../the_comments_manager'
 
 gem 'the_notification',
   github: 'TheProfitCMS/the_notification',

@@ -5,4 +5,4 @@
   Comments count:
   %span@comments_sum= @post.comments_sum
 
-= render partial: 'the_comments/tree', locals: { commentable: @post, comments_tree: @comments }
+= render partial: comment_template('tree'), locals: { commentable: @post, comments_tree: @comments }

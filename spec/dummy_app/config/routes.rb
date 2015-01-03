@@ -12,7 +12,7 @@ App::Application.routes.draw do
   resources :posts
   resources :users
 
-  TheComments::UserRoutes.mixin(self)
-  TheComments::AdminRoutes.mixin(self)
-  TheComments::SubscriptionRoutes.mixin(self)
+  TheCommentsBase::Routes.mixin(self)
+  TheCommentsManager::Routes.mixin(self)
+  TheCommentsSubscriptions::Routes.mixin(self)
 end
