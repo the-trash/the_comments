@@ -217,6 +217,61 @@ end
 
 <hr>
 
+### Common problems
+
+For error with `unpermitted parameters` in webserver output.
+
+Example:
+
+    Unpermitted parameters: commentable_type, commentable_id
+
+    User Load (0.3ms)  SELECT  "users".* FROM "users"  WHERE "users"."id" = 1  ORDER BY "users"."id" ASC LIMIT 1
+
+    Completed 500 Internal Server Error in 8ms
+
+Add the following to your Comments Controller.
+
+    def comment_params
+      params
+      .require(:comment)
+      .permit(:title, :contacts, :raw_content, :parent_id, :commentable_type, :commentable_id)
+      .merge(denormalized_fields)
+      .merge(request_data_for_comment)
+      .merge(tolerance_time: params[:tolerance_time].to_i)
+      .merge(user: current_user, view_token: comments_view_token)
+    end
+
+See [here](https://github.com/the-teacher/the_comments/issues/34).
+
+<hr>
+
+For errors with protected methods.
+
+Example:
+
+    NoMethodError - protected method `around_validation' called for #<StateMachine::Machine:0x007f84148c3c60>:
+
+Create a new file `config/state_machine.rb`.
+
+    # Rails 4.1.0.rc1 and StateMachine don't play nice
+    # https://github.com/pluginaweek/state_machine/issues/295
+
+    require 'state_machine/version'
+
+    unless StateMachine::VERSION == '1.2.0'
+      # If you see this message, please test removing this file
+      # If it's still required, please bump up the version above
+      Rails.logger.warn "Please remove me, StateMachine version has changed"
+    end
+
+    module StateMachine::Integrations::ActiveModel
+      public :around_validation
+    end
+
+See [here](https://github.com/pluginaweek/state_machine/issues/295).
+
+<hr>
+
 ### Feedback
 
 :speech_balloon: &nbsp; My twitter: [@iam_teacher](https://twitter.com/iam_teacher) &nbsp; &nbsp; &nbsp; hashtag: **#the_comments**
