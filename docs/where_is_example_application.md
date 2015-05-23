@@ -2,11 +2,11 @@
 
 ### Dummy Application
 
-Repo of TheComments has dummy application for developmet and testing.
+TheComments repository contains a dummy application for development and testing.
 
 It's here: [Dummy App](https://github.com/the-teacher/the_comments/tree/master/spec/dummy_app)
 
-For run dummy app, your should do that:
+To run the dummy app:
 
 ```ruby
 git clone https://github.com/the-teacher/the_comments.git
@@ -22,7 +22,7 @@ rails s -p 3000 -b localhost
 
 ### Run tests
 
-Following instructions should helps to run simple tests:
+To run the RSPEC tests:
 
 ```ruby
 git clone https://github.com/the-teacher/the_comments.git
