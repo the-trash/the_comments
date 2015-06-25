@@ -2,34 +2,36 @@
 
 [![Gem Version](https://badge.fury.io/rb/the_comments.png)](http://badge.fury.io/rb/the_comments) | [![Build Status](https://travis-ci.org/the-teacher/the_comments.png?branch=master)](https://travis-ci.org/the-teacher/the_comments) | [![Code Climate](https://codeclimate.com/github/the-teacher/the_comments.png)](https://codeclimate.com/github/the-teacher/the_comments) | [(rubygems)](http://rubygems.org/gems/the_comments)
 
-TheComments - probably, best commenting system for Rails
+TheComments - The best Rails gem for blog-style comments
 
-:question: &nbsp; [Why TheComments is better than others gems?](docs/whats_wrong_with_other_gems.md#why-thecomments-is-better-than-others-gems)
+:question: &nbsp; [Why is TheComments better than other gems?](docs/whats_wrong_with_other_gems.md#why-thecomments-is-better-than-others-gems)
 
-### Main features
+### Features
 
 * Threaded comments
 * Useful cache counters
 * Admin UI for moderation
 * Mountable Engine.routes
 * Online Support via skype: **ilya.killich**
-* [Denormalization](docs/denormalization_and_recent_comments.md) for Recent comments
+* [Denormalization](docs/denormalization_and_recent_comments.md) for recent comments
 * Production-ready commenting system for Rails 4+
-* Designed for preprocessors Sanitize, Textile, Markdawn etc.
+* Designed for preprocessors such as Sanitize, Textile, Markdawn etc.
 
 ### :books: &nbsp; [Documentation](docs/documentation.md)
 
 ## If you have any questions
 
-Please before ask anything try to launch and play with **[Dummy App](spec/dummy_app)** in spec folder. Maybe example of integration will be better than any documentation. Thank you!
+Please try playing around with the **[Dummy App](spec/dummy_app)** in the `spec` folder first. An example integration is often better than any documentation! Thanks.
 
-## How to start dummy app (screencast)
+## How to start the dummy app (screencast)
 
 [![Foo](https://raw.github.com/the-teacher/the_comments/master/docs/screencast.jpg)](http://vk.com/video_ext.php?oid=49225742&id=166578209&hash=10be1dba625149bb&hd=3)
 
 ## Quick Start Installation
 
-### 1. Gems install
+**NB: In the following examples, `Posts` is the model to which comments are being added. For your app, the model might be `Articles` or similar instead.**
+
+### 1. Install Gems 
 
 **Gemfile**
 
@@ -46,9 +48,9 @@ gem 'awesome_nested_set'  # or same gem
 bundle
 ```
 
-### 2. Migrations install
+Don't forget to restart your server!
 
-**Copy migrations**
+### 2. Add migrations
 
 ```
 rake the_comments_engine:install:migrations
@@ -86,7 +88,7 @@ end
 rake db:migrate
 ```
 
-### 3. Code install
+### 3. Code installation
 
 ```ruby
 rails g the_comments install
@@ -98,7 +100,7 @@ Will create:
 * app/controllers/comments_controller.rb
 * app/models/comment.rb
  
-:warning: &nbsp; **Open each file and follow an instructions**
+:warning: &nbsp; **Open each file and follow the instructions**
 
 ### 4. Models modifictions
 
@@ -135,7 +137,7 @@ class Post < ActiveRecord::Base
   belongs_to :user
 
   # Denormalization methods
-  # Please, read about advanced using
+  # Check the documentation for information on advanced usage
   def commentable_title
     "Undefined Post Title"
   end
@@ -168,9 +170,11 @@ MyApp::Application.routes.draw do
 end
 ```
 
-Please, read [documentation](docs/documentation.md) to learn more
+Refer to the [documentation](docs/documentation.md) for more information
 
-### 6. Controller's addon
+### 6. Add to Application Controller
+
+**app/controllers/application_controller.rb**
 
 ```ruby
 class ApplicationController < ActionController::Base
@@ -182,7 +186,7 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-### 7. Assets install
+### 7. Install assets
 
 **app/assets/stylesheets/application.css**
 
@@ -198,7 +202,7 @@ end
 //= require the_comments
 ```
 
-### 8. Controller code example
+### 8. Example controller code
 
 **app/controllers/posts_controller.rb**
 
@@ -209,7 +213,7 @@ def show
 end
 ```
 
-### 9. View code example
+### 9. Example view code
 
 **app/views/posts/show.html.haml**
 
@@ -219,11 +223,66 @@ end
 
 <hr>
 
+### Common problems
+
+For error with `unpermitted parameters` in webserver output.
+
+Example:
+
+    Unpermitted parameters: commentable_type, commentable_id
+
+    User Load (0.3ms)  SELECT  "users".* FROM "users"  WHERE "users"."id" = 1  ORDER BY "users"."id" ASC LIMIT 1
+
+    Completed 500 Internal Server Error in 8ms
+
+Add the following to your Comments Controller.
+
+    def comment_params
+      params
+      .require(:comment)
+      .permit(:title, :contacts, :raw_content, :parent_id, :commentable_type, :commentable_id)
+      .merge(denormalized_fields)
+      .merge(request_data_for_comment)
+      .merge(tolerance_time: params[:tolerance_time].to_i)
+      .merge(user: current_user, view_token: comments_view_token)
+    end
+
+See [here](https://github.com/the-teacher/the_comments/issues/34).
+
+<hr>
+
+For errors with `around_validation`.
+
+Example:
+
+    NoMethodError - protected method `around_validation' called for #<StateMachine::Machine:0x007f84148c3c60>:
+
+Create a new file `config/state_machine.rb`.
+
+    # Rails 4.1.0.rc1 and StateMachine don't play nice
+    # https://github.com/pluginaweek/state_machine/issues/295
+
+    require 'state_machine/version'
+
+    unless StateMachine::VERSION == '1.2.0'
+      # If you see this message, please test removing this file
+      # If it's still required, please bump up the version above
+      Rails.logger.warn "Please remove me, StateMachine version has changed"
+    end
+
+    module StateMachine::Integrations::ActiveModel
+      public :around_validation
+    end
+
+See [here](https://github.com/pluginaweek/state_machine/issues/295).
+
+<hr>
+
 ### Feedback
 
 :speech_balloon: &nbsp; My twitter: [@iam_teacher](https://twitter.com/iam_teacher) &nbsp; &nbsp; &nbsp; hashtag: **#the_comments**
 
-### Acknowledgment
+### Acknowledgments
 
 * Anna Nechaeva (my wife) - for love and my happy life
 * @tanraya (Andrew Kozlov) - for code review
