@@ -110,10 +110,12 @@ class User < ActiveRecord::Base
 
   has_many :posts
 
+  # IT'S JUST AN EXAMPLE OF ANY ROLE SYSTEM 
   def admin?
     self == User.first
   end
 
+  # YOU HAVE TO IMPLEMENT YOUR ROLE POLICY FOR COMMENTS HERE
   def comments_admin?
     admin?
   end
