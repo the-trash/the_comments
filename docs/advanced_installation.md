@@ -70,7 +70,7 @@ Will create:
 * config/initializers/the_comments.rb
 * app/controllers/comments_controller.rb
 * app/models/comment.rb
- 
+
 :warning: &nbsp; **Open each file and follow an instructions**
 
 ### 4. Models modifictions
@@ -120,7 +120,7 @@ class Post < ActiveRecord::Base
     ['', self.class.to_s.tableize, id].join('/')
   end
 
-  # gem 'state_machine'
+  # gem 'state_machines-activerecord'
   # Migration: t.string :state
   # => "published" | "draft" | "deleted"
   def commentable_state
