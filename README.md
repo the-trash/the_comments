@@ -15,7 +15,7 @@ TheComments - The best Rails gem for blog-style comments
 * Online Support via skype: **ilya.killich**
 * [Denormalization](docs/denormalization_and_recent_comments.md) for recent comments
 * Production-ready commenting system for Rails 4+
-* Designed for preprocessors such as Sanitize, Textile, Markdawn etc.
+* Designed for preprocessors such as Sanitize, Textile, Markdown etc.
 
 ### :books: &nbsp; [Documentation](docs/documentation.md)
 
