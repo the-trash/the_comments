@@ -31,7 +31,7 @@ Please try playing around with the **[Dummy App](spec/dummy_app)** in the `spec`
 
 **NB: In the following examples, `Posts` is the model to which comments are being added. For your app, the model might be `Articles` or similar instead.**
 
-### 1. Install Gems 
+### 1. Install Gems
 
 **Gemfile**
 
@@ -122,7 +122,7 @@ Will create:
 * config/initializers/the_comments.rb
 * app/controllers/comments_controller.rb
 * app/models/comment.rb
- 
+
 :warning: &nbsp; **Open each file and follow the instructions**
 
 ### 4. Models modifictions
@@ -135,7 +135,7 @@ class User < ActiveRecord::Base
 
   has_many :posts
 
-  # IT'S JUST AN EXAMPLE OF ANY ROLE SYSTEM 
+  # IT'S JUST AN EXAMPLE OF ANY ROLE SYSTEM
   def admin?
     self == User.first
   end
@@ -271,33 +271,6 @@ Add the following to your Comments Controller.
     end
 
 See [here](https://github.com/the-teacher/the_comments/issues/34).
-
-<hr>
-
-For errors with `around_validation`.
-
-Example:
-
-    NoMethodError - protected method `around_validation' called for #<StateMachine::Machine:0x007f84148c3c60>:
-
-Create a new file `config/state_machine.rb`.
-
-    # Rails 4.1.0.rc1 and StateMachine don't play nice
-    # https://github.com/pluginaweek/state_machine/issues/295
-
-    require 'state_machine/version'
-
-    unless StateMachine::VERSION == '1.2.0'
-      # If you see this message, please test removing this file
-      # If it's still required, please bump up the version above
-      Rails.logger.warn "Please remove me, StateMachine version has changed"
-    end
-
-    module StateMachine::Integrations::ActiveModel
-      public :around_validation
-    end
-
-See [here](https://github.com/pluginaweek/state_machine/issues/295).
 
 <hr>
 
